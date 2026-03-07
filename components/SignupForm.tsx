@@ -53,9 +53,9 @@ export default function SignupForm({ onSuccess, onSwitchToLogin }: SignupFormPro
         return;
       }
 
-      // Supabase may return a user with an empty identities array when the
-      // email is already taken and email confirmations are enabled. Treat
-      // this as a duplicate-account error so the user gets clear feedback.
+      // When email confirmations are enabled, Supabase returns a user with an
+      // empty identities array instead of an error for duplicate emails.
+      // See: https://github.com/supabase/supabase-js/issues/296
       if (data?.user && data.user.identities?.length === 0) {
         setError("An account with this email already exists.");
         setLoading(false);
