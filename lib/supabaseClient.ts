@@ -38,25 +38,38 @@ export const supabase: SupabaseClient = createClient(
  */
 export async function ensureProfile(user: User): Promise<void> {
   try {
-    const { data: existing } = await supabase
+    const { data: existing, error: fetchError } = await supabase
       .from("profiles")
       .select("id")
       .eq("id", user.id)
       .maybeSingle()
 
+    if (fetchError) {
+      console.error("[supabase] Failed to check existing profile row.", fetchError)
+      return
+    }
+
     if (!existing) {
       const name =
         user.user_metadata?.name ||
         user.user_metadata?.full_name ||
-        ""
+        "New User"
 
-      await supabase.from("profiles").upsert(
-        {
+      // Use insert (not upsert) so this mirrors the fallback flow used after login.
+      // A duplicate-key conflict means another path (trigger/parallel client) already created it.
+      const { error: insertError } = await supabase
+        .from("profiles")
+        .insert({
           id: user.id,
           name,
-        },
-        { onConflict: "id" }
-      )
+        })
+
+      if (insertError && insertError.code !== "23505") {
+        console.error(
+          "[supabase] Failed to insert missing profile row (duplicate-key conflicts are ignored).",
+          insertError
+        )
+      }
     }
   } catch (err) {
     // Non-critical: profile creation failure is logged but does not

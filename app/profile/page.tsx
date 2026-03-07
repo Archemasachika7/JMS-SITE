@@ -47,25 +47,39 @@ export default function ProfilePage() {
           setUserId(user.id);
           setUserEmail(user.email || "");
 
-          const { data } = await supabase
-            .from("profiles")
-            .select("name, profile_image, plan, bio, year, department, phone")
-            .eq("id", user.id)
-            .maybeSingle();
+          await ensureProfile(user);
 
-          if (data) {
-            setUserName(data.name || user.user_metadata?.name || user.user_metadata?.full_name || "");
-            setProfileImage(data.profile_image || "");
-            setPlan(data.plan || "Free");
-            setBio(data.bio || "");
-            setYear(data.year || "");
-            setDepartment(data.department || "");
-            setPhone(data.phone || "");
-          } else {
-            // Profile row missing — create it so future saves succeed
+          const fetchProfileRow = () =>
+            supabase
+              .from("profiles")
+              .select("name, profile_image, plan, bio, year, department, phone")
+              .eq("id", user.id)
+              .single();
+
+          let { data, error: profileError } = await fetchProfileRow();
+
+          // PGRST116 = PostgREST "no rows found", so retry once after ensureProfile.
+          if (profileError?.code === "PGRST116") {
             await ensureProfile(user);
-            setUserName(user.user_metadata?.name || user.user_metadata?.full_name || "");
+            ({ data, error: profileError } = await fetchProfileRow());
           }
+
+          if (profileError || !data) {
+            console.error(
+              "[profile] Failed to fetch profile row. This can happen if profile creation failed.",
+              profileError
+            );
+            setUserName(user.user_metadata?.name || user.user_metadata?.full_name || "");
+            return;
+          }
+
+          setUserName(data.name || user.user_metadata?.name || user.user_metadata?.full_name || "");
+          setProfileImage(data.profile_image || "");
+          setPlan(data.plan || "Free");
+          setBio(data.bio || "");
+          setYear(data.year || "");
+          setDepartment(data.department || "");
+          setPhone(data.phone || "");
         }
       } catch {
         // Supabase fetch failed silently
