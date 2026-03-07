@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { supabase, isSupabaseConfigured } from "@/lib/supabaseClient";
+import { supabase, isSupabaseConfigured, ensureProfile } from "@/lib/supabaseClient";
 
 interface LoginFormProps {
   onSuccess: () => void;
@@ -42,6 +42,12 @@ export default function LoginForm({ onSuccess }: LoginFormProps) {
 
       // Track login: fetch IP and update profile
       try {
+        // Ensure a profiles row exists (fallback for users who signed up
+        // before the DB trigger was created or when the trigger failed).
+        if (data.user) {
+          await ensureProfile(data.user);
+        }
+
         const ipRes = await fetch("https://api.ipify.org?format=json");
         const ipData = await ipRes.json();
         const ip = ipData.ip;

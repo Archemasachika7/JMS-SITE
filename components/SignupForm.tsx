@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { supabase, isSupabaseConfigured } from "@/lib/supabaseClient";
+import { supabase, isSupabaseConfigured, ensureProfile } from "@/lib/supabaseClient";
 
 interface SignupFormProps {
   onSuccess: () => void;
@@ -60,6 +60,14 @@ export default function SignupForm({ onSuccess, onSwitchToLogin }: SignupFormPro
         setError("An account with this email already exists.");
         setLoading(false);
         return;
+      }
+
+      // Best-effort: create the profile row now if the user already has a
+      // session (email confirmation disabled).  When email confirmation is
+      // enabled the session won't exist yet, so ensureProfile will run on
+      // the first login instead.
+      if (data?.user && data?.session) {
+        await ensureProfile(data.user);
       }
 
       setSuccess(true);

@@ -21,6 +21,11 @@ create policy "Users can view own profile"
   on profiles for select
   using (auth.uid() = id);
 
+-- Allow users to insert their own profile (client-side fallback)
+create policy "Users can insert own profile"
+  on profiles for insert
+  with check (auth.uid() = id);
+
 -- Allow users to update their own profile
 create policy "Users can update own profile"
   on profiles for update
