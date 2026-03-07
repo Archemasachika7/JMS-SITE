@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import HCaptcha from "@hcaptcha/react-hcaptcha";
 import { supabase, isSupabaseConfigured, ensureProfile } from "@/lib/supabaseClient";
 
 interface LoginFormProps {
@@ -13,6 +14,8 @@ export default function LoginForm({ onSuccess }: LoginFormProps) {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [captchaToken, setCaptchaToken] = useState<string | null>(null);
+  const captchaRef = useRef<HCaptcha>(null);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -29,6 +32,27 @@ export default function LoginForm({ onSuccess }: LoginFormProps) {
     setLoading(true);
 
     try {
+      // Verify hCaptcha token server-side
+      if (!captchaToken) {
+        setError("Please complete the captcha verification.");
+        setLoading(false);
+        return;
+      }
+
+      const captchaRes = await fetch("/api/verify-captcha", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ token: captchaToken }),
+      });
+      const captchaData = await captchaRes.json();
+      if (!captchaData.success) {
+        setError("Captcha verification failed. Please try again.");
+        captchaRef.current?.resetCaptcha();
+        setCaptchaToken(null);
+        setLoading(false);
+        return;
+      }
+
       const { data, error: authError } = await supabase.auth.signInWithPassword({
         email,
         password,
@@ -165,6 +189,17 @@ export default function LoginForm({ onSuccess }: LoginFormProps) {
           className="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white text-sm placeholder-gray-500 focus:outline-none focus:border-[#7c3aed]/60 focus:shadow-[0_0_15px_rgba(124,58,237,0.2)] transition-all duration-300"
           style={{ fontFamily: "'Space Mono', monospace" }}
           placeholder="••••••••"
+        />
+      </div>
+
+      {/* hCaptcha */}
+      <div className="mb-6 flex justify-center">
+        <HCaptcha
+          sitekey={process.env.NEXT_PUBLIC_HCAPTCHA_SITE_KEY!}
+          onVerify={(token) => setCaptchaToken(token)}
+          onExpire={() => setCaptchaToken(null)}
+          theme="dark"
+          ref={captchaRef}
         />
       </div>
 
