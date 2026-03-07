@@ -35,7 +35,7 @@ export default function JoinSection() {
           viewport={{ once: true }}
           transition={{ duration: 0.7, delay: 0.3 }}
         >
-          <Link href="/join">
+          <Link href="/auth?tab=signup">
             <motion.span
               className="inline-flex px-10 py-4 rounded-full bg-gradient-to-r from-[#7c3aed] to-[#6d28d9] text-white font-semibold text-sm tracking-wider shadow-[0_0_30px_rgba(124,58,237,0.4)] hover:shadow-[0_0_50px_rgba(124,58,237,0.7)] transition-all duration-300 cursor-pointer"
               style={{ fontFamily: "'Orbitron', monospace" }}
