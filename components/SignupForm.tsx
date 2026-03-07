@@ -34,12 +34,10 @@ export default function SignupForm({ onSuccess, onSwitchToLogin }: SignupFormPro
       });
 
       if (authError) {
-        if (authError.message.includes("already registered")) {
+        const code = (authError as { code?: string }).code;
+        if (code === "user_already_exists" || authError.message.includes("already registered")) {
           setError("An account with this email already exists.");
-        } else if (
-          authError.message.includes("password") &&
-          authError.message.includes("6")
-        ) {
+        } else if (code === "weak_password" || authError.message.includes("password")) {
           setError("Password must be at least 6 characters long.");
         } else {
           setError(authError.message);
