@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { supabase } from "@/lib/supabaseClient";
@@ -28,6 +28,17 @@ export default function ClubEventsSection() {
   const [nextEvent, setNextEvent] = useState<ClubEvent | null>(null);
   const [countdown, setCountdown] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
 
+  const MS_PER_DAY = 24 * 60 * 60 * 1000;
+
+  const placeholder = useMemo<ClubEvent>(() => ({
+    id: "1",
+    title: "Lyrid Meteor Shower Night",
+    date: new Date(Date.now() + 10 * MS_PER_DAY).toISOString(),
+    description: "Join us for an unforgettable night of meteor watching from the JU campus rooftop.",
+    location: "JU Campus Rooftop Observatory",
+    poster: "",
+  }), []);
+
   useEffect(() => {
     async function fetchNextEvent() {
       try {
@@ -45,15 +56,6 @@ export default function ClubEventsSection() {
     }
     fetchNextEvent();
   }, []);
-
-  const placeholder: ClubEvent = {
-    id: "1",
-    title: "Lyrid Meteor Shower Night",
-    date: new Date(Date.now() + 10 * 86400000).toISOString(),
-    description: "Join us for an unforgettable night of meteor watching from the JU campus rooftop.",
-    location: "JU Campus Rooftop Observatory",
-    poster: "",
-  };
 
   const displayEvent = nextEvent || placeholder;
 

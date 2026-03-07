@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { motion } from "framer-motion";
 import { supabase } from "@/lib/supabaseClient";
 
@@ -27,6 +27,14 @@ export default function AstronomyCalendar() {
   const [nearestEvent, setNearestEvent] = useState<AstronomyEvent | null>(null);
   const [countdown, setCountdown] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
 
+  const MS_PER_DAY = 24 * 60 * 60 * 1000;
+
+  const placeholderEvents = useMemo<AstronomyEvent[]>(() => [
+    { id: "1", title: "Total Lunar Eclipse", date: new Date(Date.now() + 5 * MS_PER_DAY).toISOString(), description: "Visible across South Asia", location: "Visible worldwide" },
+    { id: "2", title: "Eta Aquariid Meteor Shower", date: new Date(Date.now() + 12 * MS_PER_DAY).toISOString(), description: "Peak activity expected", location: "Northern Hemisphere" },
+    { id: "3", title: "Jupiter Opposition", date: new Date(Date.now() + 20 * MS_PER_DAY).toISOString(), description: "Best time to observe Jupiter", location: "Everywhere" },
+  ], []);
+
   useEffect(() => {
     async function fetchEvents() {
       try {
@@ -53,24 +61,18 @@ export default function AstronomyCalendar() {
     fetchEvents();
   }, []);
 
-  useEffect(() => {
-    if (!nearestEvent) return;
-    const interval = setInterval(() => {
-      setCountdown(getCountdown(nearestEvent.date));
-    }, 1000);
-    setCountdown(getCountdown(nearestEvent.date));
-    return () => clearInterval(interval);
-  }, [nearestEvent]);
+  const displayNearest = nearestEvent || placeholderEvents[0];
 
-  const placeholderEvents: AstronomyEvent[] = [
-    { id: "1", title: "Total Lunar Eclipse", date: new Date(Date.now() + 5 * 86400000).toISOString(), description: "Visible across South Asia", location: "Visible worldwide" },
-    { id: "2", title: "Eta Aquariid Meteor Shower", date: new Date(Date.now() + 12 * 86400000).toISOString(), description: "Peak activity expected", location: "Northern Hemisphere" },
-    { id: "3", title: "Jupiter Opposition", date: new Date(Date.now() + 20 * 86400000).toISOString(), description: "Best time to observe Jupiter", location: "Everywhere" },
-  ];
+  useEffect(() => {
+    const target = displayNearest;
+    const interval = setInterval(() => {
+      setCountdown(getCountdown(target.date));
+    }, 1000);
+    setCountdown(getCountdown(target.date));
+    return () => clearInterval(interval);
+  }, [displayNearest]);
 
   const displayEvents = events.length > 0 ? events : placeholderEvents;
-  const displayNearest = nearestEvent || placeholderEvents[0];
-  const displayCountdown = nearestEvent ? countdown : getCountdown(placeholderEvents[0].date);
 
   return (
     <section className="py-16 px-6 relative overflow-hidden">
@@ -139,10 +141,10 @@ export default function AstronomyCalendar() {
             </div>
             <div className="flex items-center gap-3">
               {[
-                { val: displayCountdown.days, label: "D" },
-                { val: displayCountdown.hours, label: "H" },
-                { val: displayCountdown.minutes, label: "M" },
-                { val: displayCountdown.seconds, label: "S" },
+                { val: countdown.days, label: "D" },
+                { val: countdown.hours, label: "H" },
+                { val: countdown.minutes, label: "M" },
+                { val: countdown.seconds, label: "S" },
               ].map((t) => (
                 <div key={t.label} className="text-center">
                   <div className="w-14 h-14 rounded-lg bg-[#22d3ee]/10 border border-[#22d3ee]/30 flex items-center justify-center">

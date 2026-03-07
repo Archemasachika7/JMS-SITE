@@ -5,10 +5,12 @@ import Link from "next/link";
 import { supabase } from "@/lib/supabaseClient";
 
 function getGreeting(): string {
-  const now = new Date();
-  const istOffset = 5.5 * 60 * 60 * 1000;
-  const istTime = new Date(now.getTime() + istOffset + now.getTimezoneOffset() * 60 * 1000);
-  const hour = istTime.getHours();
+  const formatter = new Intl.DateTimeFormat("en-IN", {
+    timeZone: "Asia/Kolkata",
+    hour: "numeric",
+    hour12: false,
+  });
+  const hour = parseInt(formatter.format(new Date()), 10);
 
   if (hour < 12) return "Good Morning";
   if (hour < 17) return "Good Afternoon";

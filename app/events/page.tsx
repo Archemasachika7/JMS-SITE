@@ -44,9 +44,11 @@ export default function EventsPage() {
     fetchEvents();
   }, []);
 
+  const MS_PER_DAY = 24 * 60 * 60 * 1000;
+
   const placeholderUpcoming: (ClubEvent & { gradient: string })[] = [
-    { id: "1", title: "Lyrid Meteor Shower Night", date: new Date(Date.now() + 10 * 86400000).toISOString(), description: "Observe the annual Lyrid meteor shower from campus.", location: "JU Rooftop Observatory", poster: "", gradient: "radial-gradient(ellipse at 50% 50%, #4c1d95 0%, #020617 100%)" },
-    { id: "2", title: "Solar Observation Day", date: new Date(Date.now() + 20 * 86400000).toISOString(), description: "Safe solar viewing with H-alpha filters.", location: "JU Main Ground", poster: "", gradient: "radial-gradient(ellipse at 50% 50%, #78350f 0%, #020617 100%)" },
+    { id: "1", title: "Lyrid Meteor Shower Night", date: new Date(Date.now() + 10 * MS_PER_DAY).toISOString(), description: "Observe the annual Lyrid meteor shower from campus.", location: "JU Rooftop Observatory", poster: "", gradient: "radial-gradient(ellipse at 50% 50%, #4c1d95 0%, #020617 100%)" },
+    { id: "2", title: "Solar Observation Day", date: new Date(Date.now() + 20 * MS_PER_DAY).toISOString(), description: "Safe solar viewing with H-alpha filters.", location: "JU Main Ground", poster: "", gradient: "radial-gradient(ellipse at 50% 50%, #78350f 0%, #020617 100%)" },
   ];
 
   const placeholderPast: (ClubEvent & { gradient: string })[] = [

@@ -20,8 +20,9 @@ export default function NasaApodPage() {
   useEffect(() => {
     async function fetchAPOD() {
       try {
+        const apiKey = process.env.NEXT_PUBLIC_NASA_API_KEY || "DEMO_KEY";
         const res = await fetch(
-          "https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY"
+          `https://api.nasa.gov/planetary/apod?api_key=${apiKey}`
         );
         if (res.ok) {
           const data = await res.json();
