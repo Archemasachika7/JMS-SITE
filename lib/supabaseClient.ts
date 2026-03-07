@@ -38,25 +38,33 @@ export const supabase: SupabaseClient = createClient(
  */
 export async function ensureProfile(user: User): Promise<void> {
   try {
-    const { data: existing } = await supabase
+    const { data: existing, error: fetchError } = await supabase
       .from("profiles")
       .select("id")
       .eq("id", user.id)
       .maybeSingle()
 
+    if (fetchError) {
+      console.error("[supabase] Failed to check existing profile row.", fetchError)
+      return
+    }
+
     if (!existing) {
       const name =
         user.user_metadata?.name ||
         user.user_metadata?.full_name ||
-        ""
+        "User"
 
-      await supabase.from("profiles").upsert(
-        {
+      const { error: insertError } = await supabase
+        .from("profiles")
+        .insert({
           id: user.id,
           name,
-        },
-        { onConflict: "id" }
-      )
+        })
+
+      if (insertError) {
+        console.error("[supabase] Failed to insert missing profile row.", insertError)
+      }
     }
   } catch (err) {
     // Non-critical: profile creation failure is logged but does not

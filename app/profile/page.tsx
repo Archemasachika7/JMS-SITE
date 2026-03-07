@@ -47,11 +47,13 @@ export default function ProfilePage() {
           setUserId(user.id);
           setUserEmail(user.email || "");
 
+          await ensureProfile(user);
+
           const { data } = await supabase
             .from("profiles")
             .select("name, profile_image, plan, bio, year, department, phone")
             .eq("id", user.id)
-            .maybeSingle();
+            .single();
 
           if (data) {
             setUserName(data.name || user.user_metadata?.name || user.user_metadata?.full_name || "");
@@ -61,10 +63,6 @@ export default function ProfilePage() {
             setYear(data.year || "");
             setDepartment(data.department || "");
             setPhone(data.phone || "");
-          } else {
-            // Profile row missing — create it so future saves succeed
-            await ensureProfile(user);
-            setUserName(user.user_metadata?.name || user.user_metadata?.full_name || "");
           }
         }
       } catch {
