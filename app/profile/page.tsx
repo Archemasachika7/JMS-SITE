@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
+import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -37,6 +38,7 @@ export default function ProfilePage() {
   const [userId, setUserId] = useState<string>("");
   const [greeting] = useState(getGreeting());
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const router = useRouter();
 
   useEffect(() => {
     async function fetchProfile() {
@@ -149,6 +151,11 @@ export default function ProfilePage() {
       setSaving(false);
       setTimeout(() => setSaveMessage(""), 3000);
     }
+  };
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    router.push("/auth");
   };
 
   return (
@@ -507,6 +514,22 @@ export default function ProfilePage() {
                 )}
               </div>
             )}
+
+            {/* Logout Button */}
+            <div className="flex justify-center mt-8 pt-6 border-t border-white/5">
+              <motion.button
+                onClick={handleLogout}
+                className="flex items-center gap-2 px-6 py-2.5 rounded-full text-sm font-medium border border-red-500/40 text-red-400 hover:bg-red-500/10 hover:border-red-500/60 transition-all duration-300"
+                style={{ fontFamily: "'Space Mono', monospace" }}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.97 }}
+              >
+                <svg viewBox="0 0 24 24" className="w-4 h-4 fill-current">
+                  <path d="M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z" />
+                </svg>
+                Log Out
+              </motion.button>
+            </div>
           </motion.div>
         </div>
       </section>
