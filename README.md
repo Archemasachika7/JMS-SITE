@@ -2,7 +2,7 @@
 
 > Exploring the cosmos from the heart of Jadavpur University
 
-The official website for **AstroSci**, the astronomy and astrophotography club at Jadavpur University, Kolkata. Founded in 2018, we're a community of astronomers, astrophotographers, and space enthusiasts charting the universe together.
+The official website for **AstroSci**, the astronomy and astrophotography club at Jadavpur University, Kolkata. Founded in 2024, we're a community of astronomers, astrophotographers, and space enthusiasts charting the universe together.
 
 ---
 
