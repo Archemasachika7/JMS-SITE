@@ -69,7 +69,7 @@ export default function Footer() {
             <p className="text-gray-500 text-sm leading-relaxed mb-6 max-w-xs" style={{ fontFamily: "'Space Mono', monospace" }}>
               A student-led astronomy club dedicated to exploring the universe, fostering scientific curiosity, and building a community of stargazers.
             </p>
-            
+            <a
               href="mailto:astrosci@jadavpur.edu"
               className="flex items-center gap-2 text-[#22d3ee] text-sm hover:text-white transition-colors"
               style={{ fontFamily: "'Space Mono', monospace" }}
