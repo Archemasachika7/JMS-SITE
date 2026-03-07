@@ -1,8 +1,9 @@
 "use client";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Link from "next/link";
 
-const navItems = ["Home", "Gallery", "Events", "POTW", "Magazine", "Join"];
+const navItems = ["Home", "Gallery", "Events", "POTW", "Magazine", "Members"];
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -67,19 +68,34 @@ export default function Navbar() {
           ))}
         </div>
 
-        {/* Login Button */}
-        <motion.button
-          className="hidden md:flex items-center gap-2 px-5 py-2 rounded-full text-sm font-medium border border-[#7c3aed]/60 text-[#22d3ee] hover:bg-[#7c3aed]/20 hover:border-[#7c3aed] hover:shadow-[0_0_20px_rgba(124,58,237,0.4)] transition-all duration-300"
-          style={{ fontFamily: "'Space Mono', monospace" }}
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.97 }}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.8 }}
-        >
-          <span className="w-2 h-2 rounded-full bg-[#22d3ee] animate-pulse" />
-          Login
-        </motion.button>
+        {/* Right Buttons */}
+        <div className="hidden md:flex items-center gap-3">
+          <motion.button
+            className="flex items-center gap-2 px-5 py-2 rounded-full text-sm font-medium border border-[#7c3aed]/60 text-[#22d3ee] hover:bg-[#7c3aed]/20 hover:border-[#7c3aed] hover:shadow-[0_0_20px_rgba(124,58,237,0.4)] transition-all duration-300"
+            style={{ fontFamily: "'Space Mono', monospace" }}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.97 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.8 }}
+          >
+            <span className="w-2 h-2 rounded-full bg-[#22d3ee] animate-pulse" />
+            Login
+          </motion.button>
+          <Link href="/join">
+            <motion.span
+              className="inline-flex px-5 py-2 rounded-full text-sm font-medium bg-gradient-to-r from-[#7c3aed] to-[#6d28d9] text-white shadow-[0_0_20px_rgba(124,58,237,0.3)] hover:shadow-[0_0_30px_rgba(124,58,237,0.5)] transition-all duration-300 cursor-pointer"
+              style={{ fontFamily: "'Space Mono', monospace" }}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.97 }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.9 }}
+            >
+              Join Now
+            </motion.span>
+          </Link>
+        </div>
 
         {/* Hamburger */}
         <button className="md:hidden text-white p-2" onClick={() => setMenuOpen(!menuOpen)}>
@@ -101,7 +117,7 @@ export default function Navbar() {
             className="md:hidden bg-[#020617]/95 backdrop-blur-xl border-t border-[#7c3aed]/20 px-6 pb-4"
           >
             {navItems.map((item) => (
-              
+              <a
                 key={item}
                 href={`#${item.toLowerCase()}`}
                 className="block py-3 text-gray-300 hover:text-[#22d3ee] border-b border-white/5 text-sm tracking-wider"
@@ -117,6 +133,14 @@ export default function Navbar() {
             >
               Login
             </button>
+            <Link href="/join" className="block mt-2">
+              <span
+                className="block w-full py-2 rounded-full bg-gradient-to-r from-[#7c3aed] to-[#6d28d9] text-white text-sm text-center"
+                style={{ fontFamily: "'Space Mono', monospace" }}
+              >
+                Join Now
+              </span>
+            </Link>
           </motion.div>
         )}
       </AnimatePresence>
