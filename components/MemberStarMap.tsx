@@ -30,6 +30,10 @@ interface StarNode {
 }
 
 const MAX_STARS = 500;
+const MOUSE_HIT_AREA = 8;
+const TOUCH_HIT_AREA = 12;
+const CONSTELLATION_CONNECTION_DIST = 120;
+const MAX_CONNECTIONS_PER_STAR = 2;
 
 function getStarColor(plan: string): { r: number; g: number; b: number } {
   switch (plan.toLowerCase()) {
@@ -189,7 +193,7 @@ export default function MemberStarMap() {
         const dx = mouseRef.current.x - star.x;
         const dy = mouseRef.current.y - star.y;
         const dist = Math.sqrt(dx * dx + dy * dy);
-        if (dist < star.radius + 8) {
+        if (dist < star.radius + MOUSE_HIT_AREA) {
           found = star;
           break;
         }
@@ -221,7 +225,7 @@ export default function MemberStarMap() {
         const dx = mx - star.x;
         const dy = my - star.y;
         const dist = Math.sqrt(dx * dx + dy * dy);
-        if (dist < star.radius + 8) {
+        if (dist < star.radius + MOUSE_HIT_AREA) {
           setProfileCard({
             visible: true,
             userId: star.userId,
@@ -247,7 +251,7 @@ export default function MemberStarMap() {
           const dx = mx - star.x;
           const dy = my - star.y;
           const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < star.radius + 12) {
+          if (dist < star.radius + TOUCH_HIT_AREA) {
             setProfileCard({
               visible: true,
               userId: star.userId,
@@ -272,11 +276,11 @@ export default function MemberStarMap() {
       const stars = starsRef.current;
 
       // Draw constellation lines between nearby stars
-      const connectionDist = 120;
+      const connectionDist = CONSTELLATION_CONNECTION_DIST;
       for (let i = 0; i < stars.length; i++) {
         let connections = 0;
         for (let j = i + 1; j < stars.length; j++) {
-          if (connections >= 2) break;
+          if (connections >= MAX_CONNECTIONS_PER_STAR) break;
           const dx = stars[i].x - stars[j].x;
           const dy = stars[i].y - stars[j].y;
           const dist = Math.sqrt(dx * dx + dy * dy);
