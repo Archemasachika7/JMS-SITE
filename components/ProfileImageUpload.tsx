@@ -29,7 +29,7 @@ export default function ProfileImageUpload({
     }
 
     if (file.size > 2 * 1024 * 1024) {
-      setUploadError("Image must be less than 2MB");
+      setUploadError("Image must be 2MB or less");
       return;
     }
 
@@ -41,7 +41,10 @@ export default function ProfileImageUpload({
     setUploading(true);
 
     try {
-      const filePath = `avatars/${userId}.png`;
+      const ext = file.name.includes(".")
+        ? file.name.substring(file.name.lastIndexOf("."))
+        : ".png";
+      const filePath = `avatars/${userId}${ext}`;
 
       const { error: uploadError } = await supabase.storage
         .from("profiles")
