@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import StarBackground from "@/components/StarBackground";
+import StarfieldBackground from "@/components/StarfieldBackground";
 
 export const metadata: Metadata = {
   title: "AstroSci Club – Jadavpur University",
@@ -20,7 +20,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body style={{ backgroundColor: "#020617", color: "white" }}>
-        <StarBackground />
+        <StarfieldBackground />
         {children}
       </body>
     </html>
