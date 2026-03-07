@@ -11,6 +11,7 @@ const navItems = [
   { label: "POTW", href: "/potw" },
   { label: "Magazine", href: "/magazine" },
   { label: "Projects", href: "/projects" },
+  { label: "Members", href: "/members" },
   { label: "NASA APOD", href: "/nasa-apod" },
 ];
 
