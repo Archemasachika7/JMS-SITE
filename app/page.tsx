@@ -1,11 +1,13 @@
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
-import EventCountdown from "@/components/EventCountdown";
-import POTWSection from "@/components/POTWSection";
-import MagazinePreview from "@/components/MagazinePreview";
-import WidgetSection from "@/components/WidgetSection";
-import GalleryPreview from "@/components/GalleryPreview";
-import JoinSection from "@/components/JoinSection";
+import ProfileGreeting from "@/components/ProfileGreeting";
+import DashboardGalleryPreview from "@/components/DashboardGalleryPreview";
+import DashboardPOTWPreview from "@/components/DashboardPOTWPreview";
+import DashboardMagazinePreview from "@/components/DashboardMagazinePreview";
+import AstronomyCalendar from "@/components/AstronomyCalendar";
+import ClubEventsSection from "@/components/ClubEventsSection";
+import MembershipCards from "@/components/MembershipCards";
+import FeedbackForm from "@/components/FeedbackForm";
 import Footer from "@/components/Footer";
 
 export default function Home() {
@@ -13,12 +15,14 @@ export default function Home() {
     <main className="relative min-h-screen">
       <Navbar />
       <HeroSection />
-      <EventCountdown />
-      <POTWSection />
-      <WidgetSection />
-      <GalleryPreview />
-      <MagazinePreview />
-      <JoinSection />
+      <ProfileGreeting />
+      <DashboardGalleryPreview />
+      <DashboardPOTWPreview />
+      <DashboardMagazinePreview />
+      <AstronomyCalendar />
+      <ClubEventsSection />
+      <MembershipCards />
+      <FeedbackForm />
       <Footer />
     </main>
   );

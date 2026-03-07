@@ -3,7 +3,15 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 
-const navItems = ["Home", "Gallery", "Events", "POTW", "Magazine", "Members"];
+const navItems = [
+  { label: "Home", href: "/" },
+  { label: "Gallery", href: "/gallery" },
+  { label: "Events", href: "/events" },
+  { label: "POTW", href: "/potw" },
+  { label: "Magazine", href: "/magazine" },
+  { label: "Projects", href: "/projects" },
+  { label: "NASA APOD", href: "/nasa-apod" },
+];
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -53,18 +61,21 @@ export default function Navbar() {
         {/* Desktop Nav */}
         <div className="hidden md:flex items-center gap-1">
           {navItems.map((item, i) => (
-            <motion.a
-              key={item}
-              href={`#${item.toLowerCase()}`}
-              className="relative px-4 py-2 text-sm text-gray-300 hover:text-white transition-colors group"
-              style={{ fontFamily: "'Space Mono', monospace" }}
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 * i + 0.3 }}
+            <Link
+              key={item.label}
+              href={item.href}
             >
-              {item}
-              <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-[2px] bg-gradient-to-r from-[#7c3aed] to-[#22d3ee] group-hover:w-4/5 transition-all duration-300 rounded-full" />
-            </motion.a>
+              <motion.span
+                className="relative px-4 py-2 text-sm text-gray-300 hover:text-white transition-colors group cursor-pointer"
+                style={{ fontFamily: "'Space Mono', monospace" }}
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.1 * i + 0.3 }}
+              >
+                {item.label}
+                <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-[2px] bg-gradient-to-r from-[#7c3aed] to-[#22d3ee] group-hover:w-4/5 transition-all duration-300 rounded-full" />
+              </motion.span>
+            </Link>
           ))}
         </div>
 
@@ -119,15 +130,15 @@ export default function Navbar() {
             className="md:hidden bg-[#020617]/95 backdrop-blur-xl border-t border-[#7c3aed]/20 px-6 pb-4"
           >
             {navItems.map((item) => (
-              <a
-                key={item}
-                href={`#${item.toLowerCase()}`}
+              <Link
+                key={item.label}
+                href={item.href}
                 className="block py-3 text-gray-300 hover:text-[#22d3ee] border-b border-white/5 text-sm tracking-wider"
                 style={{ fontFamily: "'Space Mono', monospace" }}
                 onClick={() => setMenuOpen(false)}
               >
-                {item}
-              </a>
+                {item.label}
+              </Link>
             ))}
             <Link href="/auth" className="block mt-4">
               <span
