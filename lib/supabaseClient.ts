@@ -42,7 +42,7 @@ export async function ensureProfile(user: User): Promise<void> {
       .from("profiles")
       .select("id")
       .eq("id", user.id)
-      .single()
+      .maybeSingle()
 
     if (!existing) {
       const name =
@@ -58,18 +58,21 @@ export async function ensureProfile(user: User): Promise<void> {
         { onConflict: "id" }
       )
     }
-  } catch {
+  } catch (err) {
     // Non-critical: profile creation failure is logged but does not
     // block the auth flow. The profiles table may not exist yet.
-    console.warn("[supabase] Could not ensure profile row exists.")
+    console.warn(
+      "[supabase] Could not ensure profile row exists.",
+      err instanceof Error ? err.message : err
+    )
   }
 }
 
-// Listen for auth state changes (e.g. OAuth redirects, token refreshes)
-// and ensure a profile row exists for the signed-in user.
+// Listen for auth state changes (e.g. OAuth redirects) and ensure a
+// profile row exists for the signed-in user.
 if (typeof window !== "undefined" && isSupabaseConfigured()) {
   supabase.auth.onAuthStateChange((event, session) => {
-    if ((event === "SIGNED_IN" || event === "TOKEN_REFRESHED") && session?.user) {
+    if (event === "SIGNED_IN" && session?.user) {
       ensureProfile(session.user)
     }
   })
