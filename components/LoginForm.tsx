@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { supabase } from "@/lib/supabaseClient";
+import { supabase, isSupabaseConfigured } from "@/lib/supabaseClient";
 
 interface LoginFormProps {
   onSuccess: () => void;
@@ -17,6 +17,13 @@ export default function LoginForm({ onSuccess }: LoginFormProps) {
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     if (loading) return;
+
+    if (!isSupabaseConfigured()) {
+      setError(
+        "Supabase is not configured. Please copy .env.example to .env.local and add your Supabase project credentials."
+      );
+      return;
+    }
 
     setError("");
     setLoading(true);
@@ -61,6 +68,14 @@ export default function LoginForm({ onSuccess }: LoginFormProps) {
 
   const handleGoogleLogin = async () => {
     if (loading) return;
+
+    if (!isSupabaseConfigured()) {
+      setError(
+        "Supabase is not configured. Please copy .env.example to .env.local and add your Supabase project credentials."
+      );
+      return;
+    }
+
     setLoading(true);
     setError("");
 

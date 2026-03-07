@@ -23,6 +23,7 @@ The official website for **AstroSci**, the astronomy and astrophotography club a
 | Language | TypeScript |
 | Styling | Tailwind CSS |
 | Animations | Framer Motion |
+| Backend / Auth | [Supabase](https://supabase.com/) |
 | Fonts | Orbitron, Space Mono (Google Fonts) |
 
 ## Getting Started
@@ -42,13 +43,28 @@ The official website for **AstroSci**, the astronomy and astrophotography club a
    npm install
    ```
 
-3. Start the dev server:
+3. **Set up Supabase:**
+
+   ```bash
+   cp .env.example .env.local
+   ```
+
+   Open `.env.local` and replace the placeholder values with your real Supabase credentials. You can find them in your [Supabase dashboard](https://supabase.com/) under **Settings → API**:
+
+   - `NEXT_PUBLIC_SUPABASE_URL` — your project URL (e.g. `https://abcdefgh.supabase.co`)
+   - `NEXT_PUBLIC_SUPABASE_ANON_KEY` — your project's `anon` / `public` key (a long JWT starting with `eyJ…`)
+
+4. **Run the database migration:**
+
+   Open the SQL editor in your Supabase dashboard and run the contents of `supabase/profiles-migration.sql`. This creates the `profiles` table, Row Level Security policies, and an auto-profile trigger for new signups.
+
+5. Start the dev server:
 
    ```bash
    npm run dev
    ```
 
-4. Open [http://localhost:3000](http://localhost:3000) in your browser.
+6. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ## Available Scripts
 

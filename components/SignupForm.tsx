@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { supabase } from "@/lib/supabaseClient";
+import { supabase, isSupabaseConfigured } from "@/lib/supabaseClient";
 
 interface SignupFormProps {
   onSuccess: () => void;
@@ -21,11 +21,18 @@ export default function SignupForm({ onSuccess, onSwitchToLogin }: SignupFormPro
     e.preventDefault();
     if (loading) return;
 
+    if (!isSupabaseConfigured()) {
+      setError(
+        "Supabase is not configured. Please copy .env.example to .env.local and add your Supabase project credentials."
+      );
+      return;
+    }
+
     setError("");
     setLoading(true);
 
     try {
-      const { error: authError } = await supabase.auth.signUp({
+      const { data, error: authError } = await supabase.auth.signUp({
         email,
         password,
         options: {
@@ -42,6 +49,15 @@ export default function SignupForm({ onSuccess, onSwitchToLogin }: SignupFormPro
         } else {
           setError(authError.message);
         }
+        setLoading(false);
+        return;
+      }
+
+      // Supabase may return a user with an empty identities array when the
+      // email is already taken and email confirmations are enabled. Treat
+      // this as a duplicate-account error so the user gets clear feedback.
+      if (data?.user && data.user.identities?.length === 0) {
+        setError("An account with this email already exists.");
         setLoading(false);
         return;
       }
