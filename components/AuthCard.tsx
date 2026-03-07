@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import AuthTabs from "./AuthTabs";
 import LoginForm from "./LoginForm";
@@ -10,7 +10,9 @@ import LoginSuccessAnimation from "./LoginSuccessAnimation";
 
 export default function AuthCard() {
   const router = useRouter();
-  const [activeTab, setActiveTab] = useState<"login" | "signup">("login");
+  const searchParams = useSearchParams();
+  const initialTab = searchParams.get("tab") === "signup" ? "signup" : "login";
+  const [activeTab, setActiveTab] = useState<"login" | "signup">(initialTab);
   const [loginSuccess, setLoginSuccess] = useState(false);
   const [signupSuccess, setSignupSuccess] = useState(false);
 
