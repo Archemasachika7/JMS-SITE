@@ -105,7 +105,7 @@ export default function ProfilePage() {
               { onConflict: "id" }
             );
           if (error) {
-            console.error("[profile] image upload error:", error.message);
+            console.error("[profile] image upload error:", error);
             setUploadError("Failed to save profile image");
           }
         } catch {
@@ -137,7 +137,7 @@ export default function ProfilePage() {
         );
 
       if (error) {
-        console.error("[profile] save error:", error.message);
+        console.error("[profile] save error:", error);
         setSaveMessage("Failed to save profile. Please try again.");
       } else {
         setSaveMessage("Profile updated successfully!");
