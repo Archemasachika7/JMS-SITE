@@ -195,7 +195,7 @@ export default function LoginForm({ onSuccess }: LoginFormProps) {
       {/* hCaptcha */}
       <div className="mb-6 flex justify-center">
         <HCaptcha
-          sitekey={process.env.NEXT_PUBLIC_HCAPTCHA_SITE_KEY || "10000000-ffff-ffff-ffff-000000000000"}
+          sitekey={process.env.NEXT_PUBLIC_HCAPTCHA_SITE_KEY!}
           onVerify={(token) => setCaptchaToken(token)}
           onExpire={() => setCaptchaToken(null)}
           theme="dark"

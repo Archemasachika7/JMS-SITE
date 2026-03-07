@@ -154,7 +154,10 @@ export default function ProfilePage() {
   };
 
   const handleLogout = async () => {
-    await supabase.auth.signOut();
+    const { error } = await supabase.auth.signOut();
+    if (error) {
+      console.error("[profile] sign out error:", error);
+    }
     router.push("/auth");
   };
 

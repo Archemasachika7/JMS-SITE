@@ -40,7 +40,8 @@ export async function POST(req: NextRequest) {
       { success: false, error: "Captcha verification failed" },
       { status: 400 }
     );
-  } catch {
+  } catch (err) {
+    console.error("[verify-captcha] Unexpected error:", err);
     return NextResponse.json(
       { success: false, error: "Internal server error" },
       { status: 500 }
