@@ -8,7 +8,7 @@ import { supabase } from "@/lib/supabaseClient";
 interface ClubEvent {
   id: string;
   title: string;
-  date: string;
+  event_date: string;
   description: string;
   location: string;
   poster: string;
@@ -26,14 +26,14 @@ export default function EventsPage() {
         const { data: upcomingData } = await supabase
           .from("club_events")
           .select("*")
-          .gte("date", now)
-          .order("date", { ascending: true });
+          .gte("event_date", now)
+          .order("event_date", { ascending: true });
 
         const { data: pastData } = await supabase
           .from("club_events")
           .select("*")
-          .lt("date", now)
-          .order("date", { ascending: false });
+          .lt("event_date", now)
+          .order("event_date", { ascending: false });
 
         if (upcomingData) setUpcoming(upcomingData);
         if (pastData) setPast(pastData);
@@ -47,13 +47,13 @@ export default function EventsPage() {
   const MS_PER_DAY = 24 * 60 * 60 * 1000;
 
   const placeholderUpcoming: (ClubEvent & { gradient: string })[] = [
-    { id: "1", title: "Lyrid Meteor Shower Night", date: new Date(Date.now() + 10 * MS_PER_DAY).toISOString(), description: "Observe the annual Lyrid meteor shower from campus.", location: "JU Rooftop Observatory", poster: "", gradient: "radial-gradient(ellipse at 50% 50%, #4c1d95 0%, #020617 100%)" },
-    { id: "2", title: "Solar Observation Day", date: new Date(Date.now() + 20 * MS_PER_DAY).toISOString(), description: "Safe solar viewing with H-alpha filters.", location: "JU Main Ground", poster: "", gradient: "radial-gradient(ellipse at 50% 50%, #78350f 0%, #020617 100%)" },
+    { id: "1", title: "Lyrid Meteor Shower Night", event_date: new Date(Date.now() + 10 * MS_PER_DAY).toISOString(), description: "Observe the annual Lyrid meteor shower from campus.", location: "JU Rooftop Observatory", poster: "", gradient: "radial-gradient(ellipse at 50% 50%, #4c1d95 0%, #020617 100%)" },
+    { id: "2", title: "Solar Observation Day", event_date: new Date(Date.now() + 20 * MS_PER_DAY).toISOString(), description: "Safe solar viewing with H-alpha filters.", location: "JU Main Ground", poster: "", gradient: "radial-gradient(ellipse at 50% 50%, #78350f 0%, #020617 100%)" },
   ];
 
   const placeholderPast: (ClubEvent & { gradient: string })[] = [
-    { id: "3", title: "Winter Stargazing Camp", date: "2025-01-15T19:00:00", description: "A night under the winter skies with hot chocolate.", location: "JU Campus", poster: "", gradient: "radial-gradient(ellipse at 50% 50%, #164e63 0%, #020617 100%)" },
-    { id: "4", title: "Telescope Workshop", date: "2024-12-10T15:00:00", description: "Hands-on workshop on telescope assembly and usage.", location: "Physics Lab", poster: "", gradient: "radial-gradient(ellipse at 50% 50%, #065f46 0%, #020617 100%)" },
+    { id: "3", title: "Winter Stargazing Camp", event_date: "2025-01-15T19:00:00", description: "A night under the winter skies with hot chocolate.", location: "JU Campus", poster: "", gradient: "radial-gradient(ellipse at 50% 50%, #164e63 0%, #020617 100%)" },
+    { id: "4", title: "Telescope Workshop", event_date: "2024-12-10T15:00:00", description: "Hands-on workshop on telescope assembly and usage.", location: "Physics Lab", poster: "", gradient: "radial-gradient(ellipse at 50% 50%, #065f46 0%, #020617 100%)" },
   ];
 
   const displayUpcoming = upcoming.length > 0 ? upcoming : placeholderUpcoming;
@@ -116,7 +116,7 @@ export default function EventsPage() {
             className="text-[#22d3ee] text-xs mb-2"
             style={{ fontFamily: "'Space Mono', monospace" }}
           >
-            {new Date(event.date).toLocaleDateString("en-IN", {
+            {new Date(event.event_date).toLocaleDateString("en-IN", {
               year: "numeric",
               month: "long",
               day: "numeric",

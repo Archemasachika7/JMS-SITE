@@ -11,7 +11,7 @@ interface Magazine {
   issue: string;
   cover_image: string;
   pdf_url: string;
-  date: string;
+  published_at: string;
 }
 
 export default function MagazinePage() {
@@ -23,7 +23,7 @@ export default function MagazinePage() {
         const { data } = await supabase
           .from("magazines")
           .select("*")
-          .order("date", { ascending: false });
+          .order("published_at", { ascending: false });
         if (data) setMagazines(data);
       } catch {
         // Supabase fetch failed silently
@@ -33,9 +33,9 @@ export default function MagazinePage() {
   }, []);
 
   const placeholders: (Magazine & { gradient: string })[] = [
-    { id: "1", title: "Nebula Digest", issue: "Vol. 7", cover_image: "", pdf_url: "#", date: "2025-03-01", gradient: "linear-gradient(135deg, #0d0527 0%, #1a0a3e 40%, #030e1a 100%)" },
-    { id: "2", title: "Nebula Digest", issue: "Vol. 6", cover_image: "", pdf_url: "#", date: "2024-09-01", gradient: "linear-gradient(135deg, #030e1a 0%, #0d0527 40%, #1a0a3e 100%)" },
-    { id: "3", title: "Nebula Digest", issue: "Vol. 5", cover_image: "", pdf_url: "#", date: "2024-03-01", gradient: "linear-gradient(135deg, #1a0a3e 0%, #030e1a 40%, #0d0527 100%)" },
+    { id: "1", title: "Nebula Digest", issue: "Vol. 7", cover_image: "", pdf_url: "#", published_at: "2025-03-01", gradient: "linear-gradient(135deg, #0d0527 0%, #1a0a3e 40%, #030e1a 100%)" },
+    { id: "2", title: "Nebula Digest", issue: "Vol. 6", cover_image: "", pdf_url: "#", published_at: "2024-09-01", gradient: "linear-gradient(135deg, #030e1a 0%, #0d0527 40%, #1a0a3e 100%)" },
+    { id: "3", title: "Nebula Digest", issue: "Vol. 5", cover_image: "", pdf_url: "#", published_at: "2024-03-01", gradient: "linear-gradient(135deg, #1a0a3e 0%, #030e1a 40%, #0d0527 100%)" },
   ];
 
   const displayItems = magazines.length > 0 ? magazines : placeholders;
@@ -152,7 +152,7 @@ export default function MagazinePage() {
                       className="text-gray-500 text-xs mt-1"
                       style={{ fontFamily: "'Space Mono', monospace" }}
                     >
-                      {new Date(item.date).toLocaleDateString("en-IN", {
+                      {new Date(item.published_at).toLocaleDateString("en-IN", {
                         year: "numeric",
                         month: "long",
                       })}

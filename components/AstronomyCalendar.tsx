@@ -6,7 +6,7 @@ import { supabase } from "@/lib/supabaseClient";
 interface AstronomyEvent {
   id: string;
   title: string;
-  date: string;
+  event_date: string;
   description: string;
   location: string;
 }
@@ -30,9 +30,9 @@ export default function AstronomyCalendar() {
   const MS_PER_DAY = 24 * 60 * 60 * 1000;
 
   const placeholderEvents = useMemo<AstronomyEvent[]>(() => [
-    { id: "1", title: "Total Lunar Eclipse", date: new Date(Date.now() + 5 * MS_PER_DAY).toISOString(), description: "Visible across South Asia", location: "Visible worldwide" },
-    { id: "2", title: "Eta Aquariid Meteor Shower", date: new Date(Date.now() + 12 * MS_PER_DAY).toISOString(), description: "Peak activity expected", location: "Northern Hemisphere" },
-    { id: "3", title: "Jupiter Opposition", date: new Date(Date.now() + 20 * MS_PER_DAY).toISOString(), description: "Best time to observe Jupiter", location: "Everywhere" },
+    { id: "1", title: "Total Lunar Eclipse", event_date: new Date(Date.now() + 5 * MS_PER_DAY).toISOString(), description: "Visible across South Asia", location: "Visible worldwide" },
+    { id: "2", title: "Eta Aquariid Meteor Shower", event_date: new Date(Date.now() + 12 * MS_PER_DAY).toISOString(), description: "Peak activity expected", location: "Northern Hemisphere" },
+    { id: "3", title: "Jupiter Opposition", event_date: new Date(Date.now() + 20 * MS_PER_DAY).toISOString(), description: "Best time to observe Jupiter", location: "Everywhere" },
   ], []);
 
   useEffect(() => {
@@ -45,13 +45,13 @@ export default function AstronomyCalendar() {
         const { data } = await supabase
           .from("astronomy_events")
           .select("*")
-          .gte("date", startOfMonth)
-          .lte("date", endOfMonth)
-          .order("date", { ascending: true });
+          .gte("event_date", startOfMonth)
+          .lte("event_date", endOfMonth)
+          .order("event_date", { ascending: true });
 
         if (data && data.length > 0) {
           setEvents(data);
-          const upcoming = data.find((e) => new Date(e.date) > now);
+          const upcoming = data.find((e) => new Date(e.event_date) > now);
           if (upcoming) setNearestEvent(upcoming);
         }
       } catch {
@@ -66,9 +66,9 @@ export default function AstronomyCalendar() {
   useEffect(() => {
     const target = displayNearest;
     const interval = setInterval(() => {
-      setCountdown(getCountdown(target.date));
+      setCountdown(getCountdown(target.event_date));
     }, 1000);
-    setCountdown(getCountdown(target.date));
+    setCountdown(getCountdown(target.event_date));
     return () => clearInterval(interval);
   }, [displayNearest]);
 
@@ -182,7 +182,7 @@ export default function AstronomyCalendar() {
                 className="text-[#22d3ee] text-xs mb-2"
                 style={{ fontFamily: "'Space Mono', monospace" }}
               >
-                {new Date(event.date).toLocaleDateString("en-IN", {
+                {new Date(event.event_date).toLocaleDateString("en-IN", {
                   month: "short",
                   day: "numeric",
                   year: "numeric",
