@@ -34,7 +34,7 @@ export default function ProfileGreeting() {
             .from("profiles")
             .select("name, profile_image")
             .eq("id", user.id)
-            .single();
+            .maybeSingle();
           if (data) {
             setUserName(data.name || "Explorer");
             setProfileImage(data.profile_image || "");
@@ -62,11 +62,11 @@ export default function ProfileGreeting() {
       <div className="max-w-4xl mx-auto flex flex-col items-center text-center">
         <Link href="/profile">
           <motion.div
-            className="relative w-28 h-28 rounded-full cursor-pointer group"
+            className="relative w-36 h-36 rounded-full cursor-pointer group"
             whileHover={{ scale: 1.08 }}
           >
             <div className="absolute -inset-1 rounded-full bg-gradient-to-br from-[#7c3aed] to-[#22d3ee] opacity-60 blur-sm group-hover:opacity-100 transition-opacity" />
-            <div className="relative w-28 h-28 rounded-full overflow-hidden border-2 border-purple-500 shadow-lg">
+            <div className="relative w-36 h-36 rounded-full overflow-hidden border-2 border-purple-500 shadow-lg">
               {profileImage ? (
                 <img
                   src={profileImage}
@@ -75,7 +75,7 @@ export default function ProfileGreeting() {
                 />
               ) : (
                 <div className="w-full h-full bg-gradient-to-br from-[#7c3aed] to-[#22d3ee] flex items-center justify-center">
-                  <svg viewBox="0 0 24 24" className="w-10 h-10 text-white fill-current">
+                  <svg viewBox="0 0 24 24" className="w-14 h-14 text-white fill-current">
                     <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
                   </svg>
                 </div>
