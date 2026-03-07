@@ -7,7 +7,7 @@ import { supabase } from "@/lib/supabaseClient";
 interface ClubEvent {
   id: string;
   title: string;
-  date: string;
+  event_date: string;
   description: string;
   location: string;
   poster: string;
@@ -33,7 +33,7 @@ export default function ClubEventsSection() {
   const placeholder = useMemo<ClubEvent>(() => ({
     id: "1",
     title: "Lyrid Meteor Shower Night",
-    date: new Date(Date.now() + 10 * MS_PER_DAY).toISOString(),
+    event_date: new Date(Date.now() + 10 * MS_PER_DAY).toISOString(),
     description: "Join us for an unforgettable night of meteor watching from the JU campus rooftop.",
     location: "JU Campus Rooftop Observatory",
     poster: "",
@@ -45,8 +45,8 @@ export default function ClubEventsSection() {
         const { data } = await supabase
           .from("club_events")
           .select("*")
-          .gte("date", new Date().toISOString())
-          .order("date", { ascending: true })
+          .gte("event_date", new Date().toISOString())
+          .order("event_date", { ascending: true })
           .limit(1)
           .single();
         if (data) setNextEvent(data);
@@ -61,11 +61,11 @@ export default function ClubEventsSection() {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCountdown(getCountdown(displayEvent.date));
+      setCountdown(getCountdown(displayEvent.event_date));
     }, 1000);
-    setCountdown(getCountdown(displayEvent.date));
+    setCountdown(getCountdown(displayEvent.event_date));
     return () => clearInterval(interval);
-  }, [displayEvent.date]);
+  }, [displayEvent.event_date]);
 
   return (
     <section className="py-16 px-6 relative overflow-hidden">
@@ -164,7 +164,7 @@ export default function ClubEventsSection() {
                 className="text-white font-semibold"
                 style={{ fontFamily: "'Orbitron', monospace" }}
               >
-                {new Date(displayEvent.date).toLocaleDateString("en-IN", {
+                {new Date(displayEvent.event_date).toLocaleDateString("en-IN", {
                   month: "short",
                   day: "numeric",
                   year: "numeric",

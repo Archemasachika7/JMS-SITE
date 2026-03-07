@@ -10,7 +10,7 @@ interface Magazine {
   issue: string;
   cover_image: string;
   pdf_url: string;
-  date: string;
+  published_at: string;
 }
 
 export default function DashboardMagazinePreview() {
@@ -22,7 +22,7 @@ export default function DashboardMagazinePreview() {
         const { data } = await supabase
           .from("magazines")
           .select("*")
-          .order("date", { ascending: false })
+          .order("published_at", { ascending: false })
           .limit(1)
           .single();
         if (data) setMagazine(data);
@@ -38,7 +38,7 @@ export default function DashboardMagazinePreview() {
     issue: "Vol. 7",
     cover_image: "",
     pdf_url: "#",
-    date: "2025-03-01",
+    published_at: "2025-03-01",
   };
 
   return (
@@ -164,7 +164,7 @@ export default function DashboardMagazinePreview() {
               className="text-gray-400 text-sm"
               style={{ fontFamily: "'Space Mono', monospace" }}
             >
-              {new Date(display.date).toLocaleDateString("en-IN", {
+              {new Date(display.published_at).toLocaleDateString("en-IN", {
                 year: "numeric",
                 month: "long",
               })}

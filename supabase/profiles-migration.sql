@@ -1,5 +1,17 @@
 -- Profiles table for storing user profile data
 -- Run this in your Supabase SQL editor
+--
+-- IMPORTANT: After running this migration, also set up the "profiles" storage
+-- bucket in the Supabase dashboard:
+--   1. Go to Storage in the Supabase dashboard
+--   2. Create a new bucket named "profiles" (set it to public)
+--   3. Add a storage policy allowing authenticated users to upload/update their
+--      own avatar. The app stores avatars at  avatars/<user-id>.<ext>  so the
+--      policy should check:
+--        bucket_id = 'profiles'
+--        AND auth.role() = 'authenticated'
+--        AND (storage.foldername(name))[1] = 'avatars'
+--        AND (split_part(storage.filename(name), '.', 1)) = auth.uid()::text
 
 create table if not exists profiles (
   id uuid primary key references auth.users(id) on delete cascade,
