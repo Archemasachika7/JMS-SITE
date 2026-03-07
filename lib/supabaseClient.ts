@@ -1,4 +1,4 @@
-import { createClient, SupabaseClient } from "@supabase/supabase-js"
+import { createClient, SupabaseClient, User } from "@supabase/supabase-js"
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL ?? ""
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? ""
@@ -29,3 +29,48 @@ export const supabase: SupabaseClient = createClient(
   supabaseUrl || "https://placeholder.supabase.co",
   supabaseAnonKey || "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.placeholder"
 )
+
+/**
+ * Ensures a row exists in the `profiles` table for the given user.
+ * Uses upsert so it is safe to call multiple times (idempotent).
+ * This acts as a client-side fallback in case the database trigger
+ * `on_auth_user_created` was not set up or failed.
+ */
+export async function ensureProfile(user: User): Promise<void> {
+  try {
+    const { data: existing } = await supabase
+      .from("profiles")
+      .select("id")
+      .eq("id", user.id)
+      .single()
+
+    if (!existing) {
+      const name =
+        user.user_metadata?.name ||
+        user.user_metadata?.full_name ||
+        ""
+
+      await supabase.from("profiles").upsert(
+        {
+          id: user.id,
+          name,
+        },
+        { onConflict: "id" }
+      )
+    }
+  } catch {
+    // Non-critical: profile creation failure is logged but does not
+    // block the auth flow. The profiles table may not exist yet.
+    console.warn("[supabase] Could not ensure profile row exists.")
+  }
+}
+
+// Listen for auth state changes (e.g. OAuth redirects, token refreshes)
+// and ensure a profile row exists for the signed-in user.
+if (typeof window !== "undefined" && isSupabaseConfigured()) {
+  supabase.auth.onAuthStateChange((event, session) => {
+    if ((event === "SIGNED_IN" || event === "TOKEN_REFRESHED") && session?.user) {
+      ensureProfile(session.user)
+    }
+  })
+}
