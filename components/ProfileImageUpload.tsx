@@ -41,10 +41,7 @@ export default function ProfileImageUpload({
     setUploading(true);
 
     try {
-      const ext = file.name.includes(".")
-        ? file.name.substring(file.name.lastIndexOf("."))
-        : ".png";
-      const filePath = `avatars/${userId}${ext}`;
+      const filePath = `avatars/${userId}.png`;
 
       const { error: uploadError } = await supabase.storage
         .from("profiles")
