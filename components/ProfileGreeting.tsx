@@ -12,6 +12,7 @@ function getGreeting(): string {
   });
   const hour = parseInt(formatter.format(new Date()), 10);
 
+  if (hour >= 22 || hour < 5) return "Good Night";
   if (hour < 12) return "Good Morning";
   if (hour < 17) return "Good Afternoon";
   return "Good Evening";
@@ -35,10 +36,10 @@ export default function ProfileGreeting() {
             .eq("id", user.id)
             .single();
           if (data) {
-            setUserName(data.name || user.email || "Explorer");
+            setUserName(data.name || "Explorer");
             setProfileImage(data.profile_image || "");
           } else {
-            setUserName(user.email || "Explorer");
+            setUserName(user.user_metadata?.name || user.user_metadata?.full_name || "Explorer");
           }
         } else {
           setUserName("Explorer");

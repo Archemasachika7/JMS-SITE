@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
+import { supabase, isSupabaseConfigured } from "@/lib/supabaseClient";
 
 const navItems = [
   { label: "Home", href: "/" },
@@ -16,11 +17,44 @@ const navItems = [
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [isSignedIn, setIsSignedIn] = useState(false);
+  const [profileImage, setProfileImage] = useState("");
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  useEffect(() => {
+    if (!isSupabaseConfigured()) return;
+
+    async function checkAuth() {
+      try {
+        const { data: { user } } = await supabase.auth.getUser();
+        if (user) {
+          setIsSignedIn(true);
+          const { data } = await supabase
+            .from("profiles")
+            .select("profile_image")
+            .eq("id", user.id)
+            .single();
+          if (data?.profile_image) {
+            setProfileImage(data.profile_image);
+          }
+        }
+      } catch {
+        // Auth check failed silently
+      }
+    }
+    checkAuth();
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setIsSignedIn(!!session?.user);
+      if (!session?.user) setProfileImage("");
+    });
+
+    return () => subscription.unsubscribe();
   }, []);
 
   return (
@@ -81,33 +115,61 @@ export default function Navbar() {
 
         {/* Right Buttons */}
         <div className="hidden md:flex items-center gap-3">
-          <Link href="/auth">
-            <motion.span
-              className="flex items-center gap-2 px-5 py-2 rounded-full text-sm font-medium border border-[#7c3aed]/60 text-[#22d3ee] hover:bg-[#7c3aed]/20 hover:border-[#7c3aed] hover:shadow-[0_0_20px_rgba(124,58,237,0.4)] transition-all duration-300 cursor-pointer"
-              style={{ fontFamily: "'Space Mono', monospace" }}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.97 }}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.8 }}
-            >
-              <span className="w-2 h-2 rounded-full bg-[#22d3ee] animate-pulse" />
-              Login
-            </motion.span>
-          </Link>
-          <Link href="/auth?tab=signup">
-            <motion.span
-              className="inline-flex px-5 py-2 rounded-full text-sm font-medium bg-gradient-to-r from-[#7c3aed] to-[#6d28d9] text-white shadow-[0_0_20px_rgba(124,58,237,0.3)] hover:shadow-[0_0_30px_rgba(124,58,237,0.5)] transition-all duration-300 cursor-pointer"
-              style={{ fontFamily: "'Space Mono', monospace" }}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.97 }}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.9 }}
-            >
-              Join Now
-            </motion.span>
-          </Link>
+          {isSignedIn ? (
+            <Link href="/profile">
+              <motion.div
+                className="relative w-10 h-10 rounded-full cursor-pointer group"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.8 }}
+              >
+                <div className="absolute -inset-0.5 rounded-full bg-gradient-to-br from-[#7c3aed] to-[#22d3ee] opacity-60 group-hover:opacity-100 transition-opacity" />
+                <div className="relative w-10 h-10 rounded-full overflow-hidden border-2 border-[#7c3aed]/60">
+                  {profileImage ? (
+                    <img src={profileImage} alt="Profile" className="w-full h-full object-cover" />
+                  ) : (
+                    <div className="w-full h-full bg-gradient-to-br from-[#7c3aed] to-[#22d3ee] flex items-center justify-center">
+                      <svg viewBox="0 0 24 24" className="w-5 h-5 text-white fill-current">
+                        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+                      </svg>
+                    </div>
+                  )}
+                </div>
+              </motion.div>
+            </Link>
+          ) : (
+            <>
+              <Link href="/auth">
+                <motion.span
+                  className="flex items-center gap-2 px-5 py-2 rounded-full text-sm font-medium border border-[#7c3aed]/60 text-[#22d3ee] hover:bg-[#7c3aed]/20 hover:border-[#7c3aed] hover:shadow-[0_0_20px_rgba(124,58,237,0.4)] transition-all duration-300 cursor-pointer"
+                  style={{ fontFamily: "'Space Mono', monospace" }}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.97 }}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.8 }}
+                >
+                  <span className="w-2 h-2 rounded-full bg-[#22d3ee] animate-pulse" />
+                  Login
+                </motion.span>
+              </Link>
+              <Link href="/auth?tab=signup">
+                <motion.span
+                  className="inline-flex px-5 py-2 rounded-full text-sm font-medium bg-gradient-to-r from-[#7c3aed] to-[#6d28d9] text-white shadow-[0_0_20px_rgba(124,58,237,0.3)] hover:shadow-[0_0_30px_rgba(124,58,237,0.5)] transition-all duration-300 cursor-pointer"
+                  style={{ fontFamily: "'Space Mono', monospace" }}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.97 }}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.9 }}
+                >
+                  Join Now
+                </motion.span>
+              </Link>
+            </>
+          )}
         </div>
 
         {/* Hamburger */}
@@ -140,22 +202,38 @@ export default function Navbar() {
                 {item.label}
               </Link>
             ))}
-            <Link href="/auth" className="block mt-4">
-              <span
-                className="block w-full py-2 rounded-full border border-[#7c3aed]/60 text-[#22d3ee] text-sm text-center"
-                style={{ fontFamily: "'Space Mono', monospace" }}
-              >
-                Login
-              </span>
-            </Link>
-            <Link href="/auth?tab=signup" className="block mt-2">
-              <span
-                className="block w-full py-2 rounded-full bg-gradient-to-r from-[#7c3aed] to-[#6d28d9] text-white text-sm text-center"
-                style={{ fontFamily: "'Space Mono', monospace" }}
-              >
-                Join Now
-              </span>
-            </Link>
+            {isSignedIn ? (
+              <Link href="/profile" className="block mt-4" onClick={() => setMenuOpen(false)}>
+                <span
+                  className="flex items-center justify-center gap-2 w-full py-2 rounded-full border border-[#7c3aed]/60 text-[#22d3ee] text-sm"
+                  style={{ fontFamily: "'Space Mono', monospace" }}
+                >
+                  <svg viewBox="0 0 24 24" className="w-4 h-4 fill-current" aria-hidden="true">
+                    <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+                  </svg>
+                  My Profile
+                </span>
+              </Link>
+            ) : (
+              <>
+                <Link href="/auth" className="block mt-4">
+                  <span
+                    className="block w-full py-2 rounded-full border border-[#7c3aed]/60 text-[#22d3ee] text-sm text-center"
+                    style={{ fontFamily: "'Space Mono', monospace" }}
+                  >
+                    Login
+                  </span>
+                </Link>
+                <Link href="/auth?tab=signup" className="block mt-2">
+                  <span
+                    className="block w-full py-2 rounded-full bg-gradient-to-r from-[#7c3aed] to-[#6d28d9] text-white text-sm text-center"
+                    style={{ fontFamily: "'Space Mono', monospace" }}
+                  >
+                    Join Now
+                  </span>
+                </Link>
+              </>
+            )}
           </motion.div>
         )}
       </AnimatePresence>

@@ -8,10 +8,27 @@ create table if not exists profiles (
   profile_image text,
   role text default 'member',
   plan text default 'free',
+  year text,
+  department text,
+  phone text,
   created_at timestamptz default now(),
   last_login_at timestamptz,
   last_login_ip text
 );
+
+-- Add new columns to existing table (safe to run if columns already exist)
+do $$
+begin
+  if not exists (select 1 from information_schema.columns where table_name='profiles' and column_name='year') then
+    alter table profiles add column year text;
+  end if;
+  if not exists (select 1 from information_schema.columns where table_name='profiles' and column_name='department') then
+    alter table profiles add column department text;
+  end if;
+  if not exists (select 1 from information_schema.columns where table_name='profiles' and column_name='phone') then
+    alter table profiles add column phone text;
+  end if;
+end $$;
 
 -- Enable Row Level Security
 alter table profiles enable row level security;
