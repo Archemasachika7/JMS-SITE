@@ -37,7 +37,7 @@ export default function StarBackground() {
     setSize();
 
     const stars: Star[] = [];
-    const starCount = Math.min(2000, Math.floor((canvas.width * canvas.height) / 800));
+    const starCount = Math.min(1500, Math.floor((canvas.width * canvas.height) / 1200));
     for (let i = 0; i < starCount; i++) {
       stars.push({
         x: Math.random() * canvas.width,

@@ -66,7 +66,7 @@ export default function MagazinePreview() {
                     <p className="text-3xl font-black text-white" style={{ fontFamily: "'Orbitron', monospace" }}>VOL. 7</p>
                     <p className="text-gray-400 text-xs mt-1" style={{ fontFamily: "'Space Mono', monospace" }}>Spring 2025 Edition</p>
                     <p className="text-[#a78bfa] text-sm mt-3 font-medium leading-snug" style={{ fontFamily: "'Space Mono', monospace" }}>
-                      "The Dark Energy<br />Conundrum"
+                      &ldquo;The Dark Energy<br />Conundrum&rdquo;
                     </p>
                   </div>
                 </div>
@@ -95,7 +95,7 @@ export default function MagazinePreview() {
               </h3>
               <p className="text-gray-400 text-sm leading-relaxed" style={{ fontFamily: "'Space Mono', monospace" }}>
                 Explore the cosmos through our latest edition — featuring in-depth articles on dark energy cosmology,
-                our members' best astrophotography, and a special interview with ISRO scientists.
+                our members&apos; best astrophotography, and a special interview with ISRO scientists.
               </p>
             </div>
 
