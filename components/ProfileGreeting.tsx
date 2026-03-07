@@ -44,7 +44,8 @@ export default function ProfileGreeting() {
         } else {
           setUserName("Explorer");
         }
-      } catch {
+      } catch (err) {
+        console.error("Profile fetch error:", err);
         setUserName("Explorer");
       }
     }
@@ -61,11 +62,11 @@ export default function ProfileGreeting() {
       <div className="max-w-4xl mx-auto flex flex-col items-center text-center">
         <Link href="/profile">
           <motion.div
-            className="relative w-24 h-24 rounded-full cursor-pointer group"
+            className="relative w-28 h-28 rounded-full cursor-pointer group"
             whileHover={{ scale: 1.08 }}
           >
             <div className="absolute -inset-1 rounded-full bg-gradient-to-br from-[#7c3aed] to-[#22d3ee] opacity-60 blur-sm group-hover:opacity-100 transition-opacity" />
-            <div className="relative w-24 h-24 rounded-full overflow-hidden border-2 border-[#7c3aed]/60">
+            <div className="relative w-28 h-28 rounded-full overflow-hidden border-2 border-purple-500 shadow-lg">
               {profileImage ? (
                 <img
                   src={profileImage}

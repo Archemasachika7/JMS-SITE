@@ -81,8 +81,8 @@ export default function ProfilePage() {
           setDepartment(data.department || "");
           setPhone(data.phone || "");
         }
-      } catch {
-        // Supabase fetch failed silently
+      } catch (err) {
+        console.error("Profile fetch error:", err);
       }
     }
     fetchProfile();
