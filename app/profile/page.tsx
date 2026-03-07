@@ -3,7 +3,7 @@ import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { supabase, isSupabaseConfigured } from "@/lib/supabaseClient";
+import { supabase, isSupabaseConfigured, ensureProfile } from "@/lib/supabaseClient";
 
 const MAX_IMAGE_SIZE = 500 * 1024; // 500KB
 
@@ -47,11 +47,13 @@ export default function ProfilePage() {
         if (user) {
           setUserId(user.id);
           setUserEmail(user.email || "");
+
           const { data } = await supabase
             .from("profiles")
             .select("name, profile_image, plan, bio, year, department, phone")
             .eq("id", user.id)
-            .single();
+            .maybeSingle();
+
           if (data) {
             setUserName(data.name || user.user_metadata?.name || user.user_metadata?.full_name || "");
             setProfileImage(data.profile_image || "");
@@ -61,6 +63,8 @@ export default function ProfilePage() {
             setDepartment(data.department || "");
             setPhone(data.phone || "");
           } else {
+            // Profile row missing — create it so future saves succeed
+            await ensureProfile(user);
             setUserName(user.user_metadata?.name || user.user_metadata?.full_name || "");
           }
         }
@@ -94,10 +98,16 @@ export default function ProfilePage() {
 
       if (userId) {
         try {
-          await supabase
+          const { error } = await supabase
             .from("profiles")
-            .update({ profile_image: base64 })
-            .eq("id", userId);
+            .upsert(
+              { id: userId, profile_image: base64 },
+              { onConflict: "id" }
+            );
+          if (error) {
+            console.error("[profile] image upload error:", error.message);
+            setUploadError("Failed to save profile image");
+          }
         } catch {
           setUploadError("Failed to save profile image");
         }
@@ -114,16 +124,20 @@ export default function ProfilePage() {
     try {
       const { error } = await supabase
         .from("profiles")
-        .update({
-          name: userName,
-          bio,
-          year,
-          department,
-          phone,
-        })
-        .eq("id", userId);
+        .upsert(
+          {
+            id: userId,
+            name: userName,
+            bio,
+            year,
+            department,
+            phone,
+          },
+          { onConflict: "id" }
+        );
 
       if (error) {
+        console.error("[profile] save error:", error.message);
         setSaveMessage("Failed to save profile. Please try again.");
       } else {
         setSaveMessage("Profile updated successfully!");

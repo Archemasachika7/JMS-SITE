@@ -46,7 +46,8 @@ create policy "Users can insert own profile"
 -- Allow users to update their own profile
 create policy "Users can update own profile"
   on profiles for update
-  using (auth.uid() = id);
+  using (auth.uid() = id)
+  with check (auth.uid() = id);
 
 -- Function to auto-create profile on signup
 create or replace function public.handle_new_user()
