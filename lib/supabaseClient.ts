@@ -53,8 +53,10 @@ export async function ensureProfile(user: User): Promise<void> {
       const name =
         user.user_metadata?.name ||
         user.user_metadata?.full_name ||
-        "User"
+        "New User"
 
+      // Use insert (not upsert) so this mirrors the fallback flow used after login.
+      // A duplicate-key conflict means another path (trigger/parallel client) already created it.
       const { error: insertError } = await supabase
         .from("profiles")
         .insert({
@@ -62,8 +64,11 @@ export async function ensureProfile(user: User): Promise<void> {
           name,
         })
 
-      if (insertError) {
-        console.error("[supabase] Failed to insert missing profile row.", insertError)
+      if (insertError && insertError.code !== "23505") {
+        console.error(
+          "[supabase] Failed to insert missing profile row (duplicate-key conflicts are ignored).",
+          insertError
+        )
       }
     }
   } catch (err) {

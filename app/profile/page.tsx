@@ -49,21 +49,37 @@ export default function ProfilePage() {
 
           await ensureProfile(user);
 
-          const { data } = await supabase
-            .from("profiles")
-            .select("name, profile_image, plan, bio, year, department, phone")
-            .eq("id", user.id)
-            .single();
+          const fetchProfileRow = () =>
+            supabase
+              .from("profiles")
+              .select("name, profile_image, plan, bio, year, department, phone")
+              .eq("id", user.id)
+              .single();
 
-          if (data) {
-            setUserName(data.name || user.user_metadata?.name || user.user_metadata?.full_name || "");
-            setProfileImage(data.profile_image || "");
-            setPlan(data.plan || "Free");
-            setBio(data.bio || "");
-            setYear(data.year || "");
-            setDepartment(data.department || "");
-            setPhone(data.phone || "");
+          let { data, error: profileError } = await fetchProfileRow();
+
+          // PGRST116 = PostgREST "no rows found", so retry once after ensureProfile.
+          if (profileError?.code === "PGRST116") {
+            await ensureProfile(user);
+            ({ data, error: profileError } = await fetchProfileRow());
           }
+
+          if (profileError || !data) {
+            console.error(
+              "[profile] Failed to fetch profile row. This can happen if profile creation failed.",
+              profileError
+            );
+            setUserName(user.user_metadata?.name || user.user_metadata?.full_name || "");
+            return;
+          }
+
+          setUserName(data.name || user.user_metadata?.name || user.user_metadata?.full_name || "");
+          setProfileImage(data.profile_image || "");
+          setPlan(data.plan || "Free");
+          setBio(data.bio || "");
+          setYear(data.year || "");
+          setDepartment(data.department || "");
+          setPhone(data.phone || "");
         }
       } catch {
         // Supabase fetch failed silently
