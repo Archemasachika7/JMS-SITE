@@ -11,12 +11,12 @@ function Planet() {
   useFrame(({ clock }) => {
     const t = clock.getElapsedTime();
     if (meshRef.current) {
-      meshRef.current.rotation.y = t * 0.15;
-      meshRef.current.position.y = Math.sin(t * 0.5) * 0.15;
+      meshRef.current.rotation.y += 0.001;
+      meshRef.current.position.y = Math.sin(t) * 0.1;
     }
     if (glowRef.current) {
-      glowRef.current.rotation.y = t * 0.1;
-      glowRef.current.position.y = Math.sin(t * 0.5) * 0.15;
+      glowRef.current.rotation.y += 0.0008;
+      glowRef.current.position.y = Math.sin(t) * 0.1;
     }
   });
 

@@ -4,21 +4,21 @@ import { useEffect, useRef } from "react";
 interface Star {
   x: number;
   y: number;
-  r: number;
-  alpha: number;
-  speed: number;
-  twinkle: number;
+  radius: number;
+  baseOpacity: number;
+  opacity: number;
+  twinkleSpeed: number;
 }
 
 interface ShootingStar {
   x: number;
   y: number;
+  velocityX: number;
+  velocityY: number;
+  dirX: number;
+  dirY: number;
   length: number;
-  speed: number;
-  angle: number;
   opacity: number;
-  life: number;
-  maxLife: number;
 }
 
 interface ConstellationLine {
@@ -47,17 +47,18 @@ export default function StarfieldBackground() {
     };
     setSize();
 
-    // Stars
+    // Stars: generate 600–1200
     const stars: Star[] = [];
-    const starCount = Math.min(1500, Math.floor((canvas.width * canvas.height) / 1200));
+    const starCount = Math.floor(Math.random() * 601) + 600;
     for (let i = 0; i < starCount; i++) {
+      const baseOpacity = Math.random() * 0.5 + 0.3;
       stars.push({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
-        r: Math.random() * 1.5 + 0.3,
-        alpha: Math.random(),
-        speed: Math.random() * 0.005 + 0.001,
-        twinkle: Math.random() * Math.PI * 2,
+        radius: Math.random() * 1.5 + 0.3,
+        baseOpacity,
+        opacity: baseOpacity,
+        twinkleSpeed: Math.random() * 0.003 + 0.001,
       });
     }
 
@@ -65,15 +66,19 @@ export default function StarfieldBackground() {
     const shootingStars: ShootingStar[] = [];
 
     function spawnShootingStar() {
+      const angle = Math.PI / 6 + Math.random() * (Math.PI / 6);
+      const speed = Math.random() * 6 + 4;
+      const vx = Math.cos(angle) * speed;
+      const vy = Math.sin(angle) * speed;
       shootingStars.push({
         x: Math.random() * canvas!.width,
         y: Math.random() * canvas!.height * 0.5,
+        velocityX: vx,
+        velocityY: vy,
+        dirX: Math.cos(angle),
+        dirY: Math.sin(angle),
         length: Math.random() * 80 + 40,
-        speed: Math.random() * 6 + 4,
-        angle: Math.PI / 6 + Math.random() * (Math.PI / 6),
         opacity: 1,
-        life: 0,
-        maxLife: Math.random() * 40 + 30,
       });
     }
 
@@ -139,26 +144,26 @@ export default function StarfieldBackground() {
     const draw = (time: number) => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      // Draw stars with parallax
+      // Update and draw stars with parallax
       stars.forEach((s) => {
-        s.twinkle += s.speed;
-        const alpha = 0.3 + 0.7 * Math.abs(Math.sin(s.twinkle));
-        const parallaxY = s.y - scrollY * (s.r * 0.05);
+        s.opacity = s.baseOpacity + Math.sin(time * s.twinkleSpeed) * 0.1;
+        const parallaxY = s.y - scrollY * 0.05;
         const drawY =
           ((parallaxY % canvas.height) + canvas.height) % canvas.height;
 
         ctx.beginPath();
-        ctx.arc(s.x, drawY, s.r, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(165,243,252,${alpha * 0.8})`;
+        ctx.arc(s.x, drawY, s.radius, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(165,243,252,${s.opacity})`;
         ctx.fill();
       });
 
-      // Draw constellation lines
-      if (time - lastConstellationTime > 8000 + Math.random() * 5000) {
+      // Spawn constellation lines every 6–10 seconds
+      if (time - lastConstellationTime > 6000 + Math.random() * 4000) {
         spawnConstellation();
         lastConstellationTime = time;
       }
 
+      // Draw constellation lines
       for (let i = constellationLines.length - 1; i >= 0; i--) {
         const cl = constellationLines[i];
         cl.life++;
@@ -181,22 +186,22 @@ export default function StarfieldBackground() {
           continue;
         }
 
-        const parallaxY1 = cl.y1 - scrollY * 0.03;
-        const parallaxY2 = cl.y2 - scrollY * 0.03;
+        const parallaxY1 = cl.y1 - scrollY * 0.05;
+        const parallaxY2 = cl.y2 - scrollY * 0.05;
 
         ctx.beginPath();
         ctx.moveTo(cl.x1, parallaxY1);
         ctx.lineTo(cl.x2, parallaxY2);
-        ctx.strokeStyle = `rgba(34,211,238,${cl.opacity})`;
+        ctx.strokeStyle = `rgba(165,243,252,${cl.opacity})`;
         ctx.lineWidth = 0.8;
-        ctx.shadowColor = "rgba(34,211,238,0.5)";
+        ctx.shadowColor = "rgba(165,243,252,0.5)";
         ctx.shadowBlur = 4;
         ctx.stroke();
         ctx.shadowBlur = 0;
       }
 
-      // Spawn shooting stars periodically
-      if (time - lastShootingStarTime > 3000 + Math.random() * 4000) {
+      // Spawn shooting stars every 5–12 seconds
+      if (time - lastShootingStarTime > 5000 + Math.random() * 7000) {
         spawnShootingStar();
         lastShootingStarTime = time;
       }
@@ -204,18 +209,21 @@ export default function StarfieldBackground() {
       // Draw shooting stars
       for (let i = shootingStars.length - 1; i >= 0; i--) {
         const ss = shootingStars[i];
-        ss.life++;
-        ss.x += Math.cos(ss.angle) * ss.speed;
-        ss.y += Math.sin(ss.angle) * ss.speed;
-        ss.opacity = 1 - ss.life / ss.maxLife;
+        ss.x += ss.velocityX;
+        ss.y += ss.velocityY;
+        ss.opacity -= 0.015;
 
-        if (ss.life >= ss.maxLife) {
+        if (
+          ss.opacity <= 0 ||
+          ss.x > canvas.width + 100 ||
+          ss.y > canvas.height + 100
+        ) {
           shootingStars.splice(i, 1);
           continue;
         }
 
-        const tailX = ss.x - Math.cos(ss.angle) * ss.length;
-        const tailY = ss.y - Math.sin(ss.angle) * ss.length;
+        const tailX = ss.x - ss.dirX * ss.length;
+        const tailY = ss.y - ss.dirY * ss.length;
 
         const gradient = ctx.createLinearGradient(tailX, tailY, ss.x, ss.y);
         gradient.addColorStop(0, `rgba(165,243,252,0)`);
@@ -226,7 +234,10 @@ export default function StarfieldBackground() {
         ctx.lineTo(ss.x, ss.y);
         ctx.strokeStyle = gradient;
         ctx.lineWidth = 1.5;
+        ctx.shadowColor = "rgba(165,243,252,0.8)";
+        ctx.shadowBlur = 6;
         ctx.stroke();
+        ctx.shadowBlur = 0;
 
         // Bright head
         ctx.beginPath();
@@ -254,8 +265,8 @@ export default function StarfieldBackground() {
   return (
     <canvas
       ref={canvasRef}
-      className="fixed inset-0 w-full h-full pointer-events-none z-0"
-      style={{ position: "fixed", top: 0, left: 0 }}
+      className="fixed inset-0 w-full h-full pointer-events-none"
+      style={{ position: "fixed", top: 0, left: 0, width: "100%", height: "100%", zIndex: -1 }}
     />
   );
 }
