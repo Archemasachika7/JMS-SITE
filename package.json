@@ -12,6 +12,7 @@
     "@hcaptcha/react-hcaptcha": "^2.0.2",
     "@react-three/drei": "^9.92.7",
     "@react-three/fiber": "^8.15.12",
+    "@splinetool/runtime": "^1.12.67",
     "@supabase/supabase-js": "^2.98.0",
     "framer-motion": "^11.1.9",
     "next": "14.2.3",
