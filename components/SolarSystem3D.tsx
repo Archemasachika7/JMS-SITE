@@ -1,7 +1,7 @@
 "use client";
 import { useRef, useMemo, Suspense } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
-import { Ring } from "@react-three/drei";
+import { Ring, Line } from "@react-three/drei";
 import * as THREE from "three";
 
 /* ─── Sun (central star) ─── */
@@ -34,7 +34,7 @@ function Sun() {
           roughness={0.3}
         />
       </mesh>
-      <pointLight position={[0, 0, 0]} intensity={2} color="#fde68a" distance={30} />
+      <pointLight position={[0, 0, 0]} intensity={2} color="#fde68a" distance={12} />
     </group>
   );
 }
@@ -128,23 +128,16 @@ function OrbitingPlanet({
 /* ─── Orbit path ring (visual only) ─── */
 function OrbitPath({ radius }: { radius: number }) {
   const points = useMemo(() => {
-    const pts: THREE.Vector3[] = [];
+    const pts: [number, number, number][] = [];
     const segments = 128;
     for (let i = 0; i <= segments; i++) {
       const angle = (i / segments) * Math.PI * 2;
-      pts.push(new THREE.Vector3(Math.cos(angle) * radius, 0, Math.sin(angle) * radius));
+      pts.push([Math.cos(angle) * radius, 0, Math.sin(angle) * radius]);
     }
     return pts;
   }, [radius]);
 
-  const geometry = useMemo(() => new THREE.BufferGeometry().setFromPoints(points), [points]);
-
-  return (
-    <line>
-      <bufferGeometry attach="geometry" {...geometry} />
-      <lineBasicMaterial attach="material" color="#38bdf8" transparent opacity={0.08} />
-    </line>
-  );
+  return <Line points={points} color="#38bdf8" transparent opacity={0.08} lineWidth={1} />;
 }
 
 /* ─── Tiny background stars ─── */
