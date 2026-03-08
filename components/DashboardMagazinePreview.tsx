@@ -49,7 +49,7 @@ export default function DashboardMagazinePreview() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7 }}
-          className="flex items-center justify-between mb-8"
+          className="flex flex-wrap items-center justify-between gap-4 mb-8"
         >
           <div>
             <p
@@ -67,7 +67,7 @@ export default function DashboardMagazinePreview() {
           </div>
           <Link href="/magazine">
             <motion.span
-              className="text-sm text-[#2563eb] border border-[#2563eb]/30 px-5 py-2 rounded-full hover:bg-[#2563eb]/10 transition-all cursor-pointer"
+              className="text-xs sm:text-sm text-[#2563eb] border border-[#2563eb]/30 px-3 sm:px-5 py-1.5 sm:py-2 rounded-full hover:bg-[#2563eb]/10 transition-all cursor-pointer whitespace-nowrap"
               style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
               whileHover={{ scale: 1.05 }}
             >
@@ -187,13 +187,13 @@ export default function DashboardMagazinePreview() {
                 month: "long",
               })}
             </p>
-            <div className="flex gap-3 mt-2">
+            <div className="flex flex-wrap gap-3 mt-2">
               {magazine.pdf_url && magazine.pdf_url !== "#" ? (
                 <motion.a
                   href={magazine.pdf_url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-6 py-3 rounded-xl bg-gradient-to-r from-[#2563eb] to-[#1d4ed8] text-white text-sm font-semibold shadow-[0_0_25px_rgba(37,99,235,0.4)] hover:shadow-[0_0_40px_rgba(37,99,235,0.6)] transition-all duration-300"
+                  className="px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl bg-gradient-to-r from-[#2563eb] to-[#1d4ed8] text-white text-xs sm:text-sm font-semibold shadow-[0_0_25px_rgba(37,99,235,0.4)] hover:shadow-[0_0_40px_rgba(37,99,235,0.6)] transition-all duration-300"
                   style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
                   whileHover={{ scale: 1.03 }}
                   whileTap={{ scale: 0.97 }}
@@ -202,7 +202,7 @@ export default function DashboardMagazinePreview() {
                 </motion.a>
               ) : (
                 <motion.button
-                  className="px-6 py-3 rounded-xl bg-gradient-to-r from-[#2563eb] to-[#1d4ed8] text-white text-sm font-semibold shadow-[0_0_25px_rgba(37,99,235,0.4)] hover:shadow-[0_0_40px_rgba(37,99,235,0.6)] transition-all duration-300"
+                  className="px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl bg-gradient-to-r from-[#2563eb] to-[#1d4ed8] text-white text-xs sm:text-sm font-semibold shadow-[0_0_25px_rgba(37,99,235,0.4)] hover:shadow-[0_0_40px_rgba(37,99,235,0.6)] transition-all duration-300"
                   style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
                   whileHover={{ scale: 1.03 }}
                   whileTap={{ scale: 0.97 }}
@@ -212,7 +212,7 @@ export default function DashboardMagazinePreview() {
               )}
               <Link href="/magazine">
                 <motion.span
-                  className="px-6 py-3 rounded-xl border border-white/10 text-gray-400 text-sm hover:border-white/20 hover:text-white transition-all duration-300 inline-block cursor-pointer"
+                  className="px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl border border-white/10 text-gray-400 text-xs sm:text-sm hover:border-white/20 hover:text-white transition-all duration-300 inline-block cursor-pointer"
                   style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
                   whileHover={{ scale: 1.03 }}
                 >
