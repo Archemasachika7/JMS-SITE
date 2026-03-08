@@ -45,15 +45,35 @@ export default function AstronomicalCalendarWidget({ preview = false }: Astronom
 
   useEffect(() => {
     async function fetchEvents() {
+      let fetched = false;
+
+      // Try fetching from the astronomy-events API first
       try {
-        const { data } = await supabase
-          .from("astronomy_events")
-          .select("id, title, description, event_date")
-          .order("event_date", { ascending: true });
-        if (data) setEvents(data);
+        const res = await fetch("/api/astronomy-events");
+        if (res.ok) {
+          const json = await res.json();
+          if (json.events && json.events.length > 0) {
+            setEvents(json.events);
+            fetched = true;
+          }
+        }
       } catch {
-        // Supabase fetch failed silently
+        // API fetch failed, will try Supabase
       }
+
+      // Fallback to Supabase if API returned no events
+      if (!fetched) {
+        try {
+          const { data } = await supabase
+            .from("astronomy_events")
+            .select("id, title, description, event_date")
+            .order("event_date", { ascending: true });
+          if (data) setEvents(data);
+        } catch {
+          // Supabase fetch failed silently
+        }
+      }
+
       setLoading(false);
     }
     fetchEvents();
@@ -66,7 +86,7 @@ export default function AstronomicalCalendarWidget({ preview = false }: Astronom
   }, []);
 
   const now = new Date();
-  const upcomingEvents = events.filter((e) => new Date(e.event_date) >= now);
+  const upcomingEvents = events.filter((e) => new Date(e.event_date) >= now).slice(0, 3);
   const pastEvents = events.filter((e) => new Date(e.event_date) < now);
   const nextEvent = upcomingEvents[0] || null;
 
