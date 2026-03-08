@@ -183,7 +183,7 @@ export default function MembershipCards() {
         >
           <Link href="/support">
             <motion.span
-              className="px-6 py-3 rounded-full border border-[#38bdf8]/30 text-[#38bdf8] text-sm hover:bg-[#38bdf8]/10 transition-all cursor-pointer"
+              className="px-5 sm:px-6 py-3 rounded-full border border-[#38bdf8]/30 text-[#38bdf8] text-xs sm:text-sm hover:bg-[#38bdf8]/10 transition-all cursor-pointer whitespace-nowrap"
               style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
               whileHover={{ scale: 1.05 }}
             >
@@ -192,7 +192,7 @@ export default function MembershipCards() {
           </Link>
           <Link href="/support">
             <motion.span
-              className="px-6 py-3 rounded-full border border-[#2563eb]/30 text-[#2563eb] text-sm hover:bg-[#2563eb]/10 transition-all cursor-pointer"
+              className="px-5 sm:px-6 py-3 rounded-full border border-[#2563eb]/30 text-[#2563eb] text-xs sm:text-sm hover:bg-[#2563eb]/10 transition-all cursor-pointer whitespace-nowrap"
               style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
               whileHover={{ scale: 1.05 }}
             >
