@@ -35,14 +35,6 @@ export default function DashboardMagazinePreview() {
     fetchMagazine();
   }, []);
 
-  const display = magazine || {
-    title: "Nebula Digest",
-    issue: "Vol. 7",
-    cover_image: "",
-    pdf_url: "#",
-    published_at: "2025-03-01",
-  };
-
   return (
     <section
       className="py-16 px-6 relative overflow-hidden"
@@ -98,6 +90,15 @@ export default function DashboardMagazinePreview() {
               </div>
             </div>
           </div>
+        ) : !magazine ? (
+          <div className="rounded-xl border border-white/10 bg-[#07091a]/60 py-16 text-center">
+            <p
+              className="text-gray-500 text-sm"
+              style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
+            >
+              No magazines published yet — check back soon!
+            </p>
+          </div>
         ) : (
         <motion.div
           initial={{ opacity: 0, y: 40 }}
@@ -114,10 +115,10 @@ export default function DashboardMagazinePreview() {
                 className="relative rounded-2xl overflow-hidden border border-[#2563eb]/30 group-hover:border-[#2563eb]/60 transition-all duration-500"
                 style={{ aspectRatio: "3/4" }}
               >
-                {display.cover_image ? (
+                {magazine.cover_image ? (
                   <img
-                    src={display.cover_image}
-                    alt={display.title}
+                    src={magazine.cover_image}
+                    alt={magazine.title}
                     className="w-full h-full object-cover"
                   />
                 ) : (
@@ -150,7 +151,7 @@ export default function DashboardMagazinePreview() {
                           className="text-xl font-black text-white leading-tight"
                           style={{ fontFamily: "'Space Grotesk', 'Inter', sans-serif" }}
                         >
-                          {display.title}
+                          {magazine.title}
                         </h3>
                       </div>
                       <div>
@@ -159,7 +160,7 @@ export default function DashboardMagazinePreview() {
                           className="text-2xl font-black text-white"
                           style={{ fontFamily: "'Space Grotesk', 'Inter', sans-serif" }}
                         >
-                          {display.issue}
+                          {magazine.issue}
                         </p>
                       </div>
                     </div>
@@ -175,21 +176,21 @@ export default function DashboardMagazinePreview() {
               className="text-xl md:text-2xl font-bold text-white"
               style={{ fontFamily: "'Space Grotesk', 'Inter', sans-serif" }}
             >
-              {display.title} — <span className="text-[#2563eb]">{display.issue}</span>
+              {magazine.title} — <span className="text-[#2563eb]">{magazine.issue}</span>
             </h3>
             <p
               className="text-gray-400 text-sm"
               style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
             >
-              {new Date(display.published_at).toLocaleDateString("en-IN", {
+              {new Date(magazine.published_at).toLocaleDateString("en-IN", {
                 year: "numeric",
                 month: "long",
               })}
             </p>
             <div className="flex gap-3 mt-2">
-              {display.pdf_url && display.pdf_url !== "#" ? (
+              {magazine.pdf_url && magazine.pdf_url !== "#" ? (
                 <motion.a
-                  href={display.pdf_url}
+                  href={magazine.pdf_url}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="px-6 py-3 rounded-xl bg-gradient-to-r from-[#2563eb] to-[#1d4ed8] text-white text-sm font-semibold shadow-[0_0_25px_rgba(37,99,235,0.4)] hover:shadow-[0_0_40px_rgba(37,99,235,0.6)] transition-all duration-300"
