@@ -11,7 +11,7 @@ interface ClubEvent {
   event_date: string;
   description: string;
   location: string;
-  poster: string;
+  poster_url: string;
 }
 
 export default function EventsPage() {
@@ -38,6 +38,7 @@ export default function EventsPage() {
           .lt("event_date", now)
           .order("event_date", { ascending: false });
 
+        console.log("events", upcomingData, pastData);
         if (upcomingData) setUpcoming(upcomingData);
         if (pastData) setPast(pastData);
       } catch {
@@ -59,9 +60,9 @@ export default function EventsPage() {
         className="group rounded-2xl overflow-hidden border border-white/10 bg-[#07091a]/80 backdrop-blur-sm hover:border-[#2563eb]/40 transition-all"
       >
         <div className="relative overflow-hidden" style={{ aspectRatio: "16/9" }}>
-          {event.poster ? (
+          {event.poster_url ? (
             <img
-              src={event.poster}
+              src={event.poster_url}
               alt={event.title}
               className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
             />

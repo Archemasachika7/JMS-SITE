@@ -10,7 +10,7 @@ interface GalleryItem {
   id: string;
   image_url: string;
   caption: string;
-  uploaded_at: string;
+  created_at: string;
 }
 
 export default function GalleryPage() {
@@ -23,7 +23,8 @@ export default function GalleryPage() {
         const { data } = await supabase
           .from("gallery")
           .select("*")
-          .order("uploaded_at", { ascending: false });
+          .order("created_at", { ascending: false });
+        console.log("gallery", data);
         if (data) setItems(data);
       } catch {
         // Supabase fetch failed silently
@@ -133,7 +134,7 @@ export default function GalleryPage() {
                     className="text-gray-500 text-xs mt-1"
                     style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
                   >
-                    {new Date(item.uploaded_at).toLocaleDateString("en-IN", {
+                    {new Date(item.created_at).toLocaleDateString("en-IN", {
                       year: "numeric",
                       month: "short",
                       day: "numeric",

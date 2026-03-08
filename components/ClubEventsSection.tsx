@@ -10,7 +10,7 @@ interface ClubEvent {
   event_date: string;
   description: string;
   location: string;
-  poster: string;
+  poster_url: string;
 }
 
 function getCountdown(targetDate: string) {
@@ -39,6 +39,7 @@ export default function ClubEventsSection() {
           .order("event_date", { ascending: true })
           .limit(1)
           .single();
+        console.log("events", data);
         if (data) setNextEvent(data);
       } catch {
         // Supabase fetch failed silently

@@ -9,7 +9,8 @@ interface POTWItem {
   image_url: string;
   title: string;
   photographer: string;
-  date: string;
+  description: string;
+  week_date: string;
 }
 
 export default function DashboardPOTWPreview() {
@@ -21,9 +22,10 @@ export default function DashboardPOTWPreview() {
       try {
         const { data } = await supabase
           .from("potw")
-          .select("id, image_url, title, photographer, date")
-          .order("date", { ascending: false })
+          .select("id, image_url, title, photographer, description, week_date")
+          .order("week_date", { ascending: false })
           .limit(3);
+        console.log("potw", data);
         if (data) setItems(data);
       } catch {
         // Supabase fetch failed silently
@@ -158,7 +160,7 @@ export default function DashboardPOTWPreview() {
                   className="text-gray-500 text-xs mt-1"
                   style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
                 >
-                  {new Date(item.date).toLocaleDateString("en-IN", {
+                  {new Date(item.week_date).toLocaleDateString("en-IN", {
                     year: "numeric",
                     month: "short",
                     day: "numeric",
