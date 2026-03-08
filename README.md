@@ -45,7 +45,7 @@
 | Feature | Description |
 |---|---|
 | **Immersive Landing Page** | Procedurally generated WebGL starfield background, animated hero with club logo, profile greeting, and section previews |
-| **Live Astronomy Widgets** | Real-time **ISS Tracker** (5 s refresh via [wheretheiss.at](https://wheretheiss.at)), **Moon Phase Calculator** (synodic cycle math — no API), and **Astronomical Event Calendar** |
+| **Live Astronomy Widgets** | Real-time **ISS Tracker** (5-second refresh via [wheretheiss.at](https://wheretheiss.at)), **Moon Phase Calculator** (synodic cycle math — no API), and **Astronomical Event Calendar** |
 | **Photo of the Week (POTW)** | Curated astrophotography showcase with photographer credits, pulled from Supabase |
 | **NASA APOD Integration** | Dedicated `/nasa-apod` page consuming NASA's Astronomy Picture of the Day API |
 | **Club Events** | Upcoming observation nights, workshops, and lectures with countdown timers and poster images |
@@ -235,7 +235,7 @@ astrosci-website/
 │   ├── AstronomyCalendar.tsx         # Full astronomical event calendar
 │   ├── AstronomicalCalendarWidget.tsx # Calendar widget (timeline format)
 │   ├── MoonPhaseWidget.tsx           # Real-time moon phase (synodic cycle math)
-│   ├── ISSTrackerWidget.tsx          # Live ISS position tracker (5 s refresh)
+│   ├── ISSTrackerWidget.tsx          # Live ISS position tracker (5-second refresh)
 │   │
 │   │  # ── 3D / Visual ──
 │   ├── SolarSystem3D.tsx             # Interactive Three.js solar system
