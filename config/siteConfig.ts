@@ -13,10 +13,10 @@ export const siteConfig = {
   email: "astrosciclubjadavpur@gmail.com",
 
   social: {
-    instagram: "",
+    instagram: "https://www.instagram.com/astrosciclubju?igsh=ZmwwZWJ2bmhmdGhl",
     twitter: "",
     youtube: "",
-    linkedin: "",
+    linkedin: "https://www.linkedin.com/company/astrosciclub-jadavpur-university/posts/?feedView=all",
     github: "",
   },
 
