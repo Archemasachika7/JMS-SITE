@@ -85,10 +85,10 @@ export default function ClubEventsSection() {
               CLUB EVENTS
             </h2>
           </div>
-          <div className="flex gap-3">
+          <div className="flex flex-col sm:flex-row gap-3">
             <Link href="/events">
               <motion.span
-                className="text-sm text-[#38bdf8] border border-[#38bdf8]/30 px-5 py-2 rounded-full hover:bg-[#38bdf8]/10 transition-all cursor-pointer"
+                className="text-xs sm:text-sm text-[#38bdf8] border border-[#38bdf8]/30 px-4 sm:px-5 py-2 rounded-full hover:bg-[#38bdf8]/10 transition-all cursor-pointer whitespace-nowrap"
                 style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
                 whileHover={{ scale: 1.05 }}
               >
@@ -97,7 +97,7 @@ export default function ClubEventsSection() {
             </Link>
             <Link href="/events">
               <motion.span
-                className="text-sm text-gray-400 border border-white/10 px-5 py-2 rounded-full hover:bg-white/5 transition-all cursor-pointer hidden md:inline-block"
+                className="text-xs sm:text-sm text-gray-400 border border-white/10 px-4 sm:px-5 py-2 rounded-full hover:bg-white/5 transition-all cursor-pointer hidden md:inline-block whitespace-nowrap"
                 style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
                 whileHover={{ scale: 1.05 }}
               >

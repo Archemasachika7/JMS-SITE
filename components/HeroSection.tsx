@@ -34,13 +34,6 @@ export default function HeroSection() {
         }}
       />
 
-      {/* Orbiting rings */}
-      <div className="absolute top-1/2 left-1/4 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] pointer-events-none hidden lg:block">
-        <div className="w-full h-full rounded-full border border-[#2563eb]/10" style={{ animation: "spin 40s linear infinite" }} />
-        <div className="absolute inset-[60px] rounded-full border border-[#38bdf8]/8" style={{ animation: "spin 25s linear infinite reverse" }} />
-        <div className="absolute inset-[140px] rounded-full border border-[#2563eb]/6" style={{ animation: "spin 18s linear infinite" }} />
-      </div>
-
       {/* Content - Left/Right Split */}
       <div className="relative z-10 w-full max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-8 items-center pt-24 lg:pt-0">
         {/* Left side: Text content */}
@@ -89,7 +82,7 @@ export default function HeroSection() {
           >
             <motion.a
               href="#events"
-              className="group relative px-8 py-4 rounded-full bg-gradient-to-r from-[#2563eb] to-[#1d4ed8] text-white font-semibold text-sm tracking-wider overflow-hidden shadow-[0_0_30px_rgba(37,99,235,0.4)] hover:shadow-[0_0_50px_rgba(37,99,235,0.7)] transition-all duration-300"
+              className="group relative px-6 sm:px-8 py-3 sm:py-4 rounded-full bg-gradient-to-r from-[#2563eb] to-[#1d4ed8] text-white font-semibold text-xs sm:text-sm tracking-wider overflow-hidden shadow-[0_0_30px_rgba(37,99,235,0.4)] hover:shadow-[0_0_50px_rgba(37,99,235,0.7)] transition-all duration-300 whitespace-nowrap"
               style={{ fontFamily: "'Space Grotesk', 'Inter', sans-serif" }}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.97 }}
@@ -100,7 +93,7 @@ export default function HeroSection() {
 
             <motion.a
               href="#join"
-              className="px-8 py-4 rounded-full border border-[#38bdf8]/40 text-[#38bdf8] font-semibold text-sm tracking-wider hover:bg-[#38bdf8]/10 hover:border-[#38bdf8] hover:shadow-[0_0_30px_rgba(56,189,248,0.3)] transition-all duration-300"
+              className="px-6 sm:px-8 py-3 sm:py-4 rounded-full border border-[#38bdf8]/40 text-[#38bdf8] font-semibold text-xs sm:text-sm tracking-wider hover:bg-[#38bdf8]/10 hover:border-[#38bdf8] hover:shadow-[0_0_30px_rgba(56,189,248,0.3)] transition-all duration-300 whitespace-nowrap"
               style={{ fontFamily: "'Space Grotesk', 'Inter', sans-serif" }}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.97 }}
@@ -161,7 +154,6 @@ export default function HeroSection() {
       </motion.div>
 
       <style>{`
-        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
         @keyframes float {
           0%, 100% { transform: translateY(0px); }
           50% { transform: translateY(-10px); }
