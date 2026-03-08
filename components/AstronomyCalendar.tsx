@@ -30,26 +30,58 @@ export default function AstronomyCalendar() {
 
   useEffect(() => {
     async function fetchEvents() {
+      let fetched = false;
+
+      // Try fetching from the astronomy-events API first
       try {
-        const now = new Date();
-        const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1).toISOString();
-        const endOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0).toISOString();
-
-        const { data } = await supabase
-          .from("astronomy_events")
-          .select("*")
-          .gte("event_date", startOfMonth)
-          .lte("event_date", endOfMonth)
-          .order("event_date", { ascending: true });
-
-        if (data && data.length > 0) {
-          setEvents(data);
-          const upcoming = data.find((e) => new Date(e.event_date) > now);
-          if (upcoming) setNearestEvent(upcoming);
+        const res = await fetch("/api/astronomy-events");
+        if (res.ok) {
+          const json = await res.json();
+          if (json.events && json.events.length > 0) {
+            // Filter to events this month
+            const now = new Date();
+            const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+            const endOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0);
+            const monthEvents = json.events.filter((e: AstronomyEvent) => {
+              const d = new Date(e.event_date);
+              return d >= startOfMonth && d <= endOfMonth;
+            });
+            if (monthEvents.length > 0) {
+              setEvents(monthEvents);
+              const upcoming = monthEvents.find((e: AstronomyEvent) => new Date(e.event_date) > now);
+              if (upcoming) setNearestEvent(upcoming);
+              fetched = true;
+            }
+          }
         }
       } catch {
-        // Supabase fetch failed silently
+        // API fetch failed, will try Supabase
       }
+
+      // Fallback to Supabase if API returned no events for this month
+      if (!fetched) {
+        try {
+          const now = new Date();
+          const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1).toISOString();
+          const endOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0).toISOString();
+
+          const { data } = await supabase
+            .from("astronomy_events")
+            .select("*")
+            .gte("event_date", startOfMonth)
+            .lte("event_date", endOfMonth)
+            .order("event_date", { ascending: true });
+
+          if (data && data.length > 0) {
+            setEvents(data);
+            const upcoming = data.find((e) => new Date(e.event_date) > now);
+            if (upcoming) setNearestEvent(upcoming);
+          }
+        } catch {
+          // Supabase fetch failed silently
+        }
+      }
+
       setLoading(false);
     }
     fetchEvents();
