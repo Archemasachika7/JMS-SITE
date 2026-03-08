@@ -33,19 +33,7 @@ export default function DashboardPOTWPreview() {
     fetchPOTW();
   }, []);
 
-  const placeholders: POTWItem[] = [
-    { id: "1", image_url: "", title: "The Carina Nebula", photographer: "Anika Mukherjee", date: "2025-03-01" },
-    { id: "2", image_url: "", title: "Horsehead Nebula", photographer: "Priya Sen", date: "2025-02-22" },
-    { id: "3", image_url: "", title: "Pillars of Creation", photographer: "Ravi Chatterjee", date: "2025-02-15" },
-  ];
-
-  const gradients = [
-    "radial-gradient(ellipse at 40% 50%, #1e3a5f 0%, #0c1e3d 40%, #020617 100%)",
-    "radial-gradient(ellipse at 60% 40%, #1e3a5f 0%, #0c1929 50%, #020617 100%)",
-    "radial-gradient(ellipse at 50% 60%, #3b1a09 0%, #1a0a04 50%, #020617 100%)",
-  ];
-
-  const displayItems = items.length > 0 ? items : placeholders;
+  const defaultGradient = "radial-gradient(ellipse at 50% 50%, #1e3a5f 0%, #020617 100%)";
 
   return (
     <section className="py-16 px-6 relative overflow-hidden">
@@ -98,9 +86,18 @@ export default function DashboardPOTWPreview() {
               </div>
             ))}
           </div>
+        ) : items.length === 0 ? (
+          <div className="rounded-xl border border-white/10 bg-[#07091a]/60 py-16 text-center">
+            <p
+              className="text-gray-500 text-sm"
+              style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
+            >
+              No featured photos yet — check back soon!
+            </p>
+          </div>
         ) : (
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-          {displayItems.map((item, i) => (
+          {items.map((item, i) => (
             <motion.div
               key={item.id}
               initial={{ opacity: 0, y: 30 }}
@@ -118,7 +115,7 @@ export default function DashboardPOTWPreview() {
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                   />
                 ) : (
-                  <div className="w-full h-full" style={{ background: gradients[i] || gradients[0] }}>
+                  <div className="w-full h-full" style={{ background: defaultGradient }}>
                     {[...Array(30)].map((_, j) => (
                       <div
                         key={j}
