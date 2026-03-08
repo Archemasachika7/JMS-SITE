@@ -21,8 +21,8 @@ export const siteConfig = {
   },
 
   assets: {
-    logo: "https://rwjfnuszkhoznfrjzqfr.supabase.co/storage/v1/object/public/logos/unnamed.jpg",
-    favicon: "https://rwjfnuszkhoznfrjzqfr.supabase.co/storage/v1/object/public/logos/unnamed.jpg",
+    logo: "https://rwjfnuszkhoznfrjzqfr.supabase.co/storage/v1/object/public/logos/unnamed-removebg-preview.png",
+    favicon: "https://rwjfnuszkhoznfrjzqfr.supabase.co/storage/v1/object/public/logos/unnamed-removebg-preview.png",
     banner: "/assets/club-banner.png",
   },
 };
