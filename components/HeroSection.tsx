@@ -3,11 +3,11 @@ import dynamic from "next/dynamic";
 import { motion } from "framer-motion";
 import { siteConfig } from "@/config/siteConfig";
 
-const Planet3D = dynamic(() => import("@/components/Planet3D"), {
+const SolarSystem3D = dynamic(() => import("@/components/SolarSystem3D"), {
   ssr: false,
   loading: () => (
     <div className="w-full h-full flex items-center justify-center">
-      <div className="w-32 h-32 rounded-full bg-gradient-to-br from-[#2563eb]/30 to-[#0c1e3d] animate-pulse" />
+      <div className="w-32 h-32 rounded-full bg-gradient-to-br from-[#f59e0b]/30 to-[#0c1e3d] animate-pulse" />
     </div>
   ),
 });
@@ -145,7 +145,7 @@ export default function HeroSection() {
               />
             ))}
           </div>
-          <Planet3D />
+          <SolarSystem3D />
         </motion.div>
       </div>
 
