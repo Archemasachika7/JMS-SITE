@@ -61,7 +61,11 @@ export default function EventsPage() {
         whileHover={{ y: -4 }}
         className="group rounded-2xl overflow-hidden border border-white/10 bg-[#07091a]/80 backdrop-blur-sm hover:border-[#2563eb]/40 transition-all"
       >
-        <div className="relative overflow-hidden cursor-pointer" style={{ aspectRatio: "16/9" }} onClick={() => event.poster_url && setFullscreenEvent(event)}>
+        <div
+          className="relative overflow-hidden cursor-pointer"
+          style={{ aspectRatio: "16/9" }}
+          onClick={() => event.poster_url && setFullscreenEvent(event)}
+        >
           {event.poster_url ? (
             <img
               src={event.poster_url}

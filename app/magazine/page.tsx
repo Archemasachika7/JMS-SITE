@@ -103,7 +103,11 @@ export default function MagazinePage() {
                 whileHover={{ y: -6 }}
                 className="group rounded-2xl overflow-hidden border border-[#2563eb]/20 bg-[#07091a]/80 backdrop-blur-sm hover:border-[#2563eb]/50 transition-all"
               >
-                <div className="relative overflow-hidden cursor-pointer" style={{ aspectRatio: "3/4" }} onClick={() => item.cover_image && setFullscreenMagazine(item)}>
+                <div
+                  className="relative overflow-hidden cursor-pointer"
+                  style={{ aspectRatio: "3/4" }}
+                  onClick={() => item.cover_image && setFullscreenMagazine(item)}
+                >
                   {item.cover_image ? (
                     <img
                       src={item.cover_image}

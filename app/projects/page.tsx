@@ -107,7 +107,11 @@ export default function ProjectsPage() {
                 className="group rounded-2xl overflow-hidden border border-white/10 bg-[#07091a]/80 backdrop-blur-sm hover:border-[#2563eb]/40 transition-all"
               >
                 {/* Thumbnail */}
-                <div className="relative overflow-hidden cursor-pointer" style={{ aspectRatio: "16/9" }} onClick={() => project.thumbnail_url && setFullscreenProject(project)}>
+                <div
+                  className="relative overflow-hidden cursor-pointer"
+                  style={{ aspectRatio: "16/9" }}
+                  onClick={() => project.thumbnail_url && setFullscreenProject(project)}
+                >
                   {project.thumbnail_url ? (
                     <img
                       src={project.thumbnail_url}
