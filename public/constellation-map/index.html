@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AstroSci — Constellation Map</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: #020617;
+      overflow: hidden;
+      font-family: 'Segoe UI', Arial, sans-serif;
+    }
+
+    canvas {
+      display: block;
+    }
+
+    /* ── Tooltip ───────────────────────────────────── */
+    #tooltip {
+      position: fixed;
+      pointer-events: none;
+      padding: 8px 14px;
+      border-radius: 8px;
+      background: rgba(7, 9, 26, 0.88);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(6px);
+      color: #e2e8f0;
+      font-size: 13px;
+      line-height: 1.45;
+      opacity: 0;
+      transition: opacity 0.15s ease;
+      z-index: 100;
+      white-space: nowrap;
+    }
+    #tooltip .tip-name {
+      font-weight: 700;
+      margin-bottom: 2px;
+    }
+    #tooltip .tip-tier {
+      font-size: 11px;
+      color: #94a3b8;
+    }
+
+    /* ── Legend ────────────────────────────────────── */
+    #legend {
+      position: fixed;
+      top: 16px;
+      right: 16px;
+      padding: 14px 18px;
+      border-radius: 12px;
+      background: rgba(7, 9, 26, 0.82);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(8px);
+      color: #cbd5e1;
+      font-size: 12px;
+      z-index: 50;
+    }
+    #legend h3 {
+      font-size: 10px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: #64748b;
+      margin-bottom: 10px;
+    }
+    .legend-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+    .legend-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="sky"></canvas>
+
+  <div id="tooltip">
+    <div class="tip-name"></div>
+    <div class="tip-tier"></div>
+  </div>
+
+  <div id="legend">
+    <h3>Star Legend</h3>
+    <div class="legend-row"><span class="legend-dot" style="background:#ADD8E6;box-shadow:0 0 6px #ADD8E680"></span> Free Member</div>
+    <div class="legend-row"><span class="legend-dot" style="background:#FFD700;box-shadow:0 0 6px #FFD70080"></span> Monthly Subscriber</div>
+    <div class="legend-row"><span class="legend-dot" style="background:#FF8C00;box-shadow:0 0 6px #FF8C0080"></span> Annual Subscriber</div>
+    <div class="legend-row"><span class="legend-dot" style="background:#FF00FF;box-shadow:0 0 6px #FF00FF80"></span> Core Team</div>
+  </div>
+
+  <script>
+    /* =============================================================
+       AstroSci 2D Constellation Map
+       Lightweight Canvas visualisation — vanilla JS, no libraries
+       ============================================================= */
+
+    // ── Tier colour palette ─────────────────────────
+    const tierColors = {
+      free:    "#ADD8E6",
+      monthly: "#FFD700",
+      annual:  "#FF8C00",
+      core:    "#FF00FF"
+    };
+
+    const tierLabels = {
+      free:    "Free Member",
+      monthly: "Monthly Subscriber",
+      annual:  "Annual Subscriber",
+      core:    "Core Team Member"
+    };
+
+    // ── Resolve tier from role / plan ───────────────
+    function resolveTier(role, plan) {
+      var r = (role || "").toLowerCase();
+      var p = (plan || "").toLowerCase();
+      if (r === "admin" || r === "core") return "core";
+      if (p === "annual") return "annual";
+      if (p === "monthly") return "monthly";
+      return "free";
+    }
+
+    // ── Development data ────────────────────────────
+    // In production, replace with Supabase fetch:
+    //   const { data: users } = await supabase
+    //     .from("profiles")
+    //     .select("id, name, plan, role");
+    //   users = users.map(u => ({
+    //     id: u.id,
+    //     name: u.name,
+    //     tier: resolveTier(u.role, u.plan)
+    //   }));
+    var users = [
+      { id: 1,  name: "Alice",    tier: "core" },
+      { id: 2,  name: "Bob",      tier: "annual" },
+      { id: 3,  name: "Charlie",  tier: "monthly" },
+      { id: 4,  name: "Dave",     tier: "free" },
+      { id: 5,  name: "Eve",      tier: "core" },
+      { id: 6,  name: "Frank",    tier: "annual" },
+      { id: 7,  name: "Grace",    tier: "monthly" },
+      { id: 8,  name: "Heidi",    tier: "free" },
+      { id: 9,  name: "Ivan",     tier: "annual" },
+      { id: 10, name: "Judy",     tier: "monthly" },
+      { id: 11, name: "Karl",     tier: "free" },
+      { id: 12, name: "Liam",     tier: "core" },
+      { id: 13, name: "Mia",      tier: "annual" },
+      { id: 14, name: "Noah",     tier: "monthly" },
+      { id: 15, name: "Olivia",   tier: "free" },
+      { id: 16, name: "Paul",     tier: "annual" },
+      { id: 17, name: "Quinn",    tier: "core" },
+      { id: 18, name: "Rita",     tier: "monthly" },
+      { id: 19, name: "Sam",      tier: "free" },
+      { id: 20, name: "Tina",     tier: "annual" },
+      { id: 21, name: "Uma",      tier: "monthly" },
+      { id: 22, name: "Vince",    tier: "free" },
+      { id: 23, name: "Wendy",    tier: "core" },
+      { id: 24, name: "Xander",   tier: "annual" },
+      { id: 25, name: "Yara",     tier: "free" },
+      { id: 26, name: "Zara",     tier: "monthly" },
+      { id: 27, name: "Aaron",    tier: "free" },
+      { id: 28, name: "Bella",    tier: "annual" },
+      { id: 29, name: "Caleb",    tier: "monthly" },
+      { id: 30, name: "Diana",    tier: "free" }
+    ];
+
+    // ── Canvas setup ────────────────────────────────
+    var canvas  = document.getElementById("sky");
+    var ctx     = canvas.getContext("2d");
+    var tooltip = document.getElementById("tooltip");
+    var tipName = tooltip.querySelector(".tip-name");
+    var tipTier = tooltip.querySelector(".tip-tier");
+
+    var W, H;                 // current canvas dimensions
+    var bgStars      = [];    // faint background dots
+    var memberStars  = [];    // user stars with positions
+    var constellations = [];  // groups of member‑star indices
+    var allEdges     = [];    // pre‑computed constellation edges
+    var mouseX = -1000;
+    var mouseY = -1000;
+    var hoveredStar = null;
+
+    var BG_STAR_COUNT = 400;
+    var MIN_SPACING   = 40;   // minimum gap between member stars
+    var CLUSTER_MIN   = 5;
+    var CLUSTER_MAX   = 10;
+
+    // ── Helpers ─────────────────────────────────────
+    function rand(min, max) { return Math.random() * (max - min) + min; }
+
+    function dist(a, b) {
+      var dx = a.x - b.x;
+      var dy = a.y - b.y;
+      return Math.sqrt(dx * dx + dy * dy);
+    }
+
+    // ── Generate background stars ───────────────────
+    function makeBgStars() {
+      bgStars = [];
+      for (var i = 0; i < BG_STAR_COUNT; i++) {
+        bgStars.push({
+          x: Math.random() * W,
+          y: Math.random() * H,
+          r: rand(0.4, 1.4),
+          baseAlpha: rand(0.15, 0.55),
+          phase: rand(0, Math.PI * 2),
+          speed: rand(0.3, 1.2)
+        });
+      }
+    }
+
+    // ── Place member stars with spacing ─────────────
+    function placeMemberStars() {
+      memberStars = [];
+      var pad = 60; // padding from edges
+      for (var i = 0; i < users.length; i++) {
+        var placed = false;
+        for (var attempt = 0; attempt < 200; attempt++) {
+          var sx = rand(pad, W - pad);
+          var sy = rand(pad, H - pad);
+          var tooClose = false;
+          for (var j = 0; j < memberStars.length; j++) {
+            if (dist({ x: sx, y: sy }, memberStars[j]) < MIN_SPACING) {
+              tooClose = true;
+              break;
+            }
+          }
+          if (!tooClose) {
+            memberStars.push({
+              x: sx,
+              y: sy,
+              user: users[i],
+              baseRadius: rand(3, 5),
+              phase: rand(0, Math.PI * 2),
+              speed: rand(0.4, 1.0)
+            });
+            placed = true;
+            break;
+          }
+        }
+        // fallback — place anyway
+        if (!placed) {
+          memberStars.push({
+            x: rand(pad, W - pad),
+            y: rand(pad, H - pad),
+            user: users[i],
+            baseRadius: rand(3, 5),
+            phase: rand(0, Math.PI * 2),
+            speed: rand(0.4, 1.0)
+          });
+        }
+      }
+    }
+
+    // ── Build constellation clusters ────────────────
+    function buildConstellations() {
+      constellations = [];
+      var indices = [];
+      for (var i = 0; i < memberStars.length; i++) indices.push(i);
+
+      // Shuffle
+      for (var i = indices.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var tmp = indices[i];
+        indices[i] = indices[j];
+        indices[j] = tmp;
+      }
+
+      var pos = 0;
+      while (pos < indices.length) {
+        var remaining = indices.length - pos;
+        var size;
+        if (remaining <= CLUSTER_MAX) {
+          size = remaining;
+        } else if (remaining < CLUSTER_MIN + CLUSTER_MIN) {
+          // Not enough for two valid groups — take all
+          size = remaining;
+        } else {
+          size = Math.floor(rand(CLUSTER_MIN, CLUSTER_MAX + 1));
+          // Ensure the leftover is also at least CLUSTER_MIN
+          if (remaining - size < CLUSTER_MIN) {
+            size = remaining - CLUSTER_MIN;
+          }
+        }
+        var group = indices.slice(pos, pos + size);
+        constellations.push(group);
+        pos += size;
+      }
+    }
+
+    // ── Build edges within each constellation ───────
+    // Use a minimum spanning tree + a few extra edges for a
+    // constellation-like look.
+    function constellationEdges(group) {
+      if (group.length < 2) return [];
+
+      // Prim-style MST
+      var inTree = {};
+      inTree[group[0]] = true;
+      var edges = [];
+      while (Object.keys(inTree).length < group.length) {
+        var bestDist = Infinity;
+        var bestA = -1;
+        var bestB = -1;
+        for (var i = 0; i < group.length; i++) {
+          if (!inTree[group[i]]) continue;
+          for (var j = 0; j < group.length; j++) {
+            if (inTree[group[j]]) continue;
+            var d = dist(memberStars[group[i]], memberStars[group[j]]);
+            if (d < bestDist) {
+              bestDist = d;
+              bestA = group[i];
+              bestB = group[j];
+            }
+          }
+        }
+        if (bestA !== -1) {
+          edges.push([bestA, bestB]);
+          inTree[bestB] = true;
+        }
+      }
+
+      // Add a few extra random edges for variety (at most 2)
+      var extras = Math.min(2, Math.floor(group.length / 4));
+      for (var e = 0; e < extras; e++) {
+        var a = group[Math.floor(Math.random() * group.length)];
+        var b = group[Math.floor(Math.random() * group.length)];
+        if (a !== b) {
+          var dup = false;
+          for (var k = 0; k < edges.length; k++) {
+            if ((edges[k][0] === a && edges[k][1] === b) ||
+                (edges[k][0] === b && edges[k][1] === a)) {
+              dup = true;
+              break;
+            }
+          }
+          if (!dup) edges.push([a, b]);
+        }
+      }
+      return edges;
+    }
+
+    // ── Initialise / Resize ─────────────────────────
+    function init() {
+      W = canvas.width  = window.innerWidth;
+      H = canvas.height = window.innerHeight;
+      makeBgStars();
+      placeMemberStars();
+      buildConstellations();
+
+      // Pre‑compute all constellation edges once (avoid per‑frame work)
+      allEdges = [];
+      for (var c = 0; c < constellations.length; c++) {
+        var edges = constellationEdges(constellations[c]);
+        for (var e = 0; e < edges.length; e++) {
+          allEdges.push(edges[e]);
+        }
+      }
+    }
+    init();
+    window.addEventListener("resize", init);
+
+    // ── Mouse tracking ──────────────────────────────
+    canvas.addEventListener("mousemove", function (e) {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+    });
+    canvas.addEventListener("mouseleave", function () {
+      mouseX = -1000;
+      mouseY = -1000;
+    });
+
+    // ── Render loop ─────────────────────────────────
+    var HOVER_DIST = 24;  // px threshold for hover detection
+
+    function render(time) {
+      var t = time * 0.001; // seconds
+
+      // ── Clear + background gradient ───────────────
+      var grad = ctx.createLinearGradient(0, 0, 0, H);
+      grad.addColorStop(0, "#020617");
+      grad.addColorStop(0.5, "#0a0f2e");
+      grad.addColorStop(1, "#020617");
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, W, H);
+
+      // ── Background stars (twinkle) ────────────────
+      for (var i = 0; i < bgStars.length; i++) {
+        var s = bgStars[i];
+        var alpha = s.baseAlpha + 0.2 * Math.sin(t * s.speed + s.phase);
+        if (alpha < 0.05) alpha = 0.05;
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+        ctx.fillStyle = "rgba(255,255,255," + alpha.toFixed(3) + ")";
+        ctx.fill();
+      }
+
+      // ── Constellation lines ───────────────────────
+      ctx.lineWidth = 1;
+      ctx.strokeStyle = "rgba(255,255,255,0.2)";
+      for (var i = 0; i < allEdges.length; i++) {
+        var a = memberStars[allEdges[i][0]];
+        var b = memberStars[allEdges[i][1]];
+        ctx.beginPath();
+        ctx.moveTo(a.x, a.y);
+        ctx.lineTo(b.x, b.y);
+        ctx.stroke();
+      }
+
+      // ── Member stars ──────────────────────────────
+      hoveredStar = null;
+      for (var i = 0; i < memberStars.length; i++) {
+        var m  = memberStars[i];
+        var color = tierColors[m.user.tier] || tierColors.free;
+
+        // Twinkle
+        var pulse = 1 + 0.15 * Math.sin(t * m.speed * 2 + m.phase);
+        var r = m.baseRadius * pulse;
+
+        // Hover detection
+        var dx = mouseX - m.x;
+        var dy = mouseY - m.y;
+        var d  = Math.sqrt(dx * dx + dy * dy);
+        var isHovered = d < HOVER_DIST;
+        if (isHovered) {
+          hoveredStar = m;
+          r *= 1.5;
+        }
+
+        // Glow
+        ctx.save();
+        ctx.shadowColor = color;
+        ctx.shadowBlur  = isHovered ? 28 : 12;
+        ctx.beginPath();
+        ctx.arc(m.x, m.y, r, 0, Math.PI * 2);
+        ctx.fillStyle = color;
+        ctx.fill();
+        ctx.restore();
+      }
+
+      // ── Tooltip ───────────────────────────────────
+      if (hoveredStar) {
+        tipName.textContent = hoveredStar.user.name;
+        tipTier.textContent = tierLabels[hoveredStar.user.tier] || "Member";
+        tipTier.style.color = tierColors[hoveredStar.user.tier] || "#94a3b8";
+        tooltip.style.opacity = "1";
+
+        // Position tooltip, keep on screen
+        var tx = mouseX + 16;
+        var ty = mouseY - 10;
+        var tw = tooltip.offsetWidth;
+        var th = tooltip.offsetHeight;
+        if (tx + tw > W - 8) tx = mouseX - tw - 12;
+        if (ty + th > H - 8) ty = H - th - 8;
+        if (ty < 8) ty = 8;
+        tooltip.style.left = tx + "px";
+        tooltip.style.top  = ty + "px";
+      } else {
+        tooltip.style.opacity = "0";
+      }
+
+      requestAnimationFrame(render);
+    }
+
+    requestAnimationFrame(render);
+  </script>
+</body>
+</html>
