@@ -82,7 +82,7 @@ export default function HeroSection() {
           >
             <motion.a
               href="#events"
-              className="group relative px-6 sm:px-8 py-3 sm:py-4 rounded-full bg-gradient-to-r from-[#2563eb] to-[#1d4ed8] text-white font-semibold text-xs sm:text-sm tracking-wider overflow-hidden shadow-[0_0_30px_rgba(37,99,235,0.4)] hover:shadow-[0_0_50px_rgba(37,99,235,0.7)] transition-all duration-300 whitespace-nowrap"
+              className="group relative px-6 sm:px-8 py-4 rounded-full bg-gradient-to-r from-[#2563eb] to-[#1d4ed8] text-white font-semibold text-xs sm:text-sm tracking-wider overflow-hidden shadow-[0_0_30px_rgba(37,99,235,0.4)] hover:shadow-[0_0_50px_rgba(37,99,235,0.7)] transition-all duration-300 whitespace-nowrap"
               style={{ fontFamily: "'Space Grotesk', 'Inter', sans-serif" }}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.97 }}
@@ -93,7 +93,7 @@ export default function HeroSection() {
 
             <motion.a
               href="#join"
-              className="px-6 sm:px-8 py-3 sm:py-4 rounded-full border border-[#38bdf8]/40 text-[#38bdf8] font-semibold text-xs sm:text-sm tracking-wider hover:bg-[#38bdf8]/10 hover:border-[#38bdf8] hover:shadow-[0_0_30px_rgba(56,189,248,0.3)] transition-all duration-300 whitespace-nowrap"
+              className="px-6 sm:px-8 py-4 rounded-full border border-[#38bdf8]/40 text-[#38bdf8] font-semibold text-xs sm:text-sm tracking-wider hover:bg-[#38bdf8]/10 hover:border-[#38bdf8] hover:shadow-[0_0_30px_rgba(56,189,248,0.3)] transition-all duration-300 whitespace-nowrap"
               style={{ fontFamily: "'Space Grotesk', 'Inter', sans-serif" }}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.97 }}
