@@ -7,6 +7,7 @@ export function getPlanLabel(plan: string): string {
     case "annual":
       return "Annual Subscriber";
     case "admin":
+    case "core":
       return "Core Team";
     default:
       return "Free Member";
@@ -16,12 +17,26 @@ export function getPlanLabel(plan: string): string {
 export function getPlanColor(plan: string): string {
   switch (plan.toLowerCase()) {
     case "monthly":
-      return "#22d3ee";
+      return "#FFD700";
     case "annual":
-      return "#a855f6";
+      return "#FF8C00";
     case "admin":
-      return "#facc15";
+    case "core":
+      return "#FF00FF";
     default:
-      return "#ffffff";
+      return "#ADD8E6";
   }
+}
+
+/** Resolve a user's tier from their role and plan fields */
+export function resolveTier(
+  role: string | undefined | null,
+  plan: string | undefined | null
+): string {
+  const r = (role || "").toLowerCase();
+  const p = (plan || "").toLowerCase();
+  if (r === "admin" || r === "core") return "core";
+  if (p === "annual") return "annual";
+  if (p === "monthly") return "monthly";
+  return "free";
 }
