@@ -14,7 +14,7 @@ export default function AuthGuard({ children }: AuthGuardProps) {
 
   useEffect(() => {
     if (!isSupabaseConfigured()) {
-      // When Supabase is not configured allow access so local dev still works
+      // When Supabase is not configured, allow access so local dev still works
       setAuthenticated(true);
       setChecked(true);
       return;

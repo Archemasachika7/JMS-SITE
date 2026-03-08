@@ -54,7 +54,9 @@ create policy "Users can view own profile"
   on profiles for select
   using (auth.uid() = id);
 
--- Allow anyone to view admin profiles (for the public Team page)
+-- Allow anyone to view admin profiles (for the public Team page).
+-- The frontend query selects only safe fields: name, profile_image, designation, department.
+-- For additional protection, consider creating a database view that exposes only those columns.
 create policy "Anyone can view admin profiles"
   on profiles for select
   using (role = 'admin');
