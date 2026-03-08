@@ -8,19 +8,42 @@ const SPLINE_SCENE_URL =
 export default function SplineEarth() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [loaded, setLoaded] = useState(false);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     if (!canvasRef.current) return;
 
+    let disposed = false;
     const app = new Application(canvasRef.current);
-    app.load(SPLINE_SCENE_URL).then(() => {
-      setLoaded(true);
-    });
+
+    app
+      .load(SPLINE_SCENE_URL)
+      .then(() => {
+        if (!disposed) setLoaded(true);
+      })
+      .catch(() => {
+        if (!disposed) setError(true);
+      });
 
     return () => {
-      app.dispose();
+      disposed = true;
+      try {
+        app.dispose();
+      } catch {
+        // ignore dispose errors during unmount
+      }
     };
   }, []);
+
+  if (error) {
+    return (
+      <div className="w-full h-full flex items-center justify-center" style={{ minHeight: "300px" }}>
+        <div className="w-32 h-32 rounded-full bg-gradient-to-br from-[#2563eb]/20 to-[#0c1e3d] flex items-center justify-center">
+          <span className="text-3xl">🌍</span>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="w-full h-full relative" style={{ minHeight: "300px" }}>
