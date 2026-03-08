@@ -62,7 +62,9 @@ export default function ProfilePage() {
           }
 
           if (!data) {
-            console.warn("[profile] No profile row found after ensureProfile.");
+            // This can happen if the DB trigger and ensureProfile both failed
+            // to create the row (e.g. missing migration). Fall back to auth metadata.
+            console.warn("[profile] No profile row found. Falling back to auth metadata.");
             setUserName(user.user_metadata?.name || user.user_metadata?.full_name || "");
             return;
           }
