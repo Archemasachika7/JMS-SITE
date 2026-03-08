@@ -4,8 +4,8 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
 const placeholderProjects = [
-  { title: "Radio Telescope Array", description: "Building a small-scale radio telescope for hydrogen line detection.", color: "#22d3ee" },
-  { title: "Satellite Tracking System", description: "Developing software to track satellites and predict passes.", color: "#7c3aed" },
+  { title: "Radio Telescope Array", description: "Building a small-scale radio telescope for hydrogen line detection.", color: "#38bdf8" },
+  { title: "Satellite Tracking System", description: "Developing software to track satellites and predict passes.", color: "#2563eb" },
   { title: "Light Pollution Mapping", description: "Mapping light pollution levels across Kolkata using sensors.", color: "#f59e0b" },
   { title: "Spectroscopy Lab", description: "Analyzing stellar spectra using DIY spectrometers.", color: "#ef4444" },
 ];
@@ -23,20 +23,20 @@ export default function ProjectsPage() {
             className="text-center mb-12"
           >
             <p
-              className="text-xs tracking-[0.4em] text-[#22d3ee] mb-2 uppercase"
-              style={{ fontFamily: "'Space Mono', monospace" }}
+              className="text-xs tracking-[0.4em] text-[#38bdf8] mb-2 uppercase"
+              style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
             >
               — Innovation —
             </p>
             <h1
               className="text-3xl md:text-5xl font-bold text-white"
-              style={{ fontFamily: "'Orbitron', monospace" }}
+              style={{ fontFamily: "'Space Grotesk', 'Inter', sans-serif" }}
             >
               AstroSci Projects
             </h1>
             <p
               className="text-gray-500 text-sm mt-3"
-              style={{ fontFamily: "'Space Mono', monospace" }}
+              style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
             >
               Research and technical projects by our members
             </p>
@@ -62,20 +62,20 @@ export default function ProjectsPage() {
                 </div>
                 <h3
                   className="text-white font-bold text-lg mb-2"
-                  style={{ fontFamily: "'Orbitron', monospace" }}
+                  style={{ fontFamily: "'Space Grotesk', 'Inter', sans-serif" }}
                 >
                   {project.title}
                 </h3>
                 <p
                   className="text-gray-500 text-sm mb-4"
-                  style={{ fontFamily: "'Space Mono', monospace" }}
+                  style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
                 >
                   {project.description}
                 </p>
                 <span
                   className="text-xs px-3 py-1 rounded-full border"
                   style={{
-                    fontFamily: "'Space Mono', monospace",
+                    fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif",
                     color: project.color,
                     borderColor: `${project.color}40`,
                     background: `${project.color}10`,

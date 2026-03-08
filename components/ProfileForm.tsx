@@ -74,10 +74,10 @@ export default function ProfileForm({
   };
 
   const inputClass =
-    "w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white text-sm placeholder-gray-500 focus:outline-none focus:border-[#7c3aed]/60 focus:shadow-[0_0_15px_rgba(124,58,237,0.2)] transition-all duration-300";
+    "w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white text-sm placeholder-gray-500 focus:outline-none focus:border-[#2563eb]/60 focus:shadow-[0_0_15px_rgba(37,99,235,0.2)] transition-all duration-300";
   const labelClass =
     "block text-gray-400 text-xs mb-1.5 tracking-wider uppercase";
-  const fontMono = { fontFamily: "'Space Mono', monospace" };
+  const fontMono = { fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" };
 
   return (
     <div className="space-y-4">
@@ -197,8 +197,8 @@ export default function ProfileForm({
         <motion.button
           onClick={handleSave}
           disabled={saving}
-          className="flex-1 py-3 rounded-lg bg-gradient-to-r from-[#7c3aed] to-[#6d28d9] text-white font-semibold text-sm tracking-wider shadow-[0_0_20px_rgba(124,58,237,0.3)] hover:shadow-[0_0_35px_rgba(124,58,237,0.5)] disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300"
-          style={{ fontFamily: "'Orbitron', monospace" }}
+          className="flex-1 py-3 rounded-lg bg-gradient-to-r from-[#2563eb] to-[#1d4ed8] text-white font-semibold text-sm tracking-wider shadow-[0_0_20px_rgba(37,99,235,0.3)] hover:shadow-[0_0_35px_rgba(37,99,235,0.5)] disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300"
+          style={{ fontFamily: "'Space Grotesk', 'Inter', sans-serif" }}
           whileHover={saving ? {} : { scale: 1.02 }}
           whileTap={saving ? {} : { scale: 0.98 }}
         >

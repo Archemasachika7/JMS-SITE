@@ -1,5 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 const socialLinks = [
   {
@@ -48,31 +49,27 @@ const footerLinks = {
 
 export default function Footer() {
   return (
-    <footer className="relative bg-[#020617] border-t border-[#7c3aed]/20 overflow-hidden" id="join">
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[200px] bg-[#7c3aed]/5 rounded-full blur-[100px] pointer-events-none" />
+    <footer className="relative bg-[#020617] border-t border-[#2563eb]/20 overflow-hidden" id="join">
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[200px] bg-[#2563eb]/5 rounded-full blur-[100px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-6 pt-16 pb-8 relative z-10">
         <div className="grid md:grid-cols-5 gap-10 mb-12">
           {/* Brand */}
           <div className="md:col-span-2">
             <div className="flex items-center gap-3 mb-5">
-              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#7c3aed] to-[#22d3ee] flex items-center justify-center">
-                <svg viewBox="0 0 24 24" className="w-5 h-5 text-white fill-current">
-                  <path d="M12 2L9.5 8.5H3L8 12.5L6 19L12 15.5L18 19L16 12.5L21 8.5H14.5L12 2Z" />
-                </svg>
-              </div>
+              <Image src="/logo.svg" alt="AstroSci Logo" width={36} height={36} className="h-9 w-9" />
               <div>
-                <span className="font-bold text-lg text-white" style={{ fontFamily: "'Orbitron', monospace" }}>ASTROSCI CLUB</span>
-                <p className="text-gray-500 text-xs" style={{ fontFamily: "'Space Mono', monospace" }}>Jadavpur University</p>
+                <span className="font-bold text-lg text-white" style={{ fontFamily: "'Space Grotesk', 'Inter', sans-serif" }}>ASTROSCI CLUB</span>
+                <p className="text-gray-500 text-xs" style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}>Jadavpur University</p>
               </div>
             </div>
-            <p className="text-gray-500 text-sm leading-relaxed mb-6 max-w-xs" style={{ fontFamily: "'Space Mono', monospace" }}>
+            <p className="text-gray-500 text-sm leading-relaxed mb-6 max-w-xs" style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}>
               A student-led astronomy club dedicated to exploring the universe, fostering scientific curiosity, and building a community of stargazers.
             </p>
             <a
               href="mailto:astrosci@jadavpur.edu"
-              className="flex items-center gap-2 text-[#22d3ee] text-sm hover:text-white transition-colors"
-              style={{ fontFamily: "'Space Mono', monospace" }}
+              className="flex items-center gap-2 text-[#38bdf8] text-sm hover:text-white transition-colors"
+              style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
             >
               <svg viewBox="0 0 24 24" className="w-4 h-4 fill-current">
                 <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
@@ -84,7 +81,7 @@ export default function Footer() {
                 <motion.a
                   key={s.name}
                   href={s.href}
-                  className="w-9 h-9 rounded-full border border-white/10 flex items-center justify-center text-gray-500 hover:text-white hover:border-[#7c3aed]/60 hover:bg-[#7c3aed]/10 hover:shadow-[0_0_15px_rgba(124,58,237,0.3)] transition-all duration-300"
+                  className="w-9 h-9 rounded-full border border-white/10 flex items-center justify-center text-gray-500 hover:text-white hover:border-[#2563eb]/60 hover:bg-[#2563eb]/10 hover:shadow-[0_0_15px_rgba(37,99,235,0.3)] transition-all duration-300"
                   aria-label={s.name}
                   whileHover={{ scale: 1.15, y: -2 }}
                   whileTap={{ scale: 0.95 }}
@@ -98,13 +95,13 @@ export default function Footer() {
           {/* Links */}
           {Object.entries(footerLinks).map(([section, links]) => (
             <div key={section}>
-              <h4 className="text-white font-bold text-sm mb-4 tracking-widest uppercase" style={{ fontFamily: "'Orbitron', monospace" }}>
+              <h4 className="text-white font-bold text-sm mb-4 tracking-widest uppercase" style={{ fontFamily: "'Space Grotesk', 'Inter', sans-serif" }}>
                 {section}
               </h4>
               <ul className="space-y-2.5">
                 {links.map((link) => (
                   <li key={link}>
-                    <a href="#" className="text-gray-500 text-sm hover:text-[#22d3ee] transition-colors" style={{ fontFamily: "'Space Mono', monospace" }}>
+                    <a href="#" className="text-gray-500 text-sm hover:text-[#38bdf8] transition-colors" style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}>
                       {link}
                     </a>
                   </li>
@@ -115,12 +112,12 @@ export default function Footer() {
         </div>
 
         <div className="pt-6 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-gray-600 text-xs" style={{ fontFamily: "'Space Mono', monospace" }}>
+          <p className="text-gray-600 text-xs" style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}>
             © 2025 AstroSci Club, Jadavpur University. All rights reserved.
           </p>
           <div className="flex items-center gap-2">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#22d3ee] animate-pulse" />
-            <span className="text-gray-600 text-xs" style={{ fontFamily: "'Space Mono', monospace" }}>Made with ♥ and stardust at JU</span>
+            <span className="w-1.5 h-1.5 rounded-full bg-[#38bdf8] animate-pulse" />
+            <span className="text-gray-600 text-xs" style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}>Made with ♥ and stardust at JU</span>
           </div>
         </div>
       </div>

@@ -6,7 +6,7 @@ const Planet3D = dynamic(() => import("@/components/Planet3D"), {
   ssr: false,
   loading: () => (
     <div className="w-full h-full flex items-center justify-center">
-      <div className="w-32 h-32 rounded-full bg-gradient-to-br from-[#7c3aed]/30 to-[#1e1b4b] animate-pulse" />
+      <div className="w-32 h-32 rounded-full bg-gradient-to-br from-[#2563eb]/30 to-[#0c1e3d] animate-pulse" />
     </div>
   ),
 });
@@ -16,28 +16,28 @@ export default function HeroSection() {
     <section
       id="home"
       className="relative min-h-screen flex items-center overflow-hidden"
-      style={{ background: "radial-gradient(ellipse at 50% 60%, #0d0527 0%, #020617 60%)" }}
+      style={{ background: "radial-gradient(ellipse at 50% 60%, #0a1628 0%, #020617 60%)" }}
     >
       {/* Nebula glows */}
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[#7c3aed]/10 rounded-full blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-1/3 right-1/4 w-80 h-80 bg-[#22d3ee]/8 rounded-full blur-[100px] pointer-events-none" />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#7c3aed]/5 rounded-full blur-[160px] pointer-events-none" />
+      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[#2563eb]/10 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-1/3 right-1/4 w-80 h-80 bg-[#38bdf8]/8 rounded-full blur-[100px] pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#2563eb]/5 rounded-full blur-[160px] pointer-events-none" />
 
       {/* Grid overlay */}
       <div
         className="absolute inset-0 pointer-events-none opacity-[0.04]"
         style={{
           backgroundImage:
-            "linear-gradient(rgba(34,211,238,1) 1px, transparent 1px), linear-gradient(90deg, rgba(34,211,238,1) 1px, transparent 1px)",
+            "linear-gradient(rgba(56,189,248,1) 1px, transparent 1px), linear-gradient(90deg, rgba(56,189,248,1) 1px, transparent 1px)",
           backgroundSize: "80px 80px",
         }}
       />
 
       {/* Orbiting rings */}
       <div className="absolute top-1/2 left-1/4 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] pointer-events-none hidden lg:block">
-        <div className="w-full h-full rounded-full border border-[#7c3aed]/10" style={{ animation: "spin 40s linear infinite" }} />
-        <div className="absolute inset-[60px] rounded-full border border-[#22d3ee]/8" style={{ animation: "spin 25s linear infinite reverse" }} />
-        <div className="absolute inset-[140px] rounded-full border border-[#7c3aed]/6" style={{ animation: "spin 18s linear infinite" }} />
+        <div className="w-full h-full rounded-full border border-[#2563eb]/10" style={{ animation: "spin 40s linear infinite" }} />
+        <div className="absolute inset-[60px] rounded-full border border-[#38bdf8]/8" style={{ animation: "spin 25s linear infinite reverse" }} />
+        <div className="absolute inset-[140px] rounded-full border border-[#2563eb]/6" style={{ animation: "spin 18s linear infinite" }} />
       </div>
 
       {/* Content - Left/Right Split */}
@@ -50,11 +50,11 @@ export default function HeroSection() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="flex items-center justify-center lg:justify-start gap-3 mb-6"
           >
-            <span className="h-px w-12 bg-gradient-to-r from-transparent to-[#7c3aed]" />
-            <span className="text-xs tracking-[0.4em] text-[#22d3ee] uppercase" style={{ fontFamily: "'Space Mono', monospace" }}>
+            <span className="h-px w-12 bg-gradient-to-r from-transparent to-[#2563eb]" />
+            <span className="text-xs tracking-[0.4em] text-[#38bdf8] uppercase" style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}>
               Jadavpur University
             </span>
-            <span className="h-px w-12 bg-gradient-to-l from-transparent to-[#7c3aed]" />
+            <span className="h-px w-12 bg-gradient-to-l from-transparent to-[#2563eb]" />
           </motion.div>
 
           <motion.h1
@@ -62,10 +62,10 @@ export default function HeroSection() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, delay: 0.4 }}
             className="text-4xl md:text-6xl lg:text-7xl font-black leading-none mb-6 tracking-tight"
-            style={{ fontFamily: "'Orbitron', monospace" }}
+            style={{ fontFamily: "'Space Grotesk', 'Inter', sans-serif" }}
           >
             <span className="bg-gradient-to-b from-white via-white to-gray-400 bg-clip-text text-transparent">ASTRO</span>
-            <span className="bg-gradient-to-br from-[#7c3aed] to-[#22d3ee] bg-clip-text text-transparent">SCI</span>
+            <span className="bg-gradient-to-br from-[#2563eb] to-[#10b981] bg-clip-text text-transparent">SCI</span>
             <br />
             <span className="text-2xl md:text-3xl lg:text-4xl font-light text-gray-400 tracking-widest">CLUB</span>
           </motion.h1>
@@ -75,7 +75,7 @@ export default function HeroSection() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.7 }}
             className="text-gray-400 text-base md:text-lg max-w-xl mb-10 leading-relaxed mx-auto lg:mx-0"
-            style={{ fontFamily: "'Space Mono', monospace" }}
+            style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
           >
             A community exploring the universe through observation, research, and curiosity.
           </motion.p>
@@ -88,19 +88,19 @@ export default function HeroSection() {
           >
             <motion.a
               href="#events"
-              className="group relative px-8 py-4 rounded-full bg-gradient-to-r from-[#7c3aed] to-[#6d28d9] text-white font-semibold text-sm tracking-wider overflow-hidden shadow-[0_0_30px_rgba(124,58,237,0.4)] hover:shadow-[0_0_50px_rgba(124,58,237,0.7)] transition-all duration-300"
-              style={{ fontFamily: "'Orbitron', monospace" }}
+              className="group relative px-8 py-4 rounded-full bg-gradient-to-r from-[#2563eb] to-[#1d4ed8] text-white font-semibold text-sm tracking-wider overflow-hidden shadow-[0_0_30px_rgba(37,99,235,0.4)] hover:shadow-[0_0_50px_rgba(37,99,235,0.7)] transition-all duration-300"
+              style={{ fontFamily: "'Space Grotesk', 'Inter', sans-serif" }}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.97 }}
             >
               <span className="relative z-10">Explore Events</span>
-              <div className="absolute inset-0 bg-gradient-to-r from-[#7c3aed] to-[#22d3ee] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <div className="absolute inset-0 bg-gradient-to-r from-[#2563eb] to-[#10b981] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </motion.a>
 
             <motion.a
               href="#join"
-              className="px-8 py-4 rounded-full border border-[#22d3ee]/40 text-[#22d3ee] font-semibold text-sm tracking-wider hover:bg-[#22d3ee]/10 hover:border-[#22d3ee] hover:shadow-[0_0_30px_rgba(34,211,238,0.3)] transition-all duration-300"
-              style={{ fontFamily: "'Orbitron', monospace" }}
+              className="px-8 py-4 rounded-full border border-[#38bdf8]/40 text-[#38bdf8] font-semibold text-sm tracking-wider hover:bg-[#38bdf8]/10 hover:border-[#38bdf8] hover:shadow-[0_0_30px_rgba(56,189,248,0.3)] transition-all duration-300"
+              style={{ fontFamily: "'Space Grotesk', 'Inter', sans-serif" }}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.97 }}
             >
@@ -134,7 +134,7 @@ export default function HeroSection() {
             ].map((p, i) => (
               <div
                 key={i}
-                className="absolute w-1 h-1 rounded-full bg-[#a5f3fc]"
+                className="absolute w-1 h-1 rounded-full bg-[#93c5fd]"
                 style={{
                   top: `${p.top}%`,
                   left: `${p.left}%`,
@@ -155,7 +155,7 @@ export default function HeroSection() {
         transition={{ delay: 1.5 }}
         className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-10"
       >
-        <span className="text-xs text-gray-600 tracking-widest uppercase" style={{ fontFamily: "'Space Mono', monospace" }}>Scroll</span>
+        <span className="text-xs text-gray-600 tracking-widest uppercase" style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}>Scroll</span>
         <div className="w-px h-8 bg-gradient-to-b from-gray-600 to-transparent" style={{ animation: "pulse 2s ease-in-out infinite" }} />
       </motion.div>
 

@@ -17,7 +17,7 @@ export default function ProfileCard({
   department,
   phone,
 }: ProfileCardProps) {
-  const fontMono = { fontFamily: "'Space Mono', monospace" };
+  const fontMono = { fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" };
 
   const rows: { label: string; value: string; highlight?: boolean }[] = [
     { label: "Membership Plan", value: plan || "Free", highlight: true },
@@ -41,7 +41,7 @@ export default function ProfileCard({
           </span>
           {row.highlight ? (
             <span
-              className="text-[#22d3ee] text-sm px-3 py-1 rounded-full bg-[#22d3ee]/10 border border-[#22d3ee]/30"
+              className="text-[#38bdf8] text-sm px-3 py-1 rounded-full bg-[#38bdf8]/10 border border-[#38bdf8]/30"
               style={fontMono}
             >
               {row.value}

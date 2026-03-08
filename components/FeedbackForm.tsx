@@ -19,7 +19,7 @@ export default function FeedbackForm() {
 
   return (
     <section className="py-16 px-6 relative overflow-hidden">
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#22d3ee]/20 to-transparent" />
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#38bdf8]/20 to-transparent" />
 
       <div className="max-w-2xl mx-auto relative z-10">
         <motion.div
@@ -30,14 +30,14 @@ export default function FeedbackForm() {
           className="text-center mb-8"
         >
           <p
-            className="text-xs tracking-[0.4em] text-[#22d3ee] mb-2 uppercase"
-            style={{ fontFamily: "'Space Mono', monospace" }}
+            className="text-xs tracking-[0.4em] text-[#38bdf8] mb-2 uppercase"
+            style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
           >
             — We Value Your Input —
           </p>
           <h2
             className="text-2xl md:text-3xl font-bold text-white"
-            style={{ fontFamily: "'Orbitron', monospace" }}
+            style={{ fontFamily: "'Space Grotesk', 'Inter', sans-serif" }}
           >
             FEEDBACK
           </h2>
@@ -54,7 +54,7 @@ export default function FeedbackForm() {
           <div>
             <label
               className="text-gray-400 text-xs mb-1 block"
-              style={{ fontFamily: "'Space Mono', monospace" }}
+              style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
             >
               Name
             </label>
@@ -63,15 +63,15 @@ export default function FeedbackForm() {
               value={name}
               onChange={(e) => setName(e.target.value)}
               required
-              className="w-full px-4 py-3 rounded-xl bg-[#0a0d1a] border border-white/10 text-white text-sm focus:border-[#22d3ee]/50 focus:outline-none transition-colors"
-              style={{ fontFamily: "'Space Mono', monospace" }}
+              className="w-full px-4 py-3 rounded-xl bg-[#0a0d1a] border border-white/10 text-white text-sm focus:border-[#38bdf8]/50 focus:outline-none transition-colors"
+              style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
               placeholder="Your name"
             />
           </div>
           <div>
             <label
               className="text-gray-400 text-xs mb-1 block"
-              style={{ fontFamily: "'Space Mono', monospace" }}
+              style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
             >
               Email
             </label>
@@ -80,15 +80,15 @@ export default function FeedbackForm() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              className="w-full px-4 py-3 rounded-xl bg-[#0a0d1a] border border-white/10 text-white text-sm focus:border-[#22d3ee]/50 focus:outline-none transition-colors"
-              style={{ fontFamily: "'Space Mono', monospace" }}
+              className="w-full px-4 py-3 rounded-xl bg-[#0a0d1a] border border-white/10 text-white text-sm focus:border-[#38bdf8]/50 focus:outline-none transition-colors"
+              style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
               placeholder="your@email.com"
             />
           </div>
           <div>
             <label
               className="text-gray-400 text-xs mb-1 block"
-              style={{ fontFamily: "'Space Mono', monospace" }}
+              style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
             >
               Feedback
             </label>
@@ -97,8 +97,8 @@ export default function FeedbackForm() {
               onChange={(e) => setMessage(e.target.value)}
               required
               rows={4}
-              className="w-full px-4 py-3 rounded-xl bg-[#0a0d1a] border border-white/10 text-white text-sm focus:border-[#22d3ee]/50 focus:outline-none transition-colors resize-none"
-              style={{ fontFamily: "'Space Mono', monospace" }}
+              className="w-full px-4 py-3 rounded-xl bg-[#0a0d1a] border border-white/10 text-white text-sm focus:border-[#38bdf8]/50 focus:outline-none transition-colors resize-none"
+              style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
               placeholder="Share your thoughts..."
             />
           </div>
@@ -107,11 +107,11 @@ export default function FeedbackForm() {
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
-              className="text-center py-3 rounded-xl bg-[#22d3ee]/10 border border-[#22d3ee]/30"
+              className="text-center py-3 rounded-xl bg-[#38bdf8]/10 border border-[#38bdf8]/30"
             >
               <span
-                className="text-[#22d3ee] text-sm"
-                style={{ fontFamily: "'Space Mono', monospace" }}
+                className="text-[#38bdf8] text-sm"
+                style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
               >
                 ✓ Thank you for your feedback!
               </span>
@@ -119,8 +119,8 @@ export default function FeedbackForm() {
           ) : (
             <motion.button
               type="submit"
-              className="w-full py-3 rounded-xl bg-gradient-to-r from-[#22d3ee]/20 to-[#7c3aed]/20 border border-[#22d3ee]/40 text-[#22d3ee] text-sm font-medium hover:from-[#22d3ee]/30 hover:to-[#7c3aed]/30 hover:shadow-[0_0_30px_rgba(34,211,238,0.3)] transition-all duration-300"
-              style={{ fontFamily: "'Space Mono', monospace" }}
+              className="w-full py-3 rounded-xl bg-gradient-to-r from-[#38bdf8]/20 to-[#2563eb]/20 border border-[#38bdf8]/40 text-[#38bdf8] text-sm font-medium hover:from-[#38bdf8]/30 hover:to-[#2563eb]/30 hover:shadow-[0_0_30px_rgba(56,189,248,0.3)] transition-all duration-300"
+              style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >

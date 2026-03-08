@@ -5,15 +5,15 @@ function MoonWidget() {
   return (
     <motion.div
       whileHover={{ scale: 1.02, y: -4 }}
-      className="rounded-2xl border border-[#7c3aed]/20 bg-[#07091a]/80 p-6 hover:border-[#7c3aed]/50 hover:shadow-[0_0_40px_rgba(124,58,237,0.15)] transition-all duration-400 cursor-pointer"
+      className="rounded-2xl border border-[#2563eb]/20 bg-[#07091a]/80 p-6 hover:border-[#2563eb]/50 hover:shadow-[0_0_40px_rgba(37,99,235,0.15)] transition-all duration-400 cursor-pointer"
     >
       <div className="flex items-center gap-2 mb-5">
-        <div className="w-2 h-2 rounded-full bg-[#22d3ee] animate-pulse" />
-        <p className="text-xs text-gray-500 tracking-widest uppercase" style={{ fontFamily: "'Space Mono', monospace" }}>Live Data</p>
+        <div className="w-2 h-2 rounded-full bg-[#38bdf8] animate-pulse" />
+        <p className="text-xs text-gray-500 tracking-widest uppercase" style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}>Live Data</p>
       </div>
       <div className="flex flex-col items-center gap-4 mb-5">
         <div className="relative w-24 h-24">
-          <div className="absolute inset-0 rounded-full bg-[#7c3aed]/10 blur-xl" />
+          <div className="absolute inset-0 rounded-full bg-[#2563eb]/10 blur-xl" />
           <div
             className="relative w-24 h-24 rounded-full overflow-hidden"
             style={{ background: "radial-gradient(circle at 35% 35%, #d1d5db, #6b7280, #374151)" }}
@@ -28,21 +28,21 @@ function MoonWidget() {
           </div>
         </div>
         <div className="text-center">
-          <p className="text-white font-bold text-lg" style={{ fontFamily: "'Orbitron', monospace" }}>Waxing Gibbous</p>
-          <p className="text-[#22d3ee] text-sm mt-1" style={{ fontFamily: "'Space Mono', monospace" }}>78% Illuminated</p>
+          <p className="text-white font-bold text-lg" style={{ fontFamily: "'Space Grotesk', 'Inter', sans-serif" }}>Waxing Gibbous</p>
+          <p className="text-[#38bdf8] text-sm mt-1" style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}>78% Illuminated</p>
         </div>
       </div>
       <div className="grid grid-cols-2 gap-3 pt-4 border-t border-white/5">
         <div>
-          <p className="text-gray-600 text-xs mb-1" style={{ fontFamily: "'Space Mono', monospace" }}>Moonrise</p>
-          <p className="text-white text-sm font-medium" style={{ fontFamily: "'Space Mono', monospace" }}>14:32 IST</p>
+          <p className="text-gray-600 text-xs mb-1" style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}>Moonrise</p>
+          <p className="text-white text-sm font-medium" style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}>14:32 IST</p>
         </div>
         <div>
-          <p className="text-gray-600 text-xs mb-1" style={{ fontFamily: "'Space Mono', monospace" }}>Moonset</p>
-          <p className="text-white text-sm font-medium" style={{ fontFamily: "'Space Mono', monospace" }}>03:18 IST</p>
+          <p className="text-gray-600 text-xs mb-1" style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}>Moonset</p>
+          <p className="text-white text-sm font-medium" style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}>03:18 IST</p>
         </div>
       </div>
-      <h3 className="text-center text-lg font-bold text-white mt-4" style={{ fontFamily: "'Orbitron', monospace" }}>Moon Phase</h3>
+      <h3 className="text-center text-lg font-bold text-white mt-4" style={{ fontFamily: "'Space Grotesk', 'Inter', sans-serif" }}>Moon Phase</h3>
     </motion.div>
   );
 }
@@ -51,47 +51,47 @@ function ISSWidget() {
   return (
     <motion.div
       whileHover={{ scale: 1.02, y: -4 }}
-      className="rounded-2xl border border-[#22d3ee]/20 bg-[#07091a]/80 p-6 hover:border-[#22d3ee]/50 hover:shadow-[0_0_40px_rgba(34,211,238,0.15)] transition-all duration-400 cursor-pointer"
+      className="rounded-2xl border border-[#38bdf8]/20 bg-[#07091a]/80 p-6 hover:border-[#38bdf8]/50 hover:shadow-[0_0_40px_rgba(56,189,248,0.15)] transition-all duration-400 cursor-pointer"
     >
       <div className="flex items-center gap-2 mb-5">
-        <div className="w-2 h-2 rounded-full bg-[#22d3ee] animate-ping absolute" />
-        <div className="w-2 h-2 rounded-full bg-[#22d3ee]" />
-        <p className="text-xs text-gray-500 tracking-widest uppercase ml-3" style={{ fontFamily: "'Space Mono', monospace" }}>Tracking Active</p>
+        <div className="w-2 h-2 rounded-full bg-[#38bdf8] animate-ping absolute" />
+        <div className="w-2 h-2 rounded-full bg-[#38bdf8]" />
+        <p className="text-xs text-gray-500 tracking-widest uppercase ml-3" style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}>Tracking Active</p>
       </div>
       <div
-        className="w-full h-32 rounded-xl mb-4 relative overflow-hidden border border-[#22d3ee]/10"
+        className="w-full h-32 rounded-xl mb-4 relative overflow-hidden border border-[#38bdf8]/10"
         style={{ background: "radial-gradient(ellipse at 50% 50%, #051a2e 0%, #020617 100%)" }}
       >
         <div
           className="absolute inset-0 opacity-20"
           style={{
-            backgroundImage: "linear-gradient(rgba(34,211,238,0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(34,211,238,0.4) 1px, transparent 1px)",
+            backgroundImage: "linear-gradient(rgba(56,189,248,0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(56,189,248,0.4) 1px, transparent 1px)",
             backgroundSize: "24px 24px",
           }}
         />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-16 border border-[#22d3ee]/30 rounded-full" style={{ transform: "translate(-50%, -50%) rotate(-30deg)" }} />
-        <div className="absolute top-1/3 left-2/3 w-3 h-3 rounded-full bg-[#22d3ee] shadow-[0_0_10px_#22d3ee]" style={{ animation: "pulse 1.5s ease-in-out infinite" }} />
-        <div className="absolute bottom-2 left-3 text-[#22d3ee]/50 text-[9px]" style={{ fontFamily: "'Space Mono', monospace" }}>LIVE ORBIT TRACKER</div>
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-16 border border-[#38bdf8]/30 rounded-full" style={{ transform: "translate(-50%, -50%) rotate(-30deg)" }} />
+        <div className="absolute top-1/3 left-2/3 w-3 h-3 rounded-full bg-[#38bdf8] shadow-[0_0_10px_#38bdf8]" style={{ animation: "pulse 1.5s ease-in-out infinite" }} />
+        <div className="absolute bottom-2 left-3 text-[#38bdf8]/50 text-[9px]" style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}>LIVE ORBIT TRACKER</div>
       </div>
       <div className="grid grid-cols-2 gap-3 mb-4">
         <div>
-          <p className="text-gray-600 text-xs mb-1" style={{ fontFamily: "'Space Mono', monospace" }}>Altitude</p>
-          <p className="text-white text-sm font-medium" style={{ fontFamily: "'Space Mono', monospace" }}>408 km</p>
+          <p className="text-gray-600 text-xs mb-1" style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}>Altitude</p>
+          <p className="text-white text-sm font-medium" style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}>408 km</p>
         </div>
         <div>
-          <p className="text-gray-600 text-xs mb-1" style={{ fontFamily: "'Space Mono', monospace" }}>Speed</p>
-          <p className="text-white text-sm font-medium" style={{ fontFamily: "'Space Mono', monospace" }}>27,600 km/h</p>
+          <p className="text-gray-600 text-xs mb-1" style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}>Speed</p>
+          <p className="text-white text-sm font-medium" style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}>27,600 km/h</p>
         </div>
         <div>
-          <p className="text-gray-600 text-xs mb-1" style={{ fontFamily: "'Space Mono', monospace" }}>Over</p>
-          <p className="text-[#22d3ee] text-sm font-medium" style={{ fontFamily: "'Space Mono', monospace" }}>Indian Ocean</p>
+          <p className="text-gray-600 text-xs mb-1" style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}>Over</p>
+          <p className="text-[#38bdf8] text-sm font-medium" style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}>Indian Ocean</p>
         </div>
         <div>
-          <p className="text-gray-600 text-xs mb-1" style={{ fontFamily: "'Space Mono', monospace" }}>Next Pass</p>
-          <p className="text-white text-sm font-medium" style={{ fontFamily: "'Space Mono', monospace" }}>21:14 IST</p>
+          <p className="text-gray-600 text-xs mb-1" style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}>Next Pass</p>
+          <p className="text-white text-sm font-medium" style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}>21:14 IST</p>
         </div>
       </div>
-      <h3 className="text-center text-lg font-bold text-white" style={{ fontFamily: "'Orbitron', monospace" }}>ISS Tracker</h3>
+      <h3 className="text-center text-lg font-bold text-white" style={{ fontFamily: "'Space Grotesk', 'Inter', sans-serif" }}>ISS Tracker</h3>
     </motion.div>
   );
 }
@@ -104,7 +104,7 @@ function MeteorWidget() {
     >
       <div className="flex items-center gap-2 mb-5">
         <div className="w-2 h-2 rounded-full bg-[#f59e0b]" />
-        <p className="text-xs text-gray-500 tracking-widest uppercase" style={{ fontFamily: "'Space Mono', monospace" }}>Upcoming Event</p>
+        <p className="text-xs text-gray-500 tracking-widest uppercase" style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}>Upcoming Event</p>
       </div>
       <div
         className="w-full h-28 rounded-xl mb-4 relative overflow-hidden border border-[#f59e0b]/10 flex items-center justify-center"
@@ -125,20 +125,20 @@ function MeteorWidget() {
         <span className="text-4xl relative z-10">☄️</span>
       </div>
       <div className="text-center mb-4">
-        <p className="text-white font-bold text-xl mb-1" style={{ fontFamily: "'Orbitron', monospace" }}>ETA AQUARIIDS</p>
-        <p className="text-[#f59e0b] text-sm" style={{ fontFamily: "'Space Mono', monospace" }}>Peak: May 6, 2025</p>
+        <p className="text-white font-bold text-xl mb-1" style={{ fontFamily: "'Space Grotesk', 'Inter', sans-serif" }}>ETA AQUARIIDS</p>
+        <p className="text-[#f59e0b] text-sm" style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}>Peak: May 6, 2025</p>
       </div>
       <div className="grid grid-cols-2 gap-3 pt-4 border-t border-white/5">
         <div>
-          <p className="text-gray-600 text-xs mb-1" style={{ fontFamily: "'Space Mono', monospace" }}>Rate</p>
-          <p className="text-white text-sm font-medium" style={{ fontFamily: "'Space Mono', monospace" }}>~50/hour</p>
+          <p className="text-gray-600 text-xs mb-1" style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}>Rate</p>
+          <p className="text-white text-sm font-medium" style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}>~50/hour</p>
         </div>
         <div>
-          <p className="text-gray-600 text-xs mb-1" style={{ fontFamily: "'Space Mono', monospace" }}>In</p>
-          <p className="text-[#f59e0b] text-sm font-medium" style={{ fontFamily: "'Space Mono', monospace" }}>29 days</p>
+          <p className="text-gray-600 text-xs mb-1" style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}>In</p>
+          <p className="text-[#f59e0b] text-sm font-medium" style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}>29 days</p>
         </div>
       </div>
-      <h3 className="text-center text-lg font-bold text-white mt-4" style={{ fontFamily: "'Orbitron', monospace" }}>Meteor Shower</h3>
+      <h3 className="text-center text-lg font-bold text-white mt-4" style={{ fontFamily: "'Space Grotesk', 'Inter', sans-serif" }}>Meteor Shower</h3>
     </motion.div>
   );
 }
@@ -146,8 +146,8 @@ function MeteorWidget() {
 export default function WidgetSection() {
   return (
     <section className="py-24 px-6 relative overflow-hidden bg-[#020617]">
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#7c3aed]/30 to-transparent" />
-      <div className="absolute top-1/2 right-0 w-80 h-80 bg-[#7c3aed]/5 rounded-full blur-[100px]" />
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#2563eb]/30 to-transparent" />
+      <div className="absolute top-1/2 right-0 w-80 h-80 bg-[#2563eb]/5 rounded-full blur-[100px]" />
 
       <div className="max-w-6xl mx-auto relative z-10">
         <motion.div
@@ -157,13 +157,13 @@ export default function WidgetSection() {
           transition={{ duration: 0.7 }}
           className="text-center mb-12"
         >
-          <p className="text-xs tracking-[0.4em] text-[#22d3ee] mb-2 uppercase" style={{ fontFamily: "'Space Mono', monospace" }}>
+          <p className="text-xs tracking-[0.4em] text-[#38bdf8] mb-2 uppercase" style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}>
             — Observatory Dashboard —
           </p>
-          <h2 className="text-3xl md:text-4xl font-bold text-white" style={{ fontFamily: "'Orbitron', monospace" }}>
+          <h2 className="text-3xl md:text-4xl font-bold text-white" style={{ fontFamily: "'Space Grotesk', 'Inter', sans-serif" }}>
             LIVE ASTRONOMY WIDGETS
           </h2>
-          <p className="text-gray-500 text-sm mt-2" style={{ fontFamily: "'Space Mono', monospace" }}>
+          <p className="text-gray-500 text-sm mt-2" style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}>
             Real-time space data for the curious astronomer
           </p>
         </motion.div>

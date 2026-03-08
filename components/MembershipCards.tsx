@@ -9,13 +9,13 @@ const plans = [
     name: "Free",
     description: "Basic access to club resources and events",
     features: ["Event notifications", "Gallery access", "Community forum"],
-    color: "#22d3ee",
+    color: "#38bdf8",
   },
   {
     name: "Monthly Subscriber",
     description: "Enhanced benefits with monthly renewal",
     features: ["All Free features", "Magazine downloads", "Priority registration", "Workshop access"],
-    color: "#7c3aed",
+    color: "#2563eb",
     popular: true,
   },
   {
@@ -52,7 +52,7 @@ export default function MembershipCards() {
 
   return (
     <section className="py-16 px-6 relative overflow-hidden">
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#7c3aed]/20 to-transparent" />
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#2563eb]/20 to-transparent" />
 
       <div className="max-w-6xl mx-auto relative z-10">
         <motion.div
@@ -63,14 +63,14 @@ export default function MembershipCards() {
           className="text-center mb-10"
         >
           <p
-            className="text-xs tracking-[0.4em] text-[#7c3aed] mb-2 uppercase"
-            style={{ fontFamily: "'Space Mono', monospace" }}
+            className="text-xs tracking-[0.4em] text-[#2563eb] mb-2 uppercase"
+            style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
           >
             — Plans —
           </p>
           <h2
             className="text-2xl md:text-3xl font-bold text-white"
-            style={{ fontFamily: "'Orbitron', monospace" }}
+            style={{ fontFamily: "'Space Grotesk', 'Inter', sans-serif" }}
           >
             Membership
           </h2>
@@ -91,15 +91,15 @@ export default function MembershipCards() {
                 whileHover={{ y: -6 }}
                 className={`relative rounded-2xl border bg-[#07091a]/80 backdrop-blur-sm p-6 transition-all ${
                   plan.popular
-                    ? "border-[#7c3aed]/50 shadow-[0_0_30px_rgba(124,58,237,0.15)]"
+                    ? "border-[#2563eb]/50 shadow-[0_0_30px_rgba(37,99,235,0.15)]"
                     : "border-white/10 hover:border-white/20"
                 }`}
               >
                 {plan.popular && (
                   <div className="absolute -top-3 left-1/2 -translate-x-1/2">
                     <span
-                      className="px-3 py-1 rounded-full bg-[#7c3aed] text-white text-xs font-bold"
-                      style={{ fontFamily: "'Space Mono', monospace" }}
+                      className="px-3 py-1 rounded-full bg-[#2563eb] text-white text-xs font-bold"
+                      style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
                     >
                       Popular
                     </span>
@@ -109,8 +109,8 @@ export default function MembershipCards() {
                 {isActive && (
                   <div className="absolute top-4 right-4">
                     <span
-                      className="px-2 py-1 rounded-full bg-[#22d3ee]/20 border border-[#22d3ee]/40 text-[#22d3ee] text-xs"
-                      style={{ fontFamily: "'Space Mono', monospace" }}
+                      className="px-2 py-1 rounded-full bg-[#38bdf8]/20 border border-[#38bdf8]/40 text-[#38bdf8] text-xs"
+                      style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
                     >
                       Active
                     </span>
@@ -128,13 +128,13 @@ export default function MembershipCards() {
 
                 <h3
                   className="text-lg font-bold text-white mb-1"
-                  style={{ fontFamily: "'Orbitron', monospace" }}
+                  style={{ fontFamily: "'Space Grotesk', 'Inter', sans-serif" }}
                 >
                   {plan.name}
                 </h3>
                 <p
                   className="text-gray-500 text-xs mb-4"
-                  style={{ fontFamily: "'Space Mono', monospace" }}
+                  style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
                 >
                   {plan.description}
                 </p>
@@ -145,7 +145,7 @@ export default function MembershipCards() {
                       <span style={{ color: plan.color }}>✓</span>
                       <span
                         className="text-gray-400 text-xs"
-                        style={{ fontFamily: "'Space Mono', monospace" }}
+                        style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
                       >
                         {feature}
                       </span>
@@ -157,7 +157,7 @@ export default function MembershipCards() {
                   href="mailto:astrosci@jadavpur.edu"
                   className="block w-full py-2.5 rounded-xl text-center text-sm font-medium transition-all duration-300"
                   style={{
-                    fontFamily: "'Space Mono', monospace",
+                    fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif",
                     background: `${plan.color}15`,
                     border: `1px solid ${plan.color}40`,
                     color: plan.color,
@@ -182,8 +182,8 @@ export default function MembershipCards() {
         >
           <Link href="/support">
             <motion.span
-              className="px-6 py-3 rounded-full border border-[#22d3ee]/30 text-[#22d3ee] text-sm hover:bg-[#22d3ee]/10 transition-all cursor-pointer"
-              style={{ fontFamily: "'Space Mono', monospace" }}
+              className="px-6 py-3 rounded-full border border-[#38bdf8]/30 text-[#38bdf8] text-sm hover:bg-[#38bdf8]/10 transition-all cursor-pointer"
+              style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
               whileHover={{ scale: 1.05 }}
             >
               Join as Sponsor
@@ -191,8 +191,8 @@ export default function MembershipCards() {
           </Link>
           <Link href="/support">
             <motion.span
-              className="px-6 py-3 rounded-full border border-[#7c3aed]/30 text-[#7c3aed] text-sm hover:bg-[#7c3aed]/10 transition-all cursor-pointer"
-              style={{ fontFamily: "'Space Mono', monospace" }}
+              className="px-6 py-3 rounded-full border border-[#2563eb]/30 text-[#2563eb] text-sm hover:bg-[#2563eb]/10 transition-all cursor-pointer"
+              style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
               whileHover={{ scale: 1.05 }}
             >
               Make a Donation

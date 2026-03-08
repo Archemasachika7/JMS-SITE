@@ -31,10 +31,10 @@ export default function GalleryPage() {
   }, []);
 
   const placeholders = [
-    { id: "1", image_url: "", caption: "Orion Nebula", uploaded_at: "2025-03-01", gradient: "radial-gradient(ellipse at 40% 50%, #3730a3 0%, #1e1b4b 40%, #020617 100%)" },
+    { id: "1", image_url: "", caption: "Orion Nebula", uploaded_at: "2025-03-01", gradient: "radial-gradient(ellipse at 40% 50%, #1e40af 0%, #0c1e3d 40%, #020617 100%)" },
     { id: "2", image_url: "", caption: "Andromeda Galaxy", uploaded_at: "2025-02-28", gradient: "radial-gradient(ellipse at 60% 40%, #065f46 0%, #022c22 50%, #020617 100%)" },
     { id: "3", image_url: "", caption: "Saturn Transit", uploaded_at: "2025-02-25", gradient: "radial-gradient(ellipse at 50% 60%, #78350f 0%, #3b1a09 50%, #020617 100%)" },
-    { id: "4", image_url: "", caption: "Milky Way Core", uploaded_at: "2025-02-20", gradient: "radial-gradient(ellipse at 50% 40%, #4c1d95 0%, #2d1b69 30%, #020617 80%)" },
+    { id: "4", image_url: "", caption: "Milky Way Core", uploaded_at: "2025-02-20", gradient: "radial-gradient(ellipse at 50% 40%, #1e3a5f 0%, #2d1b69 30%, #020617 80%)" },
     { id: "5", image_url: "", caption: "Lunar Eclipse", uploaded_at: "2025-02-15", gradient: "radial-gradient(ellipse at 45% 45%, #7f1d1d 0%, #450a0a 50%, #020617 100%)" },
     { id: "6", image_url: "", caption: "Pleiades Cluster", uploaded_at: "2025-02-10", gradient: "radial-gradient(ellipse at 55% 40%, #164e63 0%, #0c4a6e 40%, #020617 100%)" },
   ];
@@ -53,20 +53,20 @@ export default function GalleryPage() {
             className="text-center mb-12"
           >
             <p
-              className="text-xs tracking-[0.4em] text-[#22d3ee] mb-2 uppercase"
-              style={{ fontFamily: "'Space Mono', monospace" }}
+              className="text-xs tracking-[0.4em] text-[#38bdf8] mb-2 uppercase"
+              style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
             >
               — Astrophotography —
             </p>
             <h1
               className="text-3xl md:text-5xl font-bold text-white"
-              style={{ fontFamily: "'Orbitron', monospace" }}
+              style={{ fontFamily: "'Space Grotesk', 'Inter', sans-serif" }}
             >
               GALLERY
             </h1>
             <p
               className="text-gray-500 text-sm mt-3"
-              style={{ fontFamily: "'Space Mono', monospace" }}
+              style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
             >
               Stunning shots captured by our members
             </p>
@@ -87,7 +87,7 @@ export default function GalleryPage() {
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.6, delay: i * 0.08 }}
                   whileHover={{ scale: 1.03, y: -4 }}
-                  className="group relative rounded-2xl overflow-hidden border border-white/10 hover:border-[#22d3ee]/40 bg-[#07091a]/80 backdrop-blur-sm transition-all"
+                  className="group relative rounded-2xl overflow-hidden border border-white/10 hover:border-[#38bdf8]/40 bg-[#07091a]/80 backdrop-blur-sm transition-all"
                 >
                   <div className="relative overflow-hidden" style={{ aspectRatio: "4/3" }}>
                     {imageUrl ? (
@@ -117,13 +117,13 @@ export default function GalleryPage() {
                   <div className="p-4">
                     <h3
                       className="text-white font-bold text-sm"
-                      style={{ fontFamily: "'Orbitron', monospace" }}
+                      style={{ fontFamily: "'Space Grotesk', 'Inter', sans-serif" }}
                     >
                       {caption}
                     </h3>
                     <p
                       className="text-gray-500 text-xs mt-1"
-                      style={{ fontFamily: "'Space Mono', monospace" }}
+                      style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
                     >
                       {new Date(uploadDate).toLocaleDateString("en-IN", {
                         year: "numeric",

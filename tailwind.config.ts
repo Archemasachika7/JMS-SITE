@@ -10,12 +10,18 @@ const config: Config = {
     extend: {
       colors: {
         space: "#020617",
-        nebula: "#7c3aed",
-        cosmic: "#22d3ee",
+        panel: "#0f172a",
+        border: "#1f2937",
+        muted: "#e5e7eb",
+        "earth-blue": "#2563eb",
+        "orbit-blue": "#38bdf8",
+        "atmos-green": "#10b981",
+        "aurora-green": "#22c55e",
       },
       fontFamily: {
-        orbitron: ["Orbitron", "monospace"],
-        mono: ["Space Mono", "monospace"],
+        heading: ["Space Grotesk", "Inter", "Helvetica", "sans-serif"],
+        body: ["Public Sans", "Inter", "system-ui", "sans-serif"],
+        mono: ["DM Mono", "JetBrains Mono", "monospace"],
       },
     },
   },
