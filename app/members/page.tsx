@@ -6,10 +6,10 @@ import Footer from "@/components/Footer";
 import MemberStarMap from "@/components/MemberStarMap";
 
 const legendItems = [
-  { color: "#ffffff", label: "Free Member" },
-  { color: "#22d3ee", label: "Monthly Subscriber" },
-  { color: "#a855f6", label: "Annual Subscriber" },
-  { color: "#facc15", label: "Core Team" },
+  { color: "#ADD8E6", label: "Free Member" },
+  { color: "#FFD700", label: "Monthly Subscriber" },
+  { color: "#FF8C00", label: "Annual Subscriber" },
+  { color: "#FF00FF", label: "Core Team" },
 ];
 
 export default function MembersPage() {
@@ -34,13 +34,14 @@ export default function MembersPage() {
             className="text-3xl md:text-5xl font-bold bg-gradient-to-r from-white via-[#22d3ee] to-[#7c3aed] bg-clip-text text-transparent"
             style={{ fontFamily: "'Orbitron', monospace" }}
           >
-            AstroSci Member Constellation
+            AstroSci Member Galaxy
           </h1>
           <p
             className="text-gray-400 mt-3 text-sm md:text-base max-w-xl mx-auto"
             style={{ fontFamily: "'Space Mono', monospace" }}
           >
-            Each member is a star in our cosmic community.
+            Each member is a star in our rotating galaxy. Orbit, zoom, and hover
+            to discover member identities.
           </p>
         </motion.div>
       </section>
