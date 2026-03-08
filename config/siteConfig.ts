@@ -10,18 +10,19 @@ export const siteConfig = {
   clubName: "AstroSci Club",
   university: "Jadavpur University",
 
-  email: "astrosci@jadavpur.edu",
+  email: "astrosciclubjadavpur@gmail.com",
 
   social: {
     instagram: "",
     twitter: "",
+    youtube: "",
     linkedin: "",
     github: "",
   },
 
   assets: {
-    logo: "/assets/logo.svg",
-    favicon: "/assets/favicon.svg",
+    logo: "https://rwjfnuszkhoznfrjzqfr.supabase.co/storage/v1/object/public/logos/unnamed.jpg",
+    favicon: "https://rwjfnuszkhoznfrjzqfr.supabase.co/storage/v1/object/public/logos/unnamed.jpg",
     banner: "/assets/club-banner.png",
   },
 };

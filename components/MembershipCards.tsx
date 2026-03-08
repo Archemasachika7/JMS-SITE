@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { supabase } from "@/lib/supabaseClient";
+import { siteConfig } from "@/config/siteConfig";
 
 const plans = [
   {
@@ -154,7 +155,7 @@ export default function MembershipCards() {
                 </ul>
 
                 <motion.a
-                  href="mailto:astrosci@jadavpur.edu"
+                  href={`mailto:${siteConfig.email}`}
                   className="block w-full py-2.5 rounded-xl text-center text-sm font-medium transition-all duration-300"
                   style={{
                     fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif",
