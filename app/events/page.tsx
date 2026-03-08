@@ -47,7 +47,7 @@ export default function EventsPage() {
   const MS_PER_DAY = 24 * 60 * 60 * 1000;
 
   const placeholderUpcoming: (ClubEvent & { gradient: string })[] = [
-    { id: "1", title: "Lyrid Meteor Shower Night", event_date: new Date(Date.now() + 10 * MS_PER_DAY).toISOString(), description: "Observe the annual Lyrid meteor shower from campus.", location: "JU Rooftop Observatory", poster: "", gradient: "radial-gradient(ellipse at 50% 50%, #4c1d95 0%, #020617 100%)" },
+    { id: "1", title: "Lyrid Meteor Shower Night", event_date: new Date(Date.now() + 10 * MS_PER_DAY).toISOString(), description: "Observe the annual Lyrid meteor shower from campus.", location: "JU Rooftop Observatory", poster: "", gradient: "radial-gradient(ellipse at 50% 50%, #1e3a5f 0%, #020617 100%)" },
     { id: "2", title: "Solar Observation Day", event_date: new Date(Date.now() + 20 * MS_PER_DAY).toISOString(), description: "Safe solar viewing with H-alpha filters.", location: "JU Main Ground", poster: "", gradient: "radial-gradient(ellipse at 50% 50%, #78350f 0%, #020617 100%)" },
   ];
 
@@ -60,7 +60,7 @@ export default function EventsPage() {
   const displayPast = past.length > 0 ? past : placeholderPast;
 
   const gradients = [
-    "radial-gradient(ellipse at 50% 50%, #4c1d95 0%, #020617 100%)",
+    "radial-gradient(ellipse at 50% 50%, #1e3a5f 0%, #020617 100%)",
     "radial-gradient(ellipse at 50% 50%, #78350f 0%, #020617 100%)",
     "radial-gradient(ellipse at 50% 50%, #164e63 0%, #020617 100%)",
     "radial-gradient(ellipse at 50% 50%, #065f46 0%, #020617 100%)",
@@ -78,7 +78,7 @@ export default function EventsPage() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: i * 0.1 }}
         whileHover={{ y: -4 }}
-        className="group rounded-2xl overflow-hidden border border-white/10 bg-[#07091a]/80 backdrop-blur-sm hover:border-[#7c3aed]/40 transition-all"
+        className="group rounded-2xl overflow-hidden border border-white/10 bg-[#07091a]/80 backdrop-blur-sm hover:border-[#2563eb]/40 transition-all"
       >
         <div className="relative overflow-hidden" style={{ aspectRatio: "16/9" }}>
           {event.poster ? (
@@ -108,13 +108,13 @@ export default function EventsPage() {
         <div className="p-5">
           <h3
             className="text-white font-bold text-base mb-1"
-            style={{ fontFamily: "'Orbitron', monospace" }}
+            style={{ fontFamily: "'Space Grotesk', 'Inter', sans-serif" }}
           >
             {event.title}
           </h3>
           <p
-            className="text-[#22d3ee] text-xs mb-2"
-            style={{ fontFamily: "'Space Mono', monospace" }}
+            className="text-[#38bdf8] text-xs mb-2"
+            style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
           >
             {new Date(event.event_date).toLocaleDateString("en-IN", {
               year: "numeric",
@@ -126,7 +126,7 @@ export default function EventsPage() {
           </p>
           <p
             className="text-gray-500 text-sm"
-            style={{ fontFamily: "'Space Mono', monospace" }}
+            style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
           >
             {event.description}
           </p>
@@ -147,14 +147,14 @@ export default function EventsPage() {
             className="text-center mb-12"
           >
             <p
-              className="text-xs tracking-[0.4em] text-[#22d3ee] mb-2 uppercase"
-              style={{ fontFamily: "'Space Mono', monospace" }}
+              className="text-xs tracking-[0.4em] text-[#38bdf8] mb-2 uppercase"
+              style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
             >
               — Club Activities —
             </p>
             <h1
               className="text-3xl md:text-5xl font-bold text-white"
-              style={{ fontFamily: "'Orbitron', monospace" }}
+              style={{ fontFamily: "'Space Grotesk', 'Inter', sans-serif" }}
             >
               EVENTS
             </h1>
@@ -164,9 +164,9 @@ export default function EventsPage() {
           <div className="mb-16">
             <h2
               className="text-xl font-bold text-white mb-6 flex items-center gap-2"
-              style={{ fontFamily: "'Orbitron', monospace" }}
+              style={{ fontFamily: "'Space Grotesk', 'Inter', sans-serif" }}
             >
-              <span className="w-2 h-2 rounded-full bg-[#22d3ee] animate-pulse" />
+              <span className="w-2 h-2 rounded-full bg-[#38bdf8] animate-pulse" />
               Upcoming Events
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -180,7 +180,7 @@ export default function EventsPage() {
           <div>
             <h2
               className="text-xl font-bold text-gray-400 mb-6"
-              style={{ fontFamily: "'Orbitron', monospace" }}
+              style={{ fontFamily: "'Space Grotesk', 'Inter', sans-serif" }}
             >
               Past Events
             </h2>

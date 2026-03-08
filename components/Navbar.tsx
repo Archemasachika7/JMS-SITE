@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
+import Image from "next/image";
 import { supabase, isSupabaseConfigured } from "@/lib/supabaseClient";
 
 const navItems = [
@@ -65,29 +66,22 @@ export default function Navbar() {
       transition={{ duration: 0.7, ease: "easeOut" }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         scrolled
-          ? "bg-[#020617]/80 backdrop-blur-xl border-b border-[#7c3aed]/20 shadow-lg shadow-[#7c3aed]/10"
+          ? "bg-[#020617]/80 backdrop-blur-xl border-b border-[#2563eb]/20 shadow-lg shadow-[#2563eb]/10"
           : "bg-transparent"
       }`}
     >
       <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
         {/* Logo */}
         <motion.div className="flex items-center gap-3 cursor-pointer" whileHover={{ scale: 1.03 }}>
-          <div className="relative w-10 h-10">
-            <div className="absolute inset-0 rounded-full bg-gradient-to-br from-[#7c3aed] to-[#22d3ee] opacity-80 blur-sm" />
-            <div className="relative w-10 h-10 rounded-full bg-gradient-to-br from-[#7c3aed] to-[#22d3ee] flex items-center justify-center">
-              <svg viewBox="0 0 24 24" className="w-5 h-5 text-white fill-current">
-                <path d="M12 2L9.5 8.5H3L8 12.5L6 19L12 15.5L18 19L16 12.5L21 8.5H14.5L12 2Z" />
-              </svg>
-            </div>
-          </div>
+          <Image src="/logo.svg" alt="AstroSci Logo" width={36} height={36} className="h-9 w-9" />
           <div>
             <span
-              className="font-bold text-lg tracking-wider bg-gradient-to-r from-[#7c3aed] to-[#22d3ee] bg-clip-text text-transparent"
-              style={{ fontFamily: "'Orbitron', monospace" }}
+              className="font-bold text-lg tracking-wider bg-gradient-to-r from-[#2563eb] to-[#10b981] bg-clip-text text-transparent"
+              style={{ fontFamily: "'Space Grotesk', 'Inter', sans-serif" }}
             >
               ASTROSCI
             </span>
-            <p className="text-[10px] text-gray-400 tracking-widest -mt-1 uppercase" style={{ fontFamily: "'Space Mono', monospace" }}>
+            <p className="text-[10px] text-gray-400 tracking-widest -mt-1 uppercase" style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}>
               Jadavpur University
             </p>
           </div>
@@ -102,13 +96,13 @@ export default function Navbar() {
             >
               <motion.span
                 className="relative px-4 py-2 text-sm text-gray-300 hover:text-white transition-colors group cursor-pointer"
-                style={{ fontFamily: "'Space Mono', monospace" }}
+                style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 * i + 0.3 }}
               >
                 {item.label}
-                <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-[2px] bg-gradient-to-r from-[#7c3aed] to-[#22d3ee] group-hover:w-4/5 transition-all duration-300 rounded-full" />
+                <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-[2px] bg-gradient-to-r from-[#2563eb] to-[#10b981] group-hover:w-4/5 transition-all duration-300 rounded-full" />
               </motion.span>
             </Link>
           ))}
@@ -126,12 +120,12 @@ export default function Navbar() {
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.8 }}
               >
-                <div className="absolute -inset-0.5 rounded-full bg-gradient-to-br from-[#7c3aed] to-[#22d3ee] opacity-60 group-hover:opacity-100 transition-opacity" />
-                <div className="relative w-10 h-10 rounded-full overflow-hidden border-2 border-[#7c3aed]/60">
+                <div className="absolute -inset-0.5 rounded-full bg-gradient-to-br from-[#2563eb] to-[#10b981] opacity-60 group-hover:opacity-100 transition-opacity" />
+                <div className="relative w-10 h-10 rounded-full overflow-hidden border-2 border-[#2563eb]/60">
                   {profileImage ? (
                     <img src={profileImage} alt="Profile" className="w-full h-full object-cover" />
                   ) : (
-                    <div className="w-full h-full bg-gradient-to-br from-[#7c3aed] to-[#22d3ee] flex items-center justify-center">
+                    <div className="w-full h-full bg-gradient-to-br from-[#2563eb] to-[#10b981] flex items-center justify-center">
                       <svg viewBox="0 0 24 24" className="w-5 h-5 text-white fill-current">
                         <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
                       </svg>
@@ -144,22 +138,22 @@ export default function Navbar() {
             <>
               <Link href="/auth">
                 <motion.span
-                  className="flex items-center gap-2 px-5 py-2 rounded-full text-sm font-medium border border-[#7c3aed]/60 text-[#22d3ee] hover:bg-[#7c3aed]/20 hover:border-[#7c3aed] hover:shadow-[0_0_20px_rgba(124,58,237,0.4)] transition-all duration-300 cursor-pointer"
-                  style={{ fontFamily: "'Space Mono', monospace" }}
+                  className="flex items-center gap-2 px-5 py-2 rounded-full text-sm font-medium border border-[#2563eb]/60 text-[#38bdf8] hover:bg-[#2563eb]/20 hover:border-[#2563eb] hover:shadow-[0_0_20px_rgba(37,99,235,0.4)] transition-all duration-300 cursor-pointer"
+                  style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.97 }}
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ delay: 0.8 }}
                 >
-                  <span className="w-2 h-2 rounded-full bg-[#22d3ee] animate-pulse" />
+                  <span className="w-2 h-2 rounded-full bg-[#38bdf8] animate-pulse" />
                   Login
                 </motion.span>
               </Link>
               <Link href="/auth?tab=signup">
                 <motion.span
-                  className="inline-flex px-5 py-2 rounded-full text-sm font-medium bg-gradient-to-r from-[#7c3aed] to-[#6d28d9] text-white shadow-[0_0_20px_rgba(124,58,237,0.3)] hover:shadow-[0_0_30px_rgba(124,58,237,0.5)] transition-all duration-300 cursor-pointer"
-                  style={{ fontFamily: "'Space Mono', monospace" }}
+                  className="inline-flex px-5 py-2 rounded-full text-sm font-medium bg-gradient-to-r from-[#2563eb] to-[#1d4ed8] text-white shadow-[0_0_20px_rgba(37,99,235,0.3)] hover:shadow-[0_0_30px_rgba(37,99,235,0.5)] transition-all duration-300 cursor-pointer"
+                  style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.97 }}
                   initial={{ opacity: 0 }}
@@ -190,14 +184,14 @@ export default function Navbar() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-[#020617]/95 backdrop-blur-xl border-t border-[#7c3aed]/20 px-6 pb-4"
+            className="md:hidden bg-[#020617]/95 backdrop-blur-xl border-t border-[#2563eb]/20 px-6 pb-4"
           >
             {navItems.map((item) => (
               <Link
                 key={item.label}
                 href={item.href}
-                className="block py-3 text-gray-300 hover:text-[#22d3ee] border-b border-white/5 text-sm tracking-wider"
-                style={{ fontFamily: "'Space Mono', monospace" }}
+                className="block py-3 text-gray-300 hover:text-[#38bdf8] border-b border-white/5 text-sm tracking-wider"
+                style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
                 onClick={() => setMenuOpen(false)}
               >
                 {item.label}
@@ -206,8 +200,8 @@ export default function Navbar() {
             {isSignedIn ? (
               <Link href="/profile" className="block mt-4" onClick={() => setMenuOpen(false)}>
                 <span
-                  className="flex items-center justify-center gap-2 w-full py-2 rounded-full border border-[#7c3aed]/60 text-[#22d3ee] text-sm"
-                  style={{ fontFamily: "'Space Mono', monospace" }}
+                  className="flex items-center justify-center gap-2 w-full py-2 rounded-full border border-[#2563eb]/60 text-[#38bdf8] text-sm"
+                  style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
                 >
                   <svg viewBox="0 0 24 24" className="w-4 h-4 fill-current" aria-hidden="true">
                     <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
@@ -219,16 +213,16 @@ export default function Navbar() {
               <>
                 <Link href="/auth" className="block mt-4">
                   <span
-                    className="block w-full py-2 rounded-full border border-[#7c3aed]/60 text-[#22d3ee] text-sm text-center"
-                    style={{ fontFamily: "'Space Mono', monospace" }}
+                    className="block w-full py-2 rounded-full border border-[#2563eb]/60 text-[#38bdf8] text-sm text-center"
+                    style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
                   >
                     Login
                   </span>
                 </Link>
                 <Link href="/auth?tab=signup" className="block mt-2">
                   <span
-                    className="block w-full py-2 rounded-full bg-gradient-to-r from-[#7c3aed] to-[#6d28d9] text-white text-sm text-center"
-                    style={{ fontFamily: "'Space Mono', monospace" }}
+                    className="block w-full py-2 rounded-full bg-gradient-to-r from-[#2563eb] to-[#1d4ed8] text-white text-sm text-center"
+                    style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
                   >
                     Join Now
                   </span>

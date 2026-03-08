@@ -31,14 +31,14 @@ export default function DashboardGalleryPreview() {
   }, []);
 
   const placeholders = [
-    { gradient: "radial-gradient(ellipse at 40% 50%, #3730a3 0%, #1e1b4b 40%, #020617 100%)", caption: "Orion Nebula" },
+    { gradient: "radial-gradient(ellipse at 40% 50%, #1e40af 0%, #0c1e3d 40%, #020617 100%)", caption: "Orion Nebula" },
     { gradient: "radial-gradient(ellipse at 60% 40%, #065f46 0%, #022c22 50%, #020617 100%)", caption: "Andromeda Galaxy" },
     { gradient: "radial-gradient(ellipse at 50% 60%, #78350f 0%, #3b1a09 50%, #020617 100%)", caption: "Saturn Transit" },
   ];
 
   return (
     <section className="py-16 px-6 relative overflow-hidden">
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#22d3ee]/20 to-transparent" />
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#38bdf8]/20 to-transparent" />
 
       <div className="max-w-6xl mx-auto relative z-10">
         <motion.div
@@ -50,22 +50,22 @@ export default function DashboardGalleryPreview() {
         >
           <div>
             <p
-              className="text-xs tracking-[0.4em] text-[#22d3ee] mb-2 uppercase"
-              style={{ fontFamily: "'Space Mono', monospace" }}
+              className="text-xs tracking-[0.4em] text-[#38bdf8] mb-2 uppercase"
+              style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
             >
               — Astrophotography —
             </p>
             <h2
               className="text-2xl md:text-3xl font-bold text-white"
-              style={{ fontFamily: "'Orbitron', monospace" }}
+              style={{ fontFamily: "'Space Grotesk', 'Inter', sans-serif" }}
             >
               GALLERY
             </h2>
           </div>
           <Link href="/gallery">
             <motion.span
-              className="text-sm text-[#22d3ee] border border-[#22d3ee]/30 px-5 py-2 rounded-full hover:bg-[#22d3ee]/10 transition-all cursor-pointer"
-              style={{ fontFamily: "'Space Mono', monospace" }}
+              className="text-sm text-[#38bdf8] border border-[#38bdf8]/30 px-5 py-2 rounded-full hover:bg-[#38bdf8]/10 transition-all cursor-pointer"
+              style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
               whileHover={{ scale: 1.05 }}
             >
               View Gallery →
@@ -88,7 +88,7 @@ export default function DashboardGalleryPreview() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: i * 0.1 }}
                 whileHover={{ scale: 1.03, y: -4 }}
-                className="group relative rounded-xl overflow-hidden cursor-pointer border border-white/10 hover:border-[#22d3ee]/30 transition-all"
+                className="group relative rounded-xl overflow-hidden cursor-pointer border border-white/10 hover:border-[#38bdf8]/30 transition-all"
                 style={{ aspectRatio: "4/3" }}
               >
                 {imageUrl ? (
@@ -119,7 +119,7 @@ export default function DashboardGalleryPreview() {
                 <div className="absolute bottom-0 left-0 right-0 p-4 translate-y-4 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
                   <p
                     className="text-white text-sm font-bold"
-                    style={{ fontFamily: "'Orbitron', monospace" }}
+                    style={{ fontFamily: "'Space Grotesk', 'Inter', sans-serif" }}
                   >
                     {caption}
                   </p>

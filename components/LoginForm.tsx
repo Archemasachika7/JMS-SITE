@@ -118,7 +118,7 @@ export default function LoginForm({ onSuccess }: LoginFormProps) {
             key="error"
             className="mb-4 p-3 rounded-lg bg-red-500/10 border border-red-500/30 text-red-400 text-sm"
             style={{
-              fontFamily: "'Space Mono', monospace",
+              fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif",
               boxShadow: "0 0 15px rgba(239,68,68,0.15)",
             }}
             initial={{ opacity: 0, y: -10 }}
@@ -135,7 +135,7 @@ export default function LoginForm({ onSuccess }: LoginFormProps) {
       <div className="mb-4">
         <label
           className="block text-gray-400 text-xs mb-1.5 tracking-wider uppercase"
-          style={{ fontFamily: "'Space Mono', monospace" }}
+          style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
         >
           Email
         </label>
@@ -144,8 +144,8 @@ export default function LoginForm({ onSuccess }: LoginFormProps) {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
-          className="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white text-sm placeholder-gray-500 focus:outline-none focus:border-[#7c3aed]/60 focus:shadow-[0_0_15px_rgba(124,58,237,0.2)] transition-all duration-300"
-          style={{ fontFamily: "'Space Mono', monospace" }}
+          className="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white text-sm placeholder-gray-500 focus:outline-none focus:border-[#2563eb]/60 focus:shadow-[0_0_15px_rgba(37,99,235,0.2)] transition-all duration-300"
+          style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
           placeholder="you@example.com"
         />
       </div>
@@ -154,7 +154,7 @@ export default function LoginForm({ onSuccess }: LoginFormProps) {
       <div className="mb-6">
         <label
           className="block text-gray-400 text-xs mb-1.5 tracking-wider uppercase"
-          style={{ fontFamily: "'Space Mono', monospace" }}
+          style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
         >
           Password
         </label>
@@ -163,8 +163,8 @@ export default function LoginForm({ onSuccess }: LoginFormProps) {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
-          className="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white text-sm placeholder-gray-500 focus:outline-none focus:border-[#7c3aed]/60 focus:shadow-[0_0_15px_rgba(124,58,237,0.2)] transition-all duration-300"
-          style={{ fontFamily: "'Space Mono', monospace" }}
+          className="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white text-sm placeholder-gray-500 focus:outline-none focus:border-[#2563eb]/60 focus:shadow-[0_0_15px_rgba(37,99,235,0.2)] transition-all duration-300"
+          style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
           placeholder="••••••••"
         />
       </div>
@@ -173,8 +173,8 @@ export default function LoginForm({ onSuccess }: LoginFormProps) {
       <motion.button
         type="submit"
         disabled={loading}
-        className="w-full py-3 rounded-lg bg-gradient-to-r from-[#7c3aed] to-[#6d28d9] text-white font-semibold text-sm tracking-wider shadow-[0_0_20px_rgba(124,58,237,0.3)] hover:shadow-[0_0_35px_rgba(124,58,237,0.5)] disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300"
-        style={{ fontFamily: "'Orbitron', monospace" }}
+        className="w-full py-3 rounded-lg bg-gradient-to-r from-[#2563eb] to-[#1d4ed8] text-white font-semibold text-sm tracking-wider shadow-[0_0_20px_rgba(37,99,235,0.3)] hover:shadow-[0_0_35px_rgba(37,99,235,0.5)] disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300"
+        style={{ fontFamily: "'Space Grotesk', 'Inter', sans-serif" }}
         whileHover={loading ? {} : { scale: 1.02 }}
         whileTap={loading ? {} : { scale: 0.98 }}
       >
@@ -197,7 +197,7 @@ export default function LoginForm({ onSuccess }: LoginFormProps) {
         <div className="flex-1 h-px bg-white/10" />
         <span
           className="text-gray-500 text-xs"
-          style={{ fontFamily: "'Space Mono', monospace" }}
+          style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
         >
           or
         </span>
@@ -210,7 +210,7 @@ export default function LoginForm({ onSuccess }: LoginFormProps) {
         onClick={handleGoogleLogin}
         disabled={loading}
         className="w-full py-3 rounded-lg bg-white/5 border border-white/10 text-white font-medium text-sm hover:bg-white/10 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 flex items-center justify-center gap-3"
-        style={{ fontFamily: "'Space Mono', monospace" }}
+        style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
         whileHover={loading ? {} : { scale: 1.02 }}
         whileTap={loading ? {} : { scale: 0.98 }}
       >
