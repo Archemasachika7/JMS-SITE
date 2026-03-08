@@ -1,6 +1,7 @@
 "use client";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import { siteConfig } from "@/config/siteConfig";
 
 const socialLinks = [
   {
@@ -57,24 +58,24 @@ export default function Footer() {
           {/* Brand */}
           <div className="md:col-span-2">
             <div className="flex items-center gap-3 mb-5">
-              <Image src="/logo.svg" alt="AstroSci Logo" width={36} height={36} className="h-9 w-9" />
+              <Image src={siteConfig.assets.logo} alt={`${siteConfig.clubName} Logo`} width={36} height={36} className="h-9 w-9" />
               <div>
-                <span className="font-bold text-lg text-white" style={{ fontFamily: "'Space Grotesk', 'Inter', sans-serif" }}>ASTROSCI CLUB</span>
-                <p className="text-gray-500 text-xs" style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}>Jadavpur University</p>
+                <span className="font-bold text-lg text-white" style={{ fontFamily: "'Space Grotesk', 'Inter', sans-serif" }}>{siteConfig.clubName.toUpperCase()}</span>
+                <p className="text-gray-500 text-xs" style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}>{siteConfig.university}</p>
               </div>
             </div>
             <p className="text-gray-500 text-sm leading-relaxed mb-6 max-w-xs" style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}>
               A student-led astronomy club dedicated to exploring the universe, fostering scientific curiosity, and building a community of stargazers.
             </p>
             <a
-              href="mailto:astrosci@jadavpur.edu"
+              href={`mailto:${siteConfig.email}`}
               className="flex items-center gap-2 text-[#38bdf8] text-sm hover:text-white transition-colors"
               style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
             >
               <svg viewBox="0 0 24 24" className="w-4 h-4 fill-current">
                 <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
               </svg>
-              astrosci@jadavpur.edu
+              {siteConfig.email}
             </a>
             <div className="flex items-center gap-3 mt-5">
               {socialLinks.map((s) => (

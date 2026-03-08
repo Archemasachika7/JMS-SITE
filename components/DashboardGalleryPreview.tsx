@@ -13,19 +13,21 @@ interface GalleryItem {
 
 export default function DashboardGalleryPreview() {
   const [items, setItems] = useState<GalleryItem[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function fetchGallery() {
       try {
         const { data } = await supabase
           .from("gallery")
-          .select("*")
+          .select("id, image_url, caption, uploaded_at")
           .order("uploaded_at", { ascending: false })
           .limit(3);
         if (data) setItems(data);
       } catch {
         // Supabase fetch failed silently
       }
+      setLoading(false);
     }
     fetchGallery();
   }, []);
@@ -68,11 +70,20 @@ export default function DashboardGalleryPreview() {
               style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
               whileHover={{ scale: 1.05 }}
             >
-              View Gallery →
+              View All →
             </motion.span>
           </Link>
         </motion.div>
 
+        {loading ? (
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+            {[...Array(3)].map((_, i) => (
+              <div key={i} className="rounded-xl overflow-hidden border border-white/10 animate-pulse" style={{ aspectRatio: "4/3" }}>
+                <div className="w-full h-full bg-[#0f172a]" />
+              </div>
+            ))}
+          </div>
+        ) : (
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
           {(items.length > 0 ? items : placeholders).map((item, i) => {
             const isReal = items.length > 0;
@@ -128,6 +139,7 @@ export default function DashboardGalleryPreview() {
             );
           })}
         </div>
+        )}
       </div>
     </section>
   );

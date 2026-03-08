@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import AuthGuard from "@/components/AuthGuard";
 import ConstellationMap2D from "@/components/ConstellationMap2D";
 
 const legendItems = [
@@ -14,6 +15,7 @@ const legendItems = [
 
 export default function MembersPage() {
   return (
+    <AuthGuard>
     <main className="relative min-h-screen">
       <Navbar />
 
@@ -98,5 +100,6 @@ export default function MembersPage() {
 
       <Footer />
     </main>
+    </AuthGuard>
   );
 }
