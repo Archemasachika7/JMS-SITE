@@ -39,7 +39,7 @@ export default function Navbar() {
             .from("profiles")
             .select("profile_image")
             .eq("id", user.id)
-            .single();
+            .maybeSingle();
           if (data?.profile_image) {
             setProfileImage(data.profile_image);
           }

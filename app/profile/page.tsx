@@ -49,26 +49,22 @@ export default function ProfilePage() {
 
           await ensureProfile(user);
 
-          const fetchProfileRow = () =>
-            supabase
-              .from("profiles")
-              .select("name, profile_image, plan, bio, year, department, phone")
-              .eq("id", user.id)
-              .single();
+          const { data, error: profileError } = await supabase
+            .from("profiles")
+            .select("name, profile_image, plan, bio, year, department, phone")
+            .eq("id", user.id)
+            .maybeSingle();
 
-          let { data, error: profileError } = await fetchProfileRow();
-
-          // PGRST116 = PostgREST "no rows found", so retry once after ensureProfile.
-          if (profileError?.code === "PGRST116") {
-            await ensureProfile(user);
-            ({ data, error: profileError } = await fetchProfileRow());
+          if (profileError) {
+            console.error("[profile] Failed to fetch profile row:", profileError);
+            setUserName(user.user_metadata?.name || user.user_metadata?.full_name || "");
+            return;
           }
 
-          if (profileError || !data) {
-            console.error(
-              "[profile] Failed to fetch profile row. This can happen if profile creation failed.",
-              profileError
-            );
+          if (!data) {
+            // This can happen if the DB trigger and ensureProfile both failed
+            // to create the row (e.g. missing migration). Fall back to auth metadata.
+            console.warn("[profile] No profile row found. Falling back to auth metadata.");
             setUserName(user.user_metadata?.name || user.user_metadata?.full_name || "");
             return;
           }
