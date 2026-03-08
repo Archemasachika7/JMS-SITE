@@ -46,6 +46,9 @@ const BG_STAR_COUNT = 2000;
 const MAX_MEMBERS = 500;
 const MIN_GALAXY_STARS = 200;
 const CONSTELLATION_MAX_DIST = 15;
+const MAX_CONSTELLATION_CONNECTIONS = 200;
+const CONSTELLATION_PROBABILITY = 0.6;
+const RAYCAST_THRESHOLD = 1.5;
 
 /* ------------------------------------------------------------------ */
 /*  Helpers                                                            */
@@ -306,7 +309,7 @@ export default function MemberStarMap() {
       for (const indices of Object.values(tierBuckets)) {
         for (
           let i = 0;
-          i < indices.length && connectionVerts.length / 6 < 200;
+          i < indices.length && connectionVerts.length / 6 < MAX_CONSTELLATION_CONNECTIONS;
           i++
         ) {
           for (let j = i + 1; j < indices.length; j++) {
@@ -318,7 +321,7 @@ export default function MemberStarMap() {
             const distSq = dx * dx + dy * dy + dz * dz;
             if (
               distSq < CONSTELLATION_MAX_DIST * CONSTELLATION_MAX_DIST &&
-              Math.random() > 0.6
+              Math.random() > CONSTELLATION_PROBABILITY
             ) {
               connectionVerts.push(
                 positions[ai],
@@ -455,7 +458,7 @@ export default function MemberStarMap() {
 
     // --- Raycasting ---
     const raycaster = new THREE.Raycaster();
-    raycaster.params.Points = { threshold: 1.5 };
+    raycaster.params.Points = { threshold: RAYCAST_THRESHOLD };
     const mouseNDC = new THREE.Vector2();
     let hoveredIdx = -1;
 
