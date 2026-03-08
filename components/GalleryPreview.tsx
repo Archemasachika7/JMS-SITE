@@ -2,18 +2,18 @@
 import { motion } from "framer-motion";
 
 const galleryItems = [
-  { title: "Orion Nebula", photographer: "Priya Sen", gradient: "radial-gradient(ellipse at 40% 50%, #3730a3 0%, #1e1b4b 40%, #020617 100%)", glow: "#6366f1", tag: "Nebula" },
+  { title: "Orion Nebula", photographer: "Priya Sen", gradient: "radial-gradient(ellipse at 40% 50%, #1e40af 0%, #0c1e3d 40%, #020617 100%)", glow: "#3b82f6", tag: "Nebula" },
   { title: "Andromeda Galaxy", photographer: "Arjun Bose", gradient: "radial-gradient(ellipse at 60% 40%, #065f46 0%, #022c22 50%, #020617 100%)", glow: "#34d399", tag: "Galaxy" },
   { title: "Saturn Transit", photographer: "Sneha Das", gradient: "radial-gradient(ellipse at 50% 60%, #78350f 0%, #3b1a09 50%, #020617 100%)", glow: "#f59e0b", tag: "Planets" },
-  { title: "Milky Way Core", photographer: "Ravi Chatterjee", gradient: "radial-gradient(ellipse at 50% 40%, #4c1d95 0%, #2d1b69 30%, #020617 80%)", glow: "#7c3aed", tag: "Milky Way" },
+  { title: "Milky Way Core", photographer: "Ravi Chatterjee", gradient: "radial-gradient(ellipse at 50% 40%, #1e3a5f 0%, #2d1b69 30%, #020617 80%)", glow: "#2563eb", tag: "Milky Way" },
   { title: "Lunar Eclipse", photographer: "Mita Roy", gradient: "radial-gradient(ellipse at 45% 45%, #7f1d1d 0%, #450a0a 50%, #020617 100%)", glow: "#ef4444", tag: "Moon" },
-  { title: "Pleiades Cluster", photographer: "Dibya Ghosh", gradient: "radial-gradient(ellipse at 55% 40%, #164e63 0%, #0c4a6e 40%, #020617 100%)", glow: "#22d3ee", tag: "Star Cluster" },
+  { title: "Pleiades Cluster", photographer: "Dibya Ghosh", gradient: "radial-gradient(ellipse at 55% 40%, #164e63 0%, #0c4a6e 40%, #020617 100%)", glow: "#38bdf8", tag: "Star Cluster" },
 ];
 
 export default function GalleryPreview() {
   return (
     <section id="gallery" className="py-24 px-6 relative overflow-hidden bg-[#020617]">
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#22d3ee]/20 to-transparent" />
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#38bdf8]/20 to-transparent" />
 
       <div className="max-w-7xl mx-auto relative z-10">
         <motion.div
@@ -24,16 +24,16 @@ export default function GalleryPreview() {
           className="flex flex-col md:flex-row items-start justify-between mb-12 gap-4"
         >
           <div>
-            <p className="text-xs tracking-[0.4em] text-[#22d3ee] mb-2 uppercase" style={{ fontFamily: "'Space Mono', monospace" }}>
+            <p className="text-xs tracking-[0.4em] text-[#38bdf8] mb-2 uppercase" style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}>
               — Astrophotography —
             </p>
-            <h2 className="text-3xl md:text-4xl font-bold text-white" style={{ fontFamily: "'Orbitron', monospace" }}>GALLERY PREVIEW</h2>
-            <p className="text-gray-500 text-sm mt-2" style={{ fontFamily: "'Space Mono', monospace" }}>Shot by our members, from our campus</p>
+            <h2 className="text-3xl md:text-4xl font-bold text-white" style={{ fontFamily: "'Space Grotesk', 'Inter', sans-serif" }}>GALLERY PREVIEW</h2>
+            <p className="text-gray-500 text-sm mt-2" style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}>Shot by our members, from our campus</p>
           </div>
           <motion.a
             href="#gallery"
-            className="text-sm text-[#22d3ee] border-b border-[#22d3ee]/40 hover:border-[#22d3ee] transition-colors pb-1 whitespace-nowrap"
-            style={{ fontFamily: "'Space Mono', monospace" }}
+            className="text-sm text-[#38bdf8] border-b border-[#38bdf8]/40 hover:border-[#38bdf8] transition-colors pb-1 whitespace-nowrap"
+            style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
             whileHover={{ x: 4 }}
           >
             Open Full Gallery →
@@ -77,12 +77,12 @@ export default function GalleryPreview() {
                 <div className="absolute bottom-0 left-0 right-0 p-4">
                   <div className="flex items-end justify-between">
                     <div>
-                      <p className="text-white font-bold text-sm" style={{ fontFamily: "'Orbitron', monospace" }}>{item.title}</p>
-                      <p className="text-gray-400 text-xs mt-0.5" style={{ fontFamily: "'Space Mono', monospace" }}>by {item.photographer}</p>
+                      <p className="text-white font-bold text-sm" style={{ fontFamily: "'Space Grotesk', 'Inter', sans-serif" }}>{item.title}</p>
+                      <p className="text-gray-400 text-xs mt-0.5" style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}>by {item.photographer}</p>
                     </div>
                     <span
                       className="text-xs px-2 py-0.5 rounded-full border"
-                      style={{ fontFamily: "'Space Mono', monospace", color: item.glow, borderColor: `${item.glow}40`, background: `${item.glow}15` }}
+                      style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif", color: item.glow, borderColor: `${item.glow}40`, background: `${item.glow}15` }}
                     >
                       {item.tag}
                     </span>
@@ -94,7 +94,7 @@ export default function GalleryPreview() {
               <div className="absolute top-3 right-3 opacity-100 group-hover:opacity-0 transition-opacity">
                 <span
                   className="text-xs px-2 py-0.5 rounded-full border bg-black/40 backdrop-blur-sm"
-                  style={{ fontFamily: "'Space Mono', monospace", color: item.glow, borderColor: `${item.glow}30` }}
+                  style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif", color: item.glow, borderColor: `${item.glow}30` }}
                 >
                   {item.tag}
                 </span>
@@ -111,8 +111,8 @@ export default function GalleryPreview() {
           className="text-center mt-10"
         >
           <motion.button
-            className="px-10 py-4 rounded-full border border-[#22d3ee]/30 text-[#22d3ee] text-sm font-medium hover:bg-[#22d3ee]/10 hover:border-[#22d3ee]/60 hover:shadow-[0_0_30px_rgba(34,211,238,0.2)] transition-all duration-300"
-            style={{ fontFamily: "'Orbitron', monospace" }}
+            className="px-10 py-4 rounded-full border border-[#38bdf8]/30 text-[#38bdf8] text-sm font-medium hover:bg-[#38bdf8]/10 hover:border-[#38bdf8]/60 hover:shadow-[0_0_30px_rgba(56,189,248,0.2)] transition-all duration-300"
+            style={{ fontFamily: "'Space Grotesk', 'Inter', sans-serif" }}
             whileHover={{ scale: 1.04 }}
             whileTap={{ scale: 0.97 }}
           >

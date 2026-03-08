@@ -46,7 +46,7 @@ export default function StarTooltip({
                   className="w-full h-full object-cover"
                 />
               ) : (
-                <div className="w-full h-full bg-gradient-to-br from-[#7c3aed] to-[#22d3ee] flex items-center justify-center">
+                <div className="w-full h-full bg-gradient-to-br from-[#2563eb] to-[#10b981] flex items-center justify-center">
                   <svg
                     viewBox="0 0 24 24"
                     className="w-4 h-4 text-white fill-current"
@@ -59,14 +59,14 @@ export default function StarTooltip({
             <div>
               <p
                 className="text-white text-sm font-semibold leading-tight"
-                style={{ fontFamily: "'Space Mono', monospace" }}
+                style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
               >
                 {name || "AstroSci Member"}
               </p>
               <p
                 className="text-xs mt-0.5"
                 style={{
-                  fontFamily: "'Space Mono', monospace",
+                  fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif",
                   color: getPlanColor(membershipPlan),
                 }}
               >

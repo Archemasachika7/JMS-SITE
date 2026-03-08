@@ -4,8 +4,9 @@
 
 :root {
   --bg-space: #020617;
-  --accent-purple: #7c3aed;
-  --accent-cyan: #22d3ee;
+  --accent-blue: #2563eb;
+  --accent-orbit: #38bdf8;
+  --accent-green: #10b981;
 }
 
 * {
@@ -21,19 +22,20 @@ html {
 body {
   background-color: var(--bg-space);
   color: white;
+  font-family: "Public Sans", "Inter", system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
 }
 
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: #020617; }
-::-webkit-scrollbar-thumb { background: #7c3aed40; border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: #7c3aed80; }
+::-webkit-scrollbar-thumb { background: #2563eb40; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #2563eb80; }
 
 @keyframes glow-pulse {
-  0%, 100% { box-shadow: 0 0 20px rgba(124, 58, 237, 0.3); }
-  50% { box-shadow: 0 0 40px rgba(124, 58, 237, 0.6); }
+  0%, 100% { box-shadow: 0 0 20px rgba(37, 99, 235, 0.3); }
+  50% { box-shadow: 0 0 40px rgba(37, 99, 235, 0.6); }
 }
 
-.glow-purple {
+.glow-blue {
   animation: glow-pulse 3s ease-in-out infinite;
 }

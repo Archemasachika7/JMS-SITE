@@ -104,14 +104,14 @@ export default function ProfilePage() {
             className="text-center mb-10"
           >
             <p
-              className="text-xs tracking-[0.4em] text-[#22d3ee] mb-2 uppercase"
-              style={{ fontFamily: "'Space Mono', monospace" }}
+              className="text-xs tracking-[0.4em] text-[#38bdf8] mb-2 uppercase"
+              style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
             >
               — {greeting} —
             </p>
             <h1
               className="text-3xl md:text-4xl font-bold text-white"
-              style={{ fontFamily: "'Orbitron', monospace" }}
+              style={{ fontFamily: "'Space Grotesk', 'Inter', sans-serif" }}
             >
               Hello, {userName || "AstroSci Member"}
             </h1>
@@ -134,13 +134,13 @@ export default function ProfilePage() {
             <div className="flex flex-col items-center mb-8 -mt-4">
               <h2
                 className="text-xl font-bold text-white mt-2"
-                style={{ fontFamily: "'Orbitron', monospace" }}
+                style={{ fontFamily: "'Space Grotesk', 'Inter', sans-serif" }}
               >
                 {userName || "AstroSci Member"}
               </h2>
               <p
                 className="text-gray-400 text-sm mt-1"
-                style={{ fontFamily: "'Space Mono', monospace" }}
+                style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
               >
                 {userEmail || "Not logged in"}
               </p>
@@ -151,8 +151,8 @@ export default function ProfilePage() {
               <div className="flex justify-center mb-6">
                 <motion.button
                   onClick={() => setEditing(true)}
-                  className="flex items-center gap-2 px-5 py-2 rounded-full text-sm font-medium border border-[#7c3aed]/60 text-[#22d3ee] hover:bg-[#7c3aed]/20 hover:border-[#7c3aed] transition-all duration-300"
-                  style={{ fontFamily: "'Space Mono', monospace" }}
+                  className="flex items-center gap-2 px-5 py-2 rounded-full text-sm font-medium border border-[#2563eb]/60 text-[#38bdf8] hover:bg-[#2563eb]/20 hover:border-[#2563eb] transition-all duration-300"
+                  style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.97 }}
                 >
@@ -199,7 +199,7 @@ export default function ProfilePage() {
               <motion.button
                 onClick={handleLogout}
                 className="flex items-center gap-2 px-6 py-2.5 rounded-full text-sm font-medium border border-red-500/40 text-red-400 hover:bg-red-500/10 hover:border-red-500/60 transition-all duration-300"
-                style={{ fontFamily: "'Space Mono', monospace" }}
+                style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.97 }}
               >

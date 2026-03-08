@@ -22,17 +22,17 @@ export default function LoginSuccessAnimation() {
           className="absolute inset-0 rounded-full"
           style={{
             background:
-              "radial-gradient(circle, rgba(124,58,237,0.4) 0%, transparent 70%)",
+              "radial-gradient(circle, rgba(37,99,235,0.4) 0%, transparent 70%)",
           }}
           animate={{ scale: [1, 1.3, 1] }}
           transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
         />
         {/* Ring */}
         <motion.div
-          className="absolute inset-0 rounded-full border-2 border-[#7c3aed]"
+          className="absolute inset-0 rounded-full border-2 border-[#2563eb]"
           style={{
             boxShadow:
-              "0 0 20px rgba(124,58,237,0.5), inset 0 0 20px rgba(124,58,237,0.1)",
+              "0 0 20px rgba(37,99,235,0.5), inset 0 0 20px rgba(37,99,235,0.1)",
           }}
           initial={{ rotate: 0 }}
           animate={{ rotate: 360 }}
@@ -40,7 +40,7 @@ export default function LoginSuccessAnimation() {
         />
         {/* Checkmark */}
         <motion.svg
-          className="absolute inset-0 m-auto w-10 h-10 text-[#22d3ee]"
+          className="absolute inset-0 m-auto w-10 h-10 text-[#38bdf8]"
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
@@ -63,7 +63,7 @@ export default function LoginSuccessAnimation() {
       {/* Success text */}
       <motion.p
         className="text-white text-lg font-semibold mb-2"
-        style={{ fontFamily: "'Orbitron', monospace" }}
+        style={{ fontFamily: "'Space Grotesk', 'Inter', sans-serif" }}
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.7, duration: 0.4 }}
@@ -72,7 +72,7 @@ export default function LoginSuccessAnimation() {
       </motion.p>
       <motion.p
         className="text-gray-400 text-sm"
-        style={{ fontFamily: "'Space Mono', monospace" }}
+        style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.9, duration: 0.4 }}
