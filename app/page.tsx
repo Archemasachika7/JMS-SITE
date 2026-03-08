@@ -5,6 +5,7 @@ import DashboardGalleryPreview from "@/components/DashboardGalleryPreview";
 import DashboardPOTWPreview from "@/components/DashboardPOTWPreview";
 import DashboardMagazinePreview from "@/components/DashboardMagazinePreview";
 import AstronomyCalendar from "@/components/AstronomyCalendar";
+import AstronomyPreview from "@/components/AstronomyPreview";
 import ClubEventsSection from "@/components/ClubEventsSection";
 import MembershipCards from "@/components/MembershipCards";
 import FeedbackForm from "@/components/FeedbackForm";
@@ -20,6 +21,7 @@ export default function Home() {
       <DashboardPOTWPreview />
       <DashboardMagazinePreview />
       <AstronomyCalendar />
+      <AstronomyPreview />
       <ClubEventsSection />
       <MembershipCards />
       <FeedbackForm />
