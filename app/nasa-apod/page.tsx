@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import FullscreenImageViewer from "@/components/FullscreenImageViewer";
 
 interface APODData {
   title: string;
@@ -16,6 +17,7 @@ interface APODData {
 export default function NasaApodPage() {
   const [apod, setApod] = useState<APODData | null>(null);
   const [loading, setLoading] = useState(true);
+  const [fullscreenOpen, setFullscreenOpen] = useState(false);
 
   useEffect(() => {
     async function fetchAPOD() {
@@ -80,7 +82,7 @@ export default function NasaApodPage() {
               className="rounded-2xl overflow-hidden border border-[#38bdf8]/20 bg-[#07091a]/80 backdrop-blur-sm"
             >
               {apod.media_type === "image" ? (
-                <div className="relative overflow-hidden">
+                <div className="relative overflow-hidden cursor-pointer" onClick={() => setFullscreenOpen(true)}>
                   <img
                     src={apod.url}
                     alt={apod.title}
@@ -156,6 +158,20 @@ export default function NasaApodPage() {
         </div>
       </section>
       <Footer />
+      {apod && apod.media_type === "image" && (
+        <FullscreenImageViewer
+          src={apod.hdurl || apod.url}
+          alt={apod.title}
+          caption={apod.title}
+          subCaption={new Date(apod.date).toLocaleDateString("en-IN", {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+          })}
+          isOpen={fullscreenOpen}
+          onClose={() => setFullscreenOpen(false)}
+        />
+      )}
     </main>
   );
 }

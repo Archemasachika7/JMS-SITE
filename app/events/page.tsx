@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import FullscreenImageViewer from "@/components/FullscreenImageViewer";
 import { supabase } from "@/lib/supabaseClient";
 
 interface ClubEvent {
@@ -18,6 +19,7 @@ export default function EventsPage() {
   const [upcoming, setUpcoming] = useState<ClubEvent[]>([]);
   const [past, setPast] = useState<ClubEvent[]>([]);
   const [loading, setLoading] = useState(true);
+  const [fullscreenEvent, setFullscreenEvent] = useState<ClubEvent | null>(null);
 
   const defaultGradient = "radial-gradient(ellipse at 50% 50%, #1e3a5f 0%, #020617 100%)";
 
@@ -59,7 +61,11 @@ export default function EventsPage() {
         whileHover={{ y: -4 }}
         className="group rounded-2xl overflow-hidden border border-white/10 bg-[#07091a]/80 backdrop-blur-sm hover:border-[#2563eb]/40 transition-all"
       >
-        <div className="relative overflow-hidden" style={{ aspectRatio: "16/9" }}>
+        <div
+          className="relative overflow-hidden cursor-pointer"
+          style={{ aspectRatio: "16/9" }}
+          onClick={() => event.poster_url && setFullscreenEvent(event)}
+        >
           {event.poster_url ? (
             <img
               src={event.poster_url}
@@ -216,6 +222,22 @@ export default function EventsPage() {
         </div>
       </section>
       <Footer />
+      <FullscreenImageViewer
+        src={fullscreenEvent?.poster_url ?? ""}
+        alt={fullscreenEvent?.title ?? ""}
+        caption={fullscreenEvent?.title}
+        subCaption={
+          fullscreenEvent
+            ? `${new Date(fullscreenEvent.event_date).toLocaleDateString("en-IN", {
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+              })} · 📍 ${fullscreenEvent.location}`
+            : undefined
+        }
+        isOpen={!!fullscreenEvent}
+        onClose={() => setFullscreenEvent(null)}
+      />
     </main>
   );
 }

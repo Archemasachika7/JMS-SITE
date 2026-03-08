@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { supabase } from "@/lib/supabaseClient";
+import FullscreenImageViewer from "@/components/FullscreenImageViewer";
 
 interface Magazine {
   id: string;
@@ -16,6 +17,7 @@ interface Magazine {
 export default function DashboardMagazinePreview() {
   const [magazine, setMagazine] = useState<Magazine | null>(null);
   const [loading, setLoading] = useState(true);
+  const [fullscreenOpen, setFullscreenOpen] = useState(false);
 
   useEffect(() => {
     async function fetchMagazine() {
@@ -112,8 +114,9 @@ export default function DashboardMagazinePreview() {
             <div className="relative">
               <div className="absolute -inset-3 bg-[#2563eb]/20 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-all duration-700" />
               <div
-                className="relative rounded-2xl overflow-hidden border border-[#2563eb]/30 group-hover:border-[#2563eb]/60 transition-all duration-500"
+                className="relative rounded-2xl overflow-hidden border border-[#2563eb]/30 group-hover:border-[#2563eb]/60 transition-all duration-500 cursor-pointer"
                 style={{ aspectRatio: "3/4" }}
+                onClick={() => magazine.cover_image && setFullscreenOpen(true)}
               >
                 {magazine.cover_image ? (
                   <img
@@ -224,6 +227,16 @@ export default function DashboardMagazinePreview() {
         </motion.div>
         )}
       </div>
+      {magazine && (
+        <FullscreenImageViewer
+          src={magazine.cover_image ?? ""}
+          alt={magazine.title}
+          caption={magazine.title}
+          subCaption={magazine.issue}
+          isOpen={fullscreenOpen}
+          onClose={() => setFullscreenOpen(false)}
+        />
+      )}
     </section>
   );
 }

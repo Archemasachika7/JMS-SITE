@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import AuthGuard from "@/components/AuthGuard";
+import FullscreenImageViewer from "@/components/FullscreenImageViewer";
 import { supabase } from "@/lib/supabaseClient";
 
 interface Project {
@@ -19,6 +20,7 @@ interface Project {
 export default function ProjectsPage() {
   const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
+  const [fullscreenProject, setFullscreenProject] = useState<Project | null>(null);
 
   useEffect(() => {
     async function fetchProjects() {
@@ -105,7 +107,11 @@ export default function ProjectsPage() {
                 className="group rounded-2xl overflow-hidden border border-white/10 bg-[#07091a]/80 backdrop-blur-sm hover:border-[#2563eb]/40 transition-all"
               >
                 {/* Thumbnail */}
-                <div className="relative overflow-hidden" style={{ aspectRatio: "16/9" }}>
+                <div
+                  className="relative overflow-hidden cursor-pointer"
+                  style={{ aspectRatio: "16/9" }}
+                  onClick={() => project.thumbnail_url && setFullscreenProject(project)}
+                >
                   {project.thumbnail_url ? (
                     <img
                       src={project.thumbnail_url}
@@ -184,6 +190,14 @@ export default function ProjectsPage() {
         </div>
       </section>
       <Footer />
+      <FullscreenImageViewer
+        src={fullscreenProject?.thumbnail_url ?? ""}
+        alt={fullscreenProject?.title ?? ""}
+        caption={fullscreenProject?.title}
+        subCaption={fullscreenProject?.author ? `by ${fullscreenProject.author}` : undefined}
+        isOpen={!!fullscreenProject}
+        onClose={() => setFullscreenProject(null)}
+      />
     </main>
     </AuthGuard>
   );
