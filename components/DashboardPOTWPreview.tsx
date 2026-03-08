@@ -14,19 +14,21 @@ interface POTWItem {
 
 export default function DashboardPOTWPreview() {
   const [items, setItems] = useState<POTWItem[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function fetchPOTW() {
       try {
         const { data } = await supabase
           .from("potw")
-          .select("*")
+          .select("id, image_url, title, photographer, date")
           .order("date", { ascending: false })
           .limit(3);
         if (data) setItems(data);
       } catch {
         // Supabase fetch failed silently
       }
+      setLoading(false);
     }
     fetchPOTW();
   }, []);
@@ -78,11 +80,25 @@ export default function DashboardPOTWPreview() {
               style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
               whileHover={{ scale: 1.05 }}
             >
-              View Archive →
+              View All →
             </motion.span>
           </Link>
         </motion.div>
 
+        {loading ? (
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+            {[...Array(3)].map((_, i) => (
+              <div key={i} className="rounded-2xl overflow-hidden border border-[#2563eb]/20 bg-[#07091a]/80 animate-pulse">
+                <div className="w-full bg-[#0f172a]" style={{ aspectRatio: "16/10" }} />
+                <div className="p-4">
+                  <div className="h-4 bg-[#0f172a] rounded w-3/4 mb-2" />
+                  <div className="h-3 bg-[#0f172a] rounded w-1/2 mb-1" />
+                  <div className="h-3 bg-[#0f172a] rounded w-1/3" />
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : (
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
           {displayItems.map((item, i) => (
             <motion.div
@@ -155,6 +171,7 @@ export default function DashboardPOTWPreview() {
             </motion.div>
           ))}
         </div>
+        )}
       </div>
     </section>
   );

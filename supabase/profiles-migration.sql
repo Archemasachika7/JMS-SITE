@@ -23,6 +23,7 @@ create table if not exists profiles (
   year text,
   department text,
   phone text,
+  designation text,
   created_at timestamptz default now(),
   last_login_at timestamptz,
   last_login_ip text
@@ -40,6 +41,9 @@ begin
   if not exists (select 1 from information_schema.columns where table_name='profiles' and column_name='phone') then
     alter table profiles add column phone text;
   end if;
+  if not exists (select 1 from information_schema.columns where table_name='profiles' and column_name='designation') then
+    alter table profiles add column designation text;
+  end if;
 end $$;
 
 -- Enable Row Level Security
@@ -49,6 +53,13 @@ alter table profiles enable row level security;
 create policy "Users can view own profile"
   on profiles for select
   using (auth.uid() = id);
+
+-- Allow anyone to view admin profiles (for the public Team page).
+-- The frontend query selects only safe fields: name, profile_image, designation, department.
+-- For additional protection, consider creating a database view that exposes only those columns.
+create policy "Anyone can view admin profiles"
+  on profiles for select
+  using (role = 'admin');
 
 -- Allow users to insert their own profile (client-side fallback)
 create policy "Users can insert own profile"

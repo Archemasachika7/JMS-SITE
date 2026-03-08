@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import StarfieldBackground from "@/components/StarfieldBackground";
+import { siteConfig } from "@/config/siteConfig";
 
 export const metadata: Metadata = {
-  title: "AstroSci Club – Jadavpur University",
+  title: `${siteConfig.clubName} – ${siteConfig.university}`,
   description: "Exploring the cosmos from the heart of Jadavpur University. A community of astronomers, astrophotographers, and space enthusiasts.",
   keywords: ["astronomy", "astrophotography", "Jadavpur University", "space", "stargazing"],
   icons: {
-    icon: "/favicon.svg",
+    icon: siteConfig.assets.favicon,
   },
 };
 

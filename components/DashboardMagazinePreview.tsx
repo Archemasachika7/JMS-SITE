@@ -15,13 +15,14 @@ interface Magazine {
 
 export default function DashboardMagazinePreview() {
   const [magazine, setMagazine] = useState<Magazine | null>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function fetchMagazine() {
       try {
         const { data } = await supabase
           .from("magazines")
-          .select("*")
+          .select("id, title, issue, cover_image, pdf_url, published_at")
           .order("published_at", { ascending: false })
           .limit(1)
           .single();
@@ -29,6 +30,7 @@ export default function DashboardMagazinePreview() {
       } catch {
         // Supabase fetch failed silently
       }
+      setLoading(false);
     }
     fetchMagazine();
   }, []);
@@ -82,6 +84,21 @@ export default function DashboardMagazinePreview() {
           </Link>
         </motion.div>
 
+        {loading ? (
+          <div className="grid md:grid-cols-2 gap-8 items-center animate-pulse">
+            <div className="mx-auto max-w-xs w-full">
+              <div className="rounded-2xl overflow-hidden border border-[#2563eb]/20 bg-[#0f172a]" style={{ aspectRatio: "3/4" }} />
+            </div>
+            <div className="flex flex-col gap-4">
+              <div className="h-6 bg-[#0f172a] rounded w-3/4" />
+              <div className="h-4 bg-[#0f172a] rounded w-1/3" />
+              <div className="flex gap-3 mt-2">
+                <div className="h-10 bg-[#0f172a] rounded-xl w-28" />
+                <div className="h-10 bg-[#0f172a] rounded-xl w-28" />
+              </div>
+            </div>
+          </div>
+        ) : (
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -204,6 +221,7 @@ export default function DashboardMagazinePreview() {
             </div>
           </div>
         </motion.div>
+        )}
       </div>
     </section>
   );
