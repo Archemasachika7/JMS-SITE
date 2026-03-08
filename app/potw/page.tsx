@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import AuthGuard from "@/components/AuthGuard";
 import { supabase } from "@/lib/supabaseClient";
 
 interface POTWItem {
@@ -52,6 +53,7 @@ export default function POTWPage() {
   ];
 
   return (
+    <AuthGuard>
     <main className="relative min-h-screen">
       <Navbar />
       <section className="pt-28 pb-16 px-6 relative overflow-hidden">
@@ -164,5 +166,6 @@ export default function POTWPage() {
       </section>
       <Footer />
     </main>
+    </AuthGuard>
   );
 }

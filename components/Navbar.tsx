@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
 import { supabase, isSupabaseConfigured } from "@/lib/supabaseClient";
+import { siteConfig } from "@/config/siteConfig";
 
 const navItems = [
   { label: "Home", href: "/" },
@@ -12,8 +13,8 @@ const navItems = [
   { label: "POTW", href: "/potw" },
   { label: "Magazine", href: "/magazine" },
   { label: "Projects", href: "/projects" },
+  { label: "Team", href: "/team" },
   { label: "Members", href: "/members" },
-  { label: "NASA APOD", href: "/nasa-apod" },
 ];
 
 export default function Navbar() {
@@ -73,7 +74,7 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
         {/* Logo */}
         <motion.div className="flex items-center gap-3 cursor-pointer" whileHover={{ scale: 1.03 }}>
-          <Image src="/logo.svg" alt="AstroSci Logo" width={36} height={36} className="h-9 w-9" />
+          <Image src={siteConfig.assets.logo} alt={`${siteConfig.clubName} Logo`} width={36} height={36} className="h-9 w-9" />
           <div>
             <span
               className="font-bold text-lg tracking-wider bg-gradient-to-r from-[#2563eb] to-[#10b981] bg-clip-text text-transparent"
@@ -82,7 +83,7 @@ export default function Navbar() {
               ASTROSCI
             </span>
             <p className="text-[10px] text-gray-400 tracking-widest -mt-1 uppercase" style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}>
-              Jadavpur University
+              {siteConfig.university}
             </p>
           </div>
         </motion.div>

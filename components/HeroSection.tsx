@@ -1,6 +1,7 @@
 "use client";
 import dynamic from "next/dynamic";
 import { motion } from "framer-motion";
+import { siteConfig } from "@/config/siteConfig";
 
 const Planet3D = dynamic(() => import("@/components/Planet3D"), {
   ssr: false,
@@ -52,7 +53,7 @@ export default function HeroSection() {
           >
             <span className="h-px w-12 bg-gradient-to-r from-transparent to-[#2563eb]" />
             <span className="text-xs tracking-[0.4em] text-[#38bdf8] uppercase" style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}>
-              Jadavpur University
+              {siteConfig.university}
             </span>
             <span className="h-px w-12 bg-gradient-to-l from-transparent to-[#2563eb]" />
           </motion.div>

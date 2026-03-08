@@ -2,6 +2,7 @@
 import { motion } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import AuthGuard from "@/components/AuthGuard";
 
 const placeholderProjects = [
   { title: "Radio Telescope Array", description: "Building a small-scale radio telescope for hydrogen line detection.", color: "#38bdf8" },
@@ -12,6 +13,7 @@ const placeholderProjects = [
 
 export default function ProjectsPage() {
   return (
+    <AuthGuard>
     <main className="relative min-h-screen">
       <Navbar />
       <section className="pt-28 pb-16 px-6 relative overflow-hidden">
@@ -90,5 +92,6 @@ export default function ProjectsPage() {
       </section>
       <Footer />
     </main>
+    </AuthGuard>
   );
 }
