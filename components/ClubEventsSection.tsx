@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { supabase } from "@/lib/supabaseClient";
@@ -27,17 +27,7 @@ function getCountdown(targetDate: string) {
 export default function ClubEventsSection() {
   const [nextEvent, setNextEvent] = useState<ClubEvent | null>(null);
   const [countdown, setCountdown] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
-
-  const MS_PER_DAY = 24 * 60 * 60 * 1000;
-
-  const placeholder = useMemo<ClubEvent>(() => ({
-    id: "1",
-    title: "Lyrid Meteor Shower Night",
-    event_date: new Date(Date.now() + 10 * MS_PER_DAY).toISOString(),
-    description: "Join us for an unforgettable night of meteor watching from the JU campus rooftop.",
-    location: "JU Campus Rooftop Observatory",
-    poster: "",
-  }), []);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function fetchNextEvent() {
@@ -53,19 +43,19 @@ export default function ClubEventsSection() {
       } catch {
         // Supabase fetch failed silently
       }
+      setLoading(false);
     }
     fetchNextEvent();
   }, []);
 
-  const displayEvent = nextEvent || placeholder;
-
   useEffect(() => {
+    if (!nextEvent) return;
     const interval = setInterval(() => {
-      setCountdown(getCountdown(displayEvent.event_date));
+      setCountdown(getCountdown(nextEvent.event_date));
     }, 1000);
-    setCountdown(getCountdown(displayEvent.event_date));
+    setCountdown(getCountdown(nextEvent.event_date));
     return () => clearInterval(interval);
-  }, [displayEvent.event_date]);
+  }, [nextEvent]);
 
   return (
     <section className="py-16 px-6 relative overflow-hidden">
@@ -116,6 +106,33 @@ export default function ClubEventsSection() {
           </div>
         </motion.div>
 
+        {loading ? (
+          <div className="rounded-2xl border border-[#2563eb]/20 bg-[#07091a]/80 backdrop-blur-sm p-6 md:p-8 animate-pulse">
+            <div className="flex flex-col md:flex-row items-start justify-between gap-6 mb-6">
+              <div className="flex-1 w-full">
+                <div className="h-3 bg-[#0f172a] rounded w-1/4 mb-3" />
+                <div className="h-6 bg-[#0f172a] rounded w-2/3 mb-3" />
+                <div className="h-3 bg-[#0f172a] rounded w-1/3 mb-2" />
+                <div className="h-3 bg-[#0f172a] rounded w-1/2" />
+              </div>
+              <div className="h-10 bg-[#0f172a] rounded w-32 shrink-0" />
+            </div>
+            <div className="flex items-center justify-center gap-4">
+              {[...Array(4)].map((_, i) => (
+                <div key={i} className="w-16 h-16 md:w-20 md:h-20 rounded-xl bg-[#0f172a]" />
+              ))}
+            </div>
+          </div>
+        ) : !nextEvent ? (
+          <div className="rounded-2xl border border-white/10 bg-[#07091a]/60 py-16 text-center">
+            <p
+              className="text-gray-500 text-sm"
+              style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
+            >
+              No upcoming events — stay tuned!
+            </p>
+          </div>
+        ) : (
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -138,19 +155,19 @@ export default function ClubEventsSection() {
                 className="text-xl md:text-2xl font-bold text-white mb-2"
                 style={{ fontFamily: "'Space Grotesk', 'Inter', sans-serif" }}
               >
-                {displayEvent.title}
+                {nextEvent.title}
               </h3>
               <p
                 className="text-gray-400 text-sm mb-1"
                 style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
               >
-                📍 {displayEvent.location}
+                📍 {nextEvent.location}
               </p>
               <p
                 className="text-gray-500 text-sm"
                 style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
               >
-                {displayEvent.description}
+                {nextEvent.description}
               </p>
             </div>
             <div className="text-right shrink-0">
@@ -164,7 +181,7 @@ export default function ClubEventsSection() {
                 className="text-white font-semibold"
                 style={{ fontFamily: "'Space Grotesk', 'Inter', sans-serif" }}
               >
-                {new Date(displayEvent.event_date).toLocaleDateString("en-IN", {
+                {new Date(nextEvent.event_date).toLocaleDateString("en-IN", {
                   month: "short",
                   day: "numeric",
                   year: "numeric",
@@ -207,6 +224,7 @@ export default function ClubEventsSection() {
             ))}
           </div>
         </motion.div>
+        )}
       </div>
     </section>
   );

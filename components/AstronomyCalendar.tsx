@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { supabase } from "@/lib/supabaseClient";
 
@@ -26,14 +26,7 @@ export default function AstronomyCalendar() {
   const [events, setEvents] = useState<AstronomyEvent[]>([]);
   const [nearestEvent, setNearestEvent] = useState<AstronomyEvent | null>(null);
   const [countdown, setCountdown] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
-
-  const MS_PER_DAY = 24 * 60 * 60 * 1000;
-
-  const placeholderEvents = useMemo<AstronomyEvent[]>(() => [
-    { id: "1", title: "Total Lunar Eclipse", event_date: new Date(Date.now() + 5 * MS_PER_DAY).toISOString(), description: "Visible across South Asia", location: "Visible worldwide" },
-    { id: "2", title: "Eta Aquariid Meteor Shower", event_date: new Date(Date.now() + 12 * MS_PER_DAY).toISOString(), description: "Peak activity expected", location: "Northern Hemisphere" },
-    { id: "3", title: "Jupiter Opposition", event_date: new Date(Date.now() + 20 * MS_PER_DAY).toISOString(), description: "Best time to observe Jupiter", location: "Everywhere" },
-  ], []);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function fetchEvents() {
@@ -57,22 +50,19 @@ export default function AstronomyCalendar() {
       } catch {
         // Supabase fetch failed silently
       }
+      setLoading(false);
     }
     fetchEvents();
   }, []);
 
-  const displayNearest = nearestEvent || placeholderEvents[0];
-
   useEffect(() => {
-    const target = displayNearest;
+    if (!nearestEvent) return;
     const interval = setInterval(() => {
-      setCountdown(getCountdown(target.event_date));
+      setCountdown(getCountdown(nearestEvent.event_date));
     }, 1000);
-    setCountdown(getCountdown(target.event_date));
+    setCountdown(getCountdown(nearestEvent.event_date));
     return () => clearInterval(interval);
-  }, [displayNearest]);
-
-  const displayEvents = events.length > 0 ? events : placeholderEvents;
+  }, [nearestEvent]);
 
   return (
     <section className="py-16 px-6 relative overflow-hidden">
@@ -107,7 +97,45 @@ export default function AstronomyCalendar() {
           </p>
         </motion.div>
 
+        {loading ? (
+          <>
+            <div className="rounded-2xl border border-[#38bdf8]/20 bg-[#07091a]/80 backdrop-blur-sm p-6 mb-8 animate-pulse">
+              <div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-4">
+                <div className="w-full">
+                  <div className="h-3 bg-[#0f172a] rounded w-1/4 mb-2" />
+                  <div className="h-5 bg-[#0f172a] rounded w-1/2 mb-2" />
+                  <div className="h-3 bg-[#0f172a] rounded w-1/3" />
+                </div>
+                <div className="flex items-center gap-3">
+                  {[...Array(4)].map((_, i) => (
+                    <div key={i} className="w-14 h-14 rounded-lg bg-[#0f172a]" />
+                  ))}
+                </div>
+              </div>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              {[...Array(3)].map((_, i) => (
+                <div key={i} className="rounded-xl border border-white/10 bg-[#07091a]/60 p-5 animate-pulse">
+                  <div className="h-3 bg-[#0f172a] rounded w-1/3 mb-3" />
+                  <div className="h-4 bg-[#0f172a] rounded w-2/3 mb-2" />
+                  <div className="h-3 bg-[#0f172a] rounded w-full" />
+                </div>
+              ))}
+            </div>
+          </>
+        ) : events.length === 0 ? (
+          <div className="rounded-xl border border-white/10 bg-[#07091a]/60 py-16 text-center">
+            <p
+              className="text-gray-500 text-sm"
+              style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
+            >
+              No astronomical events this month — check back soon!
+            </p>
+          </div>
+        ) : (
+          <>
         {/* Nearest Event Countdown */}
+        {nearestEvent && (
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -130,13 +158,13 @@ export default function AstronomyCalendar() {
                 className="text-xl font-bold text-white"
                 style={{ fontFamily: "'Space Grotesk', 'Inter', sans-serif" }}
               >
-                {displayNearest.title}
+                {nearestEvent.title}
               </h3>
               <p
                 className="text-gray-400 text-sm mt-1"
                 style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
               >
-                {displayNearest.location}
+                {nearestEvent.location}
               </p>
             </div>
             <div className="flex items-center gap-3">
@@ -166,10 +194,11 @@ export default function AstronomyCalendar() {
             </div>
           </div>
         </motion.div>
+        )}
 
         {/* Events List */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          {displayEvents.slice(0, 3).map((event, i) => (
+          {events.slice(0, 3).map((event, i) => (
             <motion.div
               key={event.id}
               initial={{ opacity: 0, y: 20 }}
@@ -203,6 +232,8 @@ export default function AstronomyCalendar() {
             </motion.div>
           ))}
         </div>
+          </>
+        )}
       </div>
     </section>
   );

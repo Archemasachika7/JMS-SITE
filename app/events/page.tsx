@@ -17,6 +17,9 @@ interface ClubEvent {
 export default function EventsPage() {
   const [upcoming, setUpcoming] = useState<ClubEvent[]>([]);
   const [past, setPast] = useState<ClubEvent[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  const defaultGradient = "radial-gradient(ellipse at 50% 50%, #1e3a5f 0%, #020617 100%)";
 
   useEffect(() => {
     async function fetchEvents() {
@@ -40,37 +43,12 @@ export default function EventsPage() {
       } catch {
         // Supabase fetch failed silently
       }
+      setLoading(false);
     }
     fetchEvents();
   }, []);
 
-  const MS_PER_DAY = 24 * 60 * 60 * 1000;
-
-  const placeholderUpcoming: (ClubEvent & { gradient: string })[] = [
-    { id: "1", title: "Lyrid Meteor Shower Night", event_date: new Date(Date.now() + 10 * MS_PER_DAY).toISOString(), description: "Observe the annual Lyrid meteor shower from campus.", location: "JU Rooftop Observatory", poster: "", gradient: "radial-gradient(ellipse at 50% 50%, #1e3a5f 0%, #020617 100%)" },
-    { id: "2", title: "Solar Observation Day", event_date: new Date(Date.now() + 20 * MS_PER_DAY).toISOString(), description: "Safe solar viewing with H-alpha filters.", location: "JU Main Ground", poster: "", gradient: "radial-gradient(ellipse at 50% 50%, #78350f 0%, #020617 100%)" },
-  ];
-
-  const placeholderPast: (ClubEvent & { gradient: string })[] = [
-    { id: "3", title: "Winter Stargazing Camp", event_date: "2025-01-15T19:00:00", description: "A night under the winter skies with hot chocolate.", location: "JU Campus", poster: "", gradient: "radial-gradient(ellipse at 50% 50%, #164e63 0%, #020617 100%)" },
-    { id: "4", title: "Telescope Workshop", event_date: "2024-12-10T15:00:00", description: "Hands-on workshop on telescope assembly and usage.", location: "Physics Lab", poster: "", gradient: "radial-gradient(ellipse at 50% 50%, #065f46 0%, #020617 100%)" },
-  ];
-
-  const displayUpcoming = upcoming.length > 0 ? upcoming : placeholderUpcoming;
-  const displayPast = past.length > 0 ? past : placeholderPast;
-
-  const gradients = [
-    "radial-gradient(ellipse at 50% 50%, #1e3a5f 0%, #020617 100%)",
-    "radial-gradient(ellipse at 50% 50%, #78350f 0%, #020617 100%)",
-    "radial-gradient(ellipse at 50% 50%, #164e63 0%, #020617 100%)",
-    "radial-gradient(ellipse at 50% 50%, #065f46 0%, #020617 100%)",
-  ];
-
-  function renderEventCard(event: ClubEvent | (ClubEvent & { gradient: string }), i: number, isPlaceholder: boolean) {
-    const gradient = isPlaceholder
-      ? (event as ClubEvent & { gradient: string }).gradient
-      : gradients[i % gradients.length];
-
+  function renderEventCard(event: ClubEvent, i: number) {
     return (
       <motion.div
         key={event.id}
@@ -88,7 +66,7 @@ export default function EventsPage() {
               className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
             />
           ) : (
-            <div className="w-full h-full" style={{ background: gradient }}>
+            <div className="w-full h-full" style={{ background: defaultGradient }}>
               {[...Array(20)].map((_, j) => (
                 <div
                   key={j}
@@ -169,11 +147,33 @@ export default function EventsPage() {
               <span className="w-2 h-2 rounded-full bg-[#38bdf8] animate-pulse" />
               Upcoming Events
             </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {displayUpcoming.map((event, i) =>
-                renderEventCard(event, i, upcoming.length === 0)
-              )}
-            </div>
+            {loading ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {[...Array(2)].map((_, i) => (
+                  <div key={i} className="rounded-2xl overflow-hidden border border-white/10 bg-[#07091a]/80 animate-pulse">
+                    <div className="w-full bg-[#0f172a]" style={{ aspectRatio: "16/9" }} />
+                    <div className="p-5">
+                      <div className="h-4 bg-[#0f172a] rounded w-3/4 mb-2" />
+                      <div className="h-3 bg-[#0f172a] rounded w-1/2 mb-2" />
+                      <div className="h-3 bg-[#0f172a] rounded w-full" />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : upcoming.length === 0 ? (
+              <div className="rounded-xl border border-white/10 bg-[#07091a]/60 py-16 text-center">
+                <p
+                  className="text-gray-500 text-sm"
+                  style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
+                >
+                  No upcoming events — stay tuned!
+                </p>
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {upcoming.map((event, i) => renderEventCard(event, i))}
+              </div>
+            )}
           </div>
 
           {/* Past */}
@@ -184,11 +184,33 @@ export default function EventsPage() {
             >
               Past Events
             </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 opacity-80">
-              {displayPast.map((event, i) =>
-                renderEventCard(event, i, past.length === 0)
-              )}
-            </div>
+            {loading ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 opacity-80">
+                {[...Array(2)].map((_, i) => (
+                  <div key={i} className="rounded-2xl overflow-hidden border border-white/10 bg-[#07091a]/80 animate-pulse">
+                    <div className="w-full bg-[#0f172a]" style={{ aspectRatio: "16/9" }} />
+                    <div className="p-5">
+                      <div className="h-4 bg-[#0f172a] rounded w-3/4 mb-2" />
+                      <div className="h-3 bg-[#0f172a] rounded w-1/2 mb-2" />
+                      <div className="h-3 bg-[#0f172a] rounded w-full" />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : past.length === 0 ? (
+              <div className="rounded-xl border border-white/10 bg-[#07091a]/60 py-16 text-center opacity-80">
+                <p
+                  className="text-gray-500 text-sm"
+                  style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
+                >
+                  No past events yet.
+                </p>
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 opacity-80">
+                {past.map((event, i) => renderEventCard(event, i))}
+              </div>
+            )}
           </div>
         </div>
       </section>
