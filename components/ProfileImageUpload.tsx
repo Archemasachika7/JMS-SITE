@@ -58,9 +58,13 @@ export default function ProfileImageUpload({
         data: { publicUrl },
       } = supabase.storage.from("profiles").getPublicUrl(filePath);
 
+      // Append a cache-busting timestamp so browsers don't serve the
+      // stale cached image after the file is replaced at the same path.
+      const avatarUrl = `${publicUrl}?t=${Date.now()}`;
+
       const { error: dbError } = await supabase
         .from("profiles")
-        .update({ profile_image: publicUrl })
+        .update({ profile_image: avatarUrl })
         .eq("id", userId);
 
       if (dbError) {
@@ -70,7 +74,7 @@ export default function ProfileImageUpload({
         return;
       }
 
-      onImageUpdate(publicUrl);
+      onImageUpdate(avatarUrl);
     } catch {
       setUploadError("Failed to upload profile image");
     } finally {
