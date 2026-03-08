@@ -117,8 +117,8 @@
 
     // ── Resolve tier from role / plan ───────────────
     function resolveTier(role, plan) {
-      var r = (role || "").toLowerCase();
-      var p = (plan || "").toLowerCase();
+      const r = (role || "").toLowerCase();
+      const p = (plan || "").toLowerCase();
       if (r === "admin" || r === "core") return "core";
       if (p === "annual") return "annual";
       if (p === "monthly") return "monthly";
@@ -135,7 +135,7 @@
     //     name: u.name,
     //     tier: resolveTier(u.role, u.plan)
     //   }));
-    var users = [
+    const users = [
       { id: 1,  name: "Alice",    tier: "core" },
       { id: 2,  name: "Bob",      tier: "annual" },
       { id: 3,  name: "Charlie",  tier: "monthly" },
@@ -169,39 +169,39 @@
     ];
 
     // ── Canvas setup ────────────────────────────────
-    var canvas  = document.getElementById("sky");
-    var ctx     = canvas.getContext("2d");
-    var tooltip = document.getElementById("tooltip");
-    var tipName = tooltip.querySelector(".tip-name");
-    var tipTier = tooltip.querySelector(".tip-tier");
+    const canvas  = document.getElementById("sky");
+    const ctx     = canvas.getContext("2d");
+    const tooltip = document.getElementById("tooltip");
+    const tipName = tooltip.querySelector(".tip-name");
+    const tipTier = tooltip.querySelector(".tip-tier");
 
-    var W, H;                 // current canvas dimensions
-    var bgStars      = [];    // faint background dots
-    var memberStars  = [];    // user stars with positions
-    var constellations = [];  // groups of member‑star indices
-    var allEdges     = [];    // pre‑computed constellation edges
-    var mouseX = -1000;
-    var mouseY = -1000;
-    var hoveredStar = null;
+    let W, H;                 // current canvas dimensions
+    let bgStars      = [];    // faint background dots
+    let memberStars  = [];    // user stars with positions
+    let constellations = [];  // groups of member‑star indices
+    let allEdges     = [];    // pre‑computed constellation edges
+    let mouseX = -1000;
+    let mouseY = -1000;
+    let hoveredStar = null;
 
-    var BG_STAR_COUNT = 400;
-    var MIN_SPACING   = 40;   // minimum gap between member stars
-    var CLUSTER_MIN   = 5;
-    var CLUSTER_MAX   = 10;
+    const BG_STAR_COUNT = 400;
+    const MIN_SPACING   = 40;   // minimum gap between member stars
+    const CLUSTER_MIN   = 5;
+    const CLUSTER_MAX   = 10;
 
     // ── Helpers ─────────────────────────────────────
     function rand(min, max) { return Math.random() * (max - min) + min; }
 
     function dist(a, b) {
-      var dx = a.x - b.x;
-      var dy = a.y - b.y;
+      const dx = a.x - b.x;
+      const dy = a.y - b.y;
       return Math.sqrt(dx * dx + dy * dy);
     }
 
     // ── Generate background stars ───────────────────
     function makeBgStars() {
       bgStars = [];
-      for (var i = 0; i < BG_STAR_COUNT; i++) {
+      for (let i = 0; i < BG_STAR_COUNT; i++) {
         bgStars.push({
           x: Math.random() * W,
           y: Math.random() * H,
@@ -216,14 +216,14 @@
     // ── Place member stars with spacing ─────────────
     function placeMemberStars() {
       memberStars = [];
-      var pad = 60; // padding from edges
-      for (var i = 0; i < users.length; i++) {
-        var placed = false;
-        for (var attempt = 0; attempt < 200; attempt++) {
-          var sx = rand(pad, W - pad);
-          var sy = rand(pad, H - pad);
-          var tooClose = false;
-          for (var j = 0; j < memberStars.length; j++) {
+      const edgePadding = 60;
+      for (let i = 0; i < users.length; i++) {
+        let placed = false;
+        for (let attempt = 0; attempt < 200; attempt++) {
+          const sx = rand(edgePadding, W - edgePadding);
+          const sy = rand(edgePadding, H - edgePadding);
+          let tooClose = false;
+          for (let j = 0; j < memberStars.length; j++) {
             if (dist({ x: sx, y: sy }, memberStars[j]) < MIN_SPACING) {
               tooClose = true;
               break;
@@ -245,8 +245,8 @@
         // fallback — place anyway
         if (!placed) {
           memberStars.push({
-            x: rand(pad, W - pad),
-            y: rand(pad, H - pad),
+            x: rand(edgePadding, W - edgePadding),
+            y: rand(edgePadding, H - edgePadding),
             user: users[i],
             baseRadius: rand(3, 5),
             phase: rand(0, Math.PI * 2),
@@ -259,21 +259,21 @@
     // ── Build constellation clusters ────────────────
     function buildConstellations() {
       constellations = [];
-      var indices = [];
-      for (var i = 0; i < memberStars.length; i++) indices.push(i);
+      const indices = [];
+      for (let i = 0; i < memberStars.length; i++) indices.push(i);
 
-      // Shuffle
-      for (var i = indices.length - 1; i > 0; i--) {
-        var j = Math.floor(Math.random() * (i + 1));
-        var tmp = indices[i];
+      // Fisher–Yates shuffle
+      for (let i = indices.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        const swap = indices[i];
         indices[i] = indices[j];
-        indices[j] = tmp;
+        indices[j] = swap;
       }
 
-      var pos = 0;
+      let pos = 0;
       while (pos < indices.length) {
-        var remaining = indices.length - pos;
-        var size;
+        const remaining = indices.length - pos;
+        let size;
         if (remaining <= CLUSTER_MAX) {
           size = remaining;
         } else if (remaining < CLUSTER_MIN + CLUSTER_MIN) {
@@ -286,7 +286,7 @@
             size = remaining - CLUSTER_MIN;
           }
         }
-        var group = indices.slice(pos, pos + size);
+        const group = indices.slice(pos, pos + size);
         constellations.push(group);
         pos += size;
       }
@@ -299,18 +299,18 @@
       if (group.length < 2) return [];
 
       // Prim-style MST
-      var inTree = {};
+      const inTree = {};
       inTree[group[0]] = true;
-      var edges = [];
+      const edges = [];
       while (Object.keys(inTree).length < group.length) {
-        var bestDist = Infinity;
-        var bestA = -1;
-        var bestB = -1;
-        for (var i = 0; i < group.length; i++) {
+        let bestDist = Infinity;
+        let bestA = -1;
+        let bestB = -1;
+        for (let i = 0; i < group.length; i++) {
           if (!inTree[group[i]]) continue;
-          for (var j = 0; j < group.length; j++) {
+          for (let j = 0; j < group.length; j++) {
             if (inTree[group[j]]) continue;
-            var d = dist(memberStars[group[i]], memberStars[group[j]]);
+            const d = dist(memberStars[group[i]], memberStars[group[j]]);
             if (d < bestDist) {
               bestDist = d;
               bestA = group[i];
@@ -325,13 +325,13 @@
       }
 
       // Add a few extra random edges for variety (at most 2)
-      var extras = Math.min(2, Math.floor(group.length / 4));
-      for (var e = 0; e < extras; e++) {
-        var a = group[Math.floor(Math.random() * group.length)];
-        var b = group[Math.floor(Math.random() * group.length)];
+      const extras = Math.min(2, Math.floor(group.length / 4));
+      for (let e = 0; e < extras; e++) {
+        const a = group[Math.floor(Math.random() * group.length)];
+        const b = group[Math.floor(Math.random() * group.length)];
         if (a !== b) {
-          var dup = false;
-          for (var k = 0; k < edges.length; k++) {
+          let dup = false;
+          for (let k = 0; k < edges.length; k++) {
             if ((edges[k][0] === a && edges[k][1] === b) ||
                 (edges[k][0] === b && edges[k][1] === a)) {
               dup = true;
@@ -354,9 +354,9 @@
 
       // Pre‑compute all constellation edges once (avoid per‑frame work)
       allEdges = [];
-      for (var c = 0; c < constellations.length; c++) {
-        var edges = constellationEdges(constellations[c]);
-        for (var e = 0; e < edges.length; e++) {
+      for (let c = 0; c < constellations.length; c++) {
+        const edges = constellationEdges(constellations[c]);
+        for (let e = 0; e < edges.length; e++) {
           allEdges.push(edges[e]);
         }
       }
@@ -375,13 +375,13 @@
     });
 
     // ── Render loop ─────────────────────────────────
-    var HOVER_DIST = 24;  // px threshold for hover detection
+    const HOVER_DIST = 24;  // px threshold for hover detection
 
     function render(time) {
-      var t = time * 0.001; // seconds
+      const t = time * 0.001; // seconds
 
       // ── Clear + background gradient ───────────────
-      var grad = ctx.createLinearGradient(0, 0, 0, H);
+      const grad = ctx.createLinearGradient(0, 0, 0, H);
       grad.addColorStop(0, "#020617");
       grad.addColorStop(0.5, "#0a0f2e");
       grad.addColorStop(1, "#020617");
@@ -389,9 +389,9 @@
       ctx.fillRect(0, 0, W, H);
 
       // ── Background stars (twinkle) ────────────────
-      for (var i = 0; i < bgStars.length; i++) {
-        var s = bgStars[i];
-        var alpha = s.baseAlpha + 0.2 * Math.sin(t * s.speed + s.phase);
+      for (let i = 0; i < bgStars.length; i++) {
+        const s = bgStars[i];
+        let alpha = s.baseAlpha + 0.2 * Math.sin(t * s.speed + s.phase);
         if (alpha < 0.05) alpha = 0.05;
         ctx.beginPath();
         ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
@@ -402,9 +402,9 @@
       // ── Constellation lines ───────────────────────
       ctx.lineWidth = 1;
       ctx.strokeStyle = "rgba(255,255,255,0.2)";
-      for (var i = 0; i < allEdges.length; i++) {
-        var a = memberStars[allEdges[i][0]];
-        var b = memberStars[allEdges[i][1]];
+      for (let i = 0; i < allEdges.length; i++) {
+        const a = memberStars[allEdges[i][0]];
+        const b = memberStars[allEdges[i][1]];
         ctx.beginPath();
         ctx.moveTo(a.x, a.y);
         ctx.lineTo(b.x, b.y);
@@ -413,19 +413,19 @@
 
       // ── Member stars ──────────────────────────────
       hoveredStar = null;
-      for (var i = 0; i < memberStars.length; i++) {
-        var m  = memberStars[i];
-        var color = tierColors[m.user.tier] || tierColors.free;
+      for (let i = 0; i < memberStars.length; i++) {
+        const m  = memberStars[i];
+        const color = tierColors[m.user.tier] || tierColors.free;
 
         // Twinkle
-        var pulse = 1 + 0.15 * Math.sin(t * m.speed * 2 + m.phase);
-        var r = m.baseRadius * pulse;
+        const pulse = 1 + 0.15 * Math.sin(t * m.speed * 2 + m.phase);
+        let r = m.baseRadius * pulse;
 
         // Hover detection
-        var dx = mouseX - m.x;
-        var dy = mouseY - m.y;
-        var d  = Math.sqrt(dx * dx + dy * dy);
-        var isHovered = d < HOVER_DIST;
+        const dx = mouseX - m.x;
+        const dy = mouseY - m.y;
+        const d  = Math.sqrt(dx * dx + dy * dy);
+        const isHovered = d < HOVER_DIST;
         if (isHovered) {
           hoveredStar = m;
           r *= 1.5;
@@ -450,10 +450,10 @@
         tooltip.style.opacity = "1";
 
         // Position tooltip, keep on screen
-        var tx = mouseX + 16;
-        var ty = mouseY - 10;
-        var tw = tooltip.offsetWidth;
-        var th = tooltip.offsetHeight;
+        let tx = mouseX + 16;
+        let ty = mouseY - 10;
+        const tw = tooltip.offsetWidth;
+        const th = tooltip.offsetHeight;
         if (tx + tw > W - 8) tx = mouseX - tw - 12;
         if (ty + th > H - 8) ty = H - th - 8;
         if (ty < 8) ty = 8;
