@@ -3,7 +3,7 @@ import dynamic from "next/dynamic";
 import { motion } from "framer-motion";
 import { siteConfig } from "@/config/siteConfig";
 
-const SplineEarth = dynamic(() => import("@/components/SplineEarth"), {
+const Planet3D = dynamic(() => import("@/components/Planet3D"), {
   ssr: false,
   loading: () => (
     <div className="w-full h-full flex items-center justify-center">
@@ -110,14 +110,42 @@ export default function HeroSection() {
           </motion.div>
         </div>
 
-        {/* Right side: Spinning Earth (Spline 3D) */}
+        {/* Right side: 3D Planet */}
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1.2, delay: 0.5 }}
           className="relative h-[300px] sm:h-[400px] lg:h-[500px]"
         >
-          <SplineEarth />
+          {/* Floating particles around planet */}
+          <div className="absolute inset-0 pointer-events-none">
+            {[
+              { top: 25, left: 30, opacity: 0.5, dur: 3.5, delay: 0.2 },
+              { top: 40, left: 65, opacity: 0.7, dur: 4.2, delay: 0.8 },
+              { top: 55, left: 45, opacity: 0.6, dur: 5.0, delay: 1.5 },
+              { top: 30, left: 70, opacity: 0.4, dur: 3.8, delay: 0.4 },
+              { top: 60, left: 35, opacity: 0.8, dur: 6.0, delay: 1.0 },
+              { top: 45, left: 55, opacity: 0.5, dur: 4.5, delay: 1.8 },
+              { top: 35, left: 50, opacity: 0.6, dur: 5.5, delay: 0.6 },
+              { top: 70, left: 60, opacity: 0.4, dur: 3.2, delay: 1.2 },
+              { top: 28, left: 42, opacity: 0.7, dur: 4.8, delay: 0.3 },
+              { top: 50, left: 75, opacity: 0.5, dur: 5.8, delay: 1.6 },
+              { top: 65, left: 28, opacity: 0.6, dur: 3.6, delay: 0.9 },
+              { top: 38, left: 68, opacity: 0.4, dur: 4.0, delay: 1.4 },
+            ].map((p, i) => (
+              <div
+                key={i}
+                className="absolute w-1 h-1 rounded-full bg-[#93c5fd]"
+                style={{
+                  top: `${p.top}%`,
+                  left: `${p.left}%`,
+                  opacity: p.opacity,
+                  animation: `float ${p.dur}s ease-in-out infinite ${p.delay}s`,
+                }}
+              />
+            ))}
+          </div>
+          <Planet3D />
         </motion.div>
       </div>
 
@@ -134,6 +162,10 @@ export default function HeroSection() {
 
       <style>{`
         @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        @keyframes float {
+          0%, 100% { transform: translateY(0px); }
+          50% { transform: translateY(-10px); }
+        }
       `}</style>
     </section>
   );
