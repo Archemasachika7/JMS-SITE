@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import MemberStarMap from "@/components/MemberStarMap";
+import ConstellationMap2D from "@/components/ConstellationMap2D";
 
 const legendItems = [
   { color: "#ADD8E6", label: "Free Member" },
@@ -34,13 +34,13 @@ export default function MembersPage() {
             className="text-3xl md:text-5xl font-bold bg-gradient-to-r from-white via-[#22d3ee] to-[#7c3aed] bg-clip-text text-transparent"
             style={{ fontFamily: "'Orbitron', monospace" }}
           >
-            AstroSci Member Galaxy
+            AstroSci Constellation Map
           </h1>
           <p
             className="text-gray-400 mt-3 text-sm md:text-base max-w-xl mx-auto"
             style={{ fontFamily: "'Space Mono', monospace" }}
           >
-            Each member is a star in our rotating galaxy. Orbit, zoom, and hover
+            Each member is a star in our constellation map. Hover over stars
             to discover member identities.
           </p>
         </motion.div>
@@ -91,7 +91,7 @@ export default function MembersPage() {
             className="w-full rounded-2xl border border-white/10 bg-[#020617]/60 backdrop-blur-sm overflow-hidden"
             style={{ height: "calc(100vh - 260px)", minHeight: 400 }}
           >
-            <MemberStarMap />
+            <ConstellationMap2D />
           </motion.div>
         </div>
       </section>
