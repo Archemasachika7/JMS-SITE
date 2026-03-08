@@ -43,7 +43,7 @@ export default function DashboardGalleryPreview() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7 }}
-          className="flex items-center justify-between mb-8"
+          className="flex flex-wrap items-center justify-between gap-4 mb-8"
         >
           <div>
             <p
@@ -61,7 +61,7 @@ export default function DashboardGalleryPreview() {
           </div>
           <Link href="/gallery">
             <motion.span
-              className="text-sm text-[#38bdf8] border border-[#38bdf8]/30 px-5 py-2 rounded-full hover:bg-[#38bdf8]/10 transition-all cursor-pointer"
+              className="text-xs sm:text-sm text-[#38bdf8] border border-[#38bdf8]/30 px-3 sm:px-5 py-1.5 sm:py-2 rounded-full hover:bg-[#38bdf8]/10 transition-all cursor-pointer whitespace-nowrap"
               style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
               whileHover={{ scale: 1.05 }}
             >

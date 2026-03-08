@@ -69,7 +69,7 @@ export default function ClubEventsSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7 }}
-          className="flex items-center justify-between mb-8"
+          className="flex flex-wrap items-center justify-between gap-4 mb-8"
         >
           <div>
             <p

@@ -111,7 +111,7 @@ export default function GalleryPreview() {
           className="text-center mt-10"
         >
           <motion.button
-            className="px-10 py-4 rounded-full border border-[#38bdf8]/30 text-[#38bdf8] text-sm font-medium hover:bg-[#38bdf8]/10 hover:border-[#38bdf8]/60 hover:shadow-[0_0_30px_rgba(56,189,248,0.2)] transition-all duration-300"
+            className="px-6 py-3 sm:px-10 sm:py-4 rounded-full border border-[#38bdf8]/30 text-[#38bdf8] text-xs sm:text-sm font-medium hover:bg-[#38bdf8]/10 hover:border-[#38bdf8]/60 hover:shadow-[0_0_30px_rgba(56,189,248,0.2)] transition-all duration-300"
             style={{ fontFamily: "'Space Grotesk', 'Inter', sans-serif" }}
             whileHover={{ scale: 1.04 }}
             whileTap={{ scale: 0.97 }}
