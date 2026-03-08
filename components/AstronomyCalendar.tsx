@@ -74,7 +74,6 @@ export default function AstronomyCalendar() {
 
           if (data && data.length > 0) {
             setEvents(data);
-            const now = new Date();
             const upcoming = data.find((e) => new Date(e.event_date) > now);
             if (upcoming) setNearestEvent(upcoming);
           }
