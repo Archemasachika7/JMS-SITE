@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { supabase } from "@/lib/supabaseClient";
+import FullscreenImageViewer from "@/components/FullscreenImageViewer";
 
 interface GalleryItem {
   id: string;
@@ -14,6 +15,7 @@ interface GalleryItem {
 export default function DashboardGalleryPreview() {
   const [items, setItems] = useState<GalleryItem[]>([]);
   const [loading, setLoading] = useState(true);
+  const [fullscreenItem, setFullscreenItem] = useState<GalleryItem | null>(null);
 
   useEffect(() => {
     async function fetchGallery() {
@@ -99,6 +101,7 @@ export default function DashboardGalleryPreview() {
               whileHover={{ scale: 1.03, y: -4 }}
               className="group relative rounded-xl overflow-hidden cursor-pointer border border-white/10 hover:border-[#38bdf8]/30 transition-all"
               style={{ aspectRatio: "4/3" }}
+              onClick={() => item.image_url && setFullscreenItem(item)}
             >
               {item.image_url ? (
                 <img
@@ -138,6 +141,13 @@ export default function DashboardGalleryPreview() {
         </div>
         )}
       </div>
+      <FullscreenImageViewer
+        src={fullscreenItem?.image_url ?? ""}
+        alt={fullscreenItem?.caption ?? ""}
+        caption={fullscreenItem?.caption}
+        isOpen={!!fullscreenItem}
+        onClose={() => setFullscreenItem(null)}
+      />
     </section>
   );
 }
