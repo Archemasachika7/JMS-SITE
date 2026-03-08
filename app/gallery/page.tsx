@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import AuthGuard from "@/components/AuthGuard";
+import FullscreenImageViewer from "@/components/FullscreenImageViewer";
 import { supabase } from "@/lib/supabaseClient";
 
 interface GalleryItem {
@@ -16,6 +17,7 @@ interface GalleryItem {
 export default function GalleryPage() {
   const [items, setItems] = useState<GalleryItem[]>([]);
   const [loading, setLoading] = useState(true);
+  const [fullscreenItem, setFullscreenItem] = useState<GalleryItem | null>(null);
 
   useEffect(() => {
     async function fetchGallery() {
@@ -98,7 +100,11 @@ export default function GalleryPage() {
                 whileHover={{ scale: 1.03, y: -4 }}
                 className="group relative rounded-2xl overflow-hidden border border-white/10 hover:border-[#38bdf8]/40 bg-[#07091a]/80 backdrop-blur-sm transition-all"
               >
-                <div className="relative overflow-hidden" style={{ aspectRatio: "4/3" }}>
+                <div
+                  className="relative overflow-hidden cursor-pointer"
+                  style={{ aspectRatio: "4/3" }}
+                  onClick={() => item.image_url && setFullscreenItem(item)}
+                >
                   {item.image_url ? (
                     <img
                       src={item.image_url}
@@ -148,6 +154,22 @@ export default function GalleryPage() {
         </div>
       </section>
       <Footer />
+      <FullscreenImageViewer
+        src={fullscreenItem?.image_url ?? ""}
+        alt={fullscreenItem?.caption ?? ""}
+        caption={fullscreenItem?.caption}
+        subCaption={
+          fullscreenItem
+            ? new Date(fullscreenItem.created_at).toLocaleDateString("en-IN", {
+                year: "numeric",
+                month: "short",
+                day: "numeric",
+              })
+            : undefined
+        }
+        isOpen={!!fullscreenItem}
+        onClose={() => setFullscreenItem(null)}
+      />
     </main>
     </AuthGuard>
   );

@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { supabase } from "@/lib/supabaseClient";
+import FullscreenImageViewer from "@/components/FullscreenImageViewer";
 
 interface POTWItem {
   id: string;
@@ -16,6 +17,7 @@ interface POTWItem {
 export default function DashboardPOTWPreview() {
   const [items, setItems] = useState<POTWItem[]>([]);
   const [loading, setLoading] = useState(true);
+  const [fullscreenItem, setFullscreenItem] = useState<POTWItem | null>(null);
 
   useEffect(() => {
     async function fetchPOTW() {
@@ -107,7 +109,8 @@ export default function DashboardPOTWPreview() {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: i * 0.15 }}
               whileHover={{ y: -6 }}
-              className="group relative rounded-2xl overflow-hidden border border-[#2563eb]/20 bg-[#07091a]/80 backdrop-blur-sm hover:border-[#2563eb]/50 transition-all"
+              className="group relative rounded-2xl overflow-hidden border border-[#2563eb]/20 bg-[#07091a]/80 backdrop-blur-sm hover:border-[#2563eb]/50 transition-all cursor-pointer"
+              onClick={() => item.image_url && setFullscreenItem(item)}
             >
               <div className="relative w-full overflow-hidden" style={{ aspectRatio: "16/10" }}>
                 {item.image_url ? (
@@ -172,6 +175,14 @@ export default function DashboardPOTWPreview() {
         </div>
         )}
       </div>
+      <FullscreenImageViewer
+        src={fullscreenItem?.image_url ?? ""}
+        alt={fullscreenItem?.title ?? ""}
+        caption={fullscreenItem?.title}
+        subCaption={fullscreenItem ? `📸 ${fullscreenItem.photographer}` : undefined}
+        isOpen={!!fullscreenItem}
+        onClose={() => setFullscreenItem(null)}
+      />
     </section>
   );
 }

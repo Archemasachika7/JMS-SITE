@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import AuthGuard from "@/components/AuthGuard";
+import FullscreenImageViewer from "@/components/FullscreenImageViewer";
 import { supabase } from "@/lib/supabaseClient";
 
 interface POTWItem {
@@ -18,6 +19,7 @@ interface POTWItem {
 export default function POTWPage() {
   const [items, setItems] = useState<POTWItem[]>([]);
   const [loading, setLoading] = useState(true);
+  const [fullscreenItem, setFullscreenItem] = useState<POTWItem | null>(null);
 
   const defaultGradient = "radial-gradient(ellipse at 50% 50%, #1e3a5f 0%, #020617 100%)";
 
@@ -103,7 +105,11 @@ export default function POTWPage() {
                 whileHover={{ y: -6 }}
                 className="group rounded-2xl overflow-hidden border border-[#2563eb]/20 bg-[#07091a]/80 backdrop-blur-sm hover:border-[#2563eb]/50 transition-all"
               >
-                <div className="relative overflow-hidden" style={{ aspectRatio: "16/10" }}>
+                <div
+                  className="relative overflow-hidden cursor-pointer"
+                  style={{ aspectRatio: "16/10" }}
+                  onClick={() => item.image_url && setFullscreenItem(item)}
+                >
                   {item.image_url ? (
                     <img
                       src={item.image_url}
@@ -168,6 +174,18 @@ export default function POTWPage() {
         </div>
       </section>
       <Footer />
+      <FullscreenImageViewer
+        src={fullscreenItem?.image_url ?? ""}
+        alt={fullscreenItem?.title ?? ""}
+        caption={fullscreenItem?.title}
+        subCaption={
+          fullscreenItem
+            ? `📸 ${fullscreenItem.photographer}`
+            : undefined
+        }
+        isOpen={!!fullscreenItem}
+        onClose={() => setFullscreenItem(null)}
+      />
     </main>
     </AuthGuard>
   );

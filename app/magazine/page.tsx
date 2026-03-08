@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import AuthGuard from "@/components/AuthGuard";
+import FullscreenImageViewer from "@/components/FullscreenImageViewer";
 import { supabase } from "@/lib/supabaseClient";
 
 interface Magazine {
@@ -18,6 +19,7 @@ interface Magazine {
 export default function MagazinePage() {
   const [magazines, setMagazines] = useState<Magazine[]>([]);
   const [loading, setLoading] = useState(true);
+  const [fullscreenMagazine, setFullscreenMagazine] = useState<Magazine | null>(null);
 
   useEffect(() => {
     async function fetchMagazines() {
@@ -101,7 +103,7 @@ export default function MagazinePage() {
                 whileHover={{ y: -6 }}
                 className="group rounded-2xl overflow-hidden border border-[#2563eb]/20 bg-[#07091a]/80 backdrop-blur-sm hover:border-[#2563eb]/50 transition-all"
               >
-                <div className="relative overflow-hidden" style={{ aspectRatio: "3/4" }}>
+                <div className="relative overflow-hidden cursor-pointer" style={{ aspectRatio: "3/4" }} onClick={() => item.cover_image && setFullscreenMagazine(item)}>
                   {item.cover_image ? (
                     <img
                       src={item.cover_image}
@@ -203,6 +205,14 @@ export default function MagazinePage() {
         </div>
       </section>
       <Footer />
+      <FullscreenImageViewer
+        src={fullscreenMagazine?.cover_image ?? ""}
+        alt={fullscreenMagazine?.title ?? ""}
+        caption={fullscreenMagazine?.title}
+        subCaption={fullscreenMagazine?.issue}
+        isOpen={!!fullscreenMagazine}
+        onClose={() => setFullscreenMagazine(null)}
+      />
     </main>
     </AuthGuard>
   );
