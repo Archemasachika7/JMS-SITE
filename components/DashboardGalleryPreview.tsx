@@ -8,7 +8,7 @@ interface GalleryItem {
   id: string;
   image_url: string;
   caption: string;
-  uploaded_at: string;
+  created_at: string;
 }
 
 export default function DashboardGalleryPreview() {
@@ -20,9 +20,10 @@ export default function DashboardGalleryPreview() {
       try {
         const { data } = await supabase
           .from("gallery")
-          .select("id, image_url, caption, uploaded_at")
-          .order("uploaded_at", { ascending: false })
+          .select("id, image_url, caption, created_at")
+          .order("created_at", { ascending: false })
           .limit(3);
+        console.log("gallery", data);
         if (data) setItems(data);
       } catch {
         // Supabase fetch failed silently
