@@ -23,6 +23,26 @@ type SubmissionResult = {
   error?: string;
 };
 
+/**
+ * Returns the currently authenticated user via cookie-based server client,
+ * or a SubmissionResult error if not logged in.
+ */
+async function getAuthenticatedUser(): Promise<
+  | { user: { id: string }; error?: never }
+  | { user?: never; error: SubmissionResult }
+> {
+  const supabaseServer = createSupabaseServerClient();
+  const {
+    data: { user },
+  } = await supabaseServer.auth.getUser();
+  if (!user) {
+    return {
+      error: { success: false, error: "You must be logged in to perform this action." },
+    };
+  }
+  return { user };
+}
+
 const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5 MB
 const ALLOWED_PROOF_TYPES = [
   "image/jpeg",
@@ -59,13 +79,9 @@ export async function submitDonation(
     const supabase = getSupabase();
 
     // ── Retrieve the authenticated user ─────────────────────────────────
-    const authClient = createSupabaseServerClient();
-    const {
-      data: { user },
-    } = await authClient.auth.getUser();
-    if (!user) {
-      return { success: false, error: "You must be logged in to submit a donation." };
-    }
+    const auth = await getAuthenticatedUser();
+    if (auth.error) return auth.error;
+    const { user } = auth;
 
     const fullName = (formData.get("full_name") as string) ?? "";
     const email = (formData.get("email") as string) ?? "";
@@ -167,13 +183,9 @@ export async function submitSponsorship(
     const supabase = getSupabase();
 
     // ── Retrieve the authenticated user ─────────────────────────────────
-    const authClient = createSupabaseServerClient();
-    const {
-      data: { user },
-    } = await authClient.auth.getUser();
-    if (!user) {
-      return { success: false, error: "You must be logged in to submit a sponsorship." };
-    }
+    const auth = await getAuthenticatedUser();
+    if (auth.error) return auth.error;
+    const { user } = auth;
 
     const organizationName = (formData.get("organization_name") as string) ?? "";
     const contactName = (formData.get("contact_name") as string) ?? "";
