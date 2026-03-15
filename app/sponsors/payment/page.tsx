@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import {
@@ -14,6 +14,10 @@ import {
   Building2,
   Globe,
   MessageSquare,
+  Hash,
+  Upload,
+  Download,
+  X,
 } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -37,10 +41,48 @@ export default function SponsorPaymentPage() {
   const [organization, setOrganization] = useState("");
   const [website, setWebsite] = useState("");
   const [message, setMessage] = useState("");
+  const [transactionId, setTransactionId] = useState("");
+  const [proofFile, setProofFile] = useState<File | null>(null);
+  const [isDragging, setIsDragging] = useState(false);
+  const [fileError, setFileError] = useState("");
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setStep("payment");
+  };
+
+  const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
+  const ALLOWED_TYPES = ["image/jpeg", "image/png", "image/gif", "image/webp", "application/pdf"];
+
+  const handleFileSelect = (file: File | undefined) => {
+    if (!file) return;
+    setFileError("");
+    if (!ALLOWED_TYPES.includes(file.type)) {
+      setFileError("Only image files (PNG, JPG, GIF, WebP) and PDFs are allowed");
+      return;
+    }
+    if (file.size > MAX_FILE_SIZE) {
+      setFileError("File size must be less than 5MB");
+      return;
+    }
+    setProofFile(file);
+  };
+
+  const handleDragOver = (e: React.DragEvent) => {
+    e.preventDefault();
+    setIsDragging(true);
+  };
+
+  const handleDragLeave = (e: React.DragEvent) => {
+    e.preventDefault();
+    setIsDragging(false);
+  };
+
+  const handleDrop = (e: React.DragEvent) => {
+    e.preventDefault();
+    setIsDragging(false);
+    handleFileSelect(e.dataTransfer.files[0]);
   };
 
   return (
@@ -285,6 +327,85 @@ export default function SponsorPaymentPage() {
                     Pay via UPI
                   </motion.a>
 
+                  {/* Divider */}
+                  <div className="flex items-center gap-4 mb-6">
+                    <div className="flex-1 h-px bg-white/10" />
+                    <span className="text-xs text-gray-500 uppercase tracking-wider">or upload payment proof</span>
+                    <div className="flex-1 h-px bg-white/10" />
+                  </div>
+
+                  {/* Transaction ID / UTR Number */}
+                  <div className="text-left mb-5">
+                    <label className="block text-sm text-gray-300 mb-2">
+                      <Hash className="w-3.5 h-3.5 inline mr-1.5" />
+                      Transaction ID / UTR Number
+                    </label>
+                    <input
+                      type="text"
+                      value={transactionId}
+                      onChange={(e) => setTransactionId(e.target.value)}
+                      className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white text-sm placeholder-gray-500 focus:outline-none focus:border-[#f59e0b]/50 transition-colors"
+                      placeholder="Enter transaction ID or UTR number"
+                    />
+                  </div>
+
+                  {/* File Upload Zone */}
+                  <div className="text-left mb-8">
+                    <label className="block text-sm text-gray-300 mb-2">
+                      <Upload className="w-3.5 h-3.5 inline mr-1.5" />
+                      Upload Payment Proof / UPI Screenshot
+                    </label>
+                    <div
+                      onDragOver={handleDragOver}
+                      onDragLeave={handleDragLeave}
+                      onDrop={handleDrop}
+                      onClick={() => fileInputRef.current?.click()}
+                      onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); fileInputRef.current?.click(); } }}
+                      role="button"
+                      tabIndex={0}
+                      aria-label="Upload payment proof file"
+                      className={`relative rounded-xl border-2 border-dashed p-6 text-center cursor-pointer transition-colors ${
+                        isDragging
+                          ? "border-[#f59e0b] bg-[#f59e0b]/5"
+                          : "border-white/10 hover:border-white/20 bg-white/5"
+                      }`}
+                    >
+                      <input
+                        ref={fileInputRef}
+                        type="file"
+                        accept="image/*,.pdf"
+                        className="hidden"
+                        onChange={(e) => handleFileSelect(e.target.files?.[0])}
+                      />
+                      {proofFile ? (
+                        <div className="flex items-center justify-center gap-3">
+                          <CheckCircle2 className="w-4 h-4 text-[#10b981] flex-shrink-0" />
+                          <span className="text-sm text-gray-300 truncate max-w-[200px]">{proofFile.name}</span>
+                          <button
+                            type="button"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setProofFile(null);
+                              if (fileInputRef.current) fileInputRef.current.value = "";
+                            }}
+                            className="w-6 h-6 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors flex-shrink-0"
+                          >
+                            <X className="w-3 h-3 text-gray-400" />
+                          </button>
+                        </div>
+                      ) : (
+                        <div>
+                          <Upload className="w-6 h-6 text-gray-500 mx-auto mb-2" />
+                          <p className="text-sm text-gray-400">Drag &amp; drop or click to upload</p>
+                          <p className="text-xs text-gray-600 mt-1">PNG, JPG or PDF up to 5MB</p>
+                        </div>
+                      )}
+                    </div>
+                    {fileError && (
+                      <p className="text-xs text-red-400 mt-2">{fileError}</p>
+                    )}
+                  </div>
+
                   <div className="border-t border-white/10 pt-6">
                     <motion.button
                       onClick={() => setStep("verification")}
@@ -294,7 +415,7 @@ export default function SponsorPaymentPage() {
                       whileTap={{ scale: 0.98 }}
                     >
                       <CheckCircle2 className="w-4 h-4 inline mr-2" />
-                      I have Paid
+                      Submit Payment Details
                     </motion.button>
                   </div>
                 </div>
@@ -360,6 +481,32 @@ export default function SponsorPaymentPage() {
                       <span className="w-2.5 h-2.5 rounded-full bg-[#f59e0b] animate-pulse" />
                       <span className="text-sm font-semibold text-[#f59e0b]">Pending Verification</span>
                     </div>
+                  </div>
+
+                  {/* Certificate Status Section */}
+                  <div className="rounded-xl border border-[#f59e0b]/20 bg-[#f59e0b]/5 p-6 text-left mb-8">
+                    <h3
+                      className="text-base font-bold text-white mb-4"
+                      style={{ fontFamily: "'Space Grotesk', 'Inter', sans-serif" }}
+                    >
+                      Certificate Status
+                    </h3>
+                    <div className="flex items-center gap-3 mb-4">
+                      <Award className="w-5 h-5 text-[#f59e0b] flex-shrink-0" />
+                      <span className="text-sm text-gray-300">
+                        Certificate Status: <strong className="text-[#f59e0b]">Pending Verification</strong>
+                      </span>
+                    </div>
+                    <button
+                      disabled
+                      className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-white/5 border border-white/10 text-gray-500 text-sm font-semibold cursor-not-allowed"
+                    >
+                      <Download className="w-4 h-4" />
+                      Download Official Sponsor Certificate
+                    </button>
+                    <p className="text-xs text-gray-500 mt-3 text-center">
+                      Certificate will be available after payment verification
+                    </p>
                   </div>
 
                   <Link href="/sponsors">
