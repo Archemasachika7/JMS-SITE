@@ -16,6 +16,8 @@ const navItems = [
   { label: "Astronomy", href: "/astronomy" },
   { label: "Team", href: "/team" },
   { label: "Members", href: "/members" },
+  { label: "Sponsors", href: "/sponsors" },
+  { label: "Donators", href: "/donators" },
 ];
 
 export default function Navbar() {
