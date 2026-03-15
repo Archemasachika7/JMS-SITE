@@ -43,8 +43,26 @@ export default function SponsorsPage() {
     <main className="relative min-h-screen">
       <Navbar />
 
+      {/* Status Check Banner */}
+      <div className="relative z-20 pt-20">
+        <div className="mx-auto max-w-4xl px-6">
+          <Link href="/sponsors/status">
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="flex items-center justify-center gap-2 rounded-xl border border-[#f59e0b]/30 bg-[#0f172a]/90 backdrop-blur-sm px-5 py-3 text-sm text-[#f59e0b] hover:bg-[#0f172a] hover:border-[#f59e0b]/60 transition-all duration-300 cursor-pointer"
+              style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
+            >
+              <Award className="w-4 h-4" />
+              Already applied for sponsorship? Check your status here!
+            </motion.div>
+          </Link>
+        </div>
+      </div>
+
       {/* Hero Section */}
-      <section className="relative pt-32 pb-20 px-6 overflow-hidden">
+      <section className="relative pt-12 pb-20 px-6 overflow-hidden">
         <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse at 50% 40%, #1a1005 0%, #020617 60%)" }} />
         <div className="absolute top-1/3 left-1/3 w-96 h-96 bg-[#f59e0b]/8 rounded-full blur-[140px] pointer-events-none" />
         <div className="absolute bottom-1/4 right-1/3 w-80 h-80 bg-[#d97706]/6 rounded-full blur-[120px] pointer-events-none" />
