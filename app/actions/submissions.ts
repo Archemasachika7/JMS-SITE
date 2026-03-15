@@ -9,10 +9,12 @@ const supabaseKey =
   "";
 
 function getSupabase() {
-  return createClient(
-    supabaseUrl || "https://placeholder.supabase.co",
-    supabaseKey || "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.placeholder"
-  );
+  if (!supabaseUrl || !supabaseKey) {
+    throw new Error(
+      "Supabase credentials are not configured. Set NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY."
+    );
+  }
+  return createClient(supabaseUrl, supabaseKey);
 }
 
 type SubmissionResult = {
