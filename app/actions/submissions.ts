@@ -1,6 +1,7 @@
 "use server";
 
 import { createClient } from "@supabase/supabase-js";
+import { createSupabaseServerClient } from "@/lib/supabase/server";
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL ?? "";
 const supabaseKey =
@@ -21,6 +22,26 @@ type SubmissionResult = {
   success: boolean;
   error?: string;
 };
+
+/**
+ * Returns the currently authenticated user via cookie-based server client,
+ * or a SubmissionResult error if not logged in.
+ */
+async function getAuthenticatedUser(): Promise<
+  | { user: { id: string }; error?: never }
+  | { user?: never; error: SubmissionResult }
+> {
+  const supabaseServer = createSupabaseServerClient();
+  const {
+    data: { user },
+  } = await supabaseServer.auth.getUser();
+  if (!user) {
+    return {
+      error: { success: false, error: "You must be logged in to perform this action." },
+    };
+  }
+  return { user };
+}
 
 const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5 MB
 const ALLOWED_PROOF_TYPES = [
@@ -56,6 +77,11 @@ export async function submitDonation(
 ): Promise<SubmissionResult> {
   try {
     const supabase = getSupabase();
+
+    // ── Retrieve the authenticated user ─────────────────────────────────
+    const auth = await getAuthenticatedUser();
+    if (auth.error) return auth.error;
+    const { user } = auth;
 
     const fullName = (formData.get("full_name") as string) ?? "";
     const email = (formData.get("email") as string) ?? "";
@@ -119,6 +145,7 @@ export async function submitDonation(
 
     // ── Insert row into donators ────────────────────────────────────────
     const { error: insertErr } = await supabase.from("donators").insert({
+      user_id: user.id,
       full_name: isAnonymous ? "Anonymous" : fullName,
       email,
       phone,
@@ -154,6 +181,11 @@ export async function submitSponsorship(
 ): Promise<SubmissionResult> {
   try {
     const supabase = getSupabase();
+
+    // ── Retrieve the authenticated user ─────────────────────────────────
+    const auth = await getAuthenticatedUser();
+    if (auth.error) return auth.error;
+    const { user } = auth;
 
     const organizationName = (formData.get("organization_name") as string) ?? "";
     const contactName = (formData.get("contact_name") as string) ?? "";
@@ -217,6 +249,7 @@ export async function submitSponsorship(
 
     // ── Insert row into sponsors ────────────────────────────────────────
     const { error: insertErr } = await supabase.from("sponsors").insert({
+      user_id: user.id,
       organization_name: organizationName,
       contact_name: contactName,
       email,

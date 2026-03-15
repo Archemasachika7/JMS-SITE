@@ -1,3 +1,4 @@
+import { createBrowserClient } from "@supabase/ssr"
 import { createClient, SupabaseClient, User } from "@supabase/supabase-js"
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL ?? ""
@@ -23,12 +24,17 @@ if (process.env.NODE_ENV === "production" && !isSupabaseConfigured()) {
   )
 }
 
-// Create the client even when credentials are placeholders so the app can
-// render and show a helpful configuration warning instead of crashing.
-export const supabase: SupabaseClient = createClient(
-  supabaseUrl || "https://placeholder.supabase.co",
+const resolvedUrl = supabaseUrl || "https://placeholder.supabase.co"
+const resolvedKey =
   supabaseAnonKey || "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.placeholder"
-)
+
+// In the browser, use createBrowserClient so auth tokens are stored in
+// cookies (accessible by the server). During SSR, fall back to the standard
+// createClient which does not require browser APIs.
+export const supabase: SupabaseClient =
+  typeof window !== "undefined"
+    ? createBrowserClient(resolvedUrl, resolvedKey)
+    : createClient(resolvedUrl, resolvedKey)
 
 /**
  * Ensures a row exists in the `profiles` table for the given user.
