@@ -265,10 +265,13 @@ export default function SponsorPaymentPage() {
                     Scan the QR code below or use UPI to pay
                   </p>
 
-                  {/* QR Code Placeholder */}
-                  <div className="w-56 h-56 mx-auto rounded-2xl border-2 border-dashed border-[#f59e0b]/30 bg-white/5 flex flex-col items-center justify-center mb-6">
-                    <QrCode className="w-16 h-16 text-[#f59e0b]/40 mb-2" />
-                    <p className="text-xs text-gray-500">QR Code</p>
+                  {/* Payment QR Code */}
+                  <div className="w-56 h-56 mx-auto rounded-2xl overflow-hidden bg-white flex items-center justify-center mb-6">
+                    <img
+                      src={siteConfig.assets.paymentQr}
+                      alt="Payment QR Code"
+                      className="w-full h-full object-contain"
+                    />
                   </div>
 
                   {/* UPI Button */}
