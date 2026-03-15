@@ -81,7 +81,7 @@ export default function HeroSection() {
             className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4"
           >
             <motion.a
-              href="#events"
+              href="/auth?tab=signup"
               className="group relative px-6 sm:px-8 py-4 rounded-full bg-gradient-to-r from-[#2563eb] to-[#1d4ed8] text-white font-semibold text-xs sm:text-sm tracking-wider overflow-hidden shadow-[0_0_30px_rgba(37,99,235,0.4)] hover:shadow-[0_0_50px_rgba(37,99,235,0.7)] transition-all duration-300 whitespace-nowrap"
               style={{ fontFamily: "'Space Grotesk', 'Inter', sans-serif" }}
               whileHover={{ scale: 1.05 }}
@@ -92,7 +92,7 @@ export default function HeroSection() {
             </motion.a>
 
             <motion.a
-              href="#join"
+              href="/auth?tab=signup"
               className="px-6 sm:px-8 py-4 rounded-full border border-[#38bdf8]/40 text-[#38bdf8] font-semibold text-xs sm:text-sm tracking-wider hover:bg-[#38bdf8]/10 hover:border-[#38bdf8] hover:shadow-[0_0_30px_rgba(56,189,248,0.3)] transition-all duration-300 whitespace-nowrap"
               style={{ fontFamily: "'Space Grotesk', 'Inter', sans-serif" }}
               whileHover={{ scale: 1.05 }}
