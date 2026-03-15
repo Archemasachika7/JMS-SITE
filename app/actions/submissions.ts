@@ -1,6 +1,7 @@
 "use server";
 
 import { createClient } from "@supabase/supabase-js";
+import { createSupabaseServerClient } from "@/lib/supabase/server";
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL ?? "";
 const supabaseKey =
@@ -56,6 +57,15 @@ export async function submitDonation(
 ): Promise<SubmissionResult> {
   try {
     const supabase = getSupabase();
+
+    // ── Retrieve the authenticated user ─────────────────────────────────
+    const authClient = createSupabaseServerClient();
+    const {
+      data: { user },
+    } = await authClient.auth.getUser();
+    if (!user) {
+      return { success: false, error: "You must be logged in to submit a donation." };
+    }
 
     const fullName = (formData.get("full_name") as string) ?? "";
     const email = (formData.get("email") as string) ?? "";
@@ -119,6 +129,7 @@ export async function submitDonation(
 
     // ── Insert row into donators ────────────────────────────────────────
     const { error: insertErr } = await supabase.from("donators").insert({
+      user_id: user.id,
       full_name: isAnonymous ? "Anonymous" : fullName,
       email,
       phone,
@@ -154,6 +165,15 @@ export async function submitSponsorship(
 ): Promise<SubmissionResult> {
   try {
     const supabase = getSupabase();
+
+    // ── Retrieve the authenticated user ─────────────────────────────────
+    const authClient = createSupabaseServerClient();
+    const {
+      data: { user },
+    } = await authClient.auth.getUser();
+    if (!user) {
+      return { success: false, error: "You must be logged in to submit a sponsorship." };
+    }
 
     const organizationName = (formData.get("organization_name") as string) ?? "";
     const contactName = (formData.get("contact_name") as string) ?? "";
@@ -217,6 +237,7 @@ export async function submitSponsorship(
 
     // ── Insert row into sponsors ────────────────────────────────────────
     const { error: insertErr } = await supabase.from("sponsors").insert({
+      user_id: user.id,
       organization_name: organizationName,
       contact_name: contactName,
       email,
