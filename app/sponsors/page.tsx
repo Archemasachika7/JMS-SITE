@@ -47,17 +47,21 @@ export default function SponsorsPage() {
     let mounted = true;
 
     async function loadVerifiedSponsors() {
-      const { data: verifiedDonators, error: donatorsError } = await supabase
+      const { data: verifiedDonors, error: donorsError } = await supabase
         .from("donators")
         .select("user_id")
         .eq("status", "verified")
         .not("user_id", "is", null);
 
-      if (donatorsError || !mounted || !verifiedDonators) return;
+      if (donorsError) {
+        console.error("Failed to load verified donors:", donorsError.message);
+        return;
+      }
+      if (!mounted || !verifiedDonors) return;
 
       const verifiedUserIds = Array.from(
         new Set(
-          verifiedDonators
+          verifiedDonors
             .map((donator) => donator.user_id)
             .filter((userId): userId is string => Boolean(userId))
         )
@@ -75,7 +79,11 @@ export default function SponsorsPage() {
         .in("user_id", verifiedUserIds)
         .order("created_at", { ascending: false });
 
-      if (sponsorsError || !mounted || !sponsors) return;
+      if (sponsorsError) {
+        console.error("Failed to load verified sponsors:", sponsorsError.message);
+        return;
+      }
+      if (!mounted || !sponsors) return;
 
       setVerifiedSponsors(
         sponsors.map((sponsor) => ({

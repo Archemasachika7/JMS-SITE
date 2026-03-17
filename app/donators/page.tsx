@@ -78,7 +78,11 @@ export default function DonatorsPage() {
         .eq("status", "verified")
         .order("amount", { ascending: false });
 
-      if (error || !mounted || !data) return;
+      if (error) {
+        console.error("Failed to load verified donors:", error.message);
+        return;
+      }
+      if (!mounted || !data) return;
 
       const donors = data.map((donor) => ({
         name: donor.full_name,
