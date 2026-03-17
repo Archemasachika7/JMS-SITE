@@ -1,19 +1,20 @@
 "use client";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { Heart, Star, User } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { supabase } from "@/lib/supabaseClient";
 
-const topDonors: { name: string; avatar: string; amount: string; anonymous: boolean }[] = [];
-const allDonors: { name: string; avatar: string; amount: string; anonymous: boolean }[] = [];
+type Donor = { name: string; avatar: string; amount: string; anonymous: boolean };
 
 function DonorCard({
   donor,
   index,
   highlight,
 }: {
-  donor: { name: string; avatar: string; amount: string; anonymous: boolean };
+  donor: Donor;
   index: number;
   highlight?: boolean;
 }) {
@@ -64,6 +65,39 @@ function DonorCard({
 }
 
 export default function DonatorsPage() {
+  const [topDonors, setTopDonors] = useState<Donor[]>([]);
+  const [allDonors, setAllDonors] = useState<Donor[]>([]);
+
+  useEffect(() => {
+    let mounted = true;
+
+    async function loadVerifiedDonors() {
+      const { data, error } = await supabase
+        .from("donators")
+        .select("full_name, profile_pic_url, amount, is_anonymous")
+        .eq("status", "verified")
+        .order("amount", { ascending: false });
+
+      if (error || !mounted || !data) return;
+
+      const donors = data.map((donor) => ({
+        name: donor.full_name,
+        avatar: donor.profile_pic_url ?? "",
+        amount: `₹${Number(donor.amount).toLocaleString("en-IN")}`,
+        anonymous: donor.is_anonymous ?? false,
+      }));
+
+      setTopDonors(donors.slice(0, 5));
+      setAllDonors(donors);
+    }
+
+    loadVerifiedDonors();
+
+    return () => {
+      mounted = false;
+    };
+  }, []);
+
   return (
     <main className="relative min-h-screen">
       <Navbar />
