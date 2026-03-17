@@ -182,7 +182,7 @@ function PendingMessage() {
           Verification in Progress
         </p>
         <p className="text-sm text-yellow-200/70">
-          We are reviewing your payment. This usually takes up to 24 hours.
+          Verification in Progress (Usually takes up to 24 hours).
         </p>
       </div>
     </div>
@@ -197,7 +197,7 @@ function RejectedMessage({ transactionRef }: { transactionRef: string }) {
       <div>
         <p className="font-medium text-red-300">Verification Failed</p>
         <p className="text-sm text-red-200/70">
-          Please contact the admin team with your Transaction&nbsp;ID{" "}
+          Verification Failed. Please contact the admin team with your Transaction&nbsp;ID{" "}
           <span className="font-mono text-red-300">{transactionRef}</span>.
         </p>
       </div>
@@ -218,7 +218,7 @@ function VerifiedMessage({
         <div>
           <p className="font-medium text-emerald-300">Payment Verified!</p>
           <p className="text-sm text-emerald-200/70">
-            Your official AstroSci certificate is currently being generated.
+            Payment Verified! Your official AstroSci certificate is being generated.
           </p>
         </div>
       </div>
@@ -331,7 +331,7 @@ export default function StatusPageContent({
                 No records found
               </h2>
               <p className="mb-6 text-sm text-slate-400">
-                No sponsorship or donation attempts found for this account.
+                No sponsorship or donation attempts found.
               </p>
               <div className="flex flex-col gap-3 sm:flex-row sm:justify-center">
                 <Link

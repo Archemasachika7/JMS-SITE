@@ -1,47 +1,11 @@
 "use server";
 
-import { createClient } from "@supabase/supabase-js";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
-
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL ?? "";
-const supabaseKey =
-  process.env.SUPABASE_SERVICE_ROLE_KEY ??
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ??
-  "";
-
-function getSupabase() {
-  if (!supabaseUrl || !supabaseKey) {
-    throw new Error(
-      "Supabase credentials are not configured. Set NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY."
-    );
-  }
-  return createClient(supabaseUrl, supabaseKey);
-}
 
 type SubmissionResult = {
   success: boolean;
   error?: string;
 };
-
-/**
- * Returns the currently authenticated user via cookie-based server client,
- * or a SubmissionResult error if not logged in.
- */
-async function getAuthenticatedUser(): Promise<
-  | { user: { id: string }; error?: never }
-  | { user?: never; error: SubmissionResult }
-> {
-  const supabaseServer = createSupabaseServerClient();
-  const {
-    data: { user },
-  } = await supabaseServer.auth.getUser();
-  if (!user) {
-    return {
-      error: { success: false, error: "You must be logged in to perform this action." },
-    };
-  }
-  return { user };
-}
 
 const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5 MB
 const ALLOWED_PROOF_TYPES = [
@@ -76,12 +40,13 @@ export async function submitDonation(
   formData: FormData
 ): Promise<SubmissionResult> {
   try {
-    const supabase = getSupabase();
-
-    // ── Retrieve the authenticated user ─────────────────────────────────
-    const auth = await getAuthenticatedUser();
-    if (auth.error) return auth.error;
-    const { user } = auth;
+    const supabase = createSupabaseServerClient();
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+    if (!user) {
+      return { success: false, error: "You must be logged in to perform this action." };
+    }
 
     const fullName = (formData.get("full_name") as string) ?? "";
     const email = (formData.get("email") as string) ?? "";
@@ -180,12 +145,13 @@ export async function submitSponsorship(
   formData: FormData
 ): Promise<SubmissionResult> {
   try {
-    const supabase = getSupabase();
-
-    // ── Retrieve the authenticated user ─────────────────────────────────
-    const auth = await getAuthenticatedUser();
-    if (auth.error) return auth.error;
-    const { user } = auth;
+    const supabase = createSupabaseServerClient();
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+    if (!user) {
+      return { success: false, error: "You must be logged in to perform this action." };
+    }
 
     const organizationName = (formData.get("organization_name") as string) ?? "";
     const contactName = (formData.get("contact_name") as string) ?? "";
