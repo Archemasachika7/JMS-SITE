@@ -1,9 +1,11 @@
 "use client";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { Award, Megaphone, ShoppingBag, Calendar, Trophy, ExternalLink } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { supabase } from "@/lib/supabaseClient";
 
 const sponsorPlans = [
   {
@@ -36,9 +38,69 @@ const sponsorPlans = [
   },
 ];
 
-const verifiedSponsors: { name: string; logo: string; website: string }[] = [];
+type VerifiedSponsor = { name: string; logo: string; website: string };
 
 export default function SponsorsPage() {
+  const [verifiedSponsors, setVerifiedSponsors] = useState<VerifiedSponsor[]>([]);
+
+  useEffect(() => {
+    let mounted = true;
+
+    async function loadVerifiedSponsors() {
+      const { data: verifiedDonors, error: donorsError } = await supabase
+        .from("donators")
+        .select("user_id")
+        .eq("status", "verified")
+        .not("user_id", "is", null);
+
+      if (donorsError) {
+        console.error("Failed to load verified donors:", donorsError.message);
+        return;
+      }
+      if (!mounted || !verifiedDonors) return;
+
+      const verifiedUserIds = Array.from(
+        new Set(
+          verifiedDonors
+            .map((donator) => donator.user_id)
+            .filter((userId): userId is string => Boolean(userId))
+        )
+      );
+
+      if (verifiedUserIds.length === 0) {
+        setVerifiedSponsors([]);
+        return;
+      }
+
+      const { data: sponsors, error: sponsorsError } = await supabase
+        .from("sponsors")
+        .select("organization_name, logo_url, website_url, user_id")
+        .eq("status", "verified")
+        .in("user_id", verifiedUserIds)
+        .order("created_at", { ascending: false });
+
+      if (sponsorsError) {
+        console.error("Failed to load verified sponsors:", sponsorsError.message);
+        return;
+      }
+      if (!mounted || !sponsors) return;
+
+      setVerifiedSponsors(
+        sponsors.map((sponsor) => ({
+          name: sponsor.organization_name,
+          logo: sponsor.logo_url ?? "",
+          website: sponsor.website_url ?? "",
+        }))
+      );
+    }
+
+    loadVerifiedSponsors();
+
+    return () => {
+      mounted = false;
+    };
+  }, []);
+
   return (
     <main className="relative min-h-screen">
       <Navbar />
