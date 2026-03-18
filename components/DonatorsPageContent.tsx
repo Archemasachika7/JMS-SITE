@@ -204,7 +204,7 @@ export default function DonatorsPageContent({
                     }`}
                   >
                     <span className="block">{tier.label}</span>
-                    <span className="block text-[10px] text-[#F3F4F6]">{tier.amount}</span>
+                    <span className="block text-xs text-[#F3F4F6]">{tier.amount}</span>
                   </button>
                 );
               })}

@@ -117,9 +117,9 @@ export default function SponsorsPageContent({
         <div className="absolute top-1/3 left-1/3 w-96 h-96 bg-[#7c3aed]/10 rounded-full blur-[140px] pointer-events-none" />
         <div className="absolute bottom-1/4 right-1/3 w-80 h-80 bg-[#22d3ee]/10 rounded-full blur-[120px] pointer-events-none" />
         <div className="absolute inset-0 pointer-events-none">
-          {starParticles.map((star) => (
+          {starParticles.map((star, i) => (
             <motion.span
-              key={`${star.left}-${star.top}`}
+              key={`${star.left}-${star.top}-${i}`}
               className="absolute w-1 h-1 rounded-full bg-white/60"
               style={{ left: star.left, top: star.top }}
               animate={{ opacity: [0.2, 0.9, 0.2], scale: [1, 1.5, 1] }}
@@ -205,7 +205,7 @@ export default function SponsorsPageContent({
                     <h3 className="text-lg font-bold text-white mb-2" style={{ fontFamily: "'Space Grotesk', 'Inter', sans-serif" }}>
                       {plan.title}
                     </h3>
-                    <p className="text-[10px] uppercase tracking-[0.22em] text-gray-300 mb-2">{tierStyle.label} Tier</p>
+                    <p className="text-xs uppercase tracking-[0.22em] text-gray-300 mb-2">{tierStyle.label} Tier</p>
                     <div className="mb-3">
                       <span
                         className="text-2xl font-bold bg-clip-text text-transparent"
