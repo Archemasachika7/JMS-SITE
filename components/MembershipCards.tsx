@@ -10,20 +10,22 @@ const plans = [
     name: "Free",
     description: "Basic access to club resources and events",
     features: ["Event notifications", "Gallery access", "Community forum"],
-    color: "#38bdf8",
+    color: "#B45309",
+    tier: "free",
   },
   {
     name: "Monthly Subscriber",
     description: "Enhanced benefits with monthly renewal",
     features: ["All Free features", "Magazine downloads", "Priority registration", "Workshop access"],
-    color: "#2563eb",
-    popular: true,
+    color: "#C0C0C0",
+    tier: "monthly",
   },
   {
     name: "Annual Subscriber",
     description: "Full access with annual commitment",
     features: ["All Monthly features", "Exclusive content", "Mentorship program", "Certificate of membership"],
-    color: "#f59e0b",
+    color: "#FCD34D",
+    tier: "annual",
   },
 ];
 
@@ -81,6 +83,21 @@ export default function MembershipCards() {
           {plans.map((plan, i) => {
             const isActive =
               currentPlan.toLowerCase() === plan.name.toLowerCase();
+            const tierStyles =
+              plan.tier === "annual"
+                ? {
+                    border: "border-[#FCD34D]/60 shadow-[0_0_30px_rgba(245,158,11,0.2)]",
+                    badge: "bg-gradient-to-r from-[#FCD34D] to-[#F59E0B] text-[#111827]",
+                  }
+                : plan.tier === "monthly"
+                  ? {
+                      border: "border-[#C0C0C0]/60 shadow-[0_0_24px_rgba(192,192,192,0.15)]",
+                      badge: "bg-gradient-to-r from-[#E5E7EB] to-[#9CA3AF] text-[#111827]",
+                    }
+                  : {
+                      border: "border-[#B45309]/60 shadow-[0_0_20px_rgba(180,83,9,0.15)]",
+                      badge: "bg-gradient-to-r from-[#B45309] to-[#78350F] text-white",
+                    };
 
             return (
               <motion.div
@@ -90,19 +107,15 @@ export default function MembershipCards() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: i * 0.15 }}
                 whileHover={{ y: -6 }}
-                className={`relative rounded-2xl border bg-[#07091a]/80 backdrop-blur-sm p-6 transition-all ${
-                  plan.popular
-                    ? "border-[#2563eb]/50 shadow-[0_0_30px_rgba(37,99,235,0.15)]"
-                    : "border-white/10 hover:border-white/20"
-                }`}
+                className={`relative rounded-2xl border bg-[#07091a]/80 backdrop-blur-sm p-6 transition-all ${tierStyles.border}`}
               >
-                {plan.popular && (
+                {plan.tier === "annual" && (
                   <div className="absolute -top-3 left-1/2 -translate-x-1/2">
                     <span
-                      className="px-3 py-1 rounded-full bg-[#2563eb] text-white text-xs font-bold"
+                      className={`px-3 py-1 rounded-full text-xs font-bold ${tierStyles.badge}`}
                       style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
                     >
-                      Popular
+                      Best Value
                     </span>
                   </div>
                 )}
@@ -192,11 +205,19 @@ export default function MembershipCards() {
           </Link>
           <Link href="/support">
             <motion.span
-              className="px-5 sm:px-6 py-3 rounded-full border border-[#2563eb]/30 text-[#2563eb] text-xs sm:text-sm hover:bg-[#2563eb]/10 transition-all cursor-pointer whitespace-nowrap"
+              className="px-5 sm:px-6 py-3 rounded-full bg-gradient-to-r from-[#FBBF24] to-[#F59E0B] text-white text-xs sm:text-sm shadow-[0_0_24px_rgba(168,85,247,0.28)] hover:shadow-[0_0_36px_rgba(168,85,247,0.42)] transition-all cursor-pointer whitespace-nowrap"
               style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
+              animate={{
+                boxShadow: [
+                  "0 0 18px rgba(139,92,246,0.22)",
+                  "0 0 28px rgba(139,92,246,0.42)",
+                  "0 0 18px rgba(139,92,246,0.22)",
+                ],
+              }}
+              transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }}
               whileHover={{ scale: 1.05 }}
             >
-              Make a Donation
+              Support Us
             </motion.span>
           </Link>
         </motion.div>
