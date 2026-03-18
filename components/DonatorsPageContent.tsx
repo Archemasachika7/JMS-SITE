@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { Heart, Star, User } from "lucide-react";
@@ -13,6 +14,12 @@ export type Donor = {
   amount: string;
   anonymous: boolean;
 };
+
+const donationTiers = [
+  { label: "Comet", amount: "₹250", progress: 32 },
+  { label: "Nebula", amount: "₹500", progress: 58 },
+  { label: "Supernova", amount: "₹1,000+", progress: 82 },
+];
 
 function DonorCard({
   donor,
@@ -76,6 +83,8 @@ export default function DonatorsPageContent({
   topDonors: Donor[];
   allDonors: Donor[];
 }) {
+  const [activeTier, setActiveTier] = useState(donationTiers[1]);
+
   return (
     <main className="relative min-h-screen bg-[#020617]">
       <Navbar />
@@ -140,15 +149,66 @@ export default function DonatorsPageContent({
           >
             <Link href="/donators/payment">
               <motion.span
-                className="inline-flex items-center gap-3 px-12 py-5 rounded-full bg-gradient-to-r from-[#7c3aed] to-[#22d3ee] text-white font-bold text-base tracking-wider shadow-[0_0_40px_rgba(124,58,237,0.4)] hover:shadow-[0_0_60px_rgba(124,58,237,0.7)] transition-all duration-300 cursor-pointer"
+                className="inline-flex items-center gap-3 px-12 py-5 rounded-full bg-gradient-to-r from-[#FBBF24] to-[#F59E0B] text-white font-bold text-base tracking-wider shadow-[0_0_26px_rgba(139,92,246,0.32)] hover:shadow-[0_0_42px_rgba(139,92,246,0.5)] transition-all duration-300 cursor-pointer"
                 style={{ fontFamily: "'Space Grotesk', 'Inter', sans-serif" }}
+                animate={{
+                  boxShadow: [
+                    "0 0 18px rgba(139,92,246,0.28)",
+                    "0 0 32px rgba(139,92,246,0.46)",
+                    "0 0 18px rgba(139,92,246,0.28)",
+                  ],
+                }}
+                transition={{ duration: 2.3, repeat: Infinity, ease: "easeInOut" }}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.97 }}
               >
                 <Heart className="w-5 h-5" />
-                Donate Now
+                Support Us
               </motion.span>
             </Link>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="mt-10 rounded-2xl border border-[#8B5CF6]/30 bg-[rgba(255,255,255,0.05)] backdrop-blur-md p-6 max-w-2xl mx-auto"
+          >
+            <div className="flex items-center justify-between mb-3">
+              <p className="text-sm text-[#F3F4F6] font-semibold">Donation Momentum</p>
+              <p className="text-xs text-[#c4b5fd]">{activeTier.label} Tier</p>
+            </div>
+            <div className="h-2 w-full rounded-full bg-white/10 overflow-hidden mb-5">
+              <motion.div
+                className="h-full rounded-full"
+                style={{
+                  width: `${activeTier.progress}%`,
+                  background: "linear-gradient(90deg, #6366F1, #A855F7)",
+                }}
+                animate={{ width: `${activeTier.progress}%` }}
+                transition={{ duration: 0.35 }}
+              />
+            </div>
+            <div className="grid grid-cols-3 gap-2">
+              {donationTiers.map((tier) => {
+                const isActive = activeTier.label === tier.label;
+                return (
+                  <button
+                    key={tier.label}
+                    type="button"
+                    onClick={() => setActiveTier(tier)}
+                    className={`rounded-xl border px-2 py-2 text-xs font-semibold transition-all ${
+                      isActive
+                        ? "border-transparent text-white bg-gradient-to-r from-[#8B5CF6] to-[#EC4899] shadow-[0_0_20px_rgba(139,92,246,0.45)]"
+                        : "border-[#8B5CF6]/35 text-[#E5E7EB] hover:border-[#8B5CF6]/60 hover:shadow-[0_0_16px_rgba(139,92,246,0.25)]"
+                    }`}
+                  >
+                    <span className="block">{tier.label}</span>
+                    <span className="block text-xs text-[#F3F4F6]">{tier.amount}</span>
+                  </button>
+                );
+              })}
+            </div>
           </motion.div>
         </div>
       </section>
