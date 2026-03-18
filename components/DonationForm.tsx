@@ -249,7 +249,8 @@ export default function DonationForm() {
                   <p className="text-xs text-gray-300 leading-relaxed">
                     <strong className="text-white">Important:</strong> Please
                     provide a correct email and phone number so our team can
-                    reach out to you regarding the downloadable certificate.
+                    reach out to you regarding your donation updates.
+                    Donations &gt; ₹50 are eligible for certificates.
                   </p>
                 </div>
               </div>
