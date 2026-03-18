@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { Heart, Star, User } from "lucide-react";
@@ -14,12 +13,6 @@ export type Donor = {
   amount: string;
   anonymous: boolean;
 };
-
-const donationMilestones = [
-  { amount: "₹250", progress: 32 },
-  { amount: "₹500", progress: 58 },
-  { amount: "₹1,000+", progress: 82 },
-];
 
 function DonorCard({
   donor,
@@ -83,8 +76,6 @@ export default function DonatorsPageContent({
   topDonors: Donor[];
   allDonors: Donor[];
 }) {
-  const [activeMilestone, setActiveMilestone] = useState(donationMilestones[1]);
-
   return (
     <main className="relative min-h-screen bg-[#020617]">
       <Navbar />
@@ -168,49 +159,6 @@ export default function DonatorsPageContent({
             </Link>
           </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 18 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="mt-10 rounded-2xl border border-[#8B5CF6]/30 bg-[rgba(255,255,255,0.05)] backdrop-blur-md p-6 max-w-2xl mx-auto"
-          >
-            <div className="mb-3">
-              <p className="text-sm text-[#F3F4F6] font-semibold">Donation Momentum</p>
-              <p className="text-xs text-[#c4b5fd] mt-1">
-                Note: donations &gt; ₹50 are eligible for certificates.
-              </p>
-            </div>
-            <div className="h-2 w-full rounded-full bg-white/10 overflow-hidden mb-5">
-              <motion.div
-                className="h-full rounded-full"
-                style={{
-                  width: `${activeMilestone.progress}%`,
-                  background: "linear-gradient(90deg, #6366F1, #A855F7)",
-                }}
-                animate={{ width: `${activeMilestone.progress}%` }}
-                transition={{ duration: 0.35 }}
-              />
-            </div>
-            <div className="grid grid-cols-3 gap-2">
-              {donationMilestones.map((milestone) => {
-                const isActive = activeMilestone.amount === milestone.amount;
-                return (
-                  <button
-                    key={milestone.amount}
-                    type="button"
-                    onClick={() => setActiveMilestone(milestone)}
-                    className={`rounded-xl border px-2 py-2 text-xs font-semibold transition-all ${
-                      isActive
-                        ? "border-transparent text-white bg-gradient-to-r from-[#8B5CF6] to-[#EC4899] shadow-[0_0_20px_rgba(139,92,246,0.45)]"
-                        : "border-[#8B5CF6]/35 text-[#E5E7EB] hover:border-[#8B5CF6]/60 hover:shadow-[0_0_16px_rgba(139,92,246,0.25)]"
-                    }`}
-                  >
-                    <span className="block text-sm text-[#F3F4F6]">{milestone.amount}</span>
-                  </button>
-                );
-              })}
-            </div>
-          </motion.div>
         </div>
       </section>
 
