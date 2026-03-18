@@ -39,6 +39,53 @@ const sponsorPlans = [
 
 export type VerifiedSponsor = { name: string; logo: string; website: string };
 
+const sponsorTierStyles = [
+  {
+    label: "Platinum",
+    card: "border-[#E5E7EB]/45 shadow-[0_0_24px_rgba(229,231,235,0.18)]",
+    iconBg: "bg-gradient-to-br from-[#E5E7EB]/25 to-[#9CA3AF]/20",
+    iconColor: "text-[#E5E7EB]",
+    priceGradient: "linear-gradient(90deg, #E5E7EB, #9CA3AF)",
+    button: "border-[#E5E7EB]/50 text-[#E5E7EB] hover:bg-[#E5E7EB]/12",
+  },
+  {
+    label: "Gold",
+    card: "border-[#FCD34D]/50 shadow-[0_0_26px_rgba(245,158,11,0.2)]",
+    iconBg: "bg-gradient-to-br from-[#FCD34D]/25 to-[#F59E0B]/20",
+    iconColor: "text-[#FCD34D]",
+    priceGradient: "linear-gradient(90deg, #FCD34D, #F59E0B)",
+    button: "border-[#FCD34D]/55 text-[#FCD34D] hover:bg-[#FCD34D]/12",
+  },
+  {
+    label: "Silver",
+    card: "border-[#C0C0C0]/50 shadow-[0_0_24px_rgba(192,192,192,0.18)]",
+    iconBg: "bg-gradient-to-br from-[#C0C0C0]/20 to-[#71717A]/20",
+    iconColor: "text-[#D4D4D8]",
+    priceGradient: "linear-gradient(90deg, #C0C0C0, #71717A)",
+    button: "border-[#C0C0C0]/45 text-[#D4D4D8] hover:bg-[#C0C0C0]/10",
+  },
+  {
+    label: "Bronze",
+    card: "border-[#B45309]/60 shadow-[0_0_22px_rgba(120,53,15,0.22)]",
+    iconBg: "bg-gradient-to-br from-[#B45309]/25 to-[#78350F]/25",
+    iconColor: "text-[#F59E0B]",
+    priceGradient: "linear-gradient(90deg, #B45309, #78350F)",
+    button: "border-[#B45309]/55 text-[#FBBF24] hover:bg-[#B45309]/14",
+  },
+];
+
+const starParticles = [
+  { left: "8%", top: "16%", delay: 0 },
+  { left: "19%", top: "48%", delay: 0.6 },
+  { left: "28%", top: "24%", delay: 1.2 },
+  { left: "42%", top: "66%", delay: 0.8 },
+  { left: "56%", top: "14%", delay: 1.6 },
+  { left: "64%", top: "41%", delay: 0.3 },
+  { left: "77%", top: "28%", delay: 1.8 },
+  { left: "86%", top: "62%", delay: 0.9 },
+  { left: "93%", top: "20%", delay: 1.4 },
+];
+
 export default function SponsorsPageContent({
   verifiedSponsors,
 }: {
@@ -69,6 +116,17 @@ export default function SponsorsPageContent({
         <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse at 50% 40%, #0a1628 0%, #020617 60%)" }} />
         <div className="absolute top-1/3 left-1/3 w-96 h-96 bg-[#7c3aed]/10 rounded-full blur-[140px] pointer-events-none" />
         <div className="absolute bottom-1/4 right-1/3 w-80 h-80 bg-[#22d3ee]/10 rounded-full blur-[120px] pointer-events-none" />
+        <div className="absolute inset-0 pointer-events-none">
+          {starParticles.map((star, i) => (
+            <motion.span
+              key={`${star.left}-${star.top}-${i}`}
+              className="absolute w-1 h-1 rounded-full bg-white/60"
+              style={{ left: star.left, top: star.top }}
+              animate={{ opacity: [0.2, 0.9, 0.2], scale: [1, 1.5, 1] }}
+              transition={{ duration: 3.5, repeat: Infinity, delay: star.delay, ease: "easeInOut" }}
+            />
+          ))}
+        </div>
 
         <div className="max-w-4xl mx-auto relative z-10 text-center">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
@@ -128,6 +186,7 @@ export default function SponsorsPageContent({
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {sponsorPlans.map((plan, i) => {
               const Icon = plan.icon;
+              const tierStyle = sponsorTierStyles[i % sponsorTierStyles.length];
               return (
                 <motion.div
                   key={plan.title}
@@ -136,18 +195,24 @@ export default function SponsorsPageContent({
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: i * 0.1 }}
                   whileHover={{ y: -6 }}
-                  className="relative group rounded-2xl border border-[#7c3aed]/30 bg-[#0f172a]/80 backdrop-blur-sm p-6 flex flex-col shadow-[0_0_16px_rgba(124,58,237,0.12)]"
+                  className={`relative group rounded-2xl border bg-[rgba(255,255,255,0.05)] backdrop-blur-md p-6 flex flex-col ${tierStyle.card}`}
                 >
-                  <div className="absolute inset-0 rounded-2xl bg-gradient-to-b from-[#22d3ee]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  <div className="absolute inset-0 rounded-2xl bg-gradient-to-b from-white/8 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   <div className="relative z-10 flex flex-col flex-1">
-                    <div className="w-12 h-12 rounded-xl bg-[#7c3aed]/20 flex items-center justify-center mb-4">
-                      <Icon className="w-6 h-6 text-[#22d3ee]" />
+                    <div className={`w-12 h-12 rounded-xl ${tierStyle.iconBg} flex items-center justify-center mb-4`}>
+                      <Icon className={`w-6 h-6 ${tierStyle.iconColor}`} />
                     </div>
                     <h3 className="text-lg font-bold text-white mb-2" style={{ fontFamily: "'Space Grotesk', 'Inter', sans-serif" }}>
                       {plan.title}
                     </h3>
+                    <p className="text-xs uppercase tracking-[0.22em] text-gray-300 mb-2">{tierStyle.label} Tier</p>
                     <div className="mb-3">
-                      <span className="text-2xl font-bold text-[#22d3ee]">{plan.price}</span>
+                      <span
+                        className="text-2xl font-bold bg-clip-text text-transparent"
+                        style={{ backgroundImage: tierStyle.priceGradient }}
+                      >
+                        {plan.price}
+                      </span>
                       {plan.period && <span className="text-sm text-gray-400 ml-1">{plan.period}</span>}
                     </div>
                     <p className="text-gray-400 text-sm leading-relaxed mb-6 flex-1" style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}>
@@ -155,7 +220,7 @@ export default function SponsorsPageContent({
                     </p>
                     <Link href="/sponsors/payment">
                       <motion.span
-                        className="inline-flex items-center justify-center w-full py-3 rounded-full border border-[#22d3ee]/40 text-[#22d3ee] font-semibold text-sm tracking-wider hover:bg-[#22d3ee]/10 hover:border-[#22d3ee] hover:shadow-[0_0_20px_rgba(34,211,238,0.3)] transition-all duration-300 cursor-pointer"
+                        className={`inline-flex items-center justify-center w-full py-3 rounded-full border font-semibold text-sm tracking-wider hover:shadow-[0_0_20px_rgba(139,92,246,0.3)] transition-all duration-300 cursor-pointer ${tierStyle.button}`}
                         style={{ fontFamily: "'Space Grotesk', 'Inter', sans-serif" }}
                         whileHover={{ scale: 1.03 }}
                         whileTap={{ scale: 0.97 }}
@@ -198,11 +263,15 @@ export default function SponsorsPageContent({
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: i * 0.1 }}
                   whileHover={{ y: -4 }}
-                  className="rounded-2xl border border-[#7c3aed]/30 bg-[#0f172a]/80 backdrop-blur-sm p-6 text-center group shadow-[0_0_16px_rgba(34,211,238,0.14)]"
+                  className="rounded-2xl border border-white/15 bg-[rgba(255,255,255,0.05)] backdrop-blur-md p-6 text-center group shadow-[0_0_16px_rgba(34,211,238,0.14)]"
                 >
                   <div className="w-20 h-20 rounded-full bg-[#7c3aed]/20 mx-auto mb-4 flex items-center justify-center overflow-hidden">
                     {sponsor.logo ? (
-                      <img src={sponsor.logo} alt={sponsor.name} className="w-full h-full object-cover" />
+                      <img
+                        src={sponsor.logo}
+                        alt={sponsor.name}
+                        className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 group-hover:scale-105"
+                      />
                     ) : (
                       <Award className="w-8 h-8 text-[#22d3ee]" />
                     )}
