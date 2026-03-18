@@ -41,6 +41,22 @@ export type VerifiedSponsor = { name: string; logo: string; website: string };
 
 const sponsorTierStyles = [
   {
+    label: "Bronze",
+    card: "border-[#B45309]/60 shadow-[0_0_22px_rgba(120,53,15,0.22)]",
+    iconBg: "bg-gradient-to-br from-[#B45309]/25 to-[#78350F]/25",
+    iconColor: "text-[#F59E0B]",
+    priceGradient: "linear-gradient(90deg, #B45309, #78350F)",
+    button: "border-[#B45309]/55 text-[#FBBF24] hover:bg-[#B45309]/14",
+  },
+  {
+    label: "Silver",
+    card: "border-[#C0C0C0]/50 shadow-[0_0_24px_rgba(192,192,192,0.18)]",
+    iconBg: "bg-gradient-to-br from-[#C0C0C0]/20 to-[#71717A]/20",
+    iconColor: "text-[#D4D4D8]",
+    priceGradient: "linear-gradient(90deg, #C0C0C0, #71717A)",
+    button: "border-[#C0C0C0]/45 text-[#D4D4D8] hover:bg-[#C0C0C0]/10",
+  },
+  {
     label: "Platinum",
     card: "border-[#E5E7EB]/45 shadow-[0_0_24px_rgba(229,231,235,0.18)]",
     iconBg: "bg-gradient-to-br from-[#E5E7EB]/25 to-[#9CA3AF]/20",
@@ -55,22 +71,6 @@ const sponsorTierStyles = [
     iconColor: "text-[#FCD34D]",
     priceGradient: "linear-gradient(90deg, #FCD34D, #F59E0B)",
     button: "border-[#FCD34D]/55 text-[#FCD34D] hover:bg-[#FCD34D]/12",
-  },
-  {
-    label: "Silver",
-    card: "border-[#C0C0C0]/50 shadow-[0_0_24px_rgba(192,192,192,0.18)]",
-    iconBg: "bg-gradient-to-br from-[#C0C0C0]/20 to-[#71717A]/20",
-    iconColor: "text-[#D4D4D8]",
-    priceGradient: "linear-gradient(90deg, #C0C0C0, #71717A)",
-    button: "border-[#C0C0C0]/45 text-[#D4D4D8] hover:bg-[#C0C0C0]/10",
-  },
-  {
-    label: "Bronze",
-    card: "border-[#B45309]/60 shadow-[0_0_22px_rgba(120,53,15,0.22)]",
-    iconBg: "bg-gradient-to-br from-[#B45309]/25 to-[#78350F]/25",
-    iconColor: "text-[#F59E0B]",
-    priceGradient: "linear-gradient(90deg, #B45309, #78350F)",
-    button: "border-[#B45309]/55 text-[#FBBF24] hover:bg-[#B45309]/14",
   },
 ];
 
