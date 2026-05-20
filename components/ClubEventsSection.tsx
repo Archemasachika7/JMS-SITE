@@ -28,6 +28,7 @@ export default function ClubEventsSection() {
   const [nextEvent, setNextEvent] = useState<ClubEvent | null>(null);
   const [countdown, setCountdown] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
   const [loading, setLoading] = useState(true);
+  const defaultGradient = "radial-gradient(ellipse at 50% 50%, #1e3a5f 0%, #020617 100%)";
 
   useEffect(() => {
     async function fetchNextEvent() {
@@ -109,19 +110,24 @@ export default function ClubEventsSection() {
 
         {loading ? (
           <div className="rounded-2xl border border-[#2563eb]/20 bg-[#07091a]/80 backdrop-blur-sm p-6 md:p-8 animate-pulse">
-            <div className="flex flex-col md:flex-row items-start justify-between gap-6 mb-6">
-              <div className="flex-1 w-full">
-                <div className="h-3 bg-[#0f172a] rounded w-1/4 mb-3" />
-                <div className="h-6 bg-[#0f172a] rounded w-2/3 mb-3" />
-                <div className="h-3 bg-[#0f172a] rounded w-1/3 mb-2" />
-                <div className="h-3 bg-[#0f172a] rounded w-1/2" />
+            <div className="grid gap-6 md:grid-cols-[220px_minmax(0,1fr)]">
+              <div className="w-full rounded-xl bg-[#0f172a]" style={{ aspectRatio: "3/4" }} />
+              <div className="flex flex-col gap-6">
+                <div className="flex flex-col md:flex-row items-start justify-between gap-6">
+                  <div className="flex-1 w-full">
+                    <div className="h-3 bg-[#0f172a] rounded w-1/4 mb-3" />
+                    <div className="h-6 bg-[#0f172a] rounded w-2/3 mb-3" />
+                    <div className="h-3 bg-[#0f172a] rounded w-1/3 mb-2" />
+                    <div className="h-3 bg-[#0f172a] rounded w-1/2" />
+                  </div>
+                  <div className="h-10 bg-[#0f172a] rounded w-32 shrink-0" />
+                </div>
+                <div className="flex items-center justify-center md:justify-start gap-4">
+                  {[...Array(4)].map((_, i) => (
+                    <div key={i} className="w-16 h-16 md:w-20 md:h-20 rounded-xl bg-[#0f172a]" />
+                  ))}
+                </div>
               </div>
-              <div className="h-10 bg-[#0f172a] rounded w-32 shrink-0" />
-            </div>
-            <div className="flex items-center justify-center gap-4">
-              {[...Array(4)].map((_, i) => (
-                <div key={i} className="w-16 h-16 md:w-20 md:h-20 rounded-xl bg-[#0f172a]" />
-              ))}
             </div>
           </div>
         ) : !nextEvent ? (
@@ -141,88 +147,120 @@ export default function ClubEventsSection() {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="rounded-2xl border border-[#2563eb]/20 bg-[#07091a]/80 backdrop-blur-sm p-6 md:p-8"
         >
-          <div className="flex flex-col md:flex-row items-start justify-between gap-6 mb-6">
-            <div className="flex-1">
-              <div className="flex items-center gap-2 mb-2">
-                <span className="w-2 h-2 rounded-full bg-[#38bdf8] animate-pulse" />
-                <span
-                  className="text-[#38bdf8] text-xs tracking-widest uppercase"
-                  style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
-                >
-                  Next Club Event
-                </span>
-              </div>
-              <h3
-                className="text-xl md:text-2xl font-bold text-white mb-2"
-                style={{ fontFamily: "'Space Grotesk', 'Inter', sans-serif" }}
-              >
-                {nextEvent.title}
-              </h3>
-              <p
-                className="text-gray-400 text-sm mb-1"
-                style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
-              >
-                📍 {nextEvent.location}
-              </p>
-              <p
-                className="text-gray-500 text-sm"
-                style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
-              >
-                {nextEvent.description}
-              </p>
+          <div className="grid gap-6 md:grid-cols-[220px_minmax(0,1fr)] items-start">
+            <div
+              className="relative overflow-hidden rounded-xl border border-[#2563eb]/20 bg-[#020617]"
+              style={{ aspectRatio: "3/4" }}
+            >
+              {nextEvent.poster_url ? (
+                <img
+                  src={nextEvent.poster_url}
+                  alt={nextEvent.title}
+                  className="w-full h-full object-cover"
+                />
+              ) : (
+                <div className="w-full h-full" style={{ background: defaultGradient }}>
+                  {[...Array(24)].map((_, j) => (
+                    <div
+                      key={j}
+                      className="absolute rounded-full bg-white"
+                      style={{
+                        width: `${Math.random() * 2 + 0.5}px`,
+                        height: `${Math.random() * 2 + 0.5}px`,
+                        top: `${Math.random() * 100}%`,
+                        left: `${Math.random() * 100}%`,
+                        opacity: Math.random() * 0.7 + 0.3,
+                      }}
+                    />
+                  ))}
+                </div>
+              )}
             </div>
-            <div className="text-right shrink-0">
-              <p
-                className="text-gray-500 text-xs mb-1"
-                style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
-              >
-                Event Date
-              </p>
-              <p
-                className="text-white font-semibold"
-                style={{ fontFamily: "'Space Grotesk', 'Inter', sans-serif" }}
-              >
-                {new Date(nextEvent.event_date).toLocaleDateString("en-IN", {
-                  month: "short",
-                  day: "numeric",
-                  year: "numeric",
-                })}
-              </p>
-            </div>
-          </div>
-
-          <div className="flex items-center justify-center gap-4">
-            {[
-              { val: countdown.days, label: "Days" },
-              { val: countdown.hours, label: "Hours" },
-              { val: countdown.minutes, label: "Min" },
-              { val: countdown.seconds, label: "Sec" },
-            ].map((t, i) => (
-              <div key={t.label} className="flex items-center gap-4">
-                <div className="text-center">
-                  <div className="w-16 h-16 md:w-20 md:h-20 rounded-xl bg-gradient-to-b from-[#2563eb]/20 to-[#020617] border border-[#2563eb]/30 flex items-center justify-center shadow-[0_0_20px_rgba(37,99,235,0.2)]">
-                    <motion.span
-                      key={t.val}
-                      initial={{ opacity: 0.5, scale: 0.9 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      className="text-2xl md:text-3xl font-black text-white"
-                      style={{ fontFamily: "'Space Grotesk', 'Inter', sans-serif" }}
+            <div className="flex flex-col gap-6">
+              <div className="flex flex-col md:flex-row items-start justify-between gap-6">
+                <div className="flex-1">
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="w-2 h-2 rounded-full bg-[#38bdf8] animate-pulse" />
+                    <span
+                      className="text-[#38bdf8] text-xs tracking-widest uppercase"
+                      style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
                     >
-                      {String(t.val).padStart(2, "0")}
-                    </motion.span>
+                      Next Club Event
+                    </span>
                   </div>
-                  <span
-                    className="text-xs text-gray-500 mt-1 block"
+                  <h3
+                    className="text-xl md:text-2xl font-bold text-white mb-2"
+                    style={{ fontFamily: "'Space Grotesk', 'Inter', sans-serif" }}
+                  >
+                    {nextEvent.title}
+                  </h3>
+                  <p
+                    className="text-gray-400 text-sm mb-1"
                     style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
                   >
-                    {t.label}
-                  </span>
+                    📍 {nextEvent.location}
+                  </p>
+                  <p
+                    className="text-gray-500 text-sm"
+                    style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
+                  >
+                    {nextEvent.description}
+                  </p>
                 </div>
-                {i < 3 && (
-                  <span className="text-2xl font-light text-[#2563eb] -mt-4">:</span>
-                )}
+                <div className="text-left md:text-right shrink-0">
+                  <p
+                    className="text-gray-500 text-xs mb-1"
+                    style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
+                  >
+                    Event Date
+                  </p>
+                  <p
+                    className="text-white font-semibold"
+                    style={{ fontFamily: "'Space Grotesk', 'Inter', sans-serif" }}
+                  >
+                    {new Date(nextEvent.event_date).toLocaleDateString("en-IN", {
+                      month: "short",
+                      day: "numeric",
+                      year: "numeric",
+                    })}
+                  </p>
+                </div>
               </div>
-            ))}
+
+              <div className="flex items-center justify-center md:justify-start gap-4">
+                {[
+                  { val: countdown.days, label: "Days" },
+                  { val: countdown.hours, label: "Hours" },
+                  { val: countdown.minutes, label: "Min" },
+                  { val: countdown.seconds, label: "Sec" },
+                ].map((t, i) => (
+                  <div key={t.label} className="flex items-center gap-4">
+                    <div className="text-center">
+                      <div className="w-16 h-16 md:w-20 md:h-20 rounded-xl bg-gradient-to-b from-[#2563eb]/20 to-[#020617] border border-[#2563eb]/30 flex items-center justify-center shadow-[0_0_20px_rgba(37,99,235,0.2)]">
+                        <motion.span
+                          key={t.val}
+                          initial={{ opacity: 0.5, scale: 0.9 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          className="text-2xl md:text-3xl font-black text-white"
+                          style={{ fontFamily: "'Space Grotesk', 'Inter', sans-serif" }}
+                        >
+                          {String(t.val).padStart(2, "0")}
+                        </motion.span>
+                      </div>
+                      <span
+                        className="text-xs text-gray-500 mt-1 block"
+                        style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
+                      >
+                        {t.label}
+                      </span>
+                    </div>
+                    {i < 3 && (
+                      <span className="text-2xl font-light text-[#2563eb] -mt-4">:</span>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </motion.div>
         )}
