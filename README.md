@@ -13,7 +13,7 @@
 
 **A full-stack, real-time astronomy club platform** built with the Next.js 14 App Router, Supabase for auth & data, and a NASA-inspired space-engineering design system — featuring live ISS tracking, moon phase calculations, astronomical event calendars, member dashboards, and immersive 3D/WebGL experiences.
 
-[🚀 Getting Started](#-getting-started) · [🏗️ Architecture](#️-architecture) · [📖 API Reference](#-api-reference) · [🤝 Contributing](#-contributing)
+[🚀 Getting Started](#-getting-started) · [🎬 Demo](#-demo) · [🏗️ Architecture](#️-architecture) · [📖 API Reference](#-api-reference) · [🤝 Contributing](#-contributing)
 
 </div>
 
@@ -21,6 +21,7 @@
 
 ## 📋 Table of Contents
 
+- [Demo](#-demo)
 - [Features](#-features)
 - [Tech Stack](#-tech-stack)
 - [Architecture](#️-architecture)
@@ -38,6 +39,66 @@
 
 ---
 
+## 🎬 Demo
+
+> Live previews of key features — captured from the running platform.
+
+### 🏠 Home Dashboard & Club Events Section
+> Fetches the next upcoming event with **poster image**, **full details**, and a **live countdown timer** directly from Supabase.
+
+![Home Dashboard & Club Events](./public/assets/demo-dashboard.gif)
+
+---
+
+### 🌌 WebGL Starfield & Hero Section
+> Procedurally generated full-viewport star background with animated hero.
+
+![Starfield Hero](./public/assets/demo-hero.gif)
+
+---
+
+### 🛰️ Live ISS Tracker
+> Real-time International Space Station position tracker refreshing every 5 seconds.
+
+![ISS Tracker](./public/assets/demo-iss.gif)
+
+---
+
+### 📅 Astronomical Event Calendar
+> Upcoming meteor showers, eclipses, equinoxes, and solstices generated without any external API.
+
+![Astronomy Calendar](./public/assets/demo-calendar.gif)
+
+---
+
+### 🌙 Moon Phase Widget
+> Real-time moon phase calculated from synodic cycle math — no external API needed.
+
+![Moon Phase](./public/assets/demo-moon.gif)
+
+---
+
+### 🖼️ Member Gallery & POTW
+> Astrophotography gallery with Photo of the Week showcase.
+
+![Gallery](./public/assets/demo-gallery.gif)
+
+---
+
+### 📚 Nebula Digest Magazine
+> Browse and download club magazine issues stored in Supabase Storage.
+
+![Magazine](./public/assets/demo-magazine.gif)
+
+---
+
+### ☀️ 3D Solar System
+> Interactive Three.js / React Three Fiber solar system with orbital mechanics.
+
+![3D Solar System](./public/assets/demo-solar.gif)
+
+---
+
 ## ✨ Features
 
 ### 🌌 Public-Facing Pages
@@ -45,10 +106,10 @@
 | Feature | Description |
 |---|---|
 | **Immersive Landing Page** | Procedurally generated WebGL starfield background, animated hero with club logo, profile greeting, and section previews |
+| **Club Events with Poster** | Upcoming events with **event poster**, **full description**, **location**, and **live countdown** — all fetched dynamically from Supabase |
 | **Live Astronomy Widgets** | Real-time **ISS Tracker** (5-second refresh via [wheretheiss.at](https://wheretheiss.at)), **Moon Phase Calculator** (synodic cycle math — no API), and **Astronomical Event Calendar** |
 | **Photo of the Week (POTW)** | Curated astrophotography showcase with photographer credits, pulled from Supabase |
 | **NASA APOD Integration** | Dedicated `/nasa-apod` page consuming NASA's Astronomy Picture of the Day API |
-| **Club Events** | Upcoming observation nights, workshops, and lectures with countdown timers and poster images |
 | **Nebula Digest Magazine** | Browse and download club magazine issues (covers + PDFs stored in Supabase Storage) |
 | **Team Page** | Public roster of core team members with designations, fetched from the `profiles` table (role = `admin`) |
 | **Membership Tiers** | Free, Monthly, Annual, and Core tier display with plan-based color coding |
@@ -73,6 +134,7 @@
 | **2D Constellation Map** | Canvas-based constellation viewer with star tooltips (`ConstellationMap2D`, `StarTooltip`) |
 | **Starfield Background** | Full-viewport procedural starfield rendered on every page |
 | **Framer Motion Animations** | Page transitions, section reveals, hover effects, and scroll-triggered animations |
+| **Event Poster Lightbox** | Click any event poster on the home page to view it full-screen |
 | **Feedback Form** | In-app feedback collection on the landing page |
 
 ---
@@ -223,8 +285,8 @@ astrosci-website/
 │   ├── DashboardGalleryPreview.tsx   # Gallery preview cards on homepage
 │   ├── DashboardPOTWPreview.tsx      # POTW preview on homepage
 │   ├── DashboardMagazinePreview.tsx  # Magazine preview on homepage
-│   ├── ClubEventsSection.tsx         # Upcoming events with countdown
-│   ├── EventCountdown.tsx            # Countdown timer component
+│   ├── ClubEventsSection.tsx         # Next event: poster + full details + live countdown
+│   ├── EventCountdown.tsx            # Standalone countdown timer component
 │   ├── MembershipCards.tsx           # Membership tier cards
 │   ├── FeedbackForm.tsx              # In-app feedback form
 │   ├── JoinSection.tsx               # CTA section for new members
@@ -621,6 +683,8 @@ Built with ❤️ under the stars of Kolkata.
 ---
 
 <div align="center">
+
+Made with ❤️ by **Archishman (NOX)** for the **Jadavpur University AstroSci Club** 🔭✨
 
 **[⬆ Back to Top](#-astrosci--jadavpur-university)**
 
