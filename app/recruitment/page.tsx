@@ -525,7 +525,7 @@ export default function RecruitmentPage() {
                 <input type="hidden" name="team_form" value="General" />
 
                 <div className="rc-card">
-                  <div className="rc-card-label">// Cadet Profile</div>
+                  <div className="rc-card-label">{"// Cadet Profile"}</div>
                   <div className="rc-grid">
                     <div className="rc-field">
                       <label className="rc-label">Full Name <span className="req">*</span></label>
@@ -604,7 +604,7 @@ export default function RecruitmentPage() {
                 <input type="hidden" name="team_form" value="PR" />
 
                 <div className="rc-card">
-                  <div className="rc-card-label">// Cadet ID</div>
+                  <div className="rc-card-label">{"// Cadet ID"}</div>
                   <div className="rc-grid">
                     <div className="rc-field"><label className="rc-label">Name <span className="req">*</span></label><input className="rc-inp" type="text" name="name" placeholder="Full name" required /></div>
                     <div className="rc-field"><label className="rc-label">Roll <span className="req">*</span></label><input className="rc-inp" type="text" name="roll" placeholder="Roll number" required /></div>
@@ -713,7 +713,7 @@ export default function RecruitmentPage() {
                 <input type="hidden" name="team_form" value="Design" />
 
                 <div className="rc-card">
-                  <div className="rc-card-label">// Cadet ID</div>
+                  <div className="rc-card-label">{"// Cadet ID"}</div>
                   <div className="rc-grid">
                     <div className="rc-field"><label className="rc-label">Name <span className="req">*</span></label><input className="rc-inp" type="text" name="name" placeholder="Full name" required /></div>
                     <div className="rc-field"><label className="rc-label">Roll <span className="req">*</span></label><input className="rc-inp" type="text" name="roll" placeholder="Roll number" required /></div>
@@ -825,7 +825,7 @@ export default function RecruitmentPage() {
                 <input type="hidden" name="team_form" value="Tech" />
 
                 <div className="rc-card">
-                  <div className="rc-card-label">// Cadet ID</div>
+                  <div className="rc-card-label">{"// Cadet ID"}</div>
                   <div className="rc-grid">
                     <div className="rc-field"><label className="rc-label">Name <span className="req">*</span></label><input className="rc-inp" type="text" name="name" placeholder="Full name" required /></div>
                     <div className="rc-field"><label className="rc-label">Roll <span className="req">*</span></label><input className="rc-inp" type="text" name="roll" placeholder="Roll number" required /></div>
@@ -952,7 +952,7 @@ export default function RecruitmentPage() {
                 <input type="hidden" name="team_form" value="Video Editing" />
 
                 <div className="rc-card">
-                  <div className="rc-card-label">// Cadet ID</div>
+                  <div className="rc-card-label">{"// Cadet ID"}</div>
                   <div className="rc-grid">
                     <div className="rc-field"><label className="rc-label">Name <span className="req">*</span></label><input className="rc-inp" type="text" name="name" placeholder="Full name" required /></div>
                     <div className="rc-field"><label className="rc-label">Roll <span className="req">*</span></label><input className="rc-inp" type="text" name="roll" placeholder="Roll number" required /></div>
@@ -1067,7 +1067,7 @@ export default function RecruitmentPage() {
                 <input type="hidden" name="team_form" value="Content" />
 
                 <div className="rc-card">
-                  <div className="rc-card-label">// Cadet ID</div>
+                  <div className="rc-card-label">{"// Cadet ID"}</div>
                   <div className="rc-grid">
                     <div className="rc-field"><label className="rc-label">Name <span className="req">*</span></label><input className="rc-inp" type="text" name="name" placeholder="Full name" required /></div>
                     <div className="rc-field"><label className="rc-label">Roll <span className="req">*</span></label><input className="rc-inp" type="text" name="roll" placeholder="Roll number" required /></div>
