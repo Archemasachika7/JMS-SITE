@@ -1,5 +1,6 @@
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
+import RecruitmentBanner from "@/components/RecruitmentBanner";
 import ProfileGreeting from "@/components/ProfileGreeting";
 import DashboardGalleryPreview from "@/components/DashboardGalleryPreview";
 import DashboardPOTWPreview from "@/components/DashboardPOTWPreview";
@@ -16,6 +17,7 @@ export default function Home() {
     <main className="relative min-h-screen">
       <Navbar />
       <HeroSection />
+      <RecruitmentBanner />
       <ProfileGreeting />
       <DashboardGalleryPreview />
       <DashboardPOTWPreview />
