@@ -358,9 +358,9 @@ export default function RecruitmentPage() {
   }, [toast]);
 
   useEffect(() => {
-    const canvas = canvasRef.current;
+    const canvas = canvasRef.current as HTMLCanvasElement;
     if (!canvas) return;
-    const ctx = canvas.getContext("2d");
+    const ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
     if (!ctx) return;
     type Star = { x: number; y: number; r: number; o: number; s: number; d: number };
     let stars: Star[] = [];
@@ -392,7 +392,7 @@ export default function RecruitmentPage() {
     e.preventDefault();
     const form = e.currentTarget;
     if (form.action.includes("YOUR_FORM_ID")) {
-      setToast({ msg: "⚠ Replace YOUR_FORM_ID with your Formspree ID!", type: "error" });
+      setToast({ msg: "⚠ Formspree ID not set!", type: "error" });
       return;
     }
     setSending((p: Partial<Record<Tab, boolean>>) => ({ ...p, [key]: true }));
@@ -508,19 +508,17 @@ export default function RecruitmentPage() {
             </div>
 
             <div className="rc-fsnotice">
-              <div className="icon">📡</div>
+              <div className="icon">✅</div>
               <div className="text">
-                <strong>How to receive responses</strong><br />
-                1. Go to <strong>formspree.io</strong> → New Form → copy your Form ID (e.g. <code>xzzpabcd</code>)<br />
-                2. Replace <code>YOUR_FORM_ID</code> in all 6 form action URLs in this file.<br />
-                3. Host anywhere (GitHub Pages, Netlify) — responses land in your email + dashboard.
+                <strong>Form endpoint active</strong><br />
+                Submissions go to Formspree form <code>xkoeejyk</code> — responses land in your email and the Formspree dashboard automatically.
               </div>
             </div>
 
             {submitted.general ? (
               <div className="rc-success show"><div className="rc-success-icon">🌠</div><h3>Signal Received!</h3><p>Your general info has been transmitted to Astro Club base.</p></div>
             ) : (
-              <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST" onSubmit={e => handleSubmit(e, "General", "general")}>
+              <form action="https://formspree.io/f/xkoeejyk" method="POST" onSubmit={e => handleSubmit(e, "General", "general")}>
                 <input type="hidden" name="_subject" value="Astro Club Application — General" />
                 <input type="hidden" name="team_form" value="General" />
 
@@ -599,7 +597,7 @@ export default function RecruitmentPage() {
             {submitted.pr ? (
               <div className="rc-success show"><div className="rc-success-icon">📡</div><h3>PR Signal Sent!</h3><p>Your application is in orbit. We&apos;ll be in touch.</p></div>
             ) : (
-              <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST" onSubmit={e => handleSubmit(e, "PR", "pr")}>
+              <form action="https://formspree.io/f/xkoeejyk" method="POST" onSubmit={e => handleSubmit(e, "PR", "pr")}>
                 <input type="hidden" name="_subject" value="Astro Club Application — PR Team" />
                 <input type="hidden" name="team_form" value="PR" />
 
@@ -708,7 +706,7 @@ export default function RecruitmentPage() {
             {submitted.design ? (
               <div className="rc-success show"><div className="rc-success-icon">🌠</div><h3>Design Signal Sent!</h3><p>Your portfolio has been received. The design team will review shortly.</p></div>
             ) : (
-              <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST" onSubmit={e => handleSubmit(e, "Design", "design")}>
+              <form action="https://formspree.io/f/xkoeejyk" method="POST" onSubmit={e => handleSubmit(e, "Design", "design")}>
                 <input type="hidden" name="_subject" value="Astro Club Application — Design Team" />
                 <input type="hidden" name="team_form" value="Design" />
 
@@ -820,7 +818,7 @@ export default function RecruitmentPage() {
             {submitted.tech ? (
               <div className="rc-success show"><div className="rc-success-icon">🛸</div><h3>Tech Signal Sent!</h3><p>Your application is in orbit. The tech team will review your work.</p></div>
             ) : (
-              <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST" onSubmit={e => handleSubmit(e, "Tech", "tech")}>
+              <form action="https://formspree.io/f/xkoeejyk" method="POST" onSubmit={e => handleSubmit(e, "Tech", "tech")}>
                 <input type="hidden" name="_subject" value="Astro Club Application — Tech Team" />
                 <input type="hidden" name="team_form" value="Tech" />
 
@@ -947,7 +945,7 @@ export default function RecruitmentPage() {
             {submitted.video ? (
               <div className="rc-success show"><div className="rc-success-icon">🎞️</div><h3>Video Signal Sent!</h3><p>Your work links have been received. We&apos;ll review and get back to you.</p></div>
             ) : (
-              <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST" onSubmit={e => handleSubmit(e, "Video Editing", "video")}>
+              <form action="https://formspree.io/f/xkoeejyk" method="POST" onSubmit={e => handleSubmit(e, "Video Editing", "video")}>
                 <input type="hidden" name="_subject" value="Astro Club Application — Video Editing" />
                 <input type="hidden" name="team_form" value="Video Editing" />
 
@@ -1062,7 +1060,7 @@ export default function RecruitmentPage() {
             {submitted.content ? (
               <div className="rc-success show"><div className="rc-success-icon">✨</div><h3>Content Signal Sent!</h3><p>Your words have reached us. We&apos;ll be in touch soon.</p></div>
             ) : (
-              <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST" onSubmit={e => handleSubmit(e, "Content", "content")}>
+              <form action="https://formspree.io/f/xkoeejyk" method="POST" onSubmit={e => handleSubmit(e, "Content", "content")}>
                 <input type="hidden" name="_subject" value="Astro Club Application — Content Team" />
                 <input type="hidden" name="team_form" value="Content" />
 
