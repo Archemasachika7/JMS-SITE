@@ -98,16 +98,22 @@ export default function Navbar() {
             (item as { highlight?: boolean }).highlight ? (
               <Link key={item.label} href={item.href}>
                 <motion.span
-                  className="relative px-4 py-1.5 text-sm font-semibold text-white cursor-pointer rounded-full"
+                  className="relative px-3 py-1 text-sm font-semibold cursor-pointer rounded-full border"
                   style={{
                     fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif",
-                    background: "linear-gradient(135deg,#4f46e5,#a855f7,#ec4899)",
-                    boxShadow: "0 0 16px #a855f755",
+                    color: "#c084fc",
+                    borderColor: "#a855f750",
+                    background: "#a855f710",
                   }}
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.1 * i + 0.3 }}
-                  whileHover={{ scale: 1.05, boxShadow: "0 0 24px #a855f799" }}
+                  whileHover={{
+                    color: "#fff",
+                    borderColor: "#a855f7",
+                    background: "#a855f722",
+                    boxShadow: "0 0 12px #a855f740",
+                  }}
                 >
                   {item.label}
                 </motion.span>
