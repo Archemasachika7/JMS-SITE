@@ -358,9 +358,9 @@ export default function RecruitmentPage() {
   }, [toast]);
 
   useEffect(() => {
-    const canvas = canvasRef.current;
+    const canvas = canvasRef.current as HTMLCanvasElement;
     if (!canvas) return;
-    const ctx = canvas.getContext("2d");
+    const ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
     if (!ctx) return;
     type Star = { x: number; y: number; r: number; o: number; s: number; d: number };
     let stars: Star[] = [];
