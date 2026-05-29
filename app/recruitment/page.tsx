@@ -507,14 +507,6 @@ export default function RecruitmentPage() {
               </div>
             </div>
 
-            <div className="rc-fsnotice">
-              <div className="icon">✅</div>
-              <div className="text">
-                <strong>Form endpoint active</strong><br />
-                Submissions go to Formspree form <code>xkoeejyk</code> — responses land in your email and the Formspree dashboard automatically.
-              </div>
-            </div>
-
             {submitted.general ? (
               <div className="rc-success show"><div className="rc-success-icon">🌠</div><h3>Signal Received!</h3><p>Your general info has been transmitted to Astro Club base.</p></div>
             ) : (
