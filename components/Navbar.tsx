@@ -18,6 +18,7 @@ const navItems = [
   { label: "Members", href: "/members" },
   { label: "Sponsors", href: "/sponsors" },
   { label: "Donators", href: "/donators" },
+  { label: "🚀 Recruit", href: "/recruitment", highlight: true },
 ];
 
 export default function Navbar() {
@@ -93,23 +94,39 @@ export default function Navbar() {
 
         {/* Desktop Nav */}
         <div className="hidden md:flex items-center gap-1">
-          {navItems.map((item, i) => (
-            <Link
-              key={item.label}
-              href={item.href}
-            >
-              <motion.span
-                className="relative px-4 py-2 text-sm text-gray-300 hover:text-white transition-colors group cursor-pointer"
-                style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.1 * i + 0.3 }}
-              >
-                {item.label}
-                <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-[2px] bg-gradient-to-r from-[#2563eb] to-[#10b981] group-hover:w-4/5 transition-all duration-300 rounded-full" />
-              </motion.span>
-            </Link>
-          ))}
+          {navItems.map((item, i) =>
+            (item as { highlight?: boolean }).highlight ? (
+              <Link key={item.label} href={item.href}>
+                <motion.span
+                  className="relative px-4 py-1.5 text-sm font-semibold text-white cursor-pointer rounded-full"
+                  style={{
+                    fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif",
+                    background: "linear-gradient(135deg,#4f46e5,#a855f7,#ec4899)",
+                    boxShadow: "0 0 16px #a855f755",
+                  }}
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.1 * i + 0.3 }}
+                  whileHover={{ scale: 1.05, boxShadow: "0 0 24px #a855f799" }}
+                >
+                  {item.label}
+                </motion.span>
+              </Link>
+            ) : (
+              <Link key={item.label} href={item.href}>
+                <motion.span
+                  className="relative px-4 py-2 text-sm text-gray-300 hover:text-white transition-colors group cursor-pointer"
+                  style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.1 * i + 0.3 }}
+                >
+                  {item.label}
+                  <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-[2px] bg-gradient-to-r from-[#2563eb] to-[#10b981] group-hover:w-4/5 transition-all duration-300 rounded-full" />
+                </motion.span>
+              </Link>
+            )
+          )}
         </div>
 
         {/* Right Buttons */}
@@ -190,17 +207,36 @@ export default function Navbar() {
             exit={{ opacity: 0, height: 0 }}
             className="md:hidden bg-[#020617]/95 backdrop-blur-xl border-t border-[#2563eb]/20 px-6 pb-4"
           >
-            {navItems.map((item) => (
-              <Link
-                key={item.label}
-                href={item.href}
-                className="block py-3 text-gray-300 hover:text-[#38bdf8] border-b border-white/5 text-sm tracking-wider"
-                style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
-                onClick={() => setMenuOpen(false)}
-              >
-                {item.label}
-              </Link>
-            ))}
+            {navItems.map((item) =>
+              (item as { highlight?: boolean }).highlight ? (
+                <Link
+                  key={item.label}
+                  href={item.href}
+                  className="block mt-3 mb-1"
+                  onClick={() => setMenuOpen(false)}
+                >
+                  <span
+                    className="inline-block w-full text-center py-2.5 rounded-full text-sm font-semibold text-white"
+                    style={{
+                      fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif",
+                      background: "linear-gradient(135deg,#4f46e5,#a855f7,#ec4899)",
+                    }}
+                  >
+                    {item.label}
+                  </span>
+                </Link>
+              ) : (
+                <Link
+                  key={item.label}
+                  href={item.href}
+                  className="block py-3 text-gray-300 hover:text-[#38bdf8] border-b border-white/5 text-sm tracking-wider"
+                  style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
+                  onClick={() => setMenuOpen(false)}
+                >
+                  {item.label}
+                </Link>
+              )
+            )}
             {isSignedIn ? (
               <Link href="/profile" className="block mt-4" onClick={() => setMenuOpen(false)}>
                 <span
