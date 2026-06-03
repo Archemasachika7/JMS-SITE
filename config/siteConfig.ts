@@ -1,5 +1,5 @@
 /**
- * Central configuration file for the AstroSci website.
+ * Central configuration file for the JU Maths Society website.
  *
  * Administrators can update logos, emails, social links, and other
  * site-wide values here and the changes will propagate across every
@@ -7,7 +7,9 @@
  */
 
 export const siteConfig = {
-  clubName: "AstroSci Club",
+  clubName: "JU Maths Society",
+  shortName: "JMS",
+  tagline: "Decoding the Universe's Language",
   university: "Jadavpur University",
 
   email: "astrosciclubjadavpur@gmail.com",

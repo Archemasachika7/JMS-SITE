@@ -5,8 +5,8 @@ import { siteConfig } from "@/config/siteConfig";
 
 export const metadata: Metadata = {
   title: `${siteConfig.clubName} – ${siteConfig.university}`,
-  description: "Exploring the cosmos from the heart of Jadavpur University. A community of astronomers, astrophotographers, and space enthusiasts.",
-  keywords: ["astronomy", "astrophotography", "Jadavpur University", "space", "stargazing"],
+  description: "The JU Maths Society at Jadavpur University — a community decoding the universe's language through problem-solving, proof, and the elegance of mathematics.",
+  keywords: ["mathematics", "problem solving", "Jadavpur University", "maths society", "competitive programming", "olympiad"],
   icons: {
     icon: siteConfig.assets.favicon,
   },
