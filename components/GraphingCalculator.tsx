@@ -5,7 +5,7 @@ import { TrendingUp, Plus, Trash2, RefreshCw, ChevronDown } from "lucide-react";
 
 declare global {
   interface Window {
-    Desmos: {
+    Desmos?: {
       GraphingCalculator: (el: HTMLElement, opts?: object) => DesmosCalc;
     };
   }
@@ -35,9 +35,9 @@ const DEMO: Expr[] = [
 ];
 
 const EXAMPLE_PRESETS = [
-  { label: "Euler spiral", latex: "r = \\theta / 5" },
+  { label: "Archimedean spiral", latex: "r = \\theta / 5" },
   { label: "Rose curve", latex: "r = \\cos(4\\theta)" },
-  { label: "Lissajous", latex: "(x^2 + y^2)^2 = 2x^2 y" },
+  { label: "Bifolium", latex: "(x^2 + y^2)^2 = 2x^2 y" },
   { label: "Cycloid param", latex: "\\left(t - \\sin(t), 1 - \\cos(t)\\right)" },
   { label: "Logistic", latex: "y = \\frac{1}{1 + e^{-x}}" },
   { label: "Gaussian", latex: "y = e^{-x^2}" },
@@ -71,13 +71,15 @@ export default function GraphingCalculator() {
       setLoaded(true);
     }
 
-    if (window.Desmos) { init(); return; }
-
-    const s = document.createElement("script");
-    s.src = "https://www.desmos.com/api/v1.8/calculator.js?apiKey=dcb31709b452b1cf9dc26972add0faa6";
-    s.async = true;
-    s.onload = init;
-    document.head.appendChild(s);
+    if (window.Desmos) {
+      init();
+    } else {
+      const s = document.createElement("script");
+      s.src = "https://www.desmos.com/api/v1.8/calculator.js?apiKey=dcb31709b452b1cf9dc26972add0faa6";
+      s.async = true;
+      s.onload = init;
+      document.head.appendChild(s);
+    }
 
     return () => {
       calcRef.current?.destroy();
@@ -185,8 +187,9 @@ export default function GraphingCalculator() {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && add(input)}
+              disabled={!loaded}
               placeholder="e.g.  y = sin(x) * cos(x)  or  r = cos(3θ)"
-              className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white placeholder-gray-600 font-mono focus:outline-none transition-all"
+              className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white placeholder-gray-600 font-mono focus:outline-none transition-all disabled:opacity-50 disabled:cursor-not-allowed"
               style={{ ["--tw-ring-color" as string]: "var(--math-cyan)" }}
               onFocus={(e) => (e.target.style.borderColor = "rgba(0,240,255,0.4)")}
               onBlur={(e) => (e.target.style.borderColor = "rgba(255,255,255,0.1)")}
@@ -194,7 +197,7 @@ export default function GraphingCalculator() {
           </div>
           <button
             onClick={() => add(input)}
-            disabled={!input.trim()}
+            disabled={!input.trim() || !loaded}
             className="flex items-center gap-1.5 px-4 py-2.5 rounded-xl text-sm font-medium transition-all disabled:opacity-40 disabled:cursor-not-allowed"
             style={{
               background: "rgba(0,240,255,0.12)",
@@ -212,13 +215,15 @@ export default function GraphingCalculator() {
         <div>
           <button
             onClick={() => setShowPresets((p) => !p)}
+            aria-expanded={showPresets}
+            aria-controls="graphing-presets"
             className="flex items-center gap-1 text-xs text-gray-500 hover:text-gray-300 transition-colors"
           >
             <ChevronDown className={`h-3.5 w-3.5 transition-transform ${showPresets ? "rotate-180" : ""}`} />
             Example curves
           </button>
           {showPresets && (
-            <div className="mt-2 flex flex-wrap gap-1.5">
+            <div id="graphing-presets" className="mt-2 flex flex-wrap gap-1.5">
               {EXAMPLE_PRESETS.map((p) => (
                 <button
                   key={p.label}
