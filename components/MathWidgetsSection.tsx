@@ -78,9 +78,9 @@ export default function MathWidgetsSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="rounded-2xl border border-[#22d3ee]/20 bg-[#0f172a]/70 p-7 backdrop-blur-sm"
+          className="rounded-2xl border border-[#f43f5e]/20 bg-[#0f172a]/70 p-7 backdrop-blur-sm"
         >
-          <div className="mb-4 flex items-center gap-2 text-[#22d3ee]">
+          <div className="mb-4 flex items-center gap-2 text-[#f43f5e]">
             <Sigma className="h-5 w-5" />
             <span className="text-xs font-semibold uppercase tracking-[0.3em]">
               Problem of the Day
@@ -122,7 +122,7 @@ export default function MathWidgetsSection() {
 
           <Link
             href="/problems"
-            className="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-[#22d3ee] hover:gap-2.5 transition-all"
+            className="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-[#f43f5e] hover:gap-2.5 transition-all"
           >
             Browse the problem archive <ArrowRight className="h-4 w-4" />
           </Link>
@@ -134,9 +134,9 @@ export default function MathWidgetsSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="rounded-2xl border border-[#a855f7]/20 bg-[#0f172a]/70 p-7 backdrop-blur-sm"
+          className="rounded-2xl border border-[#fb7185]/20 bg-[#0f172a]/70 p-7 backdrop-blur-sm"
         >
-          <div className="mb-4 flex items-center gap-2 text-[#a855f7]">
+          <div className="mb-4 flex items-center gap-2 text-[#fb7185]">
             <Timer className="h-5 w-5" />
             <span className="text-xs font-semibold uppercase tracking-[0.3em]">
               Counting down to

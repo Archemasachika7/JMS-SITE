@@ -51,7 +51,7 @@ export default function ProjectsPage() {
             className="text-center mb-12"
           >
             <p
-              className="text-xs tracking-[0.4em] text-[#38bdf8] mb-2 uppercase"
+              className="text-xs tracking-[0.4em] text-[#fb7185] mb-2 uppercase"
               style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
             >
               — Innovation —
@@ -104,7 +104,7 @@ export default function ProjectsPage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: i * 0.1 }}
                 whileHover={{ y: -4 }}
-                className="group rounded-2xl overflow-hidden border border-white/10 bg-[#07091a]/80 backdrop-blur-sm hover:border-[#2563eb]/40 transition-all"
+                className="group rounded-2xl overflow-hidden border border-white/10 bg-[#07091a]/80 backdrop-blur-sm hover:border-[#e11d48]/40 transition-all"
               >
                 {/* Thumbnail */}
                 <div
@@ -123,7 +123,7 @@ export default function ProjectsPage() {
                       className="w-full h-full flex items-center justify-center"
                       style={{ background: "radial-gradient(ellipse at 50% 50%, #1e3a5f 0%, #020617 100%)" }}
                     >
-                      <svg viewBox="0 0 24 24" className="w-12 h-12 text-[#2563eb]/40 fill-current">
+                      <svg viewBox="0 0 24 24" className="w-12 h-12 text-[#e11d48]/40 fill-current">
                         <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
                       </svg>
                     </div>
@@ -172,7 +172,7 @@ export default function ProjectsPage() {
                         href={project.pdf_url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-full border border-[#2563eb]/40 text-[#38bdf8] bg-[#2563eb]/10 hover:bg-[#2563eb]/20 hover:border-[#2563eb] transition-all"
+                        className="flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-full border border-[#e11d48]/40 text-[#fb7185] bg-[#e11d48]/10 hover:bg-[#e11d48]/20 hover:border-[#e11d48] transition-all"
                         style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
                       >
                         <svg viewBox="0 0 24 24" className="w-3.5 h-3.5 fill-current">

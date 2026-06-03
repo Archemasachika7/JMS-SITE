@@ -4,13 +4,13 @@ import { motion } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import AuthGuard from "@/components/AuthGuard";
-import ConstellationMap2D from "@/components/ConstellationMap2D";
+import MemberGraphNetwork, { tierColors } from "@/components/MemberGraphNetwork";
 
 const legendItems = [
-  { color: "#ADD8E6", label: "Free Member" },
-  { color: "#FFD700", label: "Monthly Subscriber" },
-  { color: "#FF8C00", label: "Annual Subscriber" },
-  { color: "#FF00FF", label: "Core Team" },
+  { color: tierColors.free, label: "Free Member" },
+  { color: tierColors.monthly, label: "Monthly Scholar" },
+  { color: tierColors.annual, label: "Annual Fellow" },
+  { color: tierColors.core, label: "Core Team" },
 ];
 
 export default function MembersPage() {
@@ -27,13 +27,13 @@ export default function MembersPage() {
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
           <p
-            className="text-xs tracking-[0.4em] text-[#38bdf8] mb-3 uppercase"
+            className="text-xs tracking-[0.4em] text-[#fb7185] mb-3 uppercase"
             style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
           >
             — Explore Our Community —
           </p>
           <h1
-            className="text-3xl md:text-5xl font-bold bg-gradient-to-r from-white via-[#38bdf8] to-[#2563eb] bg-clip-text text-transparent"
+            className="text-3xl md:text-5xl font-bold bg-gradient-to-r from-white via-[#fb7185] to-[#e11d48] bg-clip-text text-transparent"
             style={{ fontFamily: "'Space Grotesk', 'Inter', sans-serif" }}
           >
             The JMS Member Network
@@ -62,7 +62,7 @@ export default function MembersPage() {
               className="text-[10px] tracking-[0.3em] text-gray-400 uppercase mb-3"
               style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
             >
-              Star Legend
+              Tier Legend
             </p>
             <div className="flex flex-col gap-2">
               {legendItems.map((item) => (
@@ -85,15 +85,15 @@ export default function MembersPage() {
             </div>
           </motion.div>
 
-          {/* Star Map Canvas */}
+          {/* Member network canvas */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1, delay: 0.2 }}
-            className="w-full rounded-2xl border border-white/10 bg-[#020617]/60 backdrop-blur-sm overflow-hidden"
+            className="w-full"
             style={{ height: "calc(100vh - 260px)", minHeight: 400 }}
           >
-            <ConstellationMap2D />
+            <MemberGraphNetwork />
           </motion.div>
         </div>
       </section>

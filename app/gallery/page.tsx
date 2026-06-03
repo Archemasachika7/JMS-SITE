@@ -49,7 +49,7 @@ export default function GalleryPage() {
             className="text-center mb-12"
           >
             <p
-              className="text-xs tracking-[0.4em] text-[#38bdf8] mb-2 uppercase"
+              className="text-xs tracking-[0.4em] text-[#fb7185] mb-2 uppercase"
               style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
             >
               — Moments & Mathematics —
@@ -98,7 +98,7 @@ export default function GalleryPage() {
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.6, delay: i * 0.08 }}
                 whileHover={{ scale: 1.03, y: -4 }}
-                className="group relative rounded-2xl overflow-hidden border border-white/10 hover:border-[#38bdf8]/40 bg-[#07091a]/80 backdrop-blur-sm transition-all"
+                className="group relative rounded-2xl overflow-hidden border border-white/10 hover:border-[#fb7185]/40 bg-[#07091a]/80 backdrop-blur-sm transition-all"
               >
                 <div
                   className="relative overflow-hidden cursor-pointer"

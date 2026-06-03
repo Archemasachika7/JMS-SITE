@@ -66,7 +66,7 @@ export default function ProblemsManager({ problems }: { problems: ProblemRow[] }
             </Field>
           </div>
           <label className="flex items-center gap-2 text-sm text-gray-300">
-            <input type="checkbox" name="is_published" defaultChecked className="accent-[#22d3ee]" />
+            <input type="checkbox" name="is_published" defaultChecked className="accent-[#f43f5e]" />
             Published (visible on the public site)
           </label>
         </ActionForm>

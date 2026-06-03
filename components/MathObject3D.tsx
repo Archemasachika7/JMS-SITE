@@ -20,8 +20,8 @@ function Knot() {
       <mesh>
         <torusKnotGeometry args={[1.15, 0.36, 220, 32, 2, 3]} />
         <meshStandardMaterial
-          color="#0e7490"
-          emissive="#22d3ee"
+          color="#7f1d1d"
+          emissive="#f43f5e"
           emissiveIntensity={0.35}
           metalness={0.6}
           roughness={0.25}
@@ -32,12 +32,12 @@ function Knot() {
       {/* Cyan wireframe overlay */}
       <mesh scale={1.005}>
         <torusKnotGeometry args={[1.15, 0.36, 200, 24, 2, 3]} />
-        <meshBasicMaterial color="#22d3ee" wireframe transparent opacity={0.5} />
+        <meshBasicMaterial color="#f43f5e" wireframe transparent opacity={0.5} />
       </mesh>
       {/* Violet outer wireframe shell */}
       <mesh scale={1.45}>
         <icosahedronGeometry args={[1.4, 1]} />
-        <meshBasicMaterial color="#a855f7" wireframe transparent opacity={0.18} />
+        <meshBasicMaterial color="#fb7185" wireframe transparent opacity={0.18} />
       </mesh>
     </group>
   );
@@ -72,7 +72,7 @@ function PointField() {
           itemSize={3}
         />
       </bufferGeometry>
-      <pointsMaterial size={0.045} color="#93c5fd" transparent opacity={0.7} />
+      <pointsMaterial size={0.045} color="#fda4af" transparent opacity={0.7} />
     </points>
   );
 }
@@ -81,8 +81,8 @@ export default function MathObject3D() {
   return (
     <Canvas camera={{ position: [0, 0, 5], fov: 50 }} dpr={[1, 2]}>
       <ambientLight intensity={0.6} />
-      <pointLight position={[5, 5, 5]} intensity={1.1} color="#22d3ee" />
-      <pointLight position={[-5, -3, 2]} intensity={0.8} color="#a855f7" />
+      <pointLight position={[5, 5, 5]} intensity={1.1} color="#f43f5e" />
+      <pointLight position={[-5, -3, 2]} intensity={0.8} color="#fb7185" />
       <Suspense fallback={null}>
         <Knot />
         <PointField />

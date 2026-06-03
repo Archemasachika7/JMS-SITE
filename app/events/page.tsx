@@ -59,7 +59,7 @@ export default function EventsPage() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: i * 0.1 }}
         whileHover={{ y: -4 }}
-        className="group rounded-2xl overflow-hidden border border-white/10 bg-[#07091a]/80 backdrop-blur-sm hover:border-[#2563eb]/40 transition-all"
+        className="group rounded-2xl overflow-hidden border border-white/10 bg-[#07091a]/80 backdrop-blur-sm hover:border-[#e11d48]/40 transition-all"
       >
         <div
           className="relative overflow-hidden cursor-pointer"
@@ -98,7 +98,7 @@ export default function EventsPage() {
             {event.title}
           </h3>
           <p
-            className="text-[#38bdf8] text-xs mb-2"
+            className="text-[#fb7185] text-xs mb-2"
             style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
           >
             {new Date(event.event_date).toLocaleDateString("en-IN", {
@@ -132,7 +132,7 @@ export default function EventsPage() {
             className="text-center mb-12"
           >
             <p
-              className="text-xs tracking-[0.4em] text-[#38bdf8] mb-2 uppercase"
+              className="text-xs tracking-[0.4em] text-[#fb7185] mb-2 uppercase"
               style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
             >
               — Club Activities —
@@ -151,7 +151,7 @@ export default function EventsPage() {
               className="text-xl font-bold text-white mb-6 flex items-center gap-2"
               style={{ fontFamily: "'Space Grotesk', 'Inter', sans-serif" }}
             >
-              <span className="w-2 h-2 rounded-full bg-[#38bdf8] animate-pulse" />
+              <span className="w-2 h-2 rounded-full bg-[#fb7185] animate-pulse" />
               Upcoming Events
             </h2>
             {loading ? (

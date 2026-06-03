@@ -75,7 +75,7 @@ export default function ProblemsPageContent({ problems }: { problems: PublicProb
             style={{ fontFamily: "'Space Grotesk', sans-serif" }}
           >
             Problem{" "}
-            <span className="bg-gradient-to-r from-[#22d3ee] to-[#a855f7] bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-[#f43f5e] to-[#fb7185] bg-clip-text text-transparent">
               Archive
             </span>
           </h1>

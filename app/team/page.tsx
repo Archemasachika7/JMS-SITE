@@ -113,7 +113,7 @@ export default function TeamPage() {
             className="text-center mb-12"
           >
             <p
-              className="text-xs tracking-[0.4em] text-[#38bdf8] mb-2 uppercase"
+              className="text-xs tracking-[0.4em] text-[#fb7185] mb-2 uppercase"
               style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
             >
               — Meet the Team —
@@ -151,7 +151,7 @@ export default function TeamPage() {
               {memberGroups.map((group) => (
                 <div key={group.level}>
                   <h2
-                    className="text-lg font-semibold text-[#38bdf8] mb-6 text-center tracking-wide uppercase"
+                    className="text-lg font-semibold text-[#fb7185] mb-6 text-center tracking-wide uppercase"
                     style={{ fontFamily: "'Space Grotesk', 'Inter', sans-serif" }}
                   >
                     {group.label}
@@ -164,9 +164,9 @@ export default function TeamPage() {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6, delay: i * 0.1 }}
                         whileHover={{ y: -6 }}
-                        className="group rounded-2xl border border-white/10 bg-[#07091a]/80 backdrop-blur-sm p-6 text-center hover:border-[#2563eb]/40 transition-all w-full sm:w-[calc(50%-12px)] lg:w-[calc(25%-18px)]"
+                        className="group rounded-2xl border border-white/10 bg-[#07091a]/80 backdrop-blur-sm p-6 text-center hover:border-[#e11d48]/40 transition-all w-full sm:w-[calc(50%-12px)] lg:w-[calc(25%-18px)]"
                       >
-                        <div className="relative w-24 h-24 rounded-full mx-auto mb-4 overflow-hidden border-2 border-[#2563eb]/30 group-hover:border-[#2563eb]/60 transition-all">
+                        <div className="relative w-24 h-24 rounded-full mx-auto mb-4 overflow-hidden border-2 border-[#e11d48]/30 group-hover:border-[#e11d48]/60 transition-all">
                           {member.profile_image ? (
                             <img
                               src={member.profile_image}
@@ -174,7 +174,7 @@ export default function TeamPage() {
                               className="w-full h-full object-cover"
                             />
                           ) : (
-                            <div className="w-full h-full bg-gradient-to-br from-[#2563eb] to-[#10b981] flex items-center justify-center">
+                            <div className="w-full h-full bg-gradient-to-br from-[#e11d48] to-[#fb7185] flex items-center justify-center">
                               <svg viewBox="0 0 24 24" className="w-10 h-10 text-white fill-current">
                                 <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
                               </svg>
@@ -189,7 +189,7 @@ export default function TeamPage() {
                         </h3>
                         {member.designation && (
                           <p
-                            className="text-[#38bdf8] text-sm mb-1"
+                            className="text-[#fb7185] text-sm mb-1"
                             style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
                           >
                             {member.designation}
@@ -208,7 +208,7 @@ export default function TeamPage() {
                             className="text-gray-400 text-xs mt-2 flex items-center justify-center gap-1"
                             style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
                           >
-                            <svg viewBox="0 0 24 24" className="w-3.5 h-3.5 fill-current text-[#10b981]">
+                            <svg viewBox="0 0 24 24" className="w-3.5 h-3.5 fill-current text-[#fb7185]">
                               <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" />
                             </svg>
                             {member.phone}

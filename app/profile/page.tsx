@@ -104,7 +104,7 @@ export default function ProfilePage() {
             className="text-center mb-10"
           >
             <p
-              className="text-xs tracking-[0.4em] text-[#38bdf8] mb-2 uppercase"
+              className="text-xs tracking-[0.4em] text-[#fb7185] mb-2 uppercase"
               style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
             >
               — {greeting} —
@@ -151,7 +151,7 @@ export default function ProfilePage() {
               <div className="flex justify-center mb-6">
                 <motion.button
                   onClick={() => setEditing(true)}
-                  className="flex items-center gap-2 px-5 py-2 rounded-full text-sm font-medium border border-[#2563eb]/60 text-[#38bdf8] hover:bg-[#2563eb]/20 hover:border-[#2563eb] transition-all duration-300"
+                  className="flex items-center gap-2 px-5 py-2 rounded-full text-sm font-medium border border-[#e11d48]/60 text-[#fb7185] hover:bg-[#e11d48]/20 hover:border-[#e11d48] transition-all duration-300"
                   style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.97 }}

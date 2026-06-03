@@ -46,7 +46,7 @@ export default function StarTooltip({
                   className="w-full h-full object-cover"
                 />
               ) : (
-                <div className="w-full h-full bg-gradient-to-br from-[#2563eb] to-[#10b981] flex items-center justify-center">
+                <div className="w-full h-full bg-gradient-to-br from-[#e11d48] to-[#fb7185] flex items-center justify-center">
                   <svg
                     viewBox="0 0 24 24"
                     className="w-4 h-4 text-white fill-current"

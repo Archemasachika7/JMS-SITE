@@ -35,7 +35,7 @@ export function Card({ children, className = "" }: { children: React.ReactNode; 
 }
 
 const inputCls =
-  "w-full rounded-lg border border-white/10 bg-[#0b1220] px-3 py-2 text-sm text-white placeholder-gray-500 focus:border-[#22d3ee]/60 focus:outline-none";
+  "w-full rounded-lg border border-white/10 bg-[#0b1220] px-3 py-2 text-sm text-white placeholder-gray-500 focus:border-[#f43f5e]/60 focus:outline-none";
 
 export function Field({
   label,
@@ -68,7 +68,7 @@ export function SubmitButton({
     <button
       type="submit"
       disabled={pending}
-      className="inline-flex items-center justify-center rounded-lg bg-gradient-to-r from-[#22d3ee] to-[#a855f7] px-4 py-2 text-sm font-semibold text-[#02040a] transition hover:opacity-90 disabled:opacity-50"
+      className="inline-flex items-center justify-center rounded-lg bg-gradient-to-r from-[#f43f5e] to-[#fb7185] px-4 py-2 text-sm font-semibold text-[#02040a] transition hover:opacity-90 disabled:opacity-50"
     >
       {pending ? "Saving…" : children}
     </button>

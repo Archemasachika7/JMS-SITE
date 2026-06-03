@@ -46,9 +46,9 @@ export default function RecruitmentBanner() {
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            "radial-gradient(ellipse 60% 80% at 10% 50%, #4f46e520 0%, transparent 60%), " +
+            "radial-gradient(ellipse 60% 80% at 10% 50%, #be123c20 0%, transparent 60%), " +
             "radial-gradient(ellipse 50% 70% at 90% 30%, #ec489920 0%, transparent 60%), " +
-            "radial-gradient(ellipse 40% 60% at 50% 100%, #06b6d415 0%, transparent 50%)",
+            "radial-gradient(ellipse 40% 60% at 50% 100%, #e11d4815 0%, transparent 50%)",
         }}
       />
 
@@ -57,7 +57,7 @@ export default function RecruitmentBanner() {
         className="absolute top-0 left-0 right-0 h-[3px]"
         style={{
           background:
-            "linear-gradient(90deg,#4f46e5,#a855f7,#ec4899,#f97316,#eab308,#22c55e,#06b6d4,#4f46e5)",
+            "linear-gradient(90deg,#be123c,#fb7185,#ec4899,#f97316,#eab308,#22c55e,#e11d48,#be123c)",
           backgroundSize: "200% 100%",
           animation: "rbShift 4s linear infinite",
         }}
@@ -72,16 +72,16 @@ export default function RecruitmentBanner() {
           <div
             className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold mb-3"
             style={{
-              background: "linear-gradient(135deg,#4f46e520,#ec489920)",
-              border: "1px solid #a855f740",
-              color: "#c084fc",
+              background: "linear-gradient(135deg,#be123c20,#ec489920)",
+              border: "1px solid #fb718540",
+              color: "#fda4af",
               fontFamily: "'Space Grotesk','Inter',sans-serif",
               letterSpacing: "2px",
             }}
           >
             <span
               className="w-2 h-2 rounded-full"
-              style={{ background: "#a855f7", animation: "pulse 1.5s ease-in-out infinite" }}
+              style={{ background: "#fb7185", animation: "pulse 1.5s ease-in-out infinite" }}
             />
             RECRUITMENT OPEN
           </div>
@@ -108,8 +108,8 @@ export default function RecruitmentBanner() {
             <span
               className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full text-sm font-bold text-white cursor-pointer transition-all duration-200"
               style={{
-                background: "linear-gradient(135deg,#4f46e5,#a855f7,#ec4899)",
-                boxShadow: "0 0 20px #a855f750",
+                background: "linear-gradient(135deg,#be123c,#fb7185,#ec4899)",
+                boxShadow: "0 0 20px #fb718550",
                 fontFamily: "'Space Grotesk','Inter',sans-serif",
               }}
             >
@@ -123,7 +123,7 @@ export default function RecruitmentBanner() {
           {[
             { val: timeLeft.days,    lbl: "DAYS",  color: "#f472b6" },
             { val: timeLeft.hours,   lbl: "HRS",   color: "#fb923c" },
-            { val: timeLeft.minutes, lbl: "MINS",  color: "#818cf8" },
+            { val: timeLeft.minutes, lbl: "MINS",  color: "#fb7185" },
             { val: timeLeft.seconds, lbl: "SECS",  color: "#4ade80" },
           ].map((b, i) => (
             <div key={b.lbl} className="flex items-center gap-2 md:gap-3">
@@ -162,7 +162,7 @@ export default function RecruitmentBanner() {
         className="absolute bottom-0 left-0 right-0 h-[3px]"
         style={{
           background:
-            "linear-gradient(90deg,#06b6d4,#4f46e5,#a855f7,#ec4899,#f97316,#eab308,#06b6d4)",
+            "linear-gradient(90deg,#e11d48,#be123c,#fb7185,#ec4899,#f97316,#eab308,#e11d48)",
           backgroundSize: "200% 100%",
           animation: "rbShift 4s linear infinite reverse",
         }}

@@ -123,7 +123,7 @@ export default function MediaManager({
                     href={r.pdf_url}
                     target="_blank"
                     rel="noreferrer"
-                    className="text-[11px] text-[#22d3ee] hover:underline"
+                    className="text-[11px] text-[#f43f5e] hover:underline"
                   >
                     View PDF ↗
                   </a>

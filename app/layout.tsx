@@ -23,7 +23,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           rel="stylesheet"
         />
       </head>
-      <body style={{ backgroundColor: "#020617", color: "white" }}>
+      <body style={{ backgroundColor: "#0a0408", color: "white" }}>
         <MathBackground />
         {children}
       </body>

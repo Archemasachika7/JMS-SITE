@@ -7,7 +7,7 @@ const MathObject3D = dynamic(() => import("@/components/MathObject3D"), {
   ssr: false,
   loading: () => (
     <div className="w-full h-full flex items-center justify-center">
-      <div className="w-32 h-32 rounded-full bg-gradient-to-br from-[#22d3ee]/25 to-[#0c1e3d] animate-pulse" />
+      <div className="w-32 h-32 rounded-full bg-gradient-to-br from-[#f43f5e]/25 to-[#0c1e3d] animate-pulse" />
     </div>
   ),
 });
@@ -20,16 +20,16 @@ export default function HeroSection() {
       style={{ background: "radial-gradient(ellipse at 50% 60%, #0a1628 0%, #020617 60%)" }}
     >
       {/* Nebula glows */}
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[#2563eb]/10 rounded-full blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-1/3 right-1/4 w-80 h-80 bg-[#38bdf8]/8 rounded-full blur-[100px] pointer-events-none" />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#2563eb]/5 rounded-full blur-[160px] pointer-events-none" />
+      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[#e11d48]/10 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-1/3 right-1/4 w-80 h-80 bg-[#fb7185]/8 rounded-full blur-[100px] pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#e11d48]/5 rounded-full blur-[160px] pointer-events-none" />
 
       {/* Grid overlay */}
       <div
         className="absolute inset-0 pointer-events-none opacity-[0.04]"
         style={{
           backgroundImage:
-            "linear-gradient(rgba(56,189,248,1) 1px, transparent 1px), linear-gradient(90deg, rgba(56,189,248,1) 1px, transparent 1px)",
+            "linear-gradient(rgba(251,113,133,1) 1px, transparent 1px), linear-gradient(90deg, rgba(251,113,133,1) 1px, transparent 1px)",
           backgroundSize: "80px 80px",
         }}
       />
@@ -44,11 +44,11 @@ export default function HeroSection() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="flex items-center justify-center lg:justify-start gap-3 mb-6"
           >
-            <span className="h-px w-12 bg-gradient-to-r from-transparent to-[#2563eb]" />
-            <span className="text-xs tracking-[0.4em] text-[#38bdf8] uppercase" style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}>
+            <span className="h-px w-12 bg-gradient-to-r from-transparent to-[#e11d48]" />
+            <span className="text-xs tracking-[0.4em] text-[#fb7185] uppercase" style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}>
               {siteConfig.university}
             </span>
-            <span className="h-px w-12 bg-gradient-to-l from-transparent to-[#2563eb]" />
+            <span className="h-px w-12 bg-gradient-to-l from-transparent to-[#e11d48]" />
           </motion.div>
 
           <motion.h1
@@ -59,7 +59,7 @@ export default function HeroSection() {
             style={{ fontFamily: "'Space Grotesk', 'Inter', sans-serif" }}
           >
             <span className="bg-gradient-to-b from-white via-white to-gray-400 bg-clip-text text-transparent">MATHS</span>
-            <span className="bg-gradient-to-br from-[#2563eb] to-[#10b981] bg-clip-text text-transparent">SOC</span>
+            <span className="bg-gradient-to-br from-[#e11d48] to-[#fb7185] bg-clip-text text-transparent">SOC</span>
             <br />
             <span className="text-2xl md:text-3xl lg:text-4xl font-light text-gray-400 tracking-widest">{siteConfig.tagline}</span>
           </motion.h1>
@@ -82,18 +82,18 @@ export default function HeroSection() {
           >
             <motion.a
               href="/problems"
-              className="group relative px-6 sm:px-8 py-4 rounded-full bg-gradient-to-r from-[#2563eb] to-[#1d4ed8] text-white font-semibold text-xs sm:text-sm tracking-wider overflow-hidden shadow-[0_0_30px_rgba(37,99,235,0.4)] hover:shadow-[0_0_50px_rgba(37,99,235,0.7)] transition-all duration-300 whitespace-nowrap"
+              className="group relative px-6 sm:px-8 py-4 rounded-full bg-gradient-to-r from-[#e11d48] to-[#be123c] text-white font-semibold text-xs sm:text-sm tracking-wider overflow-hidden shadow-[0_0_30px_rgba(225,29,72,0.4)] hover:shadow-[0_0_50px_rgba(225,29,72,0.7)] transition-all duration-300 whitespace-nowrap"
               style={{ fontFamily: "'Space Grotesk', 'Inter', sans-serif" }}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.97 }}
             >
               <span className="relative z-10">Explore Problems</span>
-              <div className="absolute inset-0 bg-gradient-to-r from-[#2563eb] to-[#10b981] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <div className="absolute inset-0 bg-gradient-to-r from-[#e11d48] to-[#fb7185] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </motion.a>
 
             <motion.a
               href="/auth?tab=signup"
-              className="px-6 sm:px-8 py-4 rounded-full border border-[#38bdf8]/40 text-[#38bdf8] font-semibold text-xs sm:text-sm tracking-wider hover:bg-[#38bdf8]/10 hover:border-[#38bdf8] hover:shadow-[0_0_30px_rgba(56,189,248,0.3)] transition-all duration-300 whitespace-nowrap"
+              className="px-6 sm:px-8 py-4 rounded-full border border-[#fb7185]/40 text-[#fb7185] font-semibold text-xs sm:text-sm tracking-wider hover:bg-[#fb7185]/10 hover:border-[#fb7185] hover:shadow-[0_0_30px_rgba(251,113,133,0.3)] transition-all duration-300 whitespace-nowrap"
               style={{ fontFamily: "'Space Grotesk', 'Inter', sans-serif" }}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.97 }}
@@ -128,7 +128,7 @@ export default function HeroSection() {
             ].map((p, i) => (
               <div
                 key={i}
-                className="absolute w-1 h-1 rounded-full bg-[#93c5fd]"
+                className="absolute w-1 h-1 rounded-full bg-[#fda4af]"
                 style={{
                   top: `${p.top}%`,
                   left: `${p.left}%`,

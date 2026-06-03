@@ -29,12 +29,12 @@ function getTimeLeft(): TimeLeft {
 }
 
 const TAB_META: Record<Tab, { label: string; emoji: string; color: string; gradient: string; btnGradient: string; dark: boolean }> = {
-  general: { label: "General",      emoji: "🌌", color: "#4f6ef7", gradient: "linear-gradient(135deg,#4f6ef7,#a855f7)", btnGradient: "linear-gradient(135deg,#4f6ef7,#a855f7)", dark: false },
+  general: { label: "General",      emoji: "🌌", color: "#e11d48", gradient: "linear-gradient(135deg,#e11d48,#fb7185)", btnGradient: "linear-gradient(135deg,#e11d48,#fb7185)", dark: false },
   pr:      { label: "📣 PR",        emoji: "📣", color: "#f472b6", gradient: "linear-gradient(135deg,#f472b6,#e11d7a)", btnGradient: "linear-gradient(135deg,#f472b6,#e11d7a)", dark: false },
   design:  { label: "🎨 Design",    emoji: "🎨", color: "#fb923c", gradient: "linear-gradient(135deg,#fb923c,#f59e0b)", btnGradient: "linear-gradient(135deg,#fb923c,#f59e0b)", dark: true  },
-  tech:    { label: "⚡ Tech",      emoji: "⚡", color: "#38bdf8", gradient: "linear-gradient(135deg,#38bdf8,#0ea5e9)", btnGradient: "linear-gradient(135deg,#38bdf8,#0ea5e9)", dark: true  },
+  tech:    { label: "⚡ Tech",      emoji: "⚡", color: "#fb7185", gradient: "linear-gradient(135deg,#fb7185,#f43f5e)", btnGradient: "linear-gradient(135deg,#fb7185,#f43f5e)", dark: true  },
   video:   { label: "🎬 Video",     emoji: "🎬", color: "#4ade80", gradient: "linear-gradient(135deg,#4ade80,#22c55e)", btnGradient: "linear-gradient(135deg,#4ade80,#22c55e)", dark: true  },
-  content: { label: "✍️ Content",   emoji: "✍️", color: "#c084fc", gradient: "linear-gradient(135deg,#c084fc,#a855f7)", btnGradient: "linear-gradient(135deg,#c084fc,#a855f7)", dark: false },
+  content: { label: "✍️ Content",   emoji: "✍️", color: "#fda4af", gradient: "linear-gradient(135deg,#fda4af,#fb7185)", btnGradient: "linear-gradient(135deg,#fda4af,#fb7185)", dark: false },
 };
 
 const TABS: Tab[] = ["general", "pr", "design", "tech", "video", "content"];
@@ -42,7 +42,7 @@ const TABS: Tab[] = ["general", "pr", "design", "tech", "video", "content"];
 const CSS = `
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=DM+Sans:wght@300;400;500;600&display=swap');
 
-.rc-root { --space:#03040d;--deep:#080b1a;--surface:#0d1128;--card:#101530;--border:#1e2545;--border-glow:#2a3570;--nebula1:#4f6ef7;--nebula2:#a855f7;--nebula3:#06b6d4;--star:#e2e8ff;--muted:#5a6490;--input-bg:#090c1f;--gold:#f0b429; }
+.rc-root { --space:#03040d;--deep:#080b1a;--surface:#0d1128;--card:#101530;--border:#1e2545;--border-glow:#2a3570;--nebula1:#e11d48;--nebula2:#fb7185;--nebula3:#e11d48;--star:#e2e8ff;--muted:#5a6490;--input-bg:#090c1f;--gold:#f0b429; }
 
 /* ── STARS ── */
 .rc-stars { position:fixed;inset:0;z-index:0;pointer-events:none; }
@@ -64,7 +64,7 @@ const CSS = `
 }
 .rc-banner-lines {
   position:absolute;inset:0;pointer-events:none;overflow:hidden;opacity:0.08;
-  background-image: repeating-linear-gradient(0deg, transparent, transparent 39px, #4f6ef7 40px);
+  background-image: repeating-linear-gradient(0deg, transparent, transparent 39px, #e11d48 40px);
 }
 .rc-banner-inner {
   position:relative;z-index:1;
@@ -76,7 +76,7 @@ const CSS = `
 /* spinning logo */
 .rc-logo-ring {
   width:80px;height:80px;border-radius:50%;
-  background:conic-gradient(from 0deg,#4f6ef7,#a855f7,#f472b6,#fb923c,#4ade80,#06b6d4,#4f6ef7);
+  background:conic-gradient(from 0deg,#e11d48,#fb7185,#f472b6,#fb923c,#4ade80,#e11d48,#e11d48);
   padding:3px;
   animation:rcSpin 12s linear infinite;
   margin-bottom:24px;flex-shrink:0;
@@ -91,7 +91,7 @@ const CSS = `
 /* eyebrow */
 .rc-eyebrow {
   font-family:'Orbitron',monospace;font-size:9px;letter-spacing:6px;
-  color:#06b6d4;text-transform:uppercase;margin-bottom:14px;
+  color:#e11d48;text-transform:uppercase;margin-bottom:14px;
 }
 
 /* main title */
@@ -110,7 +110,7 @@ const CSS = `
 /* ── COLORFUL BANNER STRIP ── */
 .rc-rainbow-strip {
   width:100%;height:4px;
-  background:linear-gradient(90deg,#4f6ef7,#a855f7,#f472b6,#fb923c,#f59e0b,#4ade80,#06b6d4,#4f6ef7);
+  background:linear-gradient(90deg,#e11d48,#fb7185,#f472b6,#fb923c,#f59e0b,#4ade80,#e11d48,#e11d48);
   background-size:200% 100%;
   animation:rcRainbow 4s linear infinite;
 }
@@ -136,7 +136,7 @@ const CSS = `
 }
 .rc-timer-block::before {
   content:'';position:absolute;top:0;left:0;right:0;height:2px;
-  background:var(--tb-color,#4f6ef7);
+  background:var(--tb-color,#e11d48);
 }
 .rc-timer-num {
   font-family:'Orbitron',monospace;font-size:28px;font-weight:900;
@@ -198,7 +198,7 @@ const CSS = `
   position:relative;top:1px;
 }
 .rc-tab-btn:hover { color:#e2e8ff; }
-.rc-tab-btn.active { color:#e2e8ff;border-bottom-color:var(--tc,#4f6ef7); }
+.rc-tab-btn.active { color:#e2e8ff;border-bottom-color:var(--tc,#e11d48); }
 
 /* ── CONTAINER ── */
 .rc-container { max-width:780px;margin:0 auto;padding:0 20px 80px;position:relative;z-index:2; }
@@ -243,7 +243,7 @@ input[type=text].rc-inp,input[type=number].rc-inp,input[type=email].rc-inp,texta
   width:100%;resize:vertical;
 }
 input.rc-inp:focus,textarea.rc-inp:focus,select.rc-inp:focus {
-  border-color:#4f6ef7;box-shadow:0 0 0 3px #4f6ef718;
+  border-color:#e11d48;box-shadow:0 0 0 3px #e11d4818;
 }
 textarea.rc-inp { min-height:90px; }
 select.rc-inp option { background:#0d1128; }
@@ -268,9 +268,9 @@ select.rc-inp option { background:#0d1128; }
   border-radius:9px;cursor:pointer;transition:all 0.15s;font-size:14px;
   color:#e2e8ff;
 }
-.rc-option:hover { border-color:#4f6ef7;background:#0c0f24; }
+.rc-option:hover { border-color:#e11d48;background:#0c0f24; }
 .rc-option input[type=radio],.rc-option input[type=checkbox] {
-  width:16px;height:16px;accent-color:#4f6ef7;flex-shrink:0;cursor:pointer;
+  width:16px;height:16px;accent-color:#e11d48;flex-shrink:0;cursor:pointer;
 }
 
 /* ── DIVIDER ── */
@@ -289,13 +289,13 @@ select.rc-inp option { background:#0d1128; }
 /* ── FORMSPREE NOTICE ── */
 .rc-fsnotice {
   background:linear-gradient(135deg,#0d1a30,#0a1020);
-  border:1px solid #4f6ef733;border-radius:12px;
+  border:1px solid #e11d4833;border-radius:12px;
   padding:16px 18px;margin-bottom:20px;
   display:flex;gap:12px;align-items:flex-start;
 }
 .rc-fsnotice .icon { font-size:18px;flex-shrink:0;margin-top:2px; }
 .rc-fsnotice .text { font-size:12px;line-height:1.7; }
-.rc-fsnotice .text strong { color:#06b6d4;font-family:'Orbitron',monospace;font-size:10px;letter-spacing:1px; }
+.rc-fsnotice .text strong { color:#e11d48;font-family:'Orbitron',monospace;font-size:10px;letter-spacing:1px; }
 .rc-fsnotice .text code { background:#1a2240;padding:2px 6px;border-radius:4px;font-size:11px;color:#f0b429; }
 
 /* ── SUBMIT ── */
@@ -379,7 +379,7 @@ export default function RecruitmentPage() {
         s.o += s.s * 0.008 * s.d;
         if (s.o > 0.9 || s.o < 0.05) s.d *= -1;
         ctx.beginPath(); ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(180,200,255,${s.o})`; ctx.fill();
+        ctx.fillStyle = `rgba(254,205,211,${s.o})`; ctx.fill();
       });
       animId = requestAnimationFrame(draw);
     }
@@ -442,7 +442,7 @@ export default function RecruitmentPage() {
                 {[
                   { val: timeLeft.days,    lbl: "DAYS",    color: "#f472b6" },
                   { val: timeLeft.hours,   lbl: "HOURS",   color: "#fb923c" },
-                  { val: timeLeft.minutes, lbl: "MINS",    color: "#4f6ef7" },
+                  { val: timeLeft.minutes, lbl: "MINS",    color: "#e11d48" },
                   { val: timeLeft.seconds, lbl: "SECS",    color: "#4ade80" },
                 ].map((b, i) => (
                   <>
@@ -465,9 +465,9 @@ export default function RecruitmentPage() {
               {[
                 { text: "PR Team",      color: "#f472b6", bg: "#f472b611" },
                 { text: "Design Team",  color: "#fb923c", bg: "#fb923c11" },
-                { text: "Tech Team",    color: "#38bdf8", bg: "#38bdf811" },
+                { text: "Tech Team",    color: "#fb7185", bg: "#fb718511" },
                 { text: "Video Team",   color: "#4ade80", bg: "#4ade8011" },
-                { text: "Content Team", color: "#c084fc", bg: "#c084fc11" },
+                { text: "Content Team", color: "#fda4af", bg: "#fda4af11" },
               ].map(b => (
                 <span key={b.text} className="rc-badge" style={{ color: b.color, background: b.bg, borderColor: b.color + "44" }}>
                   {b.text}
@@ -500,7 +500,7 @@ export default function RecruitmentPage() {
           {/* ══════ GENERAL ══════ */}
           <div className={`rc-section${activeTab === "general" ? " active" : ""}`}>
             <div className="rc-section-header">
-              <div className="rc-s-icon" style={{ background: "linear-gradient(135deg,#4f6ef720,#4f6ef740)", border: "1px solid #4f6ef755" }}>🌌</div>
+              <div className="rc-s-icon" style={{ background: "linear-gradient(135deg,#e11d4820,#e11d4840)", border: "1px solid #e11d4855" }}>🌌</div>
               <div className="rc-s-title">
                 <h2>General Info</h2>
                 <p>Required for all applications</p>
@@ -803,7 +803,7 @@ export default function RecruitmentPage() {
           {/* ══════ TECH ══════ */}
           <div className={`rc-section${activeTab === "tech" ? " active" : ""}`}>
             <div className="rc-section-header">
-              <div className="rc-s-icon" style={{ background: "linear-gradient(135deg,#38bdf820,#38bdf840)", border: "1px solid #38bdf855" }}>⚡</div>
+              <div className="rc-s-icon" style={{ background: "linear-gradient(135deg,#fb718520,#fb718540)", border: "1px solid #fb718555" }}>⚡</div>
               <div className="rc-s-title"><h2>Tech Team</h2><p>ML · CV · Development · AI Tools</p></div>
             </div>
 
@@ -1045,7 +1045,7 @@ export default function RecruitmentPage() {
           {/* ══════ CONTENT ══════ */}
           <div className={`rc-section${activeTab === "content" ? " active" : ""}`}>
             <div className="rc-section-header">
-              <div className="rc-s-icon" style={{ background: "linear-gradient(135deg,#c084fc20,#c084fc40)", border: "1px solid #c084fc55" }}>✍️</div>
+              <div className="rc-s-icon" style={{ background: "linear-gradient(135deg,#fda4af20,#fda4af40)", border: "1px solid #fda4af55" }}>✍️</div>
               <div className="rc-s-title"><h2>Content Team</h2><p>Writing · Research · Maths Storytelling</p></div>
             </div>
 

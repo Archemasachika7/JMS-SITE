@@ -74,19 +74,19 @@ export default function MathBackground() {
     }
 
     function draw() {
-      // Fade previous frame for a soft trailing glow.
-      ctx.fillStyle = "rgba(2, 6, 23, 0.55)";
+      // Fade previous frame for a soft trailing glow (warm near-black).
+      ctx.fillStyle = "rgba(10, 4, 8, 0.55)";
       ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
 
       for (let y = 0; y < rows; y++) {
         for (let x = 0; x < cols; x++) {
           if (!grid[idx(x, y)]) continue;
-          // Blend cyan→violet across the screen width.
+          // Blend deep-red → soft-white across the screen width.
           const t = x / cols;
-          const r = Math.round(34 + t * (168 - 34));
-          const g = Math.round(211 + t * (85 - 211));
-          const b = Math.round(238 + t * (247 - 238));
-          ctx.fillStyle = `rgba(${r},${g},${b},0.18)`;
+          const r = Math.round(225 + t * (254 - 225));
+          const g = Math.round(29 + t * (205 - 29));
+          const b = Math.round(72 + t * (211 - 72));
+          ctx.fillStyle = `rgba(${r},${g},${b},0.16)`;
           ctx.fillRect(x * CELL, y * CELL, CELL - 2, CELL - 2);
         }
       }
@@ -131,11 +131,11 @@ export default function MathBackground() {
     <div
       aria-hidden
       className="fixed inset-0 -z-10 pointer-events-none"
-      style={{ background: "radial-gradient(ellipse at 50% 30%, #0a1628 0%, #020617 70%)" }}
+      style={{ background: "radial-gradient(ellipse at 50% 30%, #1a060e 0%, #0a0408 70%)" }}
     >
       <canvas ref={canvasRef} className="h-full w-full opacity-70" />
       {/* Vignette so foreground text stays readable */}
-      <div className="absolute inset-0 bg-[#020617]/30" />
+      <div className="absolute inset-0 bg-[#0a0408]/30" />
     </div>
   );
 }

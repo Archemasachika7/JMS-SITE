@@ -81,7 +81,7 @@ function Row({ row, table }: { row: ReviewRow; table: "donators" | "sponsors" })
             href={row.proofUrl}
             target="_blank"
             rel="noreferrer"
-            className="rounded-lg border border-white/15 px-3 py-1.5 text-xs text-[#22d3ee] hover:bg-white/5"
+            className="rounded-lg border border-white/15 px-3 py-1.5 text-xs text-[#f43f5e] hover:bg-white/5"
           >
             View payment proof ↗
           </a>

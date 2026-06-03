@@ -6,8 +6,8 @@ export default function JoinSection() {
   return (
     <section id="join" className="py-24 px-6 relative overflow-hidden">
       <div className="absolute inset-0 bg-[#020617]/80" />
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#2563eb]/40 to-transparent" />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] bg-[#2563eb]/8 rounded-full blur-[120px]" />
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#e11d48]/40 to-transparent" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] bg-[#e11d48]/8 rounded-full blur-[120px]" />
 
       <div className="max-w-3xl mx-auto relative z-10 text-center">
         <motion.div
@@ -16,12 +16,12 @@ export default function JoinSection() {
           viewport={{ once: true }}
           transition={{ duration: 0.7 }}
         >
-          <p className="text-xs tracking-[0.4em] text-[#38bdf8] mb-4 uppercase" style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}>
+          <p className="text-xs tracking-[0.4em] text-[#fb7185] mb-4 uppercase" style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}>
             — Join Us —
           </p>
           <h2 className="text-3xl md:text-5xl font-bold text-white mb-6" style={{ fontFamily: "'Space Grotesk', 'Inter', sans-serif" }}>
             Become part of the<br />
-            <span className="bg-gradient-to-r from-[#2563eb] to-[#10b981] bg-clip-text text-transparent">JU Maths Society</span>
+            <span className="bg-gradient-to-r from-[#e11d48] to-[#fb7185] bg-clip-text text-transparent">JU Maths Society</span>
           </h2>
           <p className="text-gray-400 text-base md:text-lg max-w-xl mx-auto mb-10 leading-relaxed" style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}>
             Join a passionate group of problem-solvers, olympiad enthusiasts, and aspiring researchers.
@@ -37,7 +37,7 @@ export default function JoinSection() {
         >
           <Link href="/auth?tab=signup">
             <motion.span
-              className="inline-flex px-10 py-4 rounded-full bg-gradient-to-r from-[#2563eb] to-[#1d4ed8] text-white font-semibold text-sm tracking-wider shadow-[0_0_30px_rgba(37,99,235,0.4)] hover:shadow-[0_0_50px_rgba(37,99,235,0.7)] transition-all duration-300 cursor-pointer"
+              className="inline-flex px-10 py-4 rounded-full bg-gradient-to-r from-[#e11d48] to-[#be123c] text-white font-semibold text-sm tracking-wider shadow-[0_0_30px_rgba(225,29,72,0.4)] hover:shadow-[0_0_50px_rgba(225,29,72,0.7)] transition-all duration-300 cursor-pointer"
               style={{ fontFamily: "'Space Grotesk', 'Inter', sans-serif" }}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.97 }}

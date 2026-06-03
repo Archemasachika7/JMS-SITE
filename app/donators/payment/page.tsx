@@ -17,7 +17,7 @@ export default function DonatorPaymentPage() {
               "radial-gradient(ellipse at 50% 40%, #0a1628 0%, #020617 60%)",
           }}
         />
-        <div className="absolute top-1/3 left-1/4 w-96 h-96 bg-[#7c3aed]/8 rounded-full blur-[140px] pointer-events-none" />
+        <div className="absolute top-1/3 left-1/4 w-96 h-96 bg-[#e11d48]/8 rounded-full blur-[140px] pointer-events-none" />
 
         <DonationForm />
       </section>

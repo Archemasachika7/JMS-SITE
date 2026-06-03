@@ -47,8 +47,8 @@ const footerLinks = {
 
 export default function Footer() {
   return (
-    <footer className="relative bg-[#020617] border-t border-[#2563eb]/20 overflow-hidden" id="join">
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[200px] bg-[#2563eb]/5 rounded-full blur-[100px] pointer-events-none" />
+    <footer className="relative bg-[#020617] border-t border-[#e11d48]/20 overflow-hidden" id="join">
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[200px] bg-[#e11d48]/5 rounded-full blur-[100px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-6 pt-16 pb-8 relative z-10">
         <div className="grid md:grid-cols-5 gap-10 mb-12">
@@ -66,7 +66,7 @@ export default function Footer() {
             </p>
             <a
               href={`mailto:${siteConfig.email}`}
-              className="flex items-center gap-2 text-[#38bdf8] text-sm hover:text-white transition-colors"
+              className="flex items-center gap-2 text-[#fb7185] text-sm hover:text-white transition-colors"
               style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
             >
               <svg viewBox="0 0 24 24" className="w-4 h-4 fill-current">
@@ -82,7 +82,7 @@ export default function Footer() {
                   <motion.a
                     key={key}
                     href={href || "#"}
-                    className="w-9 h-9 rounded-full border border-white/10 flex items-center justify-center text-gray-500 hover:text-white hover:border-[#2563eb]/60 hover:bg-[#2563eb]/10 hover:shadow-[0_0_15px_rgba(37,99,235,0.3)] transition-all duration-300"
+                    className="w-9 h-9 rounded-full border border-white/10 flex items-center justify-center text-gray-500 hover:text-white hover:border-[#e11d48]/60 hover:bg-[#e11d48]/10 hover:shadow-[0_0_15px_rgba(225,29,72,0.3)] transition-all duration-300"
                     aria-label={socialDisplayNames[key] || key}
                     whileHover={{ scale: 1.15, y: -2 }}
                     whileTap={{ scale: 0.95 }}
@@ -104,7 +104,7 @@ export default function Footer() {
               <ul className="space-y-2.5">
                 {links.map((link) => (
                   <li key={link}>
-                    <a href="#" className="text-gray-500 text-sm hover:text-[#38bdf8] transition-colors" style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}>
+                    <a href="#" className="text-gray-500 text-sm hover:text-[#fb7185] transition-colors" style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}>
                       {link}
                     </a>
                   </li>
@@ -119,7 +119,7 @@ export default function Footer() {
             © {new Date().getFullYear()} {siteConfig.clubName}, {siteConfig.university}. All rights reserved.
           </p>
           <div className="flex items-center gap-2">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#38bdf8] animate-pulse" />
+            <span className="w-1.5 h-1.5 rounded-full bg-[#fb7185] animate-pulse" />
             <span className="text-gray-600 text-xs" style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}>Made with ♥ and prime numbers at JU</span>
           </div>
         </div>

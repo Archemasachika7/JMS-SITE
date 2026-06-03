@@ -35,7 +35,7 @@ export default async function AdminLayout({
         <aside className="hidden md:flex w-64 shrink-0 flex-col border-r border-white/10 bg-[#0b1220] p-5 sticky top-0 h-screen">
           <Link href="/" className="mb-6 block">
             <span
-              className="text-lg font-bold bg-gradient-to-r from-[#22d3ee] to-[#a855f7] bg-clip-text text-transparent"
+              className="text-lg font-bold bg-gradient-to-r from-[#f43f5e] to-[#fb7185] bg-clip-text text-transparent"
               style={{ fontFamily: "'Space Grotesk', sans-serif" }}
             >
               JMS Admin
@@ -56,7 +56,7 @@ export default async function AdminLayout({
           <div className="mt-auto pt-6 text-xs text-gray-500">
             <p className="truncate">Signed in as</p>
             <p className="truncate text-gray-300">{admin.email}</p>
-            <Link href="/" className="mt-3 inline-block text-[#22d3ee] hover:underline">
+            <Link href="/" className="mt-3 inline-block text-[#f43f5e] hover:underline">
               ← Back to site
             </Link>
           </div>

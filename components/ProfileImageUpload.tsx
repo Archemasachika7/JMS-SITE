@@ -85,8 +85,8 @@ export default function ProfileImageUpload({
   return (
     <div className="flex flex-col items-center mb-8">
       <div className="relative w-28 h-28 rounded-full mb-4 group">
-        <div className="absolute -inset-1 rounded-full bg-gradient-to-br from-[#2563eb] to-[#10b981] opacity-60 blur-sm" />
-        <div className="relative w-28 h-28 rounded-full overflow-hidden border-2 border-[#2563eb]/60">
+        <div className="absolute -inset-1 rounded-full bg-gradient-to-br from-[#e11d48] to-[#fb7185] opacity-60 blur-sm" />
+        <div className="relative w-28 h-28 rounded-full overflow-hidden border-2 border-[#e11d48]/60">
           {profileImage ? (
             <img
               src={profileImage}
@@ -94,7 +94,7 @@ export default function ProfileImageUpload({
               className="w-full h-full object-cover"
             />
           ) : (
-            <div className="w-full h-full bg-gradient-to-br from-[#2563eb] to-[#10b981] flex items-center justify-center">
+            <div className="w-full h-full bg-gradient-to-br from-[#e11d48] to-[#fb7185] flex items-center justify-center">
               <svg
                 viewBox="0 0 24 24"
                 className="w-12 h-12 text-white fill-current"
@@ -151,7 +151,7 @@ export default function ProfileImageUpload({
       <button
         onClick={() => fileInputRef.current?.click()}
         disabled={uploading}
-        className="text-xs text-[#38bdf8] hover:text-[#2563eb] transition-colors mb-1 cursor-pointer disabled:opacity-50"
+        className="text-xs text-[#fb7185] hover:text-[#e11d48] transition-colors mb-1 cursor-pointer disabled:opacity-50"
         style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
       >
         {uploading ? "Uploading..." : "Upload Photo"}
