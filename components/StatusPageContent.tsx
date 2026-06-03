@@ -218,7 +218,7 @@ function VerifiedMessage({
         <div>
           <p className="font-medium text-emerald-300">Payment Verified!</p>
           <p className="text-sm text-emerald-200/70">
-            Payment Verified! Your official AstroSci certificate is being generated.
+            Payment Verified! Your official JMS certificate is being generated.
           </p>
         </div>
       </div>

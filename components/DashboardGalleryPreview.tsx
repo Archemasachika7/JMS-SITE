@@ -52,7 +52,7 @@ export default function DashboardGalleryPreview() {
               className="text-xs tracking-[0.4em] text-[#38bdf8] mb-2 uppercase"
               style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
             >
-              — Astrophotography —
+              — Moments & Mathematics —
             </p>
             <h2
               className="text-2xl md:text-3xl font-bold text-white"

@@ -11,28 +11,28 @@ const sponsorPlans = [
     title: "Community Promotion",
     price: "₹599",
     period: "",
-    description: "Promotion in AstroSci groups and website.",
+    description: "Promotion in JMS groups and website.",
     icon: Megaphone,
   },
   {
     title: "Merchandise Sponsor",
     price: "₹1,499",
     period: "/ year",
-    description: "Promotion on AstroSci merchandise.",
+    description: "Promotion on JMS merchandise.",
     icon: ShoppingBag,
   },
   {
     title: "Event Host",
     price: "₹2,000",
     period: "",
-    description: "Sponsor AstroSci events.",
+    description: "Sponsor JMS events.",
     icon: Calendar,
   },
   {
     title: "Major Sponsor",
     price: "₹7,499",
     period: "",
-    description: "Host Olympiads and major AstroSci programs.",
+    description: "Host Olympiads and major JMS programs.",
     icon: Trophy,
   },
 ];
@@ -138,7 +138,7 @@ export default function SponsorsPageContent({
             </p>
             <h1 className="text-4xl md:text-6xl font-bold mb-6" style={{ fontFamily: "'Space Grotesk', 'Inter', sans-serif" }}>
               <span className="bg-gradient-to-b from-white via-white to-gray-400 bg-clip-text text-transparent">
-                Support AstroSci Through{" "}
+                Support JMS Through{" "}
               </span>
               <span className="bg-gradient-to-r from-[#7c3aed] to-[#22d3ee] bg-clip-text text-transparent">Sponsorship</span>
             </h1>
@@ -146,7 +146,7 @@ export default function SponsorsPageContent({
               className="text-gray-400 text-base md:text-lg max-w-2xl mx-auto mb-10 leading-relaxed"
               style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
             >
-              Partner with us to promote science, education, and exploration. Your brand reaches a passionate community of astronomers and space enthusiasts.
+              Partner with us to promote mathematics, education, and problem-solving. Your brand reaches a passionate community of students, olympiad enthusiasts, and aspiring researchers.
             </p>
           </motion.div>
 
@@ -303,7 +303,7 @@ export default function SponsorsPageContent({
               <p className="text-gray-300 text-base" style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}>
                 Verified sponsors will appear here.
               </p>
-              <p className="text-gray-500 text-sm mt-1">Be the first to sponsor AstroSci!</p>
+              <p className="text-gray-500 text-sm mt-1">Be the first to sponsor JMS!</p>
             </motion.div>
           )}
         </div>

@@ -96,7 +96,7 @@ export default function MemberProfileCard({
                 className="text-center text-white text-lg font-bold"
                 style={{ fontFamily: "'Space Grotesk', 'Inter', sans-serif" }}
               >
-                {name || "AstroSci Member"}
+                {name || "JMS Member"}
               </h3>
 
               {/* Plan badge */}

@@ -148,7 +148,7 @@ export default function DashboardMagazinePreview() {
                           className="text-[#38bdf8] text-xs tracking-[0.3em] uppercase mb-1"
                           style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
                         >
-                          AstroSci Club · JU
+                          JU Maths Society
                         </p>
                         <h3
                           className="text-xl font-black text-white leading-tight"

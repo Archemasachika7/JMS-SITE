@@ -60,7 +60,7 @@ export default function ProjectsPage() {
               className="text-3xl md:text-5xl font-bold text-white"
               style={{ fontFamily: "'Space Grotesk', 'Inter', sans-serif" }}
             >
-              AstroSci Projects
+              JMS Projects
             </h1>
             <p
               className="text-gray-500 text-sm mt-3"

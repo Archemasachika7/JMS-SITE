@@ -57,13 +57,13 @@ export default function DashboardPOTWPreview() {
               className="text-xs tracking-[0.4em] text-[#38bdf8] mb-2 uppercase"
               style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
             >
-              — Featured Shots —
+              — Weekly Highlight —
             </p>
             <h2
               className="text-2xl md:text-3xl font-bold text-white"
               style={{ fontFamily: "'Space Grotesk', 'Inter', sans-serif" }}
             >
-              Picture of the Week
+              Problem of the Week
             </h2>
           </div>
           <Link href="/potw">

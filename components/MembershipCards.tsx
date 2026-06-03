@@ -8,22 +8,22 @@ import { siteConfig } from "@/config/siteConfig";
 const plans = [
   {
     name: "Free",
-    description: "Basic access to club resources and events",
-    features: ["Event notifications", "Gallery access", "Community forum"],
+    description: "Basic access to society resources and events",
+    features: ["Event notifications", "Problem of the Day", "Community forum"],
     color: "#B45309",
     tier: "free",
   },
   {
-    name: "Monthly Subscriber",
+    name: "Monthly Scholar",
     description: "Enhanced benefits with monthly renewal",
-    features: ["All Free features", "Magazine downloads", "Priority registration", "Workshop access"],
+    features: ["All Free features", "Curated problem sets", "DSA & olympiad roadmaps", "Workshop access"],
     color: "#C0C0C0",
     tier: "monthly",
   },
   {
-    name: "Annual Subscriber",
+    name: "Annual Fellow",
     description: "Full access with annual commitment",
-    features: ["All Monthly features", "Exclusive content", "Mentorship program", "Certificate of membership"],
+    features: ["All Monthly features", "Research mentorship", "Priority event registration", "Certificate of membership"],
     color: "#FCD34D",
     tier: "annual",
   },
@@ -81,8 +81,7 @@ export default function MembershipCards() {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {plans.map((plan, i) => {
-            const isActive =
-              currentPlan.toLowerCase() === plan.name.toLowerCase();
+            const isActive = currentPlan.toLowerCase() === plan.tier;
             const tierStyles =
               plan.tier === "annual"
                 ? {

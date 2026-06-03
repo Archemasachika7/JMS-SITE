@@ -106,14 +106,14 @@ export default function AuthCard() {
                 >
                   Welcome to{" "}
                   <span className="bg-gradient-to-r from-[#2563eb] to-[#10b981] bg-clip-text text-transparent">
-                    AstroSci
+                    JU Maths Society
                   </span>
                 </h1>
                 <p
                   className="text-gray-400 text-sm"
                   style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
                 >
-                  Explore the universe with fellow astronomers.
+                  Decode the universe&apos;s language with fellow problem-solvers.
                 </p>
               </motion.div>
 

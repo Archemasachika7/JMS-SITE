@@ -96,7 +96,7 @@ export default function RecruitmentBanner() {
               backgroundClip: "text",
             }}
           >
-            Join Astro Club 2025–26
+            Join JU Maths Society 2025–26
           </h2>
 
           <p className="text-sm text-gray-400 mb-4" style={{ fontFamily: "'Public Sans','Inter',sans-serif" }}>

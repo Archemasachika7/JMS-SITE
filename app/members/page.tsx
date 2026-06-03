@@ -36,13 +36,13 @@ export default function MembersPage() {
             className="text-3xl md:text-5xl font-bold bg-gradient-to-r from-white via-[#38bdf8] to-[#2563eb] bg-clip-text text-transparent"
             style={{ fontFamily: "'Space Grotesk', 'Inter', sans-serif" }}
           >
-            AstroSci Constellation Map
+            The JMS Member Network
           </h1>
           <p
             className="text-gray-400 mt-3 text-sm md:text-base max-w-xl mx-auto"
             style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
           >
-            Each member is a star in our constellation map. Hover over stars
+            Every member is a node in our network. Hover over a node
             to discover member identities.
           </p>
         </motion.div>

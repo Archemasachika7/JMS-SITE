@@ -426,11 +426,11 @@ export default function RecruitmentPage() {
           <div className="rc-rainbow-strip" />
 
           <div className="rc-banner-inner">
-            <div className="rc-logo-ring"><div className="rc-logo-inner">🔭</div></div>
+            <div className="rc-logo-ring"><div className="rc-logo-inner">∑</div></div>
 
-            <div className="rc-eyebrow">★ Astro Club · AstroSci Society</div>
+            <div className="rc-eyebrow">★ JU Maths Society · Jadavpur University</div>
             <h1 className="rc-title">Recruitment<br />2025–26</h1>
-            <p className="rc-subtitle">Select your team · Fill the form · Reach for the stars</p>
+            <p className="rc-subtitle">Select your team · Fill the form · Solve · Prove · Create</p>
 
             {/* ── COUNTDOWN ── */}
             <div className="rc-deadline-label">⏳ Applications close in</div>
@@ -508,10 +508,10 @@ export default function RecruitmentPage() {
             </div>
 
             {submitted.general ? (
-              <div className="rc-success show"><div className="rc-success-icon">🌠</div><h3>Signal Received!</h3><p>Your general info has been transmitted to Astro Club base.</p></div>
+              <div className="rc-success show"><div className="rc-success-icon">🌠</div><h3>Signal Received!</h3><p>Your general info has been transmitted to JU Maths Society base.</p></div>
             ) : (
               <form action="https://formspree.io/f/xkoeejyk" method="POST" onSubmit={e => handleSubmit(e, "General", "general")}>
-                <input type="hidden" name="_subject" value="Astro Club Application — General" />
+                <input type="hidden" name="_subject" value="JU Maths Society Application — General" />
                 <input type="hidden" name="team_form" value="General" />
 
                 <div className="rc-card">
@@ -554,8 +554,8 @@ export default function RecruitmentPage() {
                       <input className="rc-inp" type="text" name="phone" placeholder="+91 XXXXX XXXXX" />
                     </div>
                     <div className="rc-field full">
-                      <label className="rc-label">Why do you want to join Astro Club? <span className="req">*</span></label>
-                      <textarea className="rc-inp" name="motivation" placeholder="What draws you to astronomy and space science? What do you hope to contribute?" required />
+                      <label className="rc-label">Why do you want to join JU Maths Society? <span className="req">*</span></label>
+                      <textarea className="rc-inp" name="motivation" placeholder="What draws you to mathematics and problem-solving? What do you hope to contribute?" required />
                     </div>
                     <div className="rc-field full">
                       <label className="rc-label">How did you hear about this recruitment?</label>
@@ -587,10 +587,10 @@ export default function RecruitmentPage() {
             </div>
 
             {submitted.pr ? (
-              <div className="rc-success show"><div className="rc-success-icon">📡</div><h3>PR Signal Sent!</h3><p>Your application is in orbit. We&apos;ll be in touch.</p></div>
+              <div className="rc-success show"><div className="rc-success-icon">📡</div><h3>PR Signal Sent!</h3><p>Your application has been received. We&apos;ll be in touch.</p></div>
             ) : (
               <form action="https://formspree.io/f/xkoeejyk" method="POST" onSubmit={e => handleSubmit(e, "PR", "pr")}>
-                <input type="hidden" name="_subject" value="Astro Club Application — PR Team" />
+                <input type="hidden" name="_subject" value="JU Maths Society Application — PR Team" />
                 <input type="hidden" name="team_form" value="PR" />
 
                 <div className="rc-card">
@@ -618,7 +618,7 @@ export default function RecruitmentPage() {
                 <div className="rc-qcard">
                   <div className="rc-qnum">Q 02</div>
                   <div className="rc-qtitle">What content do you watch / consume most?</div>
-                  <textarea className="rc-inp" name="content_watch" placeholder="Reels, long-form, memes, astro content, news, podcasts — describe what you watch and on which platforms." />
+                  <textarea className="rc-inp" name="content_watch" placeholder="Reels, long-form, memes, math content, news, podcasts — describe what you watch and on which platforms." />
                 </div>
 
                 <div className="rc-qcard">
@@ -655,14 +655,14 @@ export default function RecruitmentPage() {
 
                 <div className="rc-qcard">
                   <div className="rc-qnum">Q 07</div>
-                  <div className="rc-qtitle">Growth strategy — How would you grow Astro Club&apos;s Instagram from 500 to 5,000 followers in 6 months?</div>
+                  <div className="rc-qtitle">Growth strategy — How would you grow JU Maths Society&apos;s Instagram from 500 to 5,000 followers in 6 months?</div>
                   <textarea className="rc-inp" name="growth_strategy" placeholder="Be specific: content types, posting frequency, collab ideas, trending formats, hashtag strategy, campaign ideas…" />
                 </div>
 
                 <div className="rc-qcard">
                   <div className="rc-qnum">Q 08</div>
-                  <div className="rc-qtitle">Trend adaptation — Describe a current trending format you&apos;d use for an astronomy post</div>
-                  <textarea className="rc-inp" name="trend_idea" placeholder="E.g. 'POV you're a photon leaving the sun', 'brain rot astro facts', rate-a-planet series, AI voiceover + timelapse — pitch your idea!" />
+                  <div className="rc-qtitle">Trend adaptation — Describe a current trending format you&apos;d use for a maths post</div>
+                  <textarea className="rc-inp" name="trend_idea" placeholder="E.g. 'POV you're a prime number', 'brain rot math facts', rate-a-theorem series, AI voiceover + animated proof — pitch your idea!" />
                 </div>
 
                 <div className="rc-qcard">
@@ -692,14 +692,14 @@ export default function RecruitmentPage() {
           <div className={`rc-section${activeTab === "design" ? " active" : ""}`}>
             <div className="rc-section-header">
               <div className="rc-s-icon" style={{ background: "linear-gradient(135deg,#fb923c20,#fb923c40)", border: "1px solid #fb923c55" }}>🎨</div>
-              <div className="rc-s-title"><h2>Design Team</h2><p>Graphics · Astrophotography · Visual Identity</p></div>
+              <div className="rc-s-title"><h2>Design Team</h2><p>Graphics · Branding · Visual Identity</p></div>
             </div>
 
             {submitted.design ? (
               <div className="rc-success show"><div className="rc-success-icon">🌠</div><h3>Design Signal Sent!</h3><p>Your portfolio has been received. The design team will review shortly.</p></div>
             ) : (
               <form action="https://formspree.io/f/xkoeejyk" method="POST" onSubmit={e => handleSubmit(e, "Design", "design")}>
-                <input type="hidden" name="_subject" value="Astro Club Application — Design Team" />
+                <input type="hidden" name="_subject" value="JU Maths Society Application — Design Team" />
                 <input type="hidden" name="team_form" value="Design" />
 
                 <div className="rc-card">
@@ -761,19 +761,19 @@ export default function RecruitmentPage() {
 
                 <div className="rc-qcard">
                   <div className="rc-qnum">Q 06</div>
-                  <div className="rc-qtitle">Design process — Walk us through how you&apos;d approach a stargazing event poster</div>
+                  <div className="rc-qtitle">Design process — Walk us through how you&apos;d approach a maths event poster</div>
                   <textarea className="rc-inp" name="design_process" placeholder="From brief to final file: mood-boarding, colour palette selection, typography, revisions — describe your process." />
                 </div>
 
                 <div className="rc-qcard">
                   <div className="rc-qnum">Q 07</div>
-                  <div className="rc-qtitle">Your design philosophy — what makes a great astronomy visual? (2–3 sentences)</div>
-                  <textarea className="rc-inp" name="design_philosophy" placeholder="What principles guide your design decisions in space / science-themed work?" style={{ minHeight: 70 }} />
+                  <div className="rc-qtitle">Your design philosophy — what makes a great maths visual? (2–3 sentences)</div>
+                  <textarea className="rc-inp" name="design_philosophy" placeholder="What principles guide your design decisions in maths / science-themed work?" style={{ minHeight: 70 }} />
                 </div>
 
                 <div className="rc-qcard">
                   <div className="rc-qnum">Q 08</div>
-                  <div className="rc-qtitle">Any astrophotography / night-sky photography or editing experience?</div>
+                  <div className="rc-qtitle">Any graphic design / illustration or editing experience?</div>
                   <textarea className="rc-inp" name="astrophoto" placeholder="Describe experience, share photo links if possible. Write 'None' if not applicable." />
                 </div>
 
@@ -808,10 +808,10 @@ export default function RecruitmentPage() {
             </div>
 
             {submitted.tech ? (
-              <div className="rc-success show"><div className="rc-success-icon">🛸</div><h3>Tech Signal Sent!</h3><p>Your application is in orbit. The tech team will review your work.</p></div>
+              <div className="rc-success show"><div className="rc-success-icon">🛸</div><h3>Tech Signal Sent!</h3><p>Your application has been received. The tech team will review your work.</p></div>
             ) : (
               <form action="https://formspree.io/f/xkoeejyk" method="POST" onSubmit={e => handleSubmit(e, "Tech", "tech")}>
-                <input type="hidden" name="_subject" value="Astro Club Application — Tech Team" />
+                <input type="hidden" name="_subject" value="JU Maths Society Application — Tech Team" />
                 <input type="hidden" name="team_form" value="Tech" />
 
                 <div className="rc-card">
@@ -876,7 +876,7 @@ export default function RecruitmentPage() {
 
                 <div className="rc-qcard">
                   <div className="rc-qnum">Q 05</div>
-                  <div className="rc-qtitle">Your astronomy knowledge level</div>
+                  <div className="rc-qtitle">Your mathematics background level</div>
                   <div className="rc-options">
                     {[
                       "Enthusiast — follow news & events",
@@ -891,20 +891,20 @@ export default function RecruitmentPage() {
 
                 <div className="rc-qcard">
                   <div className="rc-qnum">Q 06</div>
-                  <div className="rc-qtitle">Describe your ideal Astro Club tech project in detail</div>
-                  <textarea className="rc-inp" name="ideal_project" placeholder="E.g. automated meteor detection pipeline, AI-generated sky atlas, live ISS tracker with AR overlay, galaxy morphology classifier — pitch your idea with tech stack and feasibility." />
+                  <div className="rc-qtitle">Describe your ideal JU Maths Society tech project in detail</div>
+                  <textarea className="rc-inp" name="ideal_project" placeholder="E.g. automated problem-set generator, LaTeX rendering pipeline, live contest-rating tracker, interactive graph-theory visualizer — pitch your idea with tech stack and feasibility." />
                 </div>
 
                 <div className="rc-qcard">
                   <div className="rc-qnum">Q 07</div>
-                  <div className="rc-qtitle">In the AI era, how can you use tech to advance Astro Club?</div>
-                  <textarea className="rc-inp" name="ai_vision" placeholder="Automation, AI-powered astronomy tools, data pipelines, sky-mapping apps, anything innovative." />
+                  <div className="rc-qtitle">In the AI era, how can you use tech to advance JU Maths Society?</div>
+                  <textarea className="rc-inp" name="ai_vision" placeholder="Automation, AI-powered math tools, data pipelines, problem-recommendation apps, anything innovative." />
                 </div>
 
                 <div className="rc-qcard">
                   <div className="rc-qnum">Q 08</div>
-                  <div className="rc-qtitle">Any hardware / telescope control / IoT / Raspberry Pi experience?</div>
-                  <textarea className="rc-inp" name="hardware_exp" placeholder="Telescope automation, sky-scanning rigs, sensor arrays, motor controllers — describe or link. Write 'None' if not applicable." />
+                  <div className="rc-qtitle">Any hardware / robotics / IoT / Raspberry Pi experience?</div>
+                  <textarea className="rc-inp" name="hardware_exp" placeholder="Microcontrollers, sensor arrays, automation rigs, motor controllers — describe or link. Write 'None' if not applicable." />
                 </div>
 
                 <div className="rc-qcard">
@@ -938,7 +938,7 @@ export default function RecruitmentPage() {
               <div className="rc-success show"><div className="rc-success-icon">🎞️</div><h3>Video Signal Sent!</h3><p>Your work links have been received. We&apos;ll review and get back to you.</p></div>
             ) : (
               <form action="https://formspree.io/f/xkoeejyk" method="POST" onSubmit={e => handleSubmit(e, "Video Editing", "video")}>
-                <input type="hidden" name="_subject" value="Astro Club Application — Video Editing" />
+                <input type="hidden" name="_subject" value="JU Maths Society Application — Video Editing" />
                 <input type="hidden" name="team_form" value="Video Editing" />
 
                 <div className="rc-card">
@@ -1004,15 +1004,15 @@ export default function RecruitmentPage() {
 
                 <div className="rc-qcard">
                   <div className="rc-qnum">Q 06</div>
-                  <div className="rc-qtitle">Have you shot or edited astronomy / night-sky / timelapse footage?</div>
+                  <div className="rc-qtitle">Have you shot or edited event / lecture / explainer footage?</div>
                   <div className="rc-options">
                     {["Yes — shot and edited", "Edited someone else's footage", "No — but very interested", "No — not my focus"].map(v => (
                       <label key={v} className="rc-option"><input type="radio" name="astro_footage" value={v} />{v}</label>
                     ))}
                   </div>
                   <div style={{ marginTop: 12 }}>
-                    <label className="rc-label" style={{ display: "block", marginBottom: 6 }}>Link to astro footage (if any)</label>
-                    <input className="rc-inp" type="text" name="astro_footage_link" placeholder="YouTube / Drive link to night sky / timelapse footage" />
+                    <label className="rc-label" style={{ display: "block", marginBottom: 6 }}>Link to your footage (if any)</label>
+                    <input className="rc-inp" type="text" name="astro_footage_link" placeholder="YouTube / Drive link to event / explainer / edited footage" />
                   </div>
                 </div>
 
@@ -1046,14 +1046,14 @@ export default function RecruitmentPage() {
           <div className={`rc-section${activeTab === "content" ? " active" : ""}`}>
             <div className="rc-section-header">
               <div className="rc-s-icon" style={{ background: "linear-gradient(135deg,#c084fc20,#c084fc40)", border: "1px solid #c084fc55" }}>✍️</div>
-              <div className="rc-s-title"><h2>Content Team</h2><p>Writing · Research · Astro Storytelling</p></div>
+              <div className="rc-s-title"><h2>Content Team</h2><p>Writing · Research · Maths Storytelling</p></div>
             </div>
 
             {submitted.content ? (
               <div className="rc-success show"><div className="rc-success-icon">✨</div><h3>Content Signal Sent!</h3><p>Your words have reached us. We&apos;ll be in touch soon.</p></div>
             ) : (
               <form action="https://formspree.io/f/xkoeejyk" method="POST" onSubmit={e => handleSubmit(e, "Content", "content")}>
-                <input type="hidden" name="_subject" value="Astro Club Application — Content Team" />
+                <input type="hidden" name="_subject" value="JU Maths Society Application — Content Team" />
                 <input type="hidden" name="team_form" value="Content" />
 
                 <div className="rc-card">
@@ -1093,13 +1093,13 @@ export default function RecruitmentPage() {
 
                 <div className="rc-qcard">
                   <div className="rc-qnum">Q 03</div>
-                  <div className="rc-qtitle">Live task — Write a 3-line Instagram caption for the James Webb Space Telescope&apos;s latest image release</div>
+                  <div className="rc-qtitle">Live task — Write a 3-line Instagram caption introducing a beautiful theorem or proof of your choice</div>
                   <textarea className="rc-inp" name="jwst_caption" placeholder="Write it here — show us your voice! Include a hook, the fact, and a call to action." style={{ minHeight: 80 }} required />
                 </div>
 
                 <div className="rc-qcard">
                   <div className="rc-qnum">Q 04</div>
-                  <div className="rc-qtitle">Comfortable writing about astronomy &amp; science?</div>
+                  <div className="rc-qtitle">Comfortable writing about mathematics &amp; science?</div>
                   <div className="rc-options">
                     {["Yes, it's my primary interest area", "Willing to research and learn", "Comfortable with any topic, science included", "Not particularly comfortable with science writing"].map(v => (
                       <label key={v} className="rc-option"><input type="radio" name="astro_write" value={v} />{v}</label>
@@ -1117,7 +1117,7 @@ export default function RecruitmentPage() {
                   <div className="rc-qnum">Q 06</div>
                   <div className="rc-qtitle">Reading habits — what do you regularly read?</div>
                   <div className="rc-options">
-                    {[["read_books","Books (fiction / non-fiction)"],["read_journals","Science journals / papers"],["read_news","Space / tech news (NASA, ESA, SpaceX updates)"],["read_blogs","Blogs & newsletters"],["read_social","Mostly social media content"]].map(([n,lbl]) => (
+                    {[["read_books","Books (fiction / non-fiction)"],["read_journals","Science journals / papers"],["read_news","Maths / tech news (Quanta, arXiv, contest updates)"],["read_blogs","Blogs & newsletters"],["read_social","Mostly social media content"]].map(([n,lbl]) => (
                       <label key={n} className="rc-option"><input type="checkbox" name={n} value="Yes" />{lbl}</label>
                     ))}
                   </div>
@@ -1125,13 +1125,13 @@ export default function RecruitmentPage() {
 
                 <div className="rc-qcard">
                   <div className="rc-qnum">Q 07</div>
-                  <div className="rc-qtitle">What&apos;s the most fascinating astronomical event or discovery you&apos;ve followed recently?</div>
+                  <div className="rc-qtitle">What&apos;s the most fascinating mathematical result or discovery you&apos;ve followed recently?</div>
                   <textarea className="rc-inp" name="astro_fascination" placeholder="Tell us what it was, why it excited you, and what you learned from following it." />
                 </div>
 
                 <div className="rc-qcard">
                   <div className="rc-qnum">Q 08</div>
-                  <div className="rc-qtitle">Why do you want to join the Astro Club Content team?</div>
+                  <div className="rc-qtitle">Why do you want to join the JU Maths Society Content team?</div>
                   <textarea className="rc-inp" name="motivation" placeholder="What unique perspective do you bring? What kind of content do you want to create for the club?" required />
                 </div>
 

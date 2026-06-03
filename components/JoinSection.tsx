@@ -21,11 +21,11 @@ export default function JoinSection() {
           </p>
           <h2 className="text-3xl md:text-5xl font-bold text-white mb-6" style={{ fontFamily: "'Space Grotesk', 'Inter', sans-serif" }}>
             Become part of the<br />
-            <span className="bg-gradient-to-r from-[#2563eb] to-[#10b981] bg-clip-text text-transparent">AstroSci community</span>
+            <span className="bg-gradient-to-r from-[#2563eb] to-[#10b981] bg-clip-text text-transparent">JU Maths Society</span>
           </h2>
           <p className="text-gray-400 text-base md:text-lg max-w-xl mx-auto mb-10 leading-relaxed" style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}>
-            Join a passionate group of astronomers, astrophotographers, and space enthusiasts.
-            Attend stargazing events, contribute to our magazine, and explore the universe with us.
+            Join a passionate group of problem-solvers, olympiad enthusiasts, and aspiring researchers.
+            Tackle the Problem of the Day, contribute to our magazine, and explore the elegance of mathematics with us.
           </p>
         </motion.div>
 

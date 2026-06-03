@@ -128,7 +128,7 @@ export default function TeamPage() {
               className="text-gray-500 text-sm mt-3"
               style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
             >
-              The people behind the telescope
+              The minds behind the theorems
             </p>
           </motion.div>
 

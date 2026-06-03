@@ -113,7 +113,7 @@ export default function ProfilePage() {
               className="text-3xl md:text-4xl font-bold text-white"
               style={{ fontFamily: "'Space Grotesk', 'Inter', sans-serif" }}
             >
-              Hello, {userName || "AstroSci Member"}
+              Hello, {userName || "JMS Member"}
             </h1>
           </motion.div>
 
@@ -136,7 +136,7 @@ export default function ProfilePage() {
                 className="text-xl font-bold text-white mt-2"
                 style={{ fontFamily: "'Space Grotesk', 'Inter', sans-serif" }}
               >
-                {userName || "AstroSci Member"}
+                {userName || "JMS Member"}
               </h2>
               <p
                 className="text-gray-400 text-sm mt-1"

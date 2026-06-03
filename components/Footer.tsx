@@ -62,7 +62,7 @@ export default function Footer() {
               </div>
             </div>
             <p className="text-gray-500 text-sm leading-relaxed mb-6 max-w-xs" style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}>
-              A student-led astronomy club dedicated to exploring the universe, fostering scientific curiosity, and building a community of stargazers.
+              A student-led mathematics society dedicated to decoding the universe&apos;s language — fostering problem-solving, rigorous proof, and a community that thrives on elegant ideas.
             </p>
             <a
               href={`mailto:${siteConfig.email}`}
@@ -116,11 +116,11 @@ export default function Footer() {
 
         <div className="pt-6 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-gray-600 text-xs" style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}>
-            © 2025 AstroSci Club, Jadavpur University. All rights reserved.
+            © {new Date().getFullYear()} {siteConfig.clubName}, {siteConfig.university}. All rights reserved.
           </p>
           <div className="flex items-center gap-2">
             <span className="w-1.5 h-1.5 rounded-full bg-[#38bdf8] animate-pulse" />
-            <span className="text-gray-600 text-xs" style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}>Made with ♥ and stardust at JU</span>
+            <span className="text-gray-600 text-xs" style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}>Made with ♥ and prime numbers at JU</span>
           </div>
         </div>
       </div>

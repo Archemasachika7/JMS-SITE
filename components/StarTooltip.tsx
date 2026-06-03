@@ -61,7 +61,7 @@ export default function StarTooltip({
                 className="text-white text-sm font-semibold leading-tight"
                 style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
               >
-                {name || "AstroSci Member"}
+                {name || "JMS Member"}
               </p>
               <p
                 className="text-xs mt-0.5"

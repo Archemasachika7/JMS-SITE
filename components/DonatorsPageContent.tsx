@@ -122,7 +122,7 @@ export default function DonatorsPageContent({
                 Support{" "}
               </span>
               <span className="bg-gradient-to-r from-[#7c3aed] to-[#22d3ee] bg-clip-text text-transparent">
-                AstroSci
+                JMS
               </span>
             </h1>
             <p
@@ -253,7 +253,7 @@ export default function DonatorsPageContent({
               >
                 Verified donators will appear here.
               </p>
-              <p className="text-gray-500 text-sm mt-1">Be the first to donate to AstroSci!</p>
+              <p className="text-gray-500 text-sm mt-1">Be the first to donate to JMS!</p>
             </motion.div>
           )}
         </div>

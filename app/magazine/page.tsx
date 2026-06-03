@@ -65,7 +65,7 @@ export default function MagazinePage() {
               className="text-gray-500 text-sm mt-3"
               style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
             >
-              All editions of our flagship astronomy magazine
+              All editions of our flagship mathematics magazine
             </p>
           </motion.div>
 
@@ -135,7 +135,7 @@ export default function MagazinePage() {
                             className="text-[#38bdf8] text-xs tracking-[0.3em] uppercase"
                             style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
                           >
-                            AstroSci · JU
+                            JU Maths Society
                           </p>
                           <h3
                             className="text-xl font-black text-white leading-tight mt-1"
