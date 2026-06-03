@@ -56,11 +56,25 @@ function escapeHtml(s: string): string {
  * still sees the original `<`, `>`, `&` when it walks the DOM). Then a small,
  * safe set of text-mode commands is mapped to inline HTML.
  */
+// Theorem-style text environments KaTeX can't handle (it only typesets math).
+// We render `proof` with a label + QED box and strip the rest. Crucially we do
+// NOT touch math environments (align, cases, matrix, equation, gather, ...),
+// which live inside math delimiters and must reach KaTeX untouched.
+const TEXT_ENVS =
+  "theorem|lemma|corollary|proposition|definition|remark|example|claim|solution|center|quote";
+
 function toHtml(raw: string): string {
   let s = escapeHtml(raw);
   s = s.replace(/\\textbf\{([^{}]*)\}/g, "<strong>$1</strong>");
   s = s.replace(/\\textit\{([^{}]*)\}/g, "<em>$1</em>");
   s = s.replace(/\\emph\{([^{}]*)\}/g, "<em>$1</em>");
+
+  // proof environment → italic "Proof." label and a trailing QED square.
+  s = s.replace(/\\begin\{proof\}\s*/g, "<em>Proof.</em> ");
+  s = s.replace(/\s*\\end\{proof\}/g, ' <span aria-hidden="true">∎</span>');
+
+  // Strip the remaining text-mode environment markers so they don't leak.
+  s = s.replace(new RegExp(`\\\\(?:begin|end)\\{(?:${TEXT_ENVS})\\*?\\}`, "g"), "");
   return s;
 }
 
