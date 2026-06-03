@@ -12,8 +12,7 @@ interface POTWItem {
   image_url: string;
   title: string;
   photographer: string;
-  description: string;
-  week_date: string;
+  date: string;
 }
 
 export default function POTWPage() {
@@ -29,8 +28,7 @@ export default function POTWPage() {
         const { data } = await supabase
           .from("potw")
           .select("*")
-          .order("week_date", { ascending: false });
-        console.log("potw", data);
+          .order("date", { ascending: false });
         if (data) setItems(data);
       } catch {
         // Supabase fetch failed silently
@@ -160,7 +158,7 @@ export default function POTWPage() {
                     className="text-gray-500 text-xs mt-2"
                     style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
                   >
-                    {new Date(item.week_date).toLocaleDateString("en-IN", {
+                    {new Date(item.date).toLocaleDateString("en-IN", {
                       year: "numeric",
                       month: "long",
                       day: "numeric",
