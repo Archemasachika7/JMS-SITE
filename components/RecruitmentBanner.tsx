@@ -1,11 +1,18 @@
 "use client";
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { supabase, isSupabaseConfigured } from "@/lib/supabaseClient";
 
-const DEADLINE = new Date("2026-06-06T11:30:00Z");
+type Rec = {
+  title: string;
+  session_label: string | null;
+  deadline: string;
+  is_open: boolean;
+};
 
-function getTimeLeft() {
-  const diff = DEADLINE.getTime() - Date.now();
+function getTimeLeft(deadline: string | null) {
+  if (!deadline) return null;
+  const diff = new Date(deadline).getTime() - Date.now();
   if (diff <= 0) return null;
   return {
     days: Math.floor(diff / 86400000),
@@ -20,15 +27,43 @@ function pad(n: number) {
 }
 
 export default function RecruitmentBanner() {
-  const [timeLeft, setTimeLeft] = useState(getTimeLeft());
+  const [rec, setRec] = useState<Rec | null>(null);
+  const [loaded, setLoaded] = useState(false);
+  const [timeLeft, setTimeLeft] = useState<ReturnType<typeof getTimeLeft>>(null);
 
   useEffect(() => {
-    const id = setInterval(() => setTimeLeft(getTimeLeft()), 1000);
-    return () => clearInterval(id);
+    if (!isSupabaseConfigured()) {
+      setLoaded(true);
+      return;
+    }
+    (async () => {
+      try {
+        const { data } = await supabase
+          .from("recruitments")
+          .select("title, session_label, deadline, is_open")
+          .eq("is_open", true)
+          .order("created_at", { ascending: false })
+          .limit(1)
+          .maybeSingle();
+        if (data) setRec(data as Rec);
+      } catch {
+        // no banner if we can't resolve a recruitment
+      } finally {
+        setLoaded(true);
+      }
+    })();
   }, []);
 
-  // Don't render after deadline
-  if (!timeLeft) return null;
+  useEffect(() => {
+    const id = setInterval(() => setTimeLeft(getTimeLeft(rec?.deadline ?? null)), 1000);
+    setTimeLeft(getTimeLeft(rec?.deadline ?? null));
+    return () => clearInterval(id);
+  }, [rec]);
+
+  // Only render when there is an open recruitment whose deadline is still ahead
+  if (!loaded || !rec || !rec.is_open || !timeLeft) return null;
+
+  const sessionLabel = rec.session_label ?? "";
 
   return (
     <section className="relative overflow-hidden mx-4 md:mx-8 my-6 rounded-2xl">
@@ -96,12 +131,21 @@ export default function RecruitmentBanner() {
               backgroundClip: "text",
             }}
           >
-            Join JU Maths Society 2025–26
+            Join JU Maths Society {sessionLabel}
           </h2>
 
           <p className="text-sm text-gray-400 mb-4" style={{ fontFamily: "'Public Sans','Inter',sans-serif" }}>
             PR · Design · Tech · Video · Content — applications close&nbsp;
-            <span className="text-yellow-400 font-semibold">June 6 · 5:00 PM IST</span>
+            <span className="text-yellow-400 font-semibold">
+              {new Date(rec.deadline).toLocaleString("en-IN", {
+                day: "numeric",
+                month: "short",
+                hour: "numeric",
+                minute: "2-digit",
+                hour12: true,
+                timeZone: "Asia/Kolkata",
+              })}{" "}IST
+            </span>
           </p>
 
           <Link href="/recruitment">
