@@ -9,6 +9,7 @@ import { siteConfig } from "@/config/siteConfig";
 const navItems = [
   { label: "Home", href: "/" },
   { label: "Problems", href: "/problems" },
+  { label: "Math Tools", href: "/math-tools", special: true },
   { label: "Gallery", href: "/gallery" },
   { label: "Events", href: "/events" },
   { label: "POTW", href: "/potw" },
@@ -94,27 +95,46 @@ export default function Navbar() {
 
         {/* Desktop Nav */}
         <div className="hidden md:flex items-center gap-1">
-          {navItems.map((item, i) =>
-            (item as { highlight?: boolean }).highlight ? (
-              <Link key={item.label} href={item.href}>
-                <motion.span
-                  className="relative px-4 py-2 text-sm font-semibold cursor-pointer group"
-                  style={{
-                    fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif",
-                    background: "linear-gradient(135deg,#fb7185,#ec4899)",
-                    WebkitBackgroundClip: "text",
-                    WebkitTextFillColor: "transparent",
-                    backgroundClip: "text",
-                  }}
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.1 * i + 0.3 }}
-                >
-                  {item.label}
-                  <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-[2px] bg-gradient-to-r from-[#fb7185] to-[#ec4899] group-hover:w-4/5 transition-all duration-300 rounded-full" />
-                </motion.span>
-              </Link>
-            ) : (
+          {navItems.map((item, i) => {
+            const it = item as { highlight?: boolean; special?: boolean };
+            if (it.highlight) {
+              return (
+                <Link key={item.label} href={item.href}>
+                  <motion.span
+                    className="relative px-4 py-2 text-sm font-semibold cursor-pointer group"
+                    style={{
+                      fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif",
+                      background: "linear-gradient(135deg,#fb7185,#ec4899)",
+                      WebkitBackgroundClip: "text",
+                      WebkitTextFillColor: "transparent",
+                      backgroundClip: "text",
+                    }}
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.1 * i + 0.3 }}
+                  >
+                    {item.label}
+                    <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-[2px] bg-gradient-to-r from-[#fb7185] to-[#ec4899] group-hover:w-4/5 transition-all duration-300 rounded-full" />
+                  </motion.span>
+                </Link>
+              );
+            }
+            if (it.special) {
+              return (
+                <Link key={item.label} href={item.href}>
+                  <motion.span
+                    className="relative px-3 py-1.5 text-sm font-medium cursor-pointer rounded-full border border-[#f43f5e]/30 text-[#f43f5e] hover:bg-[#f43f5e]/10 hover:border-[#f43f5e]/60 transition-all duration-300"
+                    style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.1 * i + 0.3 }}
+                  >
+                    ∑ {item.label}
+                  </motion.span>
+                </Link>
+              );
+            }
+            return (
               <Link key={item.label} href={item.href}>
                 <motion.span
                   className="relative px-4 py-2 text-sm text-gray-300 hover:text-white transition-colors group cursor-pointer"
@@ -127,8 +147,8 @@ export default function Navbar() {
                   <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-[2px] bg-gradient-to-r from-[#e11d48] to-[#fb7185] group-hover:w-4/5 transition-all duration-300 rounded-full" />
                 </motion.span>
               </Link>
-            )
-          )}
+            );
+          })}
         </div>
 
         {/* Right Buttons */}
@@ -209,8 +229,9 @@ export default function Navbar() {
             exit={{ opacity: 0, height: 0 }}
             className="md:hidden bg-[#020617]/95 backdrop-blur-xl border-t border-[#e11d48]/20 px-6 pb-4"
           >
-            {navItems.map((item) =>
-              (item as { highlight?: boolean }).highlight ? (
+            {navItems.map((item) => {
+              const it = item as { highlight?: boolean; special?: boolean };
+              if (it.highlight) return (
                 <Link
                   key={item.label}
                   href={item.href}
@@ -227,7 +248,19 @@ export default function Navbar() {
                     {item.label}
                   </span>
                 </Link>
-              ) : (
+              );
+              if (it.special) return (
+                <Link
+                  key={item.label}
+                  href={item.href}
+                  className="block py-3 text-[#f43f5e] border-b border-white/5 text-sm tracking-wider font-medium"
+                  style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
+                  onClick={() => setMenuOpen(false)}
+                >
+                  ∑ {item.label}
+                </Link>
+              );
+              return (
                 <Link
                   key={item.label}
                   href={item.href}
@@ -237,8 +270,8 @@ export default function Navbar() {
                 >
                   {item.label}
                 </Link>
-              )
-            )}
+              );
+            })}
             {isSignedIn ? (
               <Link href="/profile" className="block mt-4" onClick={() => setMenuOpen(false)}>
                 <span
