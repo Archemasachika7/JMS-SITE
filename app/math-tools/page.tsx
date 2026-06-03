@@ -23,32 +23,31 @@ const NumberTheoryTools = dynamic(
 
 export default function MathToolsPage() {
   return (
-    <main className="relative min-h-screen bg-[#020617]">
+    <main className="relative min-h-screen bg-black">
       <Navbar />
 
       {/* Hero */}
       <section className="relative pt-32 pb-16 px-6 overflow-hidden">
-        {/* Background glows */}
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-[#e11d48]/8 rounded-full blur-[120px] pointer-events-none" />
-        <div className="absolute top-0 right-1/4 w-80 h-80 bg-[#fb7185]/6 rounded-full blur-[100px] pointer-events-none" />
+        {/* Void & Neon glows */}
+        <div className="absolute top-0 left-1/4 w-[500px] h-[500px] rounded-full blur-[140px] pointer-events-none" style={{ background: "rgba(0,240,255,0.04)" }} />
+        <div className="absolute top-0 right-1/4 w-96 h-96 rounded-full blur-[120px] pointer-events-none" style={{ background: "rgba(123,97,255,0.05)" }} />
 
-        {/* Grid overlay */}
+        {/* Cyan dot-grid overlay */}
         <div
-          className="absolute inset-0 pointer-events-none opacity-[0.03]"
+          className="absolute inset-0 pointer-events-none opacity-[0.025]"
           style={{
-            backgroundImage:
-              "linear-gradient(rgba(251,113,133,1) 1px, transparent 1px), linear-gradient(90deg, rgba(251,113,133,1) 1px, transparent 1px)",
-            backgroundSize: "60px 60px",
+            backgroundImage: "radial-gradient(circle, rgba(0,240,255,1) 1px, transparent 1px)",
+            backgroundSize: "40px 40px",
           }}
         />
 
         <div className="relative z-10 max-w-6xl mx-auto text-center">
           <div className="inline-flex items-center gap-3 mb-6">
-            <span className="h-px w-12 bg-gradient-to-r from-transparent to-[#e11d48]" />
-            <span className="text-xs tracking-[0.4em] text-[#fb7185] uppercase">
+            <span className="h-px w-12" style={{ background: "linear-gradient(to right, transparent, var(--math-cyan))" }} />
+            <span className="text-xs tracking-[0.4em] uppercase" style={{ color: "var(--math-cyan)" }}>
               JU Maths Society
             </span>
-            <span className="h-px w-12 bg-gradient-to-l from-transparent to-[#e11d48]" />
+            <span className="h-px w-12" style={{ background: "linear-gradient(to left, transparent, var(--math-cyan))" }} />
           </div>
           <h1
             className="text-5xl md:text-6xl font-black mb-4 tracking-tight"
@@ -56,9 +55,9 @@ export default function MathToolsPage() {
           >
             <span className="bg-gradient-to-b from-white to-gray-400 bg-clip-text text-transparent">
               Math
-            </span>
-            <span className="bg-gradient-to-br from-[#e11d48] to-[#fb7185] bg-clip-text text-transparent">
-              {" "}Tools
+            </span>{" "}
+            <span className="bg-clip-text text-transparent" style={{ backgroundImage: "linear-gradient(135deg, var(--math-cyan), var(--math-violet))" }}>
+              Tools
             </span>
           </h1>
           <p className="text-gray-400 text-lg max-w-2xl mx-auto leading-relaxed">
@@ -131,7 +130,7 @@ function FormulaReference() {
   ];
 
   return (
-    <div className="rounded-2xl border border-[#f43f5e]/20 bg-[#0f172a]/80 backdrop-blur-sm overflow-hidden">
+    <div className="rounded-2xl overflow-hidden glass-cyan glow-card">
       <div className="px-6 py-4 border-b border-white/5">
         <h3
           className="text-sm font-semibold uppercase tracking-[0.3em] text-[#f43f5e]"
