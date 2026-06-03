@@ -94,8 +94,15 @@ export default function MathContent({
 }) {
   const ref = useRef<HTMLDivElement>(null);
 
+  // We render an *empty* div in JSX and fill it imperatively. This way React
+  // never manages the inner DOM, so a parent re-render (e.g. toggling the
+  // solution open) can't wipe out KaTeX's rendered output and revert the math
+  // back to raw source.
   useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
     let cancelled = false;
+    el.innerHTML = toHtml(text);
     loadKatex().then(() => {
       if (cancelled || !ref.current) return;
       // @ts-expect-error - global from KaTeX auto-render
@@ -109,12 +116,5 @@ export default function MathContent({
     };
   }, [text]);
 
-  return (
-    <div
-      ref={ref}
-      className={className}
-      style={{ whiteSpace: "pre-wrap" }}
-      dangerouslySetInnerHTML={{ __html: toHtml(text) }}
-    />
-  );
+  return <div ref={ref} className={className} style={{ whiteSpace: "pre-wrap" }} />;
 }
