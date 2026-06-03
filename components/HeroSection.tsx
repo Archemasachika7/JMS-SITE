@@ -58,10 +58,10 @@ export default function HeroSection() {
             className="text-4xl md:text-6xl lg:text-7xl font-black leading-none mb-6 tracking-tight"
             style={{ fontFamily: "'Space Grotesk', 'Inter', sans-serif" }}
           >
-            <span className="bg-gradient-to-b from-white via-white to-gray-400 bg-clip-text text-transparent">ASTRO</span>
-            <span className="bg-gradient-to-br from-[#2563eb] to-[#10b981] bg-clip-text text-transparent">SCI</span>
+            <span className="bg-gradient-to-b from-white via-white to-gray-400 bg-clip-text text-transparent">MATHS</span>
+            <span className="bg-gradient-to-br from-[#2563eb] to-[#10b981] bg-clip-text text-transparent">SOC</span>
             <br />
-            <span className="text-2xl md:text-3xl lg:text-4xl font-light text-gray-400 tracking-widest">CLUB</span>
+            <span className="text-2xl md:text-3xl lg:text-4xl font-light text-gray-400 tracking-widest">{siteConfig.tagline}</span>
           </motion.h1>
 
           <motion.p
@@ -71,7 +71,7 @@ export default function HeroSection() {
             className="text-gray-400 text-base md:text-lg max-w-xl mb-10 leading-relaxed mx-auto lg:mx-0"
             style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
           >
-            A community exploring the universe through observation, research, and curiosity.
+            A community exploring the world through logic, proof, and the elegance of mathematics.
           </motion.p>
 
           <motion.div
@@ -81,13 +81,13 @@ export default function HeroSection() {
             className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4"
           >
             <motion.a
-              href="/auth?tab=signup"
+              href="/problems"
               className="group relative px-6 sm:px-8 py-4 rounded-full bg-gradient-to-r from-[#2563eb] to-[#1d4ed8] text-white font-semibold text-xs sm:text-sm tracking-wider overflow-hidden shadow-[0_0_30px_rgba(37,99,235,0.4)] hover:shadow-[0_0_50px_rgba(37,99,235,0.7)] transition-all duration-300 whitespace-nowrap"
               style={{ fontFamily: "'Space Grotesk', 'Inter', sans-serif" }}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.97 }}
             >
-              <span className="relative z-10">Explore Events</span>
+              <span className="relative z-10">Explore Problems</span>
               <div className="absolute inset-0 bg-gradient-to-r from-[#2563eb] to-[#10b981] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </motion.a>
 

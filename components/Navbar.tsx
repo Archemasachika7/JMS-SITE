@@ -8,12 +8,12 @@ import { siteConfig } from "@/config/siteConfig";
 
 const navItems = [
   { label: "Home", href: "/" },
+  { label: "Problems", href: "/problems" },
   { label: "Gallery", href: "/gallery" },
   { label: "Events", href: "/events" },
   { label: "POTW", href: "/potw" },
   { label: "Magazine", href: "/magazine" },
   { label: "Projects", href: "/projects" },
-  { label: "Astronomy", href: "/astronomy" },
   { label: "Team", href: "/team" },
   { label: "Members", href: "/members" },
   { label: "Sponsors", href: "/sponsors" },
@@ -84,7 +84,7 @@ export default function Navbar() {
               className="font-bold text-lg tracking-wider bg-gradient-to-r from-[#2563eb] to-[#10b981] bg-clip-text text-transparent"
               style={{ fontFamily: "'Space Grotesk', 'Inter', sans-serif" }}
             >
-              ASTROSCI
+              {siteConfig.shortName}
             </span>
             <p className="text-[10px] text-gray-400 tracking-widest -mt-1 uppercase" style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}>
               {siteConfig.university}

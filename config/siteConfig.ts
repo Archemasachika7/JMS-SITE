@@ -1,5 +1,5 @@
 /**
- * Central configuration file for the AstroSci website.
+ * Central configuration file for the JU Maths Society website.
  *
  * Administrators can update logos, emails, social links, and other
  * site-wide values here and the changes will propagate across every
@@ -7,10 +7,19 @@
  */
 
 export const siteConfig = {
-  clubName: "AstroSci Club",
+  clubName: "JU Maths Society",
+  shortName: "JMS",
+  tagline: "Decoding the Universe's Language",
   university: "Jadavpur University",
 
   email: "astrosciclubjadavpur@gmail.com",
+
+  // Homepage countdown target — point this at your next flagship event
+  // (Math Olympiad, hackathon, contest). Edit the date/label any time.
+  nextEvent: {
+    label: "JU Math Olympiad",
+    date: "2026-08-15T09:00:00+05:30",
+  },
 
   social: {
     instagram: "https://www.instagram.com/astrosciclubju?igsh=ZmwwZWJ2bmhmdGhl",
