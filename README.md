@@ -331,9 +331,9 @@ astrosci-website/
 │   ├── supabaseClient.ts             # Supabase client init, ensureProfile(), auth listener
 │   └── memberUtils.ts                # Plan/tier label & color resolvers
 │
-├── supabase/                         # Database migration scripts
-│   ├── profiles-migration.sql        # profiles table, RLS policies, auth trigger
-│   └── tables-migration.sql          # gallery, potw, magazines, club_events, astronomy_events
+├── supabase/                         # Database setup scripts (run in order)
+│   ├── 01_schema.sql                 # all tables + auth trigger (fresh install)
+│   └── 02_policies.sql               # is_admin(), RLS policies, storage buckets
 │
 ├── public/
 │   ├── assets/
@@ -391,23 +391,23 @@ Open `.env.local` and fill in your credentials (see [Environment Variables](#-en
 
 ### 4. Run Database Migrations
 
-Open the **SQL Editor** in your [Supabase Dashboard](https://supabase.com/dashboard) and execute the migration files **in order**:
+Open the **SQL Editor** in your [Supabase Dashboard](https://supabase.com/dashboard) and run the two setup files **in order** — this is the entire database setup for a fresh project:
 
-1. `supabase/profiles-migration.sql` — Creates the `profiles` table, RLS policies, and the `on_auth_user_created` trigger
-2. `supabase/tables-migration.sql` — Creates `gallery`, `potw`, `magazines`, `club_events`, and `astronomy_events` tables with RLS
+1. `supabase/01_schema.sql` — Creates every table (`profiles`, `problems`, `gallery`, `potw`, `magazines`, `club_events`, `projects`, `donators`, `sponsors`) and the `on_auth_user_created` trigger
+2. `supabase/02_policies.sql` — Creates `is_admin()`, all RLS policies (public read / admin-only writes / donor-sponsor moderation), **and the storage buckets with their policies**
 
-### 5. Create Storage Buckets
+> `02_policies.sql` creates the storage buckets for you, so no manual bucket creation is needed. The buckets are: `profiles`, `gallery`, `potw`, `events`, `magazines`, `logos` (public) and `payment_proofs` (private, admin-readable).
 
-In your Supabase Dashboard under **Storage**, create the following **public** buckets:
+### 5. Create your first admin
 
-| Bucket | Purpose |
-|---|---|
-| `profiles` | User avatar images |
-| `gallery` | Astrophotography uploads |
-| `potw` | Photo of the Week images |
-| `events` | Event poster images |
-| `magazines` | Magazine covers and PDF files |
-| `logos` | Club logo and branding assets |
+Admins are promoted manually for security. After signing up once, run in the SQL editor:
+
+```sql
+update profiles set role = 'admin'
+where id = (select id from auth.users where email = 'you@example.com');
+```
+
+Then visit `/admin` (hidden — there is no link to it in the UI).
 
 ### 6. Start the Development Server
 

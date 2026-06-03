@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import StarfieldBackground from "@/components/StarfieldBackground";
+import MathBackground from "@/components/MathBackground";
 import { siteConfig } from "@/config/siteConfig";
 
 export const metadata: Metadata = {
@@ -24,7 +24,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body style={{ backgroundColor: "#020617", color: "white" }}>
-        <StarfieldBackground />
+        <MathBackground />
         {children}
       </body>
     </html>
