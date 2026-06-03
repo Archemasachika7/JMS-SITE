@@ -7,7 +7,7 @@ export default async function ProblemsPage() {
   const supabase = createSupabaseServerClient();
   const { data } = await supabase
     .from("problems")
-    .select("id, title, statement, difficulty, topic, source, problem_date, is_published")
+    .select("id, title, statement, solution, difficulty, topic, source, problem_date, is_published")
     .eq("is_published", true)
     .order("problem_date", { ascending: false });
 
