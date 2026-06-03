@@ -88,7 +88,7 @@ export default function MathWidgetsSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="rounded-2xl border border-[#f43f5e]/20 bg-[#0f172a]/70 p-7 backdrop-blur-sm"
+          className="rounded-2xl glass-rose glow-card glow-card-rose p-7"
         >
           <div className="mb-4 flex items-center gap-2 text-[#f43f5e]">
             <Sigma className="h-5 w-5" />
@@ -144,7 +144,7 @@ export default function MathWidgetsSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="rounded-2xl border border-[#fb7185]/20 bg-[#0f172a]/70 p-7 backdrop-blur-sm"
+          className="rounded-2xl glass-rose glow-card glow-card-rose p-7"
         >
           <div className="mb-4 flex items-center gap-2 text-[#fb7185]">
             <Timer className="h-5 w-5" />
@@ -193,7 +193,7 @@ export default function MathWidgetsSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="lg:col-span-2 rounded-2xl border border-[#f43f5e]/20 bg-gradient-to-br from-[#0f172a]/90 to-[#0b1220]/90 p-7 backdrop-blur-sm"
+          className="lg:col-span-2 rounded-2xl glass-cyan glow-card p-7"
         >
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
             <div>

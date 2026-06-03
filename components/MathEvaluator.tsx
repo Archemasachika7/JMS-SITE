@@ -59,7 +59,7 @@ export default function MathEvaluator() {
   }
 
   return (
-    <div className="rounded-2xl border border-[#f43f5e]/20 bg-[#0f172a]/80 backdrop-blur-sm overflow-hidden flex flex-col h-full">
+    <div className="rounded-2xl overflow-hidden glass-cyan glow-card flex flex-col h-full">
       {/* Header */}
       <div className="flex items-center justify-between px-6 py-4 border-b border-white/5">
         <div className="flex items-center gap-2 text-[#f43f5e]">

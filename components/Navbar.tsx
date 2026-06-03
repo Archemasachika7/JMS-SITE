@@ -19,7 +19,6 @@ const navItems = [
   { label: "Members", href: "/members" },
   { label: "Sponsors", href: "/sponsors" },
   { label: "Donators", href: "/donators" },
-  { label: "🚀 Recruit", href: "/recruitment", highlight: true },
 ];
 
 export default function Navbar() {
