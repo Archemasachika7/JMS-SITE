@@ -11,7 +11,7 @@ interface GalleryItem {
   id: string;
   image_url: string;
   caption: string;
-  created_at: string;
+  uploaded_at: string;
 }
 
 export default function GalleryPage() {
@@ -25,7 +25,7 @@ export default function GalleryPage() {
         const { data } = await supabase
           .from("gallery")
           .select("*")
-          .order("created_at", { ascending: false });
+          .order("uploaded_at", { ascending: false });
         console.log("gallery", data);
         if (data) setItems(data);
       } catch {
@@ -140,7 +140,7 @@ export default function GalleryPage() {
                     className="text-gray-500 text-xs mt-1"
                     style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
                   >
-                    {new Date(item.created_at).toLocaleDateString("en-IN", {
+                    {new Date(item.uploaded_at).toLocaleDateString("en-IN", {
                       year: "numeric",
                       month: "short",
                       day: "numeric",
@@ -160,7 +160,7 @@ export default function GalleryPage() {
         caption={fullscreenItem?.caption}
         subCaption={
           fullscreenItem
-            ? new Date(fullscreenItem.created_at).toLocaleDateString("en-IN", {
+            ? new Date(fullscreenItem.uploaded_at).toLocaleDateString("en-IN", {
                 year: "numeric",
                 month: "short",
                 day: "numeric",
