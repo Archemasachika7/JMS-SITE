@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect } from "react";
 import { motion } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import MathContent from "@/components/MathContent";
 
 export type PublicProblem = {
   id: string;
@@ -22,44 +22,6 @@ const diffColor: Record<string, string> = {
 };
 
 export default function ProblemsPageContent({ problems }: { problems: PublicProblem[] }) {
-  // Render LaTeX with KaTeX auto-render, loaded from CDN on the client.
-  useEffect(() => {
-    const run = () => {
-      // @ts-expect-error - renderMathInElement is attached to window by the CDN script
-      if (window.renderMathInElement) {
-        // @ts-expect-error - global from KaTeX auto-render
-        window.renderMathInElement(document.body, {
-          delimiters: [
-            { left: "$$", right: "$$", display: true },
-            { left: "\\(", right: "\\)", display: false },
-            { left: "$", right: "$", display: false },
-          ],
-          throwOnError: false,
-        });
-      }
-    };
-    if (document.getElementById("katex-css")) {
-      run();
-      return;
-    }
-    const css = document.createElement("link");
-    css.id = "katex-css";
-    css.rel = "stylesheet";
-    css.href = "https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css";
-    document.head.appendChild(css);
-
-    const katex = document.createElement("script");
-    katex.src = "https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js";
-    katex.onload = () => {
-      const auto = document.createElement("script");
-      auto.src =
-        "https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js";
-      auto.onload = run;
-      document.head.appendChild(auto);
-    };
-    document.head.appendChild(katex);
-  }, [problems]);
-
   return (
     <main className="relative min-h-screen bg-[#020617]">
       <Navbar />
@@ -118,9 +80,10 @@ export default function ProblemsPageContent({ problems }: { problems: PublicProb
                   )}
                 </div>
                 {p.statement && (
-                  <p className="whitespace-pre-wrap leading-relaxed text-gray-300">
-                    {p.statement}
-                  </p>
+                  <MathContent
+                    text={p.statement}
+                    className="leading-relaxed text-gray-300"
+                  />
                 )}
                 <div className="mt-3 flex items-center gap-3 text-xs text-gray-500">
                   {p.source && <span>Source: {p.source}</span>}

@@ -6,6 +6,7 @@ import Link from "next/link";
 import { Sigma, Timer, ArrowRight, Calculator, TrendingUp, Hash } from "lucide-react";
 import { supabase, isSupabaseConfigured } from "@/lib/supabaseClient";
 import { siteConfig } from "@/config/siteConfig";
+import MathContent from "@/components/MathContent";
 
 type Problem = {
   id: string;
@@ -119,9 +120,10 @@ export default function MathWidgetsSection() {
                 )}
               </div>
               {problem.statement && (
-                <p className="line-clamp-4 whitespace-pre-wrap text-sm leading-relaxed text-gray-400">
-                  {problem.statement}
-                </p>
+                <MathContent
+                  text={problem.statement}
+                  className="line-clamp-4 text-sm leading-relaxed text-gray-400"
+                />
               )}
             </>
           ) : (
