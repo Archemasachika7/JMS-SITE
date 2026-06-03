@@ -8,6 +8,8 @@ import {
   inputCls,
 } from "@/components/admin/AdminUI";
 import { saveRecruitment, setRecruitmentOpen, deleteRow } from "@/app/actions/admin";
+import RecruitmentFieldBuilder from "@/components/admin/RecruitmentFieldBuilder";
+import { coerceSchema, type RecruitmentSchema } from "@/lib/recruitmentSchema";
 
 export type RecruitmentRow = {
   id: string;
@@ -18,6 +20,7 @@ export type RecruitmentRow = {
   form_action: string | null;
   is_open: boolean;
   created_at: string;
+  fields: RecruitmentSchema | null;
 };
 
 /** Format an ISO timestamp into the value a datetime-local input expects. */
@@ -69,6 +72,9 @@ export default function RecruitmentManager({
               className={inputCls}
               placeholder="https://formspree.io/f/xxxxxxx"
             />
+          </Field>
+          <Field label="Application form — teams & questions">
+            <RecruitmentFieldBuilder name="fields" />
           </Field>
           <label className="flex items-center gap-2 text-sm text-gray-300">
             <input type="checkbox" name="is_open" defaultChecked className="h-4 w-4 accent-[#f43f5e]" />
@@ -156,6 +162,9 @@ export default function RecruitmentManager({
                     </Field>
                     <Field label="Formspree endpoint">
                       <input name="form_action" className={inputCls} defaultValue={r.form_action ?? ""} />
+                    </Field>
+                    <Field label="Application form — teams & questions">
+                      <RecruitmentFieldBuilder name="fields" initial={coerceSchema(r.fields)} />
                     </Field>
                     <label className="flex items-center gap-2 text-sm text-gray-300">
                       <input type="checkbox" name="is_open" defaultChecked={r.is_open} className="h-4 w-4 accent-[#f43f5e]" />

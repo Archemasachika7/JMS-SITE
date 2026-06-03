@@ -3,6 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { getAdminUser } from "@/lib/admin";
+import { coerceSchema } from "@/lib/recruitmentSchema";
 
 type Result = { success: boolean; error?: string };
 
@@ -243,6 +244,14 @@ export async function saveRecruitment(formData: FormData): Promise<Result> {
       form_action: (formData.get("form_action") as string)?.trim() || null,
       is_open: formData.get("is_open") === "on",
     };
+
+    // Custom application-form schema (JSON). Stored only when the admin
+    // actually edited it; otherwise the column stays as-is / falls back
+    // to the built-in default at render time.
+    const fieldsRaw = formData.get("fields");
+    if (typeof fieldsRaw === "string" && fieldsRaw.trim()) {
+      row.fields = coerceSchema(fieldsRaw);
+    }
 
     if (!row.deadline) {
       return { success: false, error: "A deadline is required." };
