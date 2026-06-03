@@ -55,7 +55,7 @@ export default function Footer() {
           {/* Brand */}
           <div className="md:col-span-2">
             <div className="flex items-center gap-3 mb-5">
-              <Image src={siteConfig.assets.logo} alt={`${siteConfig.clubName} Logo`} width={36} height={36} className="h-9 w-9" />
+              <Image src={siteConfig.assets.logo} alt={`${siteConfig.clubName} Logo`} width={40} height={40} className="h-10 w-10 rounded-full object-cover ring-2 ring-[#e11d48]/40" />
               <div>
                 <span className="font-bold text-lg text-white" style={{ fontFamily: "'Space Grotesk', 'Inter', sans-serif" }}>{siteConfig.clubName.toUpperCase()}</span>
                 <p className="text-gray-500 text-xs" style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}>{siteConfig.university}</p>

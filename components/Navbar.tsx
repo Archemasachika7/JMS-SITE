@@ -79,7 +79,7 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
         {/* Logo */}
         <motion.div className="flex items-center gap-3 cursor-pointer" whileHover={{ scale: 1.03 }}>
-          <Image src={siteConfig.assets.logo} alt={`${siteConfig.clubName} Logo`} width={36} height={36} className="h-9 w-9" />
+          <Image src={siteConfig.assets.logo} alt={`${siteConfig.clubName} Logo`} width={40} height={40} className="h-10 w-10 rounded-full object-cover ring-2 ring-[#e11d48]/40 shadow-[0_0_18px_rgba(225,29,72,0.35)]" />
           <div>
             <span
               className="font-bold text-lg tracking-wider bg-gradient-to-r from-[#e11d48] to-[#fb7185] bg-clip-text text-transparent"

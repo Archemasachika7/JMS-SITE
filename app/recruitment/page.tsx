@@ -2,9 +2,22 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { siteConfig } from "@/config/siteConfig";
+import { supabase, isSupabaseConfigured } from "@/lib/supabaseClient";
 
-// ── DEADLINE: June 6, 2026, 5:00 PM IST (UTC+5:30 → UTC 11:30) ──
-const DEADLINE = new Date("2026-06-06T11:30:00Z");
+// ── Fallback deadline when no recruitment is configured in the DB ──
+// June 6, 2026, 5:00 PM IST (UTC+5:30 → UTC 11:30)
+const FALLBACK_DEADLINE = "2026-06-06T11:30:00Z";
+const FALLBACK_FORM = "https://formspree.io/f/xkoeejyk";
+
+type Recruitment = {
+  title: string;
+  session_label: string | null;
+  subtitle: string | null;
+  deadline: string;
+  form_action: string | null;
+  is_open: boolean;
+};
 
 type Tab = "general" | "pr" | "design" | "tech" | "video" | "content";
 
@@ -16,8 +29,8 @@ interface TimeLeft {
   expired: boolean;
 }
 
-function getTimeLeft(): TimeLeft {
-  const diff = DEADLINE.getTime() - Date.now();
+function getTimeLeft(deadline: string): TimeLeft {
+  const diff = new Date(deadline).getTime() - Date.now();
   if (diff <= 0) return { days: 0, hours: 0, minutes: 0, seconds: 0, expired: true };
   return {
     days: Math.floor(diff / 86400000),
@@ -85,7 +98,9 @@ const CSS = `
   width:100%;height:100%;border-radius:50%;
   background:#03040d;
   display:flex;align-items:center;justify-content:center;font-size:32px;
+  overflow:hidden;
 }
+.rc-logo-inner img { width:100%;height:100%;object-fit:cover;border-radius:50%; }
 @keyframes rcSpin { to { transform:rotate(360deg); } }
 
 /* eyebrow */
@@ -340,16 +355,44 @@ select.rc-inp option { background:#0d1128; }
 
 export default function RecruitmentPage() {
   const [activeTab, setActiveTab] = useState<Tab>("general");
-  const [timeLeft, setTimeLeft] = useState<TimeLeft>(getTimeLeft());
+  const [rec, setRec] = useState<Recruitment | null>(null);
+  const [timeLeft, setTimeLeft] = useState<TimeLeft>(getTimeLeft(FALLBACK_DEADLINE));
   const [submitted, setSubmitted] = useState<Partial<Record<Tab, boolean>>>({});
   const [sending, setSending] = useState<Partial<Record<Tab, boolean>>>({});
   const [toast, setToast] = useState<{ msg: string; type: "success" | "error" } | null>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
+  // Resolve the active recruitment: latest open one, else most recent overall.
+  const deadline = rec?.deadline ?? FALLBACK_DEADLINE;
+  const formAction = rec?.form_action || FALLBACK_FORM;
+  const sessionLabel = rec?.session_label ?? "2025–26";
+  const title = rec?.title ?? "Recruitment";
+  const subtitle = rec?.subtitle ?? "Select your team · Fill the form · Solve · Prove · Create";
+  const closedByAdmin = rec ? !rec.is_open : false;
+
   useEffect(() => {
-    const id = setInterval(() => setTimeLeft(getTimeLeft()), 1000);
-    return () => clearInterval(id);
+    if (!isSupabaseConfigured()) return;
+    (async () => {
+      try {
+        const { data } = await supabase
+          .from("recruitments")
+          .select("title, session_label, subtitle, deadline, form_action, is_open")
+          .order("is_open", { ascending: false })
+          .order("created_at", { ascending: false })
+          .limit(1)
+          .maybeSingle();
+        if (data) setRec(data as Recruitment);
+      } catch {
+        // degrade gracefully to fallback values
+      }
+    })();
   }, []);
+
+  useEffect(() => {
+    setTimeLeft(getTimeLeft(deadline));
+    const id = setInterval(() => setTimeLeft(getTimeLeft(deadline)), 1000);
+    return () => clearInterval(id);
+  }, [deadline]);
 
   useEffect(() => {
     if (!toast) return;
@@ -426,16 +469,21 @@ export default function RecruitmentPage() {
           <div className="rc-rainbow-strip" />
 
           <div className="rc-banner-inner">
-            <div className="rc-logo-ring"><div className="rc-logo-inner">∑</div></div>
+            <div className="rc-logo-ring">
+              <div className="rc-logo-inner">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={siteConfig.assets.logo} alt={`${siteConfig.clubName} logo`} />
+              </div>
+            </div>
 
             <div className="rc-eyebrow">★ JU Maths Society · Jadavpur University</div>
-            <h1 className="rc-title">Recruitment<br />2025–26</h1>
-            <p className="rc-subtitle">Select your team · Fill the form · Solve · Prove · Create</p>
+            <h1 className="rc-title">{title}<br />{sessionLabel}</h1>
+            <p className="rc-subtitle">{subtitle}</p>
 
             {/* ── COUNTDOWN ── */}
             <div className="rc-deadline-label">⏳ Applications close in</div>
 
-            {timeLeft.expired ? (
+            {closedByAdmin || timeLeft.expired ? (
               <div className="rc-expired-badge">✗ Applications Closed</div>
             ) : (
               <div className="rc-countdown">
@@ -457,7 +505,19 @@ export default function RecruitmentPage() {
             )}
 
             <div className="rc-date-pill">
-              Deadline &nbsp;|&nbsp; <strong>6 June 2025&nbsp;&nbsp;5:00 PM IST</strong>
+              Deadline &nbsp;|&nbsp;{" "}
+              <strong>
+                {new Date(deadline).toLocaleString("en-IN", {
+                  day: "numeric",
+                  month: "short",
+                  year: "numeric",
+                  hour: "numeric",
+                  minute: "2-digit",
+                  hour12: true,
+                  timeZone: "Asia/Kolkata",
+                })}
+                {" "}IST
+              </strong>
             </div>
 
             {/* promo badges */}
@@ -510,7 +570,7 @@ export default function RecruitmentPage() {
             {submitted.general ? (
               <div className="rc-success show"><div className="rc-success-icon">🌠</div><h3>Signal Received!</h3><p>Your general info has been transmitted to JU Maths Society base.</p></div>
             ) : (
-              <form action="https://formspree.io/f/xkoeejyk" method="POST" onSubmit={e => handleSubmit(e, "General", "general")}>
+              <form action={formAction} method="POST" onSubmit={e => handleSubmit(e, "General", "general")}>
                 <input type="hidden" name="_subject" value="JU Maths Society Application — General" />
                 <input type="hidden" name="team_form" value="General" />
 
@@ -589,7 +649,7 @@ export default function RecruitmentPage() {
             {submitted.pr ? (
               <div className="rc-success show"><div className="rc-success-icon">📡</div><h3>PR Signal Sent!</h3><p>Your application has been received. We&apos;ll be in touch.</p></div>
             ) : (
-              <form action="https://formspree.io/f/xkoeejyk" method="POST" onSubmit={e => handleSubmit(e, "PR", "pr")}>
+              <form action={formAction} method="POST" onSubmit={e => handleSubmit(e, "PR", "pr")}>
                 <input type="hidden" name="_subject" value="JU Maths Society Application — PR Team" />
                 <input type="hidden" name="team_form" value="PR" />
 
@@ -698,7 +758,7 @@ export default function RecruitmentPage() {
             {submitted.design ? (
               <div className="rc-success show"><div className="rc-success-icon">🌠</div><h3>Design Signal Sent!</h3><p>Your portfolio has been received. The design team will review shortly.</p></div>
             ) : (
-              <form action="https://formspree.io/f/xkoeejyk" method="POST" onSubmit={e => handleSubmit(e, "Design", "design")}>
+              <form action={formAction} method="POST" onSubmit={e => handleSubmit(e, "Design", "design")}>
                 <input type="hidden" name="_subject" value="JU Maths Society Application — Design Team" />
                 <input type="hidden" name="team_form" value="Design" />
 
@@ -810,7 +870,7 @@ export default function RecruitmentPage() {
             {submitted.tech ? (
               <div className="rc-success show"><div className="rc-success-icon">🛸</div><h3>Tech Signal Sent!</h3><p>Your application has been received. The tech team will review your work.</p></div>
             ) : (
-              <form action="https://formspree.io/f/xkoeejyk" method="POST" onSubmit={e => handleSubmit(e, "Tech", "tech")}>
+              <form action={formAction} method="POST" onSubmit={e => handleSubmit(e, "Tech", "tech")}>
                 <input type="hidden" name="_subject" value="JU Maths Society Application — Tech Team" />
                 <input type="hidden" name="team_form" value="Tech" />
 
@@ -937,7 +997,7 @@ export default function RecruitmentPage() {
             {submitted.video ? (
               <div className="rc-success show"><div className="rc-success-icon">🎞️</div><h3>Video Signal Sent!</h3><p>Your work links have been received. We&apos;ll review and get back to you.</p></div>
             ) : (
-              <form action="https://formspree.io/f/xkoeejyk" method="POST" onSubmit={e => handleSubmit(e, "Video Editing", "video")}>
+              <form action={formAction} method="POST" onSubmit={e => handleSubmit(e, "Video Editing", "video")}>
                 <input type="hidden" name="_subject" value="JU Maths Society Application — Video Editing" />
                 <input type="hidden" name="team_form" value="Video Editing" />
 
@@ -1052,7 +1112,7 @@ export default function RecruitmentPage() {
             {submitted.content ? (
               <div className="rc-success show"><div className="rc-success-icon">✨</div><h3>Content Signal Sent!</h3><p>Your words have reached us. We&apos;ll be in touch soon.</p></div>
             ) : (
-              <form action="https://formspree.io/f/xkoeejyk" method="POST" onSubmit={e => handleSubmit(e, "Content", "content")}>
+              <form action={formAction} method="POST" onSubmit={e => handleSubmit(e, "Content", "content")}>
                 <input type="hidden" name="_subject" value="JU Maths Society Application — Content Team" />
                 <input type="hidden" name="team_form" value="Content" />
 

@@ -30,8 +30,8 @@ export const siteConfig = {
   },
 
   assets: {
-    logo: "https://rwjfnuszkhoznfrjzqfr.supabase.co/storage/v1/object/public/logos/unnamed-removebg-preview.png",
-    favicon: "https://rwjfnuszkhoznfrjzqfr.supabase.co/storage/v1/object/public/logos/unnamed-removebg-preview.png",
+    logo: "/favicon.jpg",
+    favicon: "/favicon.jpg",
     banner: "/assets/club-banner.png",
     paymentQr: "https://rwjfnuszkhoznfrjzqfr.supabase.co/storage/v1/object/public/logos/IMG-20260315-WA00501.jpg",
   },
