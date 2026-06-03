@@ -1,13 +1,20 @@
 "use client";
 
+import { useState } from "react";
 import {
-  ActionForm,
   ActionButton,
   Card,
   Field,
   inputCls,
+  SubmitButton,
 } from "@/components/admin/AdminUI";
-import { addGalleryImage, addPotw, addMagazine, deleteRow } from "@/app/actions/admin";
+import {
+  createGalleryRow,
+  createPotwRow,
+  createMagazineRow,
+  deleteRow,
+} from "@/app/actions/admin";
+import { uploadToBucket } from "@/lib/clientUpload";
 
 export type MediaRow = {
   id: string;
@@ -22,27 +29,80 @@ export type MediaRow = {
 
 type Kind = "gallery" | "potw" | "magazines";
 
-const CONFIG: Record<
-  Kind,
-  {
-    heading: string;
-    action: (fd: FormData) => Promise<{ success: boolean; error?: string }>;
-    submit: string;
-  }
-> = {
-  gallery: { heading: "Upload an image", action: addGalleryImage, submit: "Upload image" },
-  potw: { heading: "Add Problem/Photo of the Week", action: addPotw, submit: "Add POTW" },
-  magazines: { heading: "Add magazine issue", action: addMagazine, submit: "Add issue" },
+const HEADINGS: Record<Kind, { heading: string; submit: string }> = {
+  gallery: { heading: "Upload an image", submit: "Upload image" },
+  potw: { heading: "Add Problem/Photo of the Week", submit: "Add POTW" },
+  magazines: { heading: "Add magazine issue", submit: "Add issue" },
 };
 
 function CreateForm({ kind }: { kind: Kind }) {
-  const c = CONFIG[kind];
+  const [pending, setPending] = useState(false);
+  const [msg, setMsg] = useState<{ ok: boolean; text: string } | null>(null);
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const form = e.currentTarget;
+    const fd = new FormData(form);
+    setPending(true);
+    setMsg(null);
+    try {
+      if (kind === "gallery") {
+        const file = fd.get("image") as File | null;
+        if (!file || file.size === 0) throw new Error("An image is required.");
+        const imageUrl = await uploadToBucket("gallery", "gallery", file);
+        const res = await createGalleryRow({
+          imageUrl,
+          caption: (fd.get("caption") as string) || null,
+        });
+        if (!res.success) throw new Error(res.error);
+      } else if (kind === "potw") {
+        const file = fd.get("image") as File | null;
+        if (!file || file.size === 0) throw new Error("An image is required.");
+        const imageUrl = await uploadToBucket("potw", "potw", file);
+        const res = await createPotwRow({
+          imageUrl,
+          title: (fd.get("title") as string) || null,
+          photographer: (fd.get("photographer") as string) || null,
+        });
+        if (!res.success) throw new Error(res.error);
+      } else {
+        const cover = fd.get("cover") as File | null;
+        const pdf = fd.get("pdf") as File | null;
+        const coverImage =
+          cover && cover.size > 0
+            ? await uploadToBucket("magazines", "covers", cover)
+            : null;
+        const pdfUrl =
+          pdf && pdf.size > 0
+            ? await uploadToBucket("magazines", "pdfs", pdf)
+            : null;
+        const res = await createMagazineRow({
+          title: (fd.get("title") as string)?.trim() || null,
+          issue: (fd.get("issue") as string) || null,
+          coverImage,
+          pdfUrl,
+        });
+        if (!res.success) throw new Error(res.error);
+      }
+      setMsg({ ok: true, text: "Saved successfully." });
+      form.reset();
+    } catch (err) {
+      setMsg({
+        ok: false,
+        text: err instanceof Error ? err.message : "Something went wrong.",
+      });
+    } finally {
+      setPending(false);
+    }
+  }
+
+  const c = HEADINGS[kind];
   return (
     <Card>
       <h2 className="mb-4 text-sm font-semibold uppercase tracking-wide text-gray-400">
         {c.heading}
       </h2>
-      <ActionForm action={c.action} submitLabel={c.submit}>
+      <form onSubmit={handleSubmit} className="space-y-4">
         {kind === "gallery" && (
           <>
             <Field label="Image">
@@ -82,7 +142,16 @@ function CreateForm({ kind }: { kind: Kind }) {
             </Field>
           </>
         )}
-      </ActionForm>
+        <div className="flex items-center gap-3">
+          <SubmitButton pending={pending}>{c.submit}</SubmitButton>
+          {pending && <span className="text-xs text-gray-400">Uploading…</span>}
+          {msg && (
+            <span className={`text-sm ${msg.ok ? "text-emerald-400" : "text-red-400"}`}>
+              {msg.text}
+            </span>
+          )}
+        </div>
+      </form>
     </Card>
   );
 }

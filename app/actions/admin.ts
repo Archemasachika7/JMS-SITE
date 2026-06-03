@@ -228,6 +228,104 @@ export async function addMagazine(formData: FormData): Promise<Result> {
   }
 }
 
+// ── METADATA-ONLY CREATE (files uploaded client-side, only URLs sent) ────────
+// These avoid posting file bytes through the server action (and Vercel's
+// ~4.5 MB request-body limit). The browser uploads to Supabase Storage first,
+// then calls these with the resulting public URLs.
+
+export async function createGalleryRow(input: {
+  imageUrl: string;
+  caption: string | null;
+}): Promise<Result> {
+  try {
+    const { supabase, admin } = await requireAdmin();
+    if (!input.imageUrl) return { success: false, error: "Image is required." };
+    const { error } = await supabase.from("gallery").insert({
+      image_url: input.imageUrl,
+      caption: input.caption,
+      uploaded_by: admin.id,
+    });
+    if (error) throw error;
+    revalidatePath("/admin/gallery");
+    revalidatePath("/gallery");
+    return ok();
+  } catch (err) {
+    return fail(err);
+  }
+}
+
+export async function createPotwRow(input: {
+  imageUrl: string;
+  title: string | null;
+  photographer: string | null;
+}): Promise<Result> {
+  try {
+    const { supabase } = await requireAdmin();
+    if (!input.imageUrl) return { success: false, error: "Image is required." };
+    const { error } = await supabase.from("potw").insert({
+      image_url: input.imageUrl,
+      title: input.title,
+      photographer: input.photographer,
+    });
+    if (error) throw error;
+    revalidatePath("/admin/potw");
+    revalidatePath("/potw");
+    return ok();
+  } catch (err) {
+    return fail(err);
+  }
+}
+
+export async function createMagazineRow(input: {
+  title: string | null;
+  issue: string | null;
+  coverImage: string | null;
+  pdfUrl: string | null;
+}): Promise<Result> {
+  try {
+    const { supabase } = await requireAdmin();
+    const { error } = await supabase.from("magazines").insert({
+      title: input.title,
+      issue: input.issue,
+      cover_image: input.coverImage,
+      pdf_url: input.pdfUrl,
+    });
+    if (error) throw error;
+    revalidatePath("/admin/magazine");
+    revalidatePath("/magazine");
+    return ok();
+  } catch (err) {
+    return fail(err);
+  }
+}
+
+export async function createEventRow(input: {
+  title: string;
+  description: string | null;
+  location: string | null;
+  eventDate: string | null;
+  posterUrl: string | null;
+}): Promise<Result> {
+  try {
+    const { supabase } = await requireAdmin();
+    if (!input.title) return { success: false, error: "Title is required." };
+    const row: Record<string, unknown> = {
+      title: input.title,
+      description: input.description,
+      location: input.location,
+      event_date: input.eventDate || null,
+    };
+    if (input.posterUrl) row.poster_url = input.posterUrl;
+    const { error } = await supabase.from("club_events").insert(row);
+    if (error) throw error;
+    revalidatePath("/admin/events");
+    revalidatePath("/events");
+    return ok();
+  } catch (err) {
+    return fail(err);
+  }
+}
+
 // ── GENERIC DELETE ──────────────────────────────────────────────────────────
 
 const DELETABLE = new Set([

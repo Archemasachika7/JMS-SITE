@@ -102,13 +102,20 @@ export function ActionForm({
         const form = e.currentTarget;
         const fd = new FormData(form);
         start(async () => {
-          const res = await action(fd);
-          if (res.success) {
-            setMsg({ ok: true, text: "Saved successfully." });
-            if (resetOnSuccess) form.reset();
-            onDone?.();
-          } else {
-            setMsg({ ok: false, text: res.error ?? "Something went wrong." });
+          try {
+            const res = await action(fd);
+            if (res.success) {
+              setMsg({ ok: true, text: "Saved successfully." });
+              if (resetOnSuccess) form.reset();
+              onDone?.();
+            } else {
+              setMsg({ ok: false, text: res.error ?? "Something went wrong." });
+            }
+          } catch (err) {
+            setMsg({
+              ok: false,
+              text: err instanceof Error ? err.message : "Request failed.",
+            });
           }
         });
       }}
