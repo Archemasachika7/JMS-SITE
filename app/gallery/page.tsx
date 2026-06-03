@@ -49,10 +49,10 @@ export default function GalleryPage() {
             className="text-center mb-12"
           >
             <p
-              className="text-xs tracking-[0.4em] text-[#38bdf8] mb-2 uppercase"
+              className="text-xs tracking-[0.4em] text-[#fb7185] mb-2 uppercase"
               style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
             >
-              — Astrophotography —
+              — Moments & Mathematics —
             </p>
             <h1
               className="text-3xl md:text-5xl font-bold text-white"
@@ -64,7 +64,7 @@ export default function GalleryPage() {
               className="text-gray-500 text-sm mt-3"
               style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
             >
-              Stunning shots captured by our members
+              Moments from our events, seminars, and the people who make them
             </p>
           </motion.div>
 
@@ -98,7 +98,7 @@ export default function GalleryPage() {
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.6, delay: i * 0.08 }}
                 whileHover={{ scale: 1.03, y: -4 }}
-                className="group relative rounded-2xl overflow-hidden border border-white/10 hover:border-[#38bdf8]/40 bg-[#07091a]/80 backdrop-blur-sm transition-all"
+                className="group relative rounded-2xl overflow-hidden border border-white/10 hover:border-[#fb7185]/40 bg-[#07091a]/80 backdrop-blur-sm transition-all"
               >
                 <div
                   className="relative overflow-hidden cursor-pointer"

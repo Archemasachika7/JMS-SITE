@@ -26,10 +26,10 @@ export default async function AdminOverview() {
   const stats = [
     { label: "Donors awaiting review", value: pendingDonors, href: "/admin/review", accent: "text-amber-300" },
     { label: "Sponsors awaiting review", value: pendingSponsors, href: "/admin/review", accent: "text-amber-300" },
-    { label: "Problems published", value: problems, href: "/admin/problems", accent: "text-[#22d3ee]" },
-    { label: "Events", value: events, href: "/admin/events", accent: "text-[#22d3ee]" },
-    { label: "Gallery images", value: gallery, href: "/admin/gallery", accent: "text-[#22d3ee]" },
-    { label: "Registered members", value: members, href: "/admin/subscriptions", accent: "text-[#a855f7]" },
+    { label: "Problems published", value: problems, href: "/admin/problems", accent: "text-[#f43f5e]" },
+    { label: "Events", value: events, href: "/admin/events", accent: "text-[#f43f5e]" },
+    { label: "Gallery images", value: gallery, href: "/admin/gallery", accent: "text-[#f43f5e]" },
+    { label: "Registered members", value: members, href: "/admin/subscriptions", accent: "text-[#fb7185]" },
   ];
 
   return (

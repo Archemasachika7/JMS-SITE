@@ -8,22 +8,22 @@ import { siteConfig } from "@/config/siteConfig";
 const plans = [
   {
     name: "Free",
-    description: "Basic access to club resources and events",
-    features: ["Event notifications", "Gallery access", "Community forum"],
+    description: "Basic access to society resources and events",
+    features: ["Event notifications", "Problem of the Day", "Community forum"],
     color: "#B45309",
     tier: "free",
   },
   {
-    name: "Monthly Subscriber",
+    name: "Monthly Scholar",
     description: "Enhanced benefits with monthly renewal",
-    features: ["All Free features", "Magazine downloads", "Priority registration", "Workshop access"],
+    features: ["All Free features", "Curated problem sets", "DSA & olympiad roadmaps", "Workshop access"],
     color: "#C0C0C0",
     tier: "monthly",
   },
   {
-    name: "Annual Subscriber",
+    name: "Annual Fellow",
     description: "Full access with annual commitment",
-    features: ["All Monthly features", "Exclusive content", "Mentorship program", "Certificate of membership"],
+    features: ["All Monthly features", "Research mentorship", "Priority event registration", "Certificate of membership"],
     color: "#FCD34D",
     tier: "annual",
   },
@@ -55,7 +55,7 @@ export default function MembershipCards() {
 
   return (
     <section className="py-16 px-6 relative overflow-hidden">
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#2563eb]/20 to-transparent" />
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#e11d48]/20 to-transparent" />
 
       <div className="max-w-6xl mx-auto relative z-10">
         <motion.div
@@ -66,7 +66,7 @@ export default function MembershipCards() {
           className="text-center mb-10"
         >
           <p
-            className="text-xs tracking-[0.4em] text-[#2563eb] mb-2 uppercase"
+            className="text-xs tracking-[0.4em] text-[#e11d48] mb-2 uppercase"
             style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
           >
             — Plans —
@@ -81,8 +81,7 @@ export default function MembershipCards() {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {plans.map((plan, i) => {
-            const isActive =
-              currentPlan.toLowerCase() === plan.name.toLowerCase();
+            const isActive = currentPlan.toLowerCase() === plan.tier;
             const tierStyles =
               plan.tier === "annual"
                 ? {
@@ -123,7 +122,7 @@ export default function MembershipCards() {
                 {isActive && (
                   <div className="absolute top-4 right-4">
                     <span
-                      className="px-2 py-1 rounded-full bg-[#38bdf8]/20 border border-[#38bdf8]/40 text-[#38bdf8] text-xs"
+                      className="px-2 py-1 rounded-full bg-[#fb7185]/20 border border-[#fb7185]/40 text-[#fb7185] text-xs"
                       style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
                     >
                       Active
@@ -196,7 +195,7 @@ export default function MembershipCards() {
         >
           <Link href="/support">
             <motion.span
-              className="px-5 sm:px-6 py-3 rounded-full border border-[#38bdf8]/30 text-[#38bdf8] text-xs sm:text-sm hover:bg-[#38bdf8]/10 transition-all cursor-pointer whitespace-nowrap"
+              className="px-5 sm:px-6 py-3 rounded-full border border-[#fb7185]/30 text-[#fb7185] text-xs sm:text-sm hover:bg-[#fb7185]/10 transition-all cursor-pointer whitespace-nowrap"
               style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
               whileHover={{ scale: 1.05 }}
             >
@@ -205,13 +204,13 @@ export default function MembershipCards() {
           </Link>
           <Link href="/support">
             <motion.span
-              className="px-5 sm:px-6 py-3 rounded-full bg-gradient-to-r from-[#FBBF24] to-[#F59E0B] text-white text-xs sm:text-sm shadow-[0_0_24px_rgba(168,85,247,0.28)] hover:shadow-[0_0_36px_rgba(168,85,247,0.42)] transition-all cursor-pointer whitespace-nowrap"
+              className="px-5 sm:px-6 py-3 rounded-full bg-gradient-to-r from-[#FBBF24] to-[#F59E0B] text-white text-xs sm:text-sm shadow-[0_0_24px_rgba(251,113,133,0.28)] hover:shadow-[0_0_36px_rgba(251,113,133,0.42)] transition-all cursor-pointer whitespace-nowrap"
               style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
               animate={{
                 boxShadow: [
-                  "0 0 18px rgba(139,92,246,0.22)",
-                  "0 0 28px rgba(139,92,246,0.42)",
-                  "0 0 18px rgba(139,92,246,0.22)",
+                  "0 0 18px rgba(251,113,133,0.22)",
+                  "0 0 28px rgba(251,113,133,0.42)",
+                  "0 0 18px rgba(251,113,133,0.22)",
                 ],
               }}
               transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }}

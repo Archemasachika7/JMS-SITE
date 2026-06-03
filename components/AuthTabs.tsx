@@ -12,9 +12,9 @@ export default function AuthTabs({ activeTab, onTabChange }: AuthTabsProps) {
     <div className="flex relative mb-6 rounded-xl bg-white/5 p-1">
       {/* Sliding indicator */}
       <motion.div
-        className="absolute top-1 bottom-1 rounded-lg bg-[#2563eb]/30"
+        className="absolute top-1 bottom-1 rounded-lg bg-[#e11d48]/30"
         style={{
-          boxShadow: "0 0 15px rgba(37,99,235,0.4)",
+          boxShadow: "0 0 15px rgba(225,29,72,0.4)",
           width: "calc(50% - 4px)",
         }}
         animate={{ x: activeTab === "login" ? 4 : "calc(100% + 4px)" }}

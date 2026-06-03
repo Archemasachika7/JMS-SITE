@@ -3,9 +3,9 @@
 export function getPlanLabel(plan: string): string {
   switch (plan.toLowerCase()) {
     case "monthly":
-      return "Monthly Subscriber";
+      return "Monthly Scholar";
     case "annual":
-      return "Annual Subscriber";
+      return "Annual Fellow";
     case "admin":
     case "core":
       return "Core Team";

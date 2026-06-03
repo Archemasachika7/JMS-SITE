@@ -53,7 +53,7 @@ export default function POTWPage() {
             className="text-center mb-12"
           >
             <p
-              className="text-xs tracking-[0.4em] text-[#38bdf8] mb-2 uppercase"
+              className="text-xs tracking-[0.4em] text-[#fb7185] mb-2 uppercase"
               style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
             >
               — Photo of the Week —
@@ -75,7 +75,7 @@ export default function POTWPage() {
           {loading ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {[...Array(6)].map((_, i) => (
-                <div key={i} className="rounded-2xl overflow-hidden border border-[#2563eb]/20 bg-[#07091a]/80 animate-pulse">
+                <div key={i} className="rounded-2xl overflow-hidden border border-[#e11d48]/20 bg-[#07091a]/80 animate-pulse">
                   <div className="w-full bg-[#0f172a]" style={{ aspectRatio: "16/10" }} />
                   <div className="p-5">
                     <div className="h-4 bg-[#0f172a] rounded w-3/4 mb-2" />
@@ -103,7 +103,7 @@ export default function POTWPage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: i * 0.08 }}
                 whileHover={{ y: -6 }}
-                className="group rounded-2xl overflow-hidden border border-[#2563eb]/20 bg-[#07091a]/80 backdrop-blur-sm hover:border-[#2563eb]/50 transition-all"
+                className="group rounded-2xl overflow-hidden border border-[#e11d48]/20 bg-[#07091a]/80 backdrop-blur-sm hover:border-[#e11d48]/50 transition-all"
               >
                 <div
                   className="relative overflow-hidden cursor-pointer"
@@ -131,12 +131,12 @@ export default function POTWPage() {
                           }}
                         />
                       ))}
-                      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-20 h-20 rounded-full bg-[#2563eb]/30 blur-2xl" />
+                      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-20 h-20 rounded-full bg-[#e11d48]/30 blur-2xl" />
                     </div>
                   )}
                   <div className="absolute top-3 left-3">
                     <span
-                      className="px-2 py-1 rounded-full bg-[#38bdf8]/20 border border-[#38bdf8]/40 text-[#38bdf8] text-xs backdrop-blur-sm"
+                      className="px-2 py-1 rounded-full bg-[#fb7185]/20 border border-[#fb7185]/40 text-[#fb7185] text-xs backdrop-blur-sm"
                       style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
                     >
                       ★ POTW
@@ -151,7 +151,7 @@ export default function POTWPage() {
                     {item.title}
                   </h3>
                   <p
-                    className="text-[#38bdf8] text-sm"
+                    className="text-[#fb7185] text-sm"
                     style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
                   >
                     📸 {item.photographer}

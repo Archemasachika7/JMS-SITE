@@ -22,17 +22,17 @@ export default function LoginSuccessAnimation() {
           className="absolute inset-0 rounded-full"
           style={{
             background:
-              "radial-gradient(circle, rgba(37,99,235,0.4) 0%, transparent 70%)",
+              "radial-gradient(circle, rgba(225,29,72,0.4) 0%, transparent 70%)",
           }}
           animate={{ scale: [1, 1.3, 1] }}
           transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
         />
         {/* Ring */}
         <motion.div
-          className="absolute inset-0 rounded-full border-2 border-[#2563eb]"
+          className="absolute inset-0 rounded-full border-2 border-[#e11d48]"
           style={{
             boxShadow:
-              "0 0 20px rgba(37,99,235,0.5), inset 0 0 20px rgba(37,99,235,0.1)",
+              "0 0 20px rgba(225,29,72,0.5), inset 0 0 20px rgba(225,29,72,0.1)",
           }}
           initial={{ rotate: 0 }}
           animate={{ rotate: 360 }}
@@ -40,7 +40,7 @@ export default function LoginSuccessAnimation() {
         />
         {/* Checkmark */}
         <motion.svg
-          className="absolute inset-0 m-auto w-10 h-10 text-[#38bdf8]"
+          className="absolute inset-0 m-auto w-10 h-10 text-[#fb7185]"
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"

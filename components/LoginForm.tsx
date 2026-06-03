@@ -113,7 +113,7 @@ export default function LoginForm({ onSuccess }: LoginFormProps) {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
-          className="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white text-sm placeholder-gray-500 focus:outline-none focus:border-[#2563eb]/60 focus:shadow-[0_0_15px_rgba(37,99,235,0.2)] transition-all duration-300"
+          className="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white text-sm placeholder-gray-500 focus:outline-none focus:border-[#e11d48]/60 focus:shadow-[0_0_15px_rgba(225,29,72,0.2)] transition-all duration-300"
           style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
           placeholder="you@example.com"
         />
@@ -132,7 +132,7 @@ export default function LoginForm({ onSuccess }: LoginFormProps) {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
-          className="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white text-sm placeholder-gray-500 focus:outline-none focus:border-[#2563eb]/60 focus:shadow-[0_0_15px_rgba(37,99,235,0.2)] transition-all duration-300"
+          className="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white text-sm placeholder-gray-500 focus:outline-none focus:border-[#e11d48]/60 focus:shadow-[0_0_15px_rgba(225,29,72,0.2)] transition-all duration-300"
           style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
           placeholder="••••••••"
         />
@@ -142,7 +142,7 @@ export default function LoginForm({ onSuccess }: LoginFormProps) {
       <motion.button
         type="submit"
         disabled={loading}
-        className="w-full py-3 rounded-lg bg-gradient-to-r from-[#2563eb] to-[#1d4ed8] text-white font-semibold text-sm tracking-wider shadow-[0_0_20px_rgba(37,99,235,0.3)] hover:shadow-[0_0_35px_rgba(37,99,235,0.5)] disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300"
+        className="w-full py-3 rounded-lg bg-gradient-to-r from-[#e11d48] to-[#be123c] text-white font-semibold text-sm tracking-wider shadow-[0_0_20px_rgba(225,29,72,0.3)] hover:shadow-[0_0_35px_rgba(225,29,72,0.5)] disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300"
         style={{ fontFamily: "'Space Grotesk', 'Inter', sans-serif" }}
         whileHover={loading ? {} : { scale: 1.02 }}
         whileTap={loading ? {} : { scale: 0.98 }}

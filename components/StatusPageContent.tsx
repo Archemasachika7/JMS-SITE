@@ -218,7 +218,7 @@ function VerifiedMessage({
         <div>
           <p className="font-medium text-emerald-300">Payment Verified!</p>
           <p className="text-sm text-emerald-200/70">
-            Payment Verified! Your official AstroSci certificate is being generated.
+            Payment Verified! Your official JMS certificate is being generated.
           </p>
         </div>
       </div>
@@ -233,7 +233,7 @@ function VerifiedMessage({
       </p>
       <button
         aria-label="Download Official Certificate"
-        className="group relative mt-1 inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-cyan-500 to-yellow-500 px-8 py-3.5 text-sm font-bold text-[#020617] shadow-[0_0_24px_rgba(6,182,212,0.4)] transition-shadow hover:shadow-[0_0_40px_rgba(6,182,212,0.6)]"
+        className="group relative mt-1 inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-cyan-500 to-yellow-500 px-8 py-3.5 text-sm font-bold text-[#020617] shadow-[0_0_24px_rgba(225,29,72,0.4)] transition-shadow hover:shadow-[0_0_40px_rgba(225,29,72,0.6)]"
       >
         <Download className="h-5 w-5 transition-transform group-hover:-translate-y-0.5" />
         Download Official Certificate

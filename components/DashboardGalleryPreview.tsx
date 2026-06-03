@@ -37,7 +37,7 @@ export default function DashboardGalleryPreview() {
 
   return (
     <section className="py-16 px-6 relative overflow-hidden">
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#38bdf8]/20 to-transparent" />
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#fb7185]/20 to-transparent" />
 
       <div className="max-w-6xl mx-auto relative z-10">
         <motion.div
@@ -49,10 +49,10 @@ export default function DashboardGalleryPreview() {
         >
           <div>
             <p
-              className="text-xs tracking-[0.4em] text-[#38bdf8] mb-2 uppercase"
+              className="text-xs tracking-[0.4em] text-[#fb7185] mb-2 uppercase"
               style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
             >
-              — Astrophotography —
+              — Moments & Mathematics —
             </p>
             <h2
               className="text-2xl md:text-3xl font-bold text-white"
@@ -63,7 +63,7 @@ export default function DashboardGalleryPreview() {
           </div>
           <Link href="/gallery">
             <motion.span
-              className="text-xs sm:text-sm text-[#38bdf8] border border-[#38bdf8]/30 px-3 sm:px-5 py-1.5 sm:py-2 rounded-full hover:bg-[#38bdf8]/10 transition-all cursor-pointer whitespace-nowrap"
+              className="text-xs sm:text-sm text-[#fb7185] border border-[#fb7185]/30 px-3 sm:px-5 py-1.5 sm:py-2 rounded-full hover:bg-[#fb7185]/10 transition-all cursor-pointer whitespace-nowrap"
               style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
               whileHover={{ scale: 1.05 }}
             >
@@ -99,7 +99,7 @@ export default function DashboardGalleryPreview() {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: i * 0.1 }}
               whileHover={{ scale: 1.03, y: -4 }}
-              className="group relative rounded-xl overflow-hidden cursor-pointer border border-white/10 hover:border-[#38bdf8]/30 transition-all"
+              className="group relative rounded-xl overflow-hidden cursor-pointer border border-white/10 hover:border-[#fb7185]/30 transition-all"
               style={{ aspectRatio: "4/3" }}
               onClick={() => item.image_url && setFullscreenItem(item)}
             >

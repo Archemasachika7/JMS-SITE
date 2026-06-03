@@ -412,7 +412,7 @@ export default function SponsorshipForm() {
                     />
                     {logoFile ? (
                       <div className="flex items-center justify-center gap-3">
-                        <CheckCircle2 className="w-4 h-4 text-[#10b981] flex-shrink-0" />
+                        <CheckCircle2 className="w-4 h-4 text-[#fb7185] flex-shrink-0" />
                         <span className="text-sm text-gray-300 truncate max-w-[200px]">
                           {logoFile.name}
                         </span>
@@ -585,7 +585,7 @@ export default function SponsorshipForm() {
                   />
                   {proofFile ? (
                     <div className="flex items-center justify-center gap-3">
-                      <CheckCircle2 className="w-4 h-4 text-[#10b981] flex-shrink-0" />
+                      <CheckCircle2 className="w-4 h-4 text-[#fb7185] flex-shrink-0" />
                       <span className="text-sm text-gray-300 truncate max-w-[200px]">
                         {proofFile.name}
                       </span>
@@ -692,14 +692,14 @@ export default function SponsorshipForm() {
 
               <div className="rounded-xl bg-white/5 border border-white/10 p-5 text-left space-y-3 mb-8">
                 <div className="flex items-start gap-3">
-                  <CheckCircle2 className="w-4 h-4 text-[#10b981] mt-0.5 flex-shrink-0" />
+                  <CheckCircle2 className="w-4 h-4 text-[#fb7185] mt-0.5 flex-shrink-0" />
                   <p className="text-sm text-gray-300">
                     Once verified, your organization will be featured on our{" "}
                     <strong className="text-white">Sponsors page</strong>.
                   </p>
                 </div>
                 <div className="flex items-start gap-3">
-                  <CheckCircle2 className="w-4 h-4 text-[#10b981] mt-0.5 flex-shrink-0" />
+                  <CheckCircle2 className="w-4 h-4 text-[#fb7185] mt-0.5 flex-shrink-0" />
                   <p className="text-sm text-gray-300">
                     An official{" "}
                     <strong className="text-white">Sponsor Certificate</strong>{" "}
@@ -707,7 +707,7 @@ export default function SponsorshipForm() {
                   </p>
                 </div>
                 <div className="flex items-start gap-3">
-                  <CheckCircle2 className="w-4 h-4 text-[#10b981] mt-0.5 flex-shrink-0" />
+                  <CheckCircle2 className="w-4 h-4 text-[#fb7185] mt-0.5 flex-shrink-0" />
                   <p className="text-sm text-gray-300">
                     Status update:{" "}
                     <strong className="text-[#f59e0b]">Accepted</strong> or{" "}

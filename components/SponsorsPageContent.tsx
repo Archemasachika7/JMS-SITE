@@ -11,28 +11,28 @@ const sponsorPlans = [
     title: "Community Promotion",
     price: "₹599",
     period: "",
-    description: "Promotion in AstroSci groups and website.",
+    description: "Promotion in JMS groups and website.",
     icon: Megaphone,
   },
   {
     title: "Merchandise Sponsor",
     price: "₹1,499",
     period: "/ year",
-    description: "Promotion on AstroSci merchandise.",
+    description: "Promotion on JMS merchandise.",
     icon: ShoppingBag,
   },
   {
     title: "Event Host",
     price: "₹2,000",
     period: "",
-    description: "Sponsor AstroSci events.",
+    description: "Sponsor JMS events.",
     icon: Calendar,
   },
   {
     title: "Major Sponsor",
     price: "₹7,499",
     period: "",
-    description: "Host Olympiads and major AstroSci programs.",
+    description: "Host Olympiads and major JMS programs.",
     icon: Trophy,
   },
 ];
@@ -102,7 +102,7 @@ export default function SponsorsPageContent({
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
-              className="flex items-center justify-center gap-2 rounded-xl border border-[#7c3aed]/40 bg-[#0f172a]/90 backdrop-blur-sm px-5 py-3 text-sm text-[#22d3ee] hover:bg-[#0f172a] hover:border-[#22d3ee]/60 transition-all duration-300 cursor-pointer"
+              className="flex items-center justify-center gap-2 rounded-xl border border-[#e11d48]/40 bg-[#0f172a]/90 backdrop-blur-sm px-5 py-3 text-sm text-[#f43f5e] hover:bg-[#0f172a] hover:border-[#f43f5e]/60 transition-all duration-300 cursor-pointer"
               style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
             >
               <Award className="w-4 h-4" />
@@ -114,8 +114,8 @@ export default function SponsorsPageContent({
 
       <section className="relative pt-12 pb-20 px-6 overflow-hidden">
         <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse at 50% 40%, #0a1628 0%, #020617 60%)" }} />
-        <div className="absolute top-1/3 left-1/3 w-96 h-96 bg-[#7c3aed]/10 rounded-full blur-[140px] pointer-events-none" />
-        <div className="absolute bottom-1/4 right-1/3 w-80 h-80 bg-[#22d3ee]/10 rounded-full blur-[120px] pointer-events-none" />
+        <div className="absolute top-1/3 left-1/3 w-96 h-96 bg-[#e11d48]/10 rounded-full blur-[140px] pointer-events-none" />
+        <div className="absolute bottom-1/4 right-1/3 w-80 h-80 bg-[#f43f5e]/10 rounded-full blur-[120px] pointer-events-none" />
         <div className="absolute inset-0 pointer-events-none">
           {starParticles.map((star, i) => (
             <motion.span
@@ -131,29 +131,29 @@ export default function SponsorsPageContent({
         <div className="max-w-4xl mx-auto relative z-10 text-center">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
             <p
-              className="text-xs tracking-[0.4em] text-[#22d3ee] mb-4 uppercase"
+              className="text-xs tracking-[0.4em] text-[#f43f5e] mb-4 uppercase"
               style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
             >
               — Sponsorship —
             </p>
             <h1 className="text-4xl md:text-6xl font-bold mb-6" style={{ fontFamily: "'Space Grotesk', 'Inter', sans-serif" }}>
               <span className="bg-gradient-to-b from-white via-white to-gray-400 bg-clip-text text-transparent">
-                Support AstroSci Through{" "}
+                Support JMS Through{" "}
               </span>
-              <span className="bg-gradient-to-r from-[#7c3aed] to-[#22d3ee] bg-clip-text text-transparent">Sponsorship</span>
+              <span className="bg-gradient-to-r from-[#e11d48] to-[#f43f5e] bg-clip-text text-transparent">Sponsorship</span>
             </h1>
             <p
               className="text-gray-400 text-base md:text-lg max-w-2xl mx-auto mb-10 leading-relaxed"
               style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
             >
-              Partner with us to promote science, education, and exploration. Your brand reaches a passionate community of astronomers and space enthusiasts.
+              Partner with us to promote mathematics, education, and problem-solving. Your brand reaches a passionate community of students, olympiad enthusiasts, and aspiring researchers.
             </p>
           </motion.div>
 
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.3 }}>
             <Link href="/sponsors/payment">
               <motion.span
-                className="inline-flex items-center gap-3 px-12 py-5 rounded-full bg-gradient-to-r from-[#7c3aed] to-[#22d3ee] text-white font-bold text-base tracking-wider shadow-[0_0_40px_rgba(124,58,237,0.4)] hover:shadow-[0_0_60px_rgba(34,211,238,0.6)] transition-all duration-300 cursor-pointer"
+                className="inline-flex items-center gap-3 px-12 py-5 rounded-full bg-gradient-to-r from-[#e11d48] to-[#f43f5e] text-white font-bold text-base tracking-wider shadow-[0_0_40px_rgba(225,29,72,0.4)] hover:shadow-[0_0_60px_rgba(244,63,94,0.6)] transition-all duration-300 cursor-pointer"
                 style={{ fontFamily: "'Space Grotesk', 'Inter', sans-serif" }}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.97 }}
@@ -175,7 +175,7 @@ export default function SponsorsPageContent({
             transition={{ duration: 0.6 }}
             className="text-center mb-14"
           >
-            <p className="text-xs tracking-[0.4em] text-[#22d3ee] mb-3 uppercase" style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}>
+            <p className="text-xs tracking-[0.4em] text-[#f43f5e] mb-3 uppercase" style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}>
               — Plans —
             </p>
             <h2 className="text-3xl md:text-4xl font-bold text-white" style={{ fontFamily: "'Space Grotesk', 'Inter', sans-serif" }}>
@@ -220,7 +220,7 @@ export default function SponsorsPageContent({
                     </p>
                     <Link href="/sponsors/payment">
                       <motion.span
-                        className={`inline-flex items-center justify-center w-full py-3 rounded-full border font-semibold text-sm tracking-wider hover:shadow-[0_0_20px_rgba(139,92,246,0.3)] transition-all duration-300 cursor-pointer ${tierStyle.button}`}
+                        className={`inline-flex items-center justify-center w-full py-3 rounded-full border font-semibold text-sm tracking-wider hover:shadow-[0_0_20px_rgba(251,113,133,0.3)] transition-all duration-300 cursor-pointer ${tierStyle.button}`}
                         style={{ fontFamily: "'Space Grotesk', 'Inter', sans-serif" }}
                         whileHover={{ scale: 1.03 }}
                         whileTap={{ scale: 0.97 }}
@@ -245,7 +245,7 @@ export default function SponsorsPageContent({
             transition={{ duration: 0.6 }}
             className="text-center mb-14"
           >
-            <p className="text-xs tracking-[0.4em] text-[#22d3ee] mb-3 uppercase" style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}>
+            <p className="text-xs tracking-[0.4em] text-[#f43f5e] mb-3 uppercase" style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}>
               — Partners —
             </p>
             <h2 className="text-3xl md:text-4xl font-bold text-white" style={{ fontFamily: "'Space Grotesk', 'Inter', sans-serif" }}>
@@ -263,9 +263,9 @@ export default function SponsorsPageContent({
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: i * 0.1 }}
                   whileHover={{ y: -4 }}
-                  className="rounded-2xl border border-white/15 bg-[rgba(255,255,255,0.05)] backdrop-blur-md p-6 text-center group shadow-[0_0_16px_rgba(34,211,238,0.14)]"
+                  className="rounded-2xl border border-white/15 bg-[rgba(255,255,255,0.05)] backdrop-blur-md p-6 text-center group shadow-[0_0_16px_rgba(244,63,94,0.14)]"
                 >
-                  <div className="w-20 h-20 rounded-full bg-[#7c3aed]/20 mx-auto mb-4 flex items-center justify-center overflow-hidden">
+                  <div className="w-20 h-20 rounded-full bg-[#e11d48]/20 mx-auto mb-4 flex items-center justify-center overflow-hidden">
                     {sponsor.logo ? (
                       <img
                         src={sponsor.logo}
@@ -273,7 +273,7 @@ export default function SponsorsPageContent({
                         className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 group-hover:scale-105"
                       />
                     ) : (
-                      <Award className="w-8 h-8 text-[#22d3ee]" />
+                      <Award className="w-8 h-8 text-[#f43f5e]" />
                     )}
                   </div>
                   <h3 className="text-lg font-bold text-white mb-2" style={{ fontFamily: "'Space Grotesk', 'Inter', sans-serif" }}>
@@ -284,7 +284,7 @@ export default function SponsorsPageContent({
                       href={sponsor.website}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 text-sm text-[#22d3ee] hover:text-[#67e8f9] transition-colors"
+                      className="inline-flex items-center gap-1.5 text-sm text-[#f43f5e] hover:text-[#fda4af] transition-colors"
                     >
                       Visit Website <ExternalLink className="w-3.5 h-3.5" />
                     </a>
@@ -297,13 +297,13 @@ export default function SponsorsPageContent({
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
-              className="text-center py-16 rounded-2xl border border-[#7c3aed]/20 bg-[#0f172a]/40"
+              className="text-center py-16 rounded-2xl border border-[#e11d48]/20 bg-[#0f172a]/40"
             >
-              <Award className="w-12 h-12 text-[#22d3ee]/60 mx-auto mb-4" />
+              <Award className="w-12 h-12 text-[#f43f5e]/60 mx-auto mb-4" />
               <p className="text-gray-300 text-base" style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}>
                 Verified sponsors will appear here.
               </p>
-              <p className="text-gray-500 text-sm mt-1">Be the first to sponsor AstroSci!</p>
+              <p className="text-gray-500 text-sm mt-1">Be the first to sponsor JMS!</p>
             </motion.div>
           )}
         </div>

@@ -41,18 +41,18 @@ export default function AuthCard() {
       transition={{ duration: 0.7, ease: "easeOut" }}
     >
       <motion.div
-        className="relative rounded-2xl border border-[#2563eb]/20 bg-[#07091a]/80 backdrop-blur-xl p-8 overflow-hidden"
+        className="relative rounded-2xl border border-[#e11d48]/20 bg-[#07091a]/80 backdrop-blur-xl p-8 overflow-hidden"
         style={{
           boxShadow: loginSuccess
-            ? "0 0 60px rgba(37,99,235,0.5), 0 0 120px rgba(37,99,235,0.2)"
-            : "0 0 30px rgba(37,99,235,0.15), 0 0 60px rgba(37,99,235,0.05)",
+            ? "0 0 60px rgba(225,29,72,0.5), 0 0 120px rgba(225,29,72,0.2)"
+            : "0 0 30px rgba(225,29,72,0.15), 0 0 60px rgba(225,29,72,0.05)",
         }}
         animate={{
           y: [0, -4, 0],
           boxShadow: loginSuccess
             ? [
-                "0 0 30px rgba(37,99,235,0.15), 0 0 60px rgba(37,99,235,0.05)",
-                "0 0 60px rgba(37,99,235,0.5), 0 0 120px rgba(37,99,235,0.2)",
+                "0 0 30px rgba(225,29,72,0.15), 0 0 60px rgba(225,29,72,0.05)",
+                "0 0 60px rgba(225,29,72,0.5), 0 0 120px rgba(225,29,72,0.2)",
               ]
             : undefined,
         }}
@@ -62,8 +62,8 @@ export default function AuthCard() {
         }}
       >
         {/* Decorative corner glow */}
-        <div className="absolute -top-20 -right-20 w-40 h-40 rounded-full bg-[#2563eb]/10 blur-3xl pointer-events-none" />
-        <div className="absolute -bottom-20 -left-20 w-40 h-40 rounded-full bg-[#38bdf8]/10 blur-3xl pointer-events-none" />
+        <div className="absolute -top-20 -right-20 w-40 h-40 rounded-full bg-[#e11d48]/10 blur-3xl pointer-events-none" />
+        <div className="absolute -bottom-20 -left-20 w-40 h-40 rounded-full bg-[#fb7185]/10 blur-3xl pointer-events-none" />
 
         <AnimatePresence mode="wait">
           {loginSuccess ? (
@@ -91,7 +91,7 @@ export default function AuthCard() {
               >
                 {/* Logo */}
                 <div className="flex justify-center mb-4">
-                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#2563eb] to-[#10b981] flex items-center justify-center">
+                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#e11d48] to-[#fb7185] flex items-center justify-center">
                     <svg
                       viewBox="0 0 24 24"
                       className="w-6 h-6 text-white fill-current"
@@ -105,15 +105,15 @@ export default function AuthCard() {
                   style={{ fontFamily: "'Space Grotesk', 'Inter', sans-serif" }}
                 >
                   Welcome to{" "}
-                  <span className="bg-gradient-to-r from-[#2563eb] to-[#10b981] bg-clip-text text-transparent">
-                    AstroSci
+                  <span className="bg-gradient-to-r from-[#e11d48] to-[#fb7185] bg-clip-text text-transparent">
+                    JU Maths Society
                   </span>
                 </h1>
                 <p
                   className="text-gray-400 text-sm"
                   style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
                 >
-                  Explore the universe with fellow astronomers.
+                  Decode the universe&apos;s language with fellow problem-solvers.
                 </p>
               </motion.div>
 

@@ -29,12 +29,12 @@ function getTimeLeft(): TimeLeft {
 }
 
 const TAB_META: Record<Tab, { label: string; emoji: string; color: string; gradient: string; btnGradient: string; dark: boolean }> = {
-  general: { label: "General",      emoji: "🌌", color: "#4f6ef7", gradient: "linear-gradient(135deg,#4f6ef7,#a855f7)", btnGradient: "linear-gradient(135deg,#4f6ef7,#a855f7)", dark: false },
+  general: { label: "General",      emoji: "🌌", color: "#e11d48", gradient: "linear-gradient(135deg,#e11d48,#fb7185)", btnGradient: "linear-gradient(135deg,#e11d48,#fb7185)", dark: false },
   pr:      { label: "📣 PR",        emoji: "📣", color: "#f472b6", gradient: "linear-gradient(135deg,#f472b6,#e11d7a)", btnGradient: "linear-gradient(135deg,#f472b6,#e11d7a)", dark: false },
   design:  { label: "🎨 Design",    emoji: "🎨", color: "#fb923c", gradient: "linear-gradient(135deg,#fb923c,#f59e0b)", btnGradient: "linear-gradient(135deg,#fb923c,#f59e0b)", dark: true  },
-  tech:    { label: "⚡ Tech",      emoji: "⚡", color: "#38bdf8", gradient: "linear-gradient(135deg,#38bdf8,#0ea5e9)", btnGradient: "linear-gradient(135deg,#38bdf8,#0ea5e9)", dark: true  },
+  tech:    { label: "⚡ Tech",      emoji: "⚡", color: "#fb7185", gradient: "linear-gradient(135deg,#fb7185,#f43f5e)", btnGradient: "linear-gradient(135deg,#fb7185,#f43f5e)", dark: true  },
   video:   { label: "🎬 Video",     emoji: "🎬", color: "#4ade80", gradient: "linear-gradient(135deg,#4ade80,#22c55e)", btnGradient: "linear-gradient(135deg,#4ade80,#22c55e)", dark: true  },
-  content: { label: "✍️ Content",   emoji: "✍️", color: "#c084fc", gradient: "linear-gradient(135deg,#c084fc,#a855f7)", btnGradient: "linear-gradient(135deg,#c084fc,#a855f7)", dark: false },
+  content: { label: "✍️ Content",   emoji: "✍️", color: "#fda4af", gradient: "linear-gradient(135deg,#fda4af,#fb7185)", btnGradient: "linear-gradient(135deg,#fda4af,#fb7185)", dark: false },
 };
 
 const TABS: Tab[] = ["general", "pr", "design", "tech", "video", "content"];
@@ -42,7 +42,7 @@ const TABS: Tab[] = ["general", "pr", "design", "tech", "video", "content"];
 const CSS = `
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=DM+Sans:wght@300;400;500;600&display=swap');
 
-.rc-root { --space:#03040d;--deep:#080b1a;--surface:#0d1128;--card:#101530;--border:#1e2545;--border-glow:#2a3570;--nebula1:#4f6ef7;--nebula2:#a855f7;--nebula3:#06b6d4;--star:#e2e8ff;--muted:#5a6490;--input-bg:#090c1f;--gold:#f0b429; }
+.rc-root { --space:#03040d;--deep:#080b1a;--surface:#0d1128;--card:#101530;--border:#1e2545;--border-glow:#2a3570;--nebula1:#e11d48;--nebula2:#fb7185;--nebula3:#e11d48;--star:#e2e8ff;--muted:#5a6490;--input-bg:#090c1f;--gold:#f0b429; }
 
 /* ── STARS ── */
 .rc-stars { position:fixed;inset:0;z-index:0;pointer-events:none; }
@@ -64,7 +64,7 @@ const CSS = `
 }
 .rc-banner-lines {
   position:absolute;inset:0;pointer-events:none;overflow:hidden;opacity:0.08;
-  background-image: repeating-linear-gradient(0deg, transparent, transparent 39px, #4f6ef7 40px);
+  background-image: repeating-linear-gradient(0deg, transparent, transparent 39px, #e11d48 40px);
 }
 .rc-banner-inner {
   position:relative;z-index:1;
@@ -76,7 +76,7 @@ const CSS = `
 /* spinning logo */
 .rc-logo-ring {
   width:80px;height:80px;border-radius:50%;
-  background:conic-gradient(from 0deg,#4f6ef7,#a855f7,#f472b6,#fb923c,#4ade80,#06b6d4,#4f6ef7);
+  background:conic-gradient(from 0deg,#e11d48,#fb7185,#f472b6,#fb923c,#4ade80,#e11d48,#e11d48);
   padding:3px;
   animation:rcSpin 12s linear infinite;
   margin-bottom:24px;flex-shrink:0;
@@ -91,7 +91,7 @@ const CSS = `
 /* eyebrow */
 .rc-eyebrow {
   font-family:'Orbitron',monospace;font-size:9px;letter-spacing:6px;
-  color:#06b6d4;text-transform:uppercase;margin-bottom:14px;
+  color:#e11d48;text-transform:uppercase;margin-bottom:14px;
 }
 
 /* main title */
@@ -110,7 +110,7 @@ const CSS = `
 /* ── COLORFUL BANNER STRIP ── */
 .rc-rainbow-strip {
   width:100%;height:4px;
-  background:linear-gradient(90deg,#4f6ef7,#a855f7,#f472b6,#fb923c,#f59e0b,#4ade80,#06b6d4,#4f6ef7);
+  background:linear-gradient(90deg,#e11d48,#fb7185,#f472b6,#fb923c,#f59e0b,#4ade80,#e11d48,#e11d48);
   background-size:200% 100%;
   animation:rcRainbow 4s linear infinite;
 }
@@ -136,7 +136,7 @@ const CSS = `
 }
 .rc-timer-block::before {
   content:'';position:absolute;top:0;left:0;right:0;height:2px;
-  background:var(--tb-color,#4f6ef7);
+  background:var(--tb-color,#e11d48);
 }
 .rc-timer-num {
   font-family:'Orbitron',monospace;font-size:28px;font-weight:900;
@@ -198,7 +198,7 @@ const CSS = `
   position:relative;top:1px;
 }
 .rc-tab-btn:hover { color:#e2e8ff; }
-.rc-tab-btn.active { color:#e2e8ff;border-bottom-color:var(--tc,#4f6ef7); }
+.rc-tab-btn.active { color:#e2e8ff;border-bottom-color:var(--tc,#e11d48); }
 
 /* ── CONTAINER ── */
 .rc-container { max-width:780px;margin:0 auto;padding:0 20px 80px;position:relative;z-index:2; }
@@ -243,7 +243,7 @@ input[type=text].rc-inp,input[type=number].rc-inp,input[type=email].rc-inp,texta
   width:100%;resize:vertical;
 }
 input.rc-inp:focus,textarea.rc-inp:focus,select.rc-inp:focus {
-  border-color:#4f6ef7;box-shadow:0 0 0 3px #4f6ef718;
+  border-color:#e11d48;box-shadow:0 0 0 3px #e11d4818;
 }
 textarea.rc-inp { min-height:90px; }
 select.rc-inp option { background:#0d1128; }
@@ -268,9 +268,9 @@ select.rc-inp option { background:#0d1128; }
   border-radius:9px;cursor:pointer;transition:all 0.15s;font-size:14px;
   color:#e2e8ff;
 }
-.rc-option:hover { border-color:#4f6ef7;background:#0c0f24; }
+.rc-option:hover { border-color:#e11d48;background:#0c0f24; }
 .rc-option input[type=radio],.rc-option input[type=checkbox] {
-  width:16px;height:16px;accent-color:#4f6ef7;flex-shrink:0;cursor:pointer;
+  width:16px;height:16px;accent-color:#e11d48;flex-shrink:0;cursor:pointer;
 }
 
 /* ── DIVIDER ── */
@@ -289,13 +289,13 @@ select.rc-inp option { background:#0d1128; }
 /* ── FORMSPREE NOTICE ── */
 .rc-fsnotice {
   background:linear-gradient(135deg,#0d1a30,#0a1020);
-  border:1px solid #4f6ef733;border-radius:12px;
+  border:1px solid #e11d4833;border-radius:12px;
   padding:16px 18px;margin-bottom:20px;
   display:flex;gap:12px;align-items:flex-start;
 }
 .rc-fsnotice .icon { font-size:18px;flex-shrink:0;margin-top:2px; }
 .rc-fsnotice .text { font-size:12px;line-height:1.7; }
-.rc-fsnotice .text strong { color:#06b6d4;font-family:'Orbitron',monospace;font-size:10px;letter-spacing:1px; }
+.rc-fsnotice .text strong { color:#e11d48;font-family:'Orbitron',monospace;font-size:10px;letter-spacing:1px; }
 .rc-fsnotice .text code { background:#1a2240;padding:2px 6px;border-radius:4px;font-size:11px;color:#f0b429; }
 
 /* ── SUBMIT ── */
@@ -379,7 +379,7 @@ export default function RecruitmentPage() {
         s.o += s.s * 0.008 * s.d;
         if (s.o > 0.9 || s.o < 0.05) s.d *= -1;
         ctx.beginPath(); ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(180,200,255,${s.o})`; ctx.fill();
+        ctx.fillStyle = `rgba(254,205,211,${s.o})`; ctx.fill();
       });
       animId = requestAnimationFrame(draw);
     }
@@ -426,11 +426,11 @@ export default function RecruitmentPage() {
           <div className="rc-rainbow-strip" />
 
           <div className="rc-banner-inner">
-            <div className="rc-logo-ring"><div className="rc-logo-inner">🔭</div></div>
+            <div className="rc-logo-ring"><div className="rc-logo-inner">∑</div></div>
 
-            <div className="rc-eyebrow">★ Astro Club · AstroSci Society</div>
+            <div className="rc-eyebrow">★ JU Maths Society · Jadavpur University</div>
             <h1 className="rc-title">Recruitment<br />2025–26</h1>
-            <p className="rc-subtitle">Select your team · Fill the form · Reach for the stars</p>
+            <p className="rc-subtitle">Select your team · Fill the form · Solve · Prove · Create</p>
 
             {/* ── COUNTDOWN ── */}
             <div className="rc-deadline-label">⏳ Applications close in</div>
@@ -442,7 +442,7 @@ export default function RecruitmentPage() {
                 {[
                   { val: timeLeft.days,    lbl: "DAYS",    color: "#f472b6" },
                   { val: timeLeft.hours,   lbl: "HOURS",   color: "#fb923c" },
-                  { val: timeLeft.minutes, lbl: "MINS",    color: "#4f6ef7" },
+                  { val: timeLeft.minutes, lbl: "MINS",    color: "#e11d48" },
                   { val: timeLeft.seconds, lbl: "SECS",    color: "#4ade80" },
                 ].map((b, i) => (
                   <>
@@ -465,9 +465,9 @@ export default function RecruitmentPage() {
               {[
                 { text: "PR Team",      color: "#f472b6", bg: "#f472b611" },
                 { text: "Design Team",  color: "#fb923c", bg: "#fb923c11" },
-                { text: "Tech Team",    color: "#38bdf8", bg: "#38bdf811" },
+                { text: "Tech Team",    color: "#fb7185", bg: "#fb718511" },
                 { text: "Video Team",   color: "#4ade80", bg: "#4ade8011" },
-                { text: "Content Team", color: "#c084fc", bg: "#c084fc11" },
+                { text: "Content Team", color: "#fda4af", bg: "#fda4af11" },
               ].map(b => (
                 <span key={b.text} className="rc-badge" style={{ color: b.color, background: b.bg, borderColor: b.color + "44" }}>
                   {b.text}
@@ -500,7 +500,7 @@ export default function RecruitmentPage() {
           {/* ══════ GENERAL ══════ */}
           <div className={`rc-section${activeTab === "general" ? " active" : ""}`}>
             <div className="rc-section-header">
-              <div className="rc-s-icon" style={{ background: "linear-gradient(135deg,#4f6ef720,#4f6ef740)", border: "1px solid #4f6ef755" }}>🌌</div>
+              <div className="rc-s-icon" style={{ background: "linear-gradient(135deg,#e11d4820,#e11d4840)", border: "1px solid #e11d4855" }}>🌌</div>
               <div className="rc-s-title">
                 <h2>General Info</h2>
                 <p>Required for all applications</p>
@@ -508,10 +508,10 @@ export default function RecruitmentPage() {
             </div>
 
             {submitted.general ? (
-              <div className="rc-success show"><div className="rc-success-icon">🌠</div><h3>Signal Received!</h3><p>Your general info has been transmitted to Astro Club base.</p></div>
+              <div className="rc-success show"><div className="rc-success-icon">🌠</div><h3>Signal Received!</h3><p>Your general info has been transmitted to JU Maths Society base.</p></div>
             ) : (
               <form action="https://formspree.io/f/xkoeejyk" method="POST" onSubmit={e => handleSubmit(e, "General", "general")}>
-                <input type="hidden" name="_subject" value="Astro Club Application — General" />
+                <input type="hidden" name="_subject" value="JU Maths Society Application — General" />
                 <input type="hidden" name="team_form" value="General" />
 
                 <div className="rc-card">
@@ -554,8 +554,8 @@ export default function RecruitmentPage() {
                       <input className="rc-inp" type="text" name="phone" placeholder="+91 XXXXX XXXXX" />
                     </div>
                     <div className="rc-field full">
-                      <label className="rc-label">Why do you want to join Astro Club? <span className="req">*</span></label>
-                      <textarea className="rc-inp" name="motivation" placeholder="What draws you to astronomy and space science? What do you hope to contribute?" required />
+                      <label className="rc-label">Why do you want to join JU Maths Society? <span className="req">*</span></label>
+                      <textarea className="rc-inp" name="motivation" placeholder="What draws you to mathematics and problem-solving? What do you hope to contribute?" required />
                     </div>
                     <div className="rc-field full">
                       <label className="rc-label">How did you hear about this recruitment?</label>
@@ -587,10 +587,10 @@ export default function RecruitmentPage() {
             </div>
 
             {submitted.pr ? (
-              <div className="rc-success show"><div className="rc-success-icon">📡</div><h3>PR Signal Sent!</h3><p>Your application is in orbit. We&apos;ll be in touch.</p></div>
+              <div className="rc-success show"><div className="rc-success-icon">📡</div><h3>PR Signal Sent!</h3><p>Your application has been received. We&apos;ll be in touch.</p></div>
             ) : (
               <form action="https://formspree.io/f/xkoeejyk" method="POST" onSubmit={e => handleSubmit(e, "PR", "pr")}>
-                <input type="hidden" name="_subject" value="Astro Club Application — PR Team" />
+                <input type="hidden" name="_subject" value="JU Maths Society Application — PR Team" />
                 <input type="hidden" name="team_form" value="PR" />
 
                 <div className="rc-card">
@@ -618,7 +618,7 @@ export default function RecruitmentPage() {
                 <div className="rc-qcard">
                   <div className="rc-qnum">Q 02</div>
                   <div className="rc-qtitle">What content do you watch / consume most?</div>
-                  <textarea className="rc-inp" name="content_watch" placeholder="Reels, long-form, memes, astro content, news, podcasts — describe what you watch and on which platforms." />
+                  <textarea className="rc-inp" name="content_watch" placeholder="Reels, long-form, memes, math content, news, podcasts — describe what you watch and on which platforms." />
                 </div>
 
                 <div className="rc-qcard">
@@ -655,14 +655,14 @@ export default function RecruitmentPage() {
 
                 <div className="rc-qcard">
                   <div className="rc-qnum">Q 07</div>
-                  <div className="rc-qtitle">Growth strategy — How would you grow Astro Club&apos;s Instagram from 500 to 5,000 followers in 6 months?</div>
+                  <div className="rc-qtitle">Growth strategy — How would you grow JU Maths Society&apos;s Instagram from 500 to 5,000 followers in 6 months?</div>
                   <textarea className="rc-inp" name="growth_strategy" placeholder="Be specific: content types, posting frequency, collab ideas, trending formats, hashtag strategy, campaign ideas…" />
                 </div>
 
                 <div className="rc-qcard">
                   <div className="rc-qnum">Q 08</div>
-                  <div className="rc-qtitle">Trend adaptation — Describe a current trending format you&apos;d use for an astronomy post</div>
-                  <textarea className="rc-inp" name="trend_idea" placeholder="E.g. 'POV you're a photon leaving the sun', 'brain rot astro facts', rate-a-planet series, AI voiceover + timelapse — pitch your idea!" />
+                  <div className="rc-qtitle">Trend adaptation — Describe a current trending format you&apos;d use for a maths post</div>
+                  <textarea className="rc-inp" name="trend_idea" placeholder="E.g. 'POV you're a prime number', 'brain rot math facts', rate-a-theorem series, AI voiceover + animated proof — pitch your idea!" />
                 </div>
 
                 <div className="rc-qcard">
@@ -692,14 +692,14 @@ export default function RecruitmentPage() {
           <div className={`rc-section${activeTab === "design" ? " active" : ""}`}>
             <div className="rc-section-header">
               <div className="rc-s-icon" style={{ background: "linear-gradient(135deg,#fb923c20,#fb923c40)", border: "1px solid #fb923c55" }}>🎨</div>
-              <div className="rc-s-title"><h2>Design Team</h2><p>Graphics · Astrophotography · Visual Identity</p></div>
+              <div className="rc-s-title"><h2>Design Team</h2><p>Graphics · Branding · Visual Identity</p></div>
             </div>
 
             {submitted.design ? (
               <div className="rc-success show"><div className="rc-success-icon">🌠</div><h3>Design Signal Sent!</h3><p>Your portfolio has been received. The design team will review shortly.</p></div>
             ) : (
               <form action="https://formspree.io/f/xkoeejyk" method="POST" onSubmit={e => handleSubmit(e, "Design", "design")}>
-                <input type="hidden" name="_subject" value="Astro Club Application — Design Team" />
+                <input type="hidden" name="_subject" value="JU Maths Society Application — Design Team" />
                 <input type="hidden" name="team_form" value="Design" />
 
                 <div className="rc-card">
@@ -761,19 +761,19 @@ export default function RecruitmentPage() {
 
                 <div className="rc-qcard">
                   <div className="rc-qnum">Q 06</div>
-                  <div className="rc-qtitle">Design process — Walk us through how you&apos;d approach a stargazing event poster</div>
+                  <div className="rc-qtitle">Design process — Walk us through how you&apos;d approach a maths event poster</div>
                   <textarea className="rc-inp" name="design_process" placeholder="From brief to final file: mood-boarding, colour palette selection, typography, revisions — describe your process." />
                 </div>
 
                 <div className="rc-qcard">
                   <div className="rc-qnum">Q 07</div>
-                  <div className="rc-qtitle">Your design philosophy — what makes a great astronomy visual? (2–3 sentences)</div>
-                  <textarea className="rc-inp" name="design_philosophy" placeholder="What principles guide your design decisions in space / science-themed work?" style={{ minHeight: 70 }} />
+                  <div className="rc-qtitle">Your design philosophy — what makes a great maths visual? (2–3 sentences)</div>
+                  <textarea className="rc-inp" name="design_philosophy" placeholder="What principles guide your design decisions in maths / science-themed work?" style={{ minHeight: 70 }} />
                 </div>
 
                 <div className="rc-qcard">
                   <div className="rc-qnum">Q 08</div>
-                  <div className="rc-qtitle">Any astrophotography / night-sky photography or editing experience?</div>
+                  <div className="rc-qtitle">Any graphic design / illustration or editing experience?</div>
                   <textarea className="rc-inp" name="astrophoto" placeholder="Describe experience, share photo links if possible. Write 'None' if not applicable." />
                 </div>
 
@@ -803,15 +803,15 @@ export default function RecruitmentPage() {
           {/* ══════ TECH ══════ */}
           <div className={`rc-section${activeTab === "tech" ? " active" : ""}`}>
             <div className="rc-section-header">
-              <div className="rc-s-icon" style={{ background: "linear-gradient(135deg,#38bdf820,#38bdf840)", border: "1px solid #38bdf855" }}>⚡</div>
+              <div className="rc-s-icon" style={{ background: "linear-gradient(135deg,#fb718520,#fb718540)", border: "1px solid #fb718555" }}>⚡</div>
               <div className="rc-s-title"><h2>Tech Team</h2><p>ML · CV · Development · AI Tools</p></div>
             </div>
 
             {submitted.tech ? (
-              <div className="rc-success show"><div className="rc-success-icon">🛸</div><h3>Tech Signal Sent!</h3><p>Your application is in orbit. The tech team will review your work.</p></div>
+              <div className="rc-success show"><div className="rc-success-icon">🛸</div><h3>Tech Signal Sent!</h3><p>Your application has been received. The tech team will review your work.</p></div>
             ) : (
               <form action="https://formspree.io/f/xkoeejyk" method="POST" onSubmit={e => handleSubmit(e, "Tech", "tech")}>
-                <input type="hidden" name="_subject" value="Astro Club Application — Tech Team" />
+                <input type="hidden" name="_subject" value="JU Maths Society Application — Tech Team" />
                 <input type="hidden" name="team_form" value="Tech" />
 
                 <div className="rc-card">
@@ -876,7 +876,7 @@ export default function RecruitmentPage() {
 
                 <div className="rc-qcard">
                   <div className="rc-qnum">Q 05</div>
-                  <div className="rc-qtitle">Your astronomy knowledge level</div>
+                  <div className="rc-qtitle">Your mathematics background level</div>
                   <div className="rc-options">
                     {[
                       "Enthusiast — follow news & events",
@@ -891,20 +891,20 @@ export default function RecruitmentPage() {
 
                 <div className="rc-qcard">
                   <div className="rc-qnum">Q 06</div>
-                  <div className="rc-qtitle">Describe your ideal Astro Club tech project in detail</div>
-                  <textarea className="rc-inp" name="ideal_project" placeholder="E.g. automated meteor detection pipeline, AI-generated sky atlas, live ISS tracker with AR overlay, galaxy morphology classifier — pitch your idea with tech stack and feasibility." />
+                  <div className="rc-qtitle">Describe your ideal JU Maths Society tech project in detail</div>
+                  <textarea className="rc-inp" name="ideal_project" placeholder="E.g. automated problem-set generator, LaTeX rendering pipeline, live contest-rating tracker, interactive graph-theory visualizer — pitch your idea with tech stack and feasibility." />
                 </div>
 
                 <div className="rc-qcard">
                   <div className="rc-qnum">Q 07</div>
-                  <div className="rc-qtitle">In the AI era, how can you use tech to advance Astro Club?</div>
-                  <textarea className="rc-inp" name="ai_vision" placeholder="Automation, AI-powered astronomy tools, data pipelines, sky-mapping apps, anything innovative." />
+                  <div className="rc-qtitle">In the AI era, how can you use tech to advance JU Maths Society?</div>
+                  <textarea className="rc-inp" name="ai_vision" placeholder="Automation, AI-powered math tools, data pipelines, problem-recommendation apps, anything innovative." />
                 </div>
 
                 <div className="rc-qcard">
                   <div className="rc-qnum">Q 08</div>
-                  <div className="rc-qtitle">Any hardware / telescope control / IoT / Raspberry Pi experience?</div>
-                  <textarea className="rc-inp" name="hardware_exp" placeholder="Telescope automation, sky-scanning rigs, sensor arrays, motor controllers — describe or link. Write 'None' if not applicable." />
+                  <div className="rc-qtitle">Any hardware / robotics / IoT / Raspberry Pi experience?</div>
+                  <textarea className="rc-inp" name="hardware_exp" placeholder="Microcontrollers, sensor arrays, automation rigs, motor controllers — describe or link. Write 'None' if not applicable." />
                 </div>
 
                 <div className="rc-qcard">
@@ -938,7 +938,7 @@ export default function RecruitmentPage() {
               <div className="rc-success show"><div className="rc-success-icon">🎞️</div><h3>Video Signal Sent!</h3><p>Your work links have been received. We&apos;ll review and get back to you.</p></div>
             ) : (
               <form action="https://formspree.io/f/xkoeejyk" method="POST" onSubmit={e => handleSubmit(e, "Video Editing", "video")}>
-                <input type="hidden" name="_subject" value="Astro Club Application — Video Editing" />
+                <input type="hidden" name="_subject" value="JU Maths Society Application — Video Editing" />
                 <input type="hidden" name="team_form" value="Video Editing" />
 
                 <div className="rc-card">
@@ -1004,15 +1004,15 @@ export default function RecruitmentPage() {
 
                 <div className="rc-qcard">
                   <div className="rc-qnum">Q 06</div>
-                  <div className="rc-qtitle">Have you shot or edited astronomy / night-sky / timelapse footage?</div>
+                  <div className="rc-qtitle">Have you shot or edited event / lecture / explainer footage?</div>
                   <div className="rc-options">
                     {["Yes — shot and edited", "Edited someone else's footage", "No — but very interested", "No — not my focus"].map(v => (
                       <label key={v} className="rc-option"><input type="radio" name="astro_footage" value={v} />{v}</label>
                     ))}
                   </div>
                   <div style={{ marginTop: 12 }}>
-                    <label className="rc-label" style={{ display: "block", marginBottom: 6 }}>Link to astro footage (if any)</label>
-                    <input className="rc-inp" type="text" name="astro_footage_link" placeholder="YouTube / Drive link to night sky / timelapse footage" />
+                    <label className="rc-label" style={{ display: "block", marginBottom: 6 }}>Link to your footage (if any)</label>
+                    <input className="rc-inp" type="text" name="astro_footage_link" placeholder="YouTube / Drive link to event / explainer / edited footage" />
                   </div>
                 </div>
 
@@ -1045,15 +1045,15 @@ export default function RecruitmentPage() {
           {/* ══════ CONTENT ══════ */}
           <div className={`rc-section${activeTab === "content" ? " active" : ""}`}>
             <div className="rc-section-header">
-              <div className="rc-s-icon" style={{ background: "linear-gradient(135deg,#c084fc20,#c084fc40)", border: "1px solid #c084fc55" }}>✍️</div>
-              <div className="rc-s-title"><h2>Content Team</h2><p>Writing · Research · Astro Storytelling</p></div>
+              <div className="rc-s-icon" style={{ background: "linear-gradient(135deg,#fda4af20,#fda4af40)", border: "1px solid #fda4af55" }}>✍️</div>
+              <div className="rc-s-title"><h2>Content Team</h2><p>Writing · Research · Maths Storytelling</p></div>
             </div>
 
             {submitted.content ? (
               <div className="rc-success show"><div className="rc-success-icon">✨</div><h3>Content Signal Sent!</h3><p>Your words have reached us. We&apos;ll be in touch soon.</p></div>
             ) : (
               <form action="https://formspree.io/f/xkoeejyk" method="POST" onSubmit={e => handleSubmit(e, "Content", "content")}>
-                <input type="hidden" name="_subject" value="Astro Club Application — Content Team" />
+                <input type="hidden" name="_subject" value="JU Maths Society Application — Content Team" />
                 <input type="hidden" name="team_form" value="Content" />
 
                 <div className="rc-card">
@@ -1093,13 +1093,13 @@ export default function RecruitmentPage() {
 
                 <div className="rc-qcard">
                   <div className="rc-qnum">Q 03</div>
-                  <div className="rc-qtitle">Live task — Write a 3-line Instagram caption for the James Webb Space Telescope&apos;s latest image release</div>
+                  <div className="rc-qtitle">Live task — Write a 3-line Instagram caption introducing a beautiful theorem or proof of your choice</div>
                   <textarea className="rc-inp" name="jwst_caption" placeholder="Write it here — show us your voice! Include a hook, the fact, and a call to action." style={{ minHeight: 80 }} required />
                 </div>
 
                 <div className="rc-qcard">
                   <div className="rc-qnum">Q 04</div>
-                  <div className="rc-qtitle">Comfortable writing about astronomy &amp; science?</div>
+                  <div className="rc-qtitle">Comfortable writing about mathematics &amp; science?</div>
                   <div className="rc-options">
                     {["Yes, it's my primary interest area", "Willing to research and learn", "Comfortable with any topic, science included", "Not particularly comfortable with science writing"].map(v => (
                       <label key={v} className="rc-option"><input type="radio" name="astro_write" value={v} />{v}</label>
@@ -1117,7 +1117,7 @@ export default function RecruitmentPage() {
                   <div className="rc-qnum">Q 06</div>
                   <div className="rc-qtitle">Reading habits — what do you regularly read?</div>
                   <div className="rc-options">
-                    {[["read_books","Books (fiction / non-fiction)"],["read_journals","Science journals / papers"],["read_news","Space / tech news (NASA, ESA, SpaceX updates)"],["read_blogs","Blogs & newsletters"],["read_social","Mostly social media content"]].map(([n,lbl]) => (
+                    {[["read_books","Books (fiction / non-fiction)"],["read_journals","Science journals / papers"],["read_news","Maths / tech news (Quanta, arXiv, contest updates)"],["read_blogs","Blogs & newsletters"],["read_social","Mostly social media content"]].map(([n,lbl]) => (
                       <label key={n} className="rc-option"><input type="checkbox" name={n} value="Yes" />{lbl}</label>
                     ))}
                   </div>
@@ -1125,13 +1125,13 @@ export default function RecruitmentPage() {
 
                 <div className="rc-qcard">
                   <div className="rc-qnum">Q 07</div>
-                  <div className="rc-qtitle">What&apos;s the most fascinating astronomical event or discovery you&apos;ve followed recently?</div>
+                  <div className="rc-qtitle">What&apos;s the most fascinating mathematical result or discovery you&apos;ve followed recently?</div>
                   <textarea className="rc-inp" name="astro_fascination" placeholder="Tell us what it was, why it excited you, and what you learned from following it." />
                 </div>
 
                 <div className="rc-qcard">
                   <div className="rc-qnum">Q 08</div>
-                  <div className="rc-qtitle">Why do you want to join the Astro Club Content team?</div>
+                  <div className="rc-qtitle">Why do you want to join the JU Maths Society Content team?</div>
                   <textarea className="rc-inp" name="motivation" placeholder="What unique perspective do you bring? What kind of content do you want to create for the club?" required />
                 </div>
 

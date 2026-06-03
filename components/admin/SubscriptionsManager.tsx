@@ -25,7 +25,7 @@ function MemberRowItem({ m }: { m: MemberRow }) {
 
   const dirty = plan !== m.plan || role !== m.role;
   const selCls =
-    "rounded-md border border-white/10 bg-[#0b1220] px-2 py-1 text-xs text-white focus:border-[#22d3ee]/60 focus:outline-none";
+    "rounded-md border border-white/10 bg-[#0b1220] px-2 py-1 text-xs text-white focus:border-[#f43f5e]/60 focus:outline-none";
 
   return (
     <tr className="border-b border-white/5">
@@ -61,7 +61,7 @@ function MemberRowItem({ m }: { m: MemberRow }) {
               setTimeout(() => setSaved(null), 2500);
             })
           }
-          className="rounded-md bg-gradient-to-r from-[#22d3ee] to-[#a855f7] px-3 py-1 text-xs font-semibold text-[#02040a] disabled:opacity-30"
+          className="rounded-md bg-gradient-to-r from-[#f43f5e] to-[#fb7185] px-3 py-1 text-xs font-semibold text-[#02040a] disabled:opacity-30"
         >
           {pending ? "…" : "Save"}
         </button>
@@ -84,7 +84,7 @@ export default function SubscriptionsManager({ members }: { members: MemberRow[]
         value={q}
         onChange={(e) => setQ(e.target.value)}
         placeholder="Search by name or email…"
-        className="mb-4 w-full max-w-sm rounded-lg border border-white/10 bg-[#0b1220] px-3 py-2 text-sm text-white placeholder-gray-500 focus:border-[#22d3ee]/60 focus:outline-none"
+        className="mb-4 w-full max-w-sm rounded-lg border border-white/10 bg-[#0b1220] px-3 py-2 text-sm text-white placeholder-gray-500 focus:border-[#f43f5e]/60 focus:outline-none"
       />
       <div className="overflow-x-auto rounded-2xl border border-white/10">
         <table className="w-full min-w-[640px] text-left text-sm">

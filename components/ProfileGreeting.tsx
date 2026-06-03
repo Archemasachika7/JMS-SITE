@@ -65,7 +65,7 @@ export default function ProfileGreeting() {
             className="relative w-36 h-36 rounded-full cursor-pointer group"
             whileHover={{ scale: 1.08 }}
           >
-            <div className="absolute -inset-1 rounded-full bg-gradient-to-br from-[#2563eb] to-[#10b981] opacity-60 blur-sm group-hover:opacity-100 transition-opacity" />
+            <div className="absolute -inset-1 rounded-full bg-gradient-to-br from-[#e11d48] to-[#fb7185] opacity-60 blur-sm group-hover:opacity-100 transition-opacity" />
             <div className="relative w-36 h-36 rounded-full overflow-hidden border-2 border-purple-500 shadow-lg">
               {profileImage ? (
                 <img
@@ -74,7 +74,7 @@ export default function ProfileGreeting() {
                   className="w-full h-full object-cover"
                 />
               ) : (
-                <div className="w-full h-full bg-gradient-to-br from-[#2563eb] to-[#10b981] flex items-center justify-center">
+                <div className="w-full h-full bg-gradient-to-br from-[#e11d48] to-[#fb7185] flex items-center justify-center">
                   <svg viewBox="0 0 24 24" className="w-14 h-14 text-white fill-current">
                     <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
                   </svg>
@@ -90,7 +90,7 @@ export default function ProfileGreeting() {
           className="mt-4"
         >
           <p
-            className="text-xs tracking-[0.3em] text-[#38bdf8] uppercase mb-1"
+            className="text-xs tracking-[0.3em] text-[#fb7185] uppercase mb-1"
             style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
           >
             {greeting}

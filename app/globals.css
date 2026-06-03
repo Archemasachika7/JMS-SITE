@@ -3,10 +3,10 @@
 @tailwind utilities;
 
 :root {
-  --bg-space: #020617;
-  --accent-blue: #2563eb;
-  --accent-orbit: #38bdf8;
-  --accent-green: #10b981;
+  --bg-space: #0a0408;
+  --accent-red: #e11d48;
+  --accent-rose: #fb7185;
+  --accent-light: #fda4af;
 }
 
 * {
@@ -27,13 +27,13 @@ body {
 }
 
 ::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: #020617; }
-::-webkit-scrollbar-thumb { background: #2563eb40; border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: #2563eb80; }
+::-webkit-scrollbar-track { background: #0a0408; }
+::-webkit-scrollbar-thumb { background: #e11d4840; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #e11d4880; }
 
 @keyframes glow-pulse {
-  0%, 100% { box-shadow: 0 0 20px rgba(37, 99, 235, 0.3); }
-  50% { box-shadow: 0 0 40px rgba(37, 99, 235, 0.6); }
+  0%, 100% { box-shadow: 0 0 20px rgba(225,29,72, 0.3); }
+  50% { box-shadow: 0 0 40px rgba(225,29,72, 0.6); }
 }
 
 .glow-blue {
