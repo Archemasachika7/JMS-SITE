@@ -10,7 +10,7 @@ export default async function AdminRecruitmentPage() {
   const supabase = createSupabaseServerClient();
   const { data } = await supabase
     .from("recruitments")
-    .select("id, title, session_label, subtitle, deadline, form_action, is_open, created_at")
+    .select("id, title, session_label, subtitle, deadline, form_action, is_open, created_at, fields")
     .order("created_at", { ascending: false });
 
   return (
