@@ -3,9 +3,10 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { Sigma, Timer, ArrowRight } from "lucide-react";
+import { Sigma, Timer, ArrowRight, Calculator, TrendingUp, Hash } from "lucide-react";
 import { supabase, isSupabaseConfigured } from "@/lib/supabaseClient";
 import { siteConfig } from "@/config/siteConfig";
+import MathContent from "@/components/MathContent";
 
 type Problem = {
   id: string;
@@ -71,6 +72,16 @@ export default function MathWidgetsSection() {
 
   return (
     <section className="relative px-6 py-20">
+      <div className="mx-auto max-w-6xl mb-10 text-center">
+        <div className="inline-flex items-center gap-3 mb-3">
+          <span className="h-px w-8 bg-gradient-to-r from-transparent to-[#e11d48]" />
+          <span className="text-xs tracking-[0.4em] text-[#fb7185] uppercase">Interactive</span>
+          <span className="h-px w-8 bg-gradient-to-l from-transparent to-[#e11d48]" />
+        </div>
+        <h2 className="text-3xl font-black text-white" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
+          Math at your fingertips
+        </h2>
+      </div>
       <div className="mx-auto grid max-w-6xl gap-6 lg:grid-cols-2">
         {/* Problem of the Day */}
         <motion.div
@@ -78,7 +89,7 @@ export default function MathWidgetsSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="rounded-2xl border border-[#f43f5e]/20 bg-[#0f172a]/70 p-7 backdrop-blur-sm"
+          className="rounded-2xl glass-rose glow-card glow-card-rose p-7"
         >
           <div className="mb-4 flex items-center gap-2 text-[#f43f5e]">
             <Sigma className="h-5 w-5" />
@@ -109,9 +120,10 @@ export default function MathWidgetsSection() {
                 )}
               </div>
               {problem.statement && (
-                <p className="line-clamp-4 whitespace-pre-wrap text-sm leading-relaxed text-gray-400">
-                  {problem.statement}
-                </p>
+                <MathContent
+                  text={problem.statement}
+                  className="line-clamp-4 text-sm leading-relaxed text-gray-400"
+                />
               )}
             </>
           ) : (
@@ -134,7 +146,7 @@ export default function MathWidgetsSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="rounded-2xl border border-[#fb7185]/20 bg-[#0f172a]/70 p-7 backdrop-blur-sm"
+          className="rounded-2xl glass-rose glow-card glow-card-rose p-7"
         >
           <div className="mb-4 flex items-center gap-2 text-[#fb7185]">
             <Timer className="h-5 w-5" />
@@ -175,6 +187,51 @@ export default function MathWidgetsSection() {
               Happening now — or freshly concluded. Stay tuned for the next one.
             </p>
           )}
+        </motion.div>
+
+        {/* Math Tools promo — spans full width on large screens */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="lg:col-span-2 rounded-2xl glass-cyan glow-card p-7"
+        >
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+            <div>
+              <div className="mb-3 flex items-center gap-2 text-[#f43f5e]">
+                <Calculator className="h-5 w-5" />
+                <span className="text-xs font-semibold uppercase tracking-[0.3em]">
+                  Math Tools — Desmos · math.js · Number Theory
+                </span>
+              </div>
+              <h3 className="text-xl font-bold text-white mb-2" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
+                Your interactive math lab
+              </h3>
+              <p className="text-sm text-gray-400 max-w-xl">
+                Graph any function, evaluate symbolic expressions (derivatives, integrals, matrices),
+                and explore number theory — all without leaving the browser.
+              </p>
+            </div>
+            <div className="flex flex-wrap gap-3 sm:flex-col sm:items-end shrink-0">
+              {[
+                { icon: TrendingUp, label: "Graphing Calc" },
+                { icon: Calculator, label: "Symbolic Math" },
+                { icon: Hash, label: "Number Theory" },
+              ].map(({ icon: Icon, label }) => (
+                <div key={label} className="flex items-center gap-1.5 text-xs text-gray-400">
+                  <Icon className="h-3.5 w-3.5 text-[#f43f5e]" />
+                  {label}
+                </div>
+              ))}
+            </div>
+          </div>
+          <Link
+            href="/math-tools"
+            className="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-[#f43f5e] hover:gap-2.5 transition-all"
+          >
+            Open Math Tools <ArrowRight className="h-4 w-4" />
+          </Link>
         </motion.div>
       </div>
     </section>

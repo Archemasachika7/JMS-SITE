@@ -9,6 +9,7 @@ import { siteConfig } from "@/config/siteConfig";
 const navItems = [
   { label: "Home", href: "/" },
   { label: "Problems", href: "/problems" },
+  { label: "Math Tools", href: "/math-tools", special: true },
   { label: "Gallery", href: "/gallery" },
   { label: "Events", href: "/events" },
   { label: "POTW", href: "/potw" },
@@ -18,8 +19,44 @@ const navItems = [
   { label: "Members", href: "/members" },
   { label: "Sponsors", href: "/sponsors" },
   { label: "Donators", href: "/donators" },
-  { label: "🚀 Recruit", href: "/recruitment", highlight: true },
 ];
+
+// ── Decorative math glyphs drifting through the bar (deterministic → SSR-safe) ──
+const NAV_GLYPHS = [
+  { c: "∑", left: "6%", dur: 9, delay: 0, size: 22, tint: "0,240,255" },
+  { c: "∫", left: "17%", dur: 11, delay: 1.4, size: 26, tint: "123,97,255" },
+  { c: "π", left: "29%", dur: 8, delay: 0.6, size: 18, tint: "0,255,102" },
+  { c: "√", left: "41%", dur: 12, delay: 2.1, size: 20, tint: "0,240,255" },
+  { c: "∂", left: "53%", dur: 10, delay: 0.3, size: 22, tint: "244,63,94" },
+  { c: "∞", left: "64%", dur: 9.5, delay: 1.8, size: 24, tint: "123,97,255" },
+  { c: "θ", left: "75%", dur: 11.5, delay: 0.9, size: 18, tint: "0,255,102" },
+  { c: "Δ", left: "85%", dur: 8.5, delay: 2.4, size: 20, tint: "0,240,255" },
+  { c: "φ", left: "93%", dur: 10.5, delay: 1.1, size: 19, tint: "244,63,94" },
+];
+
+function NavGlyphs() {
+  return (
+    <div className="absolute inset-0 overflow-hidden pointer-events-none select-none" aria-hidden="true">
+      {NAV_GLYPHS.map((g, i) => (
+        <motion.span
+          key={i}
+          className="absolute top-1/2 font-mono"
+          style={{
+            left: g.left,
+            fontSize: g.size,
+            color: `rgba(${g.tint},0.5)`,
+            textShadow: `0 0 12px rgba(${g.tint},0.45)`,
+          }}
+          initial={{ opacity: 0, y: 8, rotate: -8 }}
+          animate={{ opacity: [0, 0.55, 0.55, 0], y: [10, -14], rotate: [-8, 8] }}
+          transition={{ duration: g.dur, delay: g.delay, repeat: Infinity, ease: "easeInOut" }}
+        >
+          {g.c}
+        </motion.span>
+      ))}
+    </div>
+  );
+}
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -75,10 +112,27 @@ export default function Navbar() {
           : "bg-transparent"
       }`}
     >
-      <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+      <NavGlyphs />
+      <div className="relative z-10 max-w-7xl mx-auto px-6 py-4 flex items-center justify-between gap-4">
         {/* Logo */}
         <motion.div className="flex items-center gap-3 cursor-pointer" whileHover={{ scale: 1.03 }}>
-          <Image src={siteConfig.assets.logo} alt={`${siteConfig.clubName} Logo`} width={36} height={36} className="h-9 w-9" />
+          <div className="relative h-10 w-10">
+            {/* rotating conic neon ring */}
+            <motion.span
+              className="absolute -inset-[3px] rounded-full"
+              style={{
+                background:
+                  "conic-gradient(from 0deg, #00F0FF, #7B61FF, #e11d48, #00FF66, #00F0FF)",
+                WebkitMask:
+                  "radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 3px))",
+                mask: "radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 3px))",
+                opacity: 0.7,
+              }}
+              animate={{ rotate: 360 }}
+              transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+            />
+            <Image src={siteConfig.assets.logo} alt={`${siteConfig.clubName} Logo`} width={40} height={40} className="relative h-10 w-10 rounded-full object-cover" />
+          </div>
           <div>
             <span
               className="font-bold text-lg tracking-wider bg-gradient-to-r from-[#e11d48] to-[#fb7185] bg-clip-text text-transparent"
@@ -93,31 +147,76 @@ export default function Navbar() {
         </motion.div>
 
         {/* Desktop Nav */}
-        <div className="hidden md:flex items-center gap-1">
-          {navItems.map((item, i) =>
-            (item as { highlight?: boolean }).highlight ? (
+        <div className="hidden md:flex items-center gap-0.5">
+          {navItems.map((item, i) => {
+            const it = item as { highlight?: boolean; special?: boolean };
+            if (it.highlight) {
+              return (
+                <Link key={item.label} href={item.href}>
+                  <motion.span
+                    className="relative px-4 py-2 text-sm font-semibold cursor-pointer group"
+                    style={{
+                      fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif",
+                      background: "linear-gradient(135deg,#fb7185,#ec4899)",
+                      WebkitBackgroundClip: "text",
+                      WebkitTextFillColor: "transparent",
+                      backgroundClip: "text",
+                    }}
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.1 * i + 0.3 }}
+                  >
+                    {item.label}
+                    <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-[2px] bg-gradient-to-r from-[#fb7185] to-[#ec4899] group-hover:w-4/5 transition-all duration-300 rounded-full" />
+                  </motion.span>
+                </Link>
+              );
+            }
+            if (it.special) {
+              return (
+                <Link key={item.label} href={item.href}>
+                  <motion.span
+                    className="group relative inline-flex items-center gap-1.5 whitespace-nowrap px-3.5 py-1.5 mx-1 text-[13px] font-semibold cursor-pointer rounded-full border border-[#00F0FF]/40 text-[#00F0FF]"
+                    style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{
+                      opacity: 1,
+                      y: 0,
+                      boxShadow: [
+                        "0 0 0px rgba(0,240,255,0.0)",
+                        "0 0 16px rgba(0,240,255,0.35)",
+                        "0 0 0px rgba(0,240,255,0.0)",
+                      ],
+                    }}
+                    transition={{
+                      opacity: { delay: 0.1 * i + 0.3 },
+                      y: { delay: 0.1 * i + 0.3 },
+                      boxShadow: { duration: 2.6, repeat: Infinity, ease: "easeInOut" },
+                    }}
+                    whileHover={{ scale: 1.06 }}
+                    whileTap={{ scale: 0.96 }}
+                  >
+                    {/* spinning sigma */}
+                    <motion.span
+                      className="text-[15px] leading-none"
+                      animate={{ rotate: 360 }}
+                      transition={{ duration: 9, repeat: Infinity, ease: "linear" }}
+                    >
+                      ∑
+                    </motion.span>
+                    {item.label}
+                    {/* shimmer sweep */}
+                    <span className="pointer-events-none absolute inset-0 overflow-hidden rounded-full">
+                      <span className="absolute -inset-y-2 -left-1/2 w-1/3 -skew-x-12 bg-gradient-to-r from-transparent via-white/25 to-transparent opacity-0 group-hover:opacity-100 group-hover:translate-x-[320%] transition-all duration-700" />
+                    </span>
+                  </motion.span>
+                </Link>
+              );
+            }
+            return (
               <Link key={item.label} href={item.href}>
                 <motion.span
-                  className="relative px-4 py-2 text-sm font-semibold cursor-pointer group"
-                  style={{
-                    fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif",
-                    background: "linear-gradient(135deg,#fb7185,#ec4899)",
-                    WebkitBackgroundClip: "text",
-                    WebkitTextFillColor: "transparent",
-                    backgroundClip: "text",
-                  }}
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.1 * i + 0.3 }}
-                >
-                  {item.label}
-                  <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-[2px] bg-gradient-to-r from-[#fb7185] to-[#ec4899] group-hover:w-4/5 transition-all duration-300 rounded-full" />
-                </motion.span>
-              </Link>
-            ) : (
-              <Link key={item.label} href={item.href}>
-                <motion.span
-                  className="relative px-4 py-2 text-sm text-gray-300 hover:text-white transition-colors group cursor-pointer"
+                  className="relative px-3 py-2 text-[13px] text-gray-300 hover:text-white transition-colors group cursor-pointer"
                   style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -127,8 +226,8 @@ export default function Navbar() {
                   <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-[2px] bg-gradient-to-r from-[#e11d48] to-[#fb7185] group-hover:w-4/5 transition-all duration-300 rounded-full" />
                 </motion.span>
               </Link>
-            )
-          )}
+            );
+          })}
         </div>
 
         {/* Right Buttons */}
@@ -209,8 +308,9 @@ export default function Navbar() {
             exit={{ opacity: 0, height: 0 }}
             className="md:hidden bg-[#020617]/95 backdrop-blur-xl border-t border-[#e11d48]/20 px-6 pb-4"
           >
-            {navItems.map((item) =>
-              (item as { highlight?: boolean }).highlight ? (
+            {navItems.map((item) => {
+              const it = item as { highlight?: boolean; special?: boolean };
+              if (it.highlight) return (
                 <Link
                   key={item.label}
                   href={item.href}
@@ -227,7 +327,19 @@ export default function Navbar() {
                     {item.label}
                   </span>
                 </Link>
-              ) : (
+              );
+              if (it.special) return (
+                <Link
+                  key={item.label}
+                  href={item.href}
+                  className="flex items-center gap-2 py-3 text-[#00F0FF] border-b border-white/5 text-sm tracking-wider font-semibold"
+                  style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
+                  onClick={() => setMenuOpen(false)}
+                >
+                  <span style={{ textShadow: "0 0 10px rgba(0,240,255,0.5)" }}>∑</span> {item.label}
+                </Link>
+              );
+              return (
                 <Link
                   key={item.label}
                   href={item.href}
@@ -237,8 +349,8 @@ export default function Navbar() {
                 >
                   {item.label}
                 </Link>
-              )
-            )}
+              );
+            })}
             {isSignedIn ? (
               <Link href="/profile" className="block mt-4" onClick={() => setMenuOpen(false)}>
                 <span

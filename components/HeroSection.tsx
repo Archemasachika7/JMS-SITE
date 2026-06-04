@@ -17,7 +17,7 @@ export default function HeroSection() {
     <section
       id="home"
       className="relative min-h-screen flex items-center overflow-hidden"
-      style={{ background: "radial-gradient(ellipse at 50% 60%, #0a1628 0%, #020617 60%)" }}
+      style={{ background: "radial-gradient(ellipse at 50% 55%, #0a0a14 0%, #050509 45%, #000000 80%)" }}
     >
       {/* Nebula glows */}
       <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[#e11d48]/10 rounded-full blur-[120px] pointer-events-none" />

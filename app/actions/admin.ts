@@ -3,6 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { getAdminUser } from "@/lib/admin";
+import { coerceSchema } from "@/lib/recruitmentSchema";
 
 type Result = { success: boolean; error?: string };
 
@@ -334,6 +335,7 @@ const DELETABLE = new Set([
   "gallery",
   "potw",
   "magazines",
+  "recruitments",
 ]);
 
 export async function deleteRow(table: string, id: string): Promise<Result> {
