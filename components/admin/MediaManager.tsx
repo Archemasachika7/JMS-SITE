@@ -68,29 +68,50 @@ function CreateForm({ kind }: { kind: Kind }) {
       } else {
         const cover = fd.get("cover") as File | null;
         const pdf = fd.get("pdf") as File | null;
-        const coverImage =
-          cover && cover.size > 0
-            ? await uploadToBucket("magazines", "covers", cover)
-            : null;
-        const pdfUrl =
-          pdf && pdf.size > 0
-            ? await uploadToBucket("magazines", "pdfs", pdf)
-            : null;
+        let coverImage: string | null = null;
+        let pdfUrl: string | null = null;
+        if (cover && cover.size > 0) {
+          try {
+            coverImage = await uploadToBucket("magazines", "covers", cover);
+          } catch (e) {
+            throw new Error(
+              `Cover upload failed (${(cover.size / 1048576).toFixed(1)} MB): ${
+                e instanceof Error ? e.message : e
+              }`
+            );
+          }
+        }
+        if (pdf && pdf.size > 0) {
+          try {
+            pdfUrl = await uploadToBucket("magazines", "pdfs", pdf);
+          } catch (e) {
+            throw new Error(
+              `PDF upload failed (${(pdf.size / 1048576).toFixed(1)} MB): ${
+                e instanceof Error ? e.message : e
+              }`
+            );
+          }
+        }
         const res = await createMagazineRow({
           title: (fd.get("title") as string)?.trim() || null,
           issue: (fd.get("issue") as string) || null,
           coverImage,
           pdfUrl,
         });
-        if (!res.success) throw new Error(res.error);
+        if (!res.success) throw new Error(`Saving record failed: ${res.error}`);
       }
       setMsg({ ok: true, text: "Saved successfully." });
       form.reset();
     } catch (err) {
-      setMsg({
-        ok: false,
-        text: err instanceof Error ? err.message : "Something went wrong.",
-      });
+      // Surface the full error so it can be read and diagnosed.
+      console.error("[admin media save] failed:", err);
+      const text =
+        err instanceof Error
+          ? err.message
+          : typeof err === "string"
+          ? err
+          : JSON.stringify(err);
+      setMsg({ ok: false, text });
     } finally {
       setPending(false);
     }
@@ -145,12 +166,17 @@ function CreateForm({ kind }: { kind: Kind }) {
         <div className="flex items-center gap-3">
           <SubmitButton pending={pending}>{c.submit}</SubmitButton>
           {pending && <span className="text-xs text-gray-400">Uploading…</span>}
-          {msg && (
-            <span className={`text-sm ${msg.ok ? "text-emerald-400" : "text-red-400"}`}>
-              {msg.text}
-            </span>
-          )}
+          {msg?.ok && <span className="text-sm text-emerald-400">{msg.text}</span>}
         </div>
+        {msg && !msg.ok && (
+          <div className="rounded-lg border border-red-500/40 bg-red-500/10 p-3 text-sm text-red-200">
+            <p className="mb-1 font-semibold text-red-300">Upload failed</p>
+            <p className="whitespace-pre-wrap break-words">{msg.text}</p>
+            <p className="mt-2 text-xs text-red-300/70">
+              Full details are also in the browser console (F12 → Console).
+            </p>
+          </div>
+        )}
       </form>
     </Card>
   );
