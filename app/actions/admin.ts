@@ -50,6 +50,32 @@ async function requireAdmin() {
   return { supabase: createSupabaseServerClient(), admin };
 }
 
+/**
+ * Append an entry to the immutable admin audit log. Best-effort: it never
+ * throws, so a logging hiccup can never block or fail the underlying action.
+ */
+async function logAction(
+  supabase: ReturnType<typeof createSupabaseServerClient>,
+  admin: { id: string; email?: string | null },
+  action: string,
+  entity?: string | null,
+  entityId?: string | null,
+  details?: string | null
+): Promise<void> {
+  try {
+    await supabase.from("admin_logs").insert({
+      actor_id: admin.id,
+      actor_email: admin.email ?? null,
+      action,
+      entity: entity ?? null,
+      entity_id: entityId ?? null,
+      details: details ?? null,
+    });
+  } catch {
+    // Audit logging is best-effort and must never interrupt admin work.
+  }
+}
+
 function ok(): Result {
   return { success: true };
 }
@@ -92,6 +118,7 @@ export async function saveProblem(formData: FormData): Promise<Result> {
         .insert({ ...row, created_by: admin.id });
       if (error) throw error;
     }
+    await logAction(supabase, admin, id ? "edited" : "created", "problems", id, row.title);
     revalidatePath("/admin/problems");
     revalidatePath("/problems");
     return ok();
@@ -247,6 +274,7 @@ export async function createGalleryRow(input: {
       uploaded_by: admin.id,
     });
     if (error) throw error;
+    await logAction(supabase, admin, "uploaded", "gallery", null, input.caption);
     revalidatePath("/admin/gallery");
     revalidatePath("/gallery");
     return ok();
@@ -261,7 +289,7 @@ export async function createPotwRow(input: {
   photographer: string | null;
 }): Promise<Result> {
   try {
-    const { supabase } = await requireAdmin();
+    const { supabase, admin } = await requireAdmin();
     if (!input.imageUrl) return { success: false, error: "Image is required." };
     const { error } = await supabase.from("potw").insert({
       image_url: input.imageUrl,
@@ -269,6 +297,7 @@ export async function createPotwRow(input: {
       photographer: input.photographer,
     });
     if (error) throw error;
+    await logAction(supabase, admin, "uploaded", "potw", null, input.title);
     revalidatePath("/admin/potw");
     revalidatePath("/potw");
     return ok();
@@ -284,7 +313,7 @@ export async function createMagazineRow(input: {
   pdfUrl: string | null;
 }): Promise<Result> {
   try {
-    const { supabase } = await requireAdmin();
+    const { supabase, admin } = await requireAdmin();
     const { error } = await supabase.from("magazines").insert({
       title: input.title,
       issue: input.issue,
@@ -292,6 +321,7 @@ export async function createMagazineRow(input: {
       pdf_url: input.pdfUrl,
     });
     if (error) throw error;
+    await logAction(supabase, admin, "uploaded", "magazines", null, input.title);
     revalidatePath("/admin/magazine");
     revalidatePath("/magazine");
     return ok();
@@ -308,7 +338,7 @@ export async function createEventRow(input: {
   posterUrl: string | null;
 }): Promise<Result> {
   try {
-    const { supabase } = await requireAdmin();
+    const { supabase, admin } = await requireAdmin();
     if (!input.title) return { success: false, error: "Title is required." };
     const row: Record<string, unknown> = {
       title: input.title,
@@ -319,6 +349,7 @@ export async function createEventRow(input: {
     if (input.posterUrl) row.poster_url = input.posterUrl;
     const { error } = await supabase.from("club_events").insert(row);
     if (error) throw error;
+    await logAction(supabase, admin, "created", "club_events", null, input.title);
     revalidatePath("/admin/events");
     revalidatePath("/events");
     return ok();
@@ -331,7 +362,7 @@ export async function createEventRow(input: {
 
 export async function saveRecruitment(formData: FormData): Promise<Result> {
   try {
-    const { supabase } = await requireAdmin();
+    const { supabase, admin } = await requireAdmin();
     const id = (formData.get("id") as string) || null;
 
     const row: Record<string, unknown> = {
@@ -362,6 +393,7 @@ export async function saveRecruitment(formData: FormData): Promise<Result> {
       const { error } = await supabase.from("recruitments").insert(row);
       if (error) throw error;
     }
+    await logAction(supabase, admin, id ? "edited" : "created", "recruitments", id, String(row.title));
     revalidatePath("/admin/recruitment");
     revalidatePath("/recruitment");
     revalidatePath("/");
@@ -377,12 +409,19 @@ export async function setRecruitmentOpen(
   isOpen: boolean
 ): Promise<Result> {
   try {
-    const { supabase } = await requireAdmin();
+    const { supabase, admin } = await requireAdmin();
     const { error } = await supabase
       .from("recruitments")
       .update({ is_open: isOpen })
       .eq("id", id);
     if (error) throw error;
+    await logAction(
+      supabase,
+      admin,
+      isOpen ? "opened recruitment" : "closed recruitment",
+      "recruitments",
+      id
+    );
     revalidatePath("/admin/recruitment");
     revalidatePath("/recruitment");
     revalidatePath("/");
@@ -400,12 +439,13 @@ export async function updateGalleryRow(input: {
   imageUrl?: string | null;
 }): Promise<Result> {
   try {
-    const { supabase } = await requireAdmin();
+    const { supabase, admin } = await requireAdmin();
     if (!input.id) return { success: false, error: "Missing id." };
     const row: Record<string, unknown> = { caption: input.caption };
     if (input.imageUrl) row.image_url = input.imageUrl;
     const { error } = await supabase.from("gallery").update(row).eq("id", input.id);
     if (error) throw error;
+    await logAction(supabase, admin, "edited", "gallery", input.id, input.caption);
     revalidatePath("/admin/gallery");
     revalidatePath("/gallery");
     return ok();
@@ -421,7 +461,7 @@ export async function updatePotwRow(input: {
   imageUrl?: string | null;
 }): Promise<Result> {
   try {
-    const { supabase } = await requireAdmin();
+    const { supabase, admin } = await requireAdmin();
     if (!input.id) return { success: false, error: "Missing id." };
     const row: Record<string, unknown> = {
       title: input.title,
@@ -430,6 +470,7 @@ export async function updatePotwRow(input: {
     if (input.imageUrl) row.image_url = input.imageUrl;
     const { error } = await supabase.from("potw").update(row).eq("id", input.id);
     if (error) throw error;
+    await logAction(supabase, admin, "edited", "potw", input.id, input.title);
     revalidatePath("/admin/potw");
     revalidatePath("/potw");
     return ok();
@@ -446,7 +487,7 @@ export async function updateMagazineRow(input: {
   pdfUrl?: string | null;
 }): Promise<Result> {
   try {
-    const { supabase } = await requireAdmin();
+    const { supabase, admin } = await requireAdmin();
     if (!input.id) return { success: false, error: "Missing id." };
     const row: Record<string, unknown> = {
       title: input.title,
@@ -456,6 +497,7 @@ export async function updateMagazineRow(input: {
     if (input.pdfUrl) row.pdf_url = input.pdfUrl;
     const { error } = await supabase.from("magazines").update(row).eq("id", input.id);
     if (error) throw error;
+    await logAction(supabase, admin, "edited", "magazines", input.id, input.title);
     revalidatePath("/admin/magazine");
     revalidatePath("/magazine");
     return ok();
@@ -473,7 +515,7 @@ export async function updateEventRow(input: {
   posterUrl?: string | null;
 }): Promise<Result> {
   try {
-    const { supabase } = await requireAdmin();
+    const { supabase, admin } = await requireAdmin();
     if (!input.id) return { success: false, error: "Missing id." };
     if (!input.title) return { success: false, error: "Title is required." };
     const row: Record<string, unknown> = {
@@ -485,6 +527,7 @@ export async function updateEventRow(input: {
     if (input.posterUrl) row.poster_url = input.posterUrl;
     const { error } = await supabase.from("club_events").update(row).eq("id", input.id);
     if (error) throw error;
+    await logAction(supabase, admin, "edited", "club_events", input.id, input.title);
     revalidatePath("/admin/events");
     revalidatePath("/events");
     return ok();
@@ -507,7 +550,7 @@ type ProjectInput = {
 
 export async function createProjectRow(input: ProjectInput): Promise<Result> {
   try {
-    const { supabase } = await requireAdmin();
+    const { supabase, admin } = await requireAdmin();
     if (!input.title) return { success: false, error: "Title is required." };
     const { error } = await supabase.from("projects").insert({
       title: input.title,
@@ -519,6 +562,7 @@ export async function createProjectRow(input: ProjectInput): Promise<Result> {
       link_url: input.linkUrl ?? null,
     });
     if (error) throw error;
+    await logAction(supabase, admin, "created", "projects", null, input.title);
     revalidatePath("/admin/projects");
     revalidatePath("/projects");
     return ok();
@@ -531,7 +575,7 @@ export async function updateProjectRow(
   input: ProjectInput & { id: string }
 ): Promise<Result> {
   try {
-    const { supabase } = await requireAdmin();
+    const { supabase, admin } = await requireAdmin();
     if (!input.id) return { success: false, error: "Missing id." };
     if (!input.title) return { success: false, error: "Title is required." };
     const row: Record<string, unknown> = {
@@ -546,6 +590,7 @@ export async function updateProjectRow(
     if (input.pdfUrl) row.pdf_url = input.pdfUrl;
     const { error } = await supabase.from("projects").update(row).eq("id", input.id);
     if (error) throw error;
+    await logAction(supabase, admin, "edited", "projects", input.id, input.title);
     revalidatePath("/admin/projects");
     revalidatePath("/projects");
     return ok();
@@ -568,12 +613,13 @@ const DELETABLE = new Set([
 
 export async function deleteRow(table: string, id: string): Promise<Result> {
   try {
-    const { supabase } = await requireAdmin();
+    const { supabase, admin } = await requireAdmin();
     if (!DELETABLE.has(table)) {
       return { success: false, error: "Table not deletable." };
     }
     const { error } = await supabase.from(table).delete().eq("id", id);
     if (error) throw error;
+    await logAction(supabase, admin, "deleted", table, id);
     revalidatePath(`/admin/${table}`);
     return ok();
   } catch (err) {
@@ -589,12 +635,19 @@ export async function moderateSubmission(
   status: "verified" | "rejected" | "pending"
 ): Promise<Result> {
   try {
-    const { supabase } = await requireAdmin();
+    const { supabase, admin } = await requireAdmin();
     if (table !== "donators" && table !== "sponsors") {
       return { success: false, error: "Invalid table." };
     }
     const { error } = await supabase.from(table).update({ status }).eq("id", id);
     if (error) throw error;
+    const verb =
+      status === "verified"
+        ? "approved"
+        : status === "rejected"
+        ? "rejected"
+        : "reset to pending";
+    await logAction(supabase, admin, verb, table, id);
     revalidatePath("/admin/review");
     revalidatePath(`/${table}`);
     return ok();
@@ -616,7 +669,7 @@ export async function issueCertificate(
   certificateUrl: string
 ): Promise<Result> {
   try {
-    const { supabase } = await requireAdmin();
+    const { supabase, admin } = await requireAdmin();
     if (table !== "donators" && table !== "sponsors") {
       return { success: false, error: "Invalid table." };
     }
@@ -632,6 +685,7 @@ export async function issueCertificate(
       })
       .eq("id", id);
     if (error) throw error;
+    await logAction(supabase, admin, "uploaded certificate", table, id);
     revalidatePath("/admin/review");
     revalidatePath("/dashboard/status");
     revalidatePath(`/${table}`);
@@ -647,7 +701,7 @@ export async function revokeCertificate(
   id: string
 ): Promise<Result> {
   try {
-    const { supabase } = await requireAdmin();
+    const { supabase, admin } = await requireAdmin();
     if (table !== "donators" && table !== "sponsors") {
       return { success: false, error: "Invalid table." };
     }
@@ -656,6 +710,7 @@ export async function revokeCertificate(
       .update({ certificate_url: null, certificate_issued: false })
       .eq("id", id);
     if (error) throw error;
+    await logAction(supabase, admin, "revoked certificate", table, id);
     revalidatePath("/admin/review");
     revalidatePath("/dashboard/status");
     return ok();
@@ -675,7 +730,7 @@ export async function updateMemberStatus(
   role: string
 ): Promise<Result> {
   try {
-    const { supabase } = await requireAdmin();
+    const { supabase, admin } = await requireAdmin();
     if (!ALLOWED_PLANS.has(plan) || !ALLOWED_ROLES.has(role)) {
       return { success: false, error: "Invalid plan or role." };
     }
@@ -684,6 +739,7 @@ export async function updateMemberStatus(
       .update({ plan, role })
       .eq("id", id);
     if (error) throw error;
+    await logAction(supabase, admin, "updated member", "profiles", id, `plan=${plan}, role=${role}`);
     revalidatePath("/admin/subscriptions");
     return ok();
   } catch (err) {

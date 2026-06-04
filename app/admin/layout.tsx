@@ -6,6 +6,7 @@ export const dynamic = "force-dynamic";
 
 const sections = [
   { href: "/admin", label: "Overview" },
+  { href: "/admin/logs", label: "Activity Logs" },
   { href: "/admin/review", label: "Donor / Sponsor Review" },
   { href: "/admin/subscriptions", label: "Student Subscriptions" },
   { href: "/admin/recruitment", label: "Recruitment" },
