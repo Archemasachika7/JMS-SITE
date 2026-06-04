@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import MathBackground from "@/components/MathBackground";
 import { siteConfig } from "@/config/siteConfig";
@@ -10,6 +10,15 @@ export const metadata: Metadata = {
   icons: {
     icon: siteConfig.assets.favicon,
   },
+};
+
+// Explicit, notch-aware viewport so the site renders crisply and edge-to-edge
+// on phones, tablets, laptops and desktops alike.
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+  themeColor: "#000000",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

@@ -22,6 +22,11 @@
 
 html {
   scroll-behavior: smooth;
+  /* Stop iOS/Android from auto-inflating text and respect a thin themed bar. */
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 240, 255, 0.25) #000;
 }
 
 body {
@@ -29,6 +34,36 @@ body {
   color: #e2e8f0;
   font-family: "Public Sans", "Inter", system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  /* Decorative blurs / drifting glyphs sit off-canvas; clip the horizontal
+     overflow so phones and small tablets never get a sideways scroll.
+     `clip` (not `hidden`) keeps position: sticky working in the admin area. */
+  overflow-x: clip;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Comfortable, consistent tap targets + clear keyboard focus on every device. */
+a,
+button,
+[role="button"],
+input,
+select,
+textarea {
+  -webkit-tap-highlight-color: transparent;
+}
+
+:focus-visible {
+  outline: 2px solid rgba(0, 240, 255, 0.7);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Media never forces a layout wider than its column. */
+img,
+svg,
+video,
+iframe {
+  max-width: 100%;
 }
 
 /* ── Scrollbar ─────────────────────────────────────────────────────────── */
@@ -138,6 +173,20 @@ body {
 .glow-cyan { animation: glow-pulse-cyan 3s ease-in-out infinite; }
 .glow-rose  { animation: glow-pulse-rose 3s ease-in-out infinite; }
 .float-y    { animation: float-y 4s ease-in-out infinite; }
+
+/* ── Reduced motion ────────────────────────────────────────────────────────
+   Honour the OS "reduce motion" setting for accessibility & low-power devices:
+   calm the looping CSS animations and stop smooth-scroll hijacking. */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
 
 /* ── Neon text helpers ─────────────────────────────────────────────────── */
 .text-neon-cyan {
