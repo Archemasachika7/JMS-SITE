@@ -75,7 +75,7 @@ export default function PdfViewer({
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.95, opacity: 0 }}
             transition={{ duration: 0.25 }}
-            className="flex h-full w-full max-w-5xl flex-col overflow-hidden rounded-xl border border-white/10 bg-[#07091a]"
+            className="flex h-[88vh] max-h-full w-full max-w-5xl flex-col overflow-hidden rounded-xl border border-white/10 bg-[#07091a]"
             onClick={(e) => e.stopPropagation()}
           >
             {(title || subtitle) && (
