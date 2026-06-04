@@ -5,6 +5,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import AuthGuard from "@/components/AuthGuard";
 import FullscreenImageViewer from "@/components/FullscreenImageViewer";
+import PdfViewer from "@/components/PdfViewer";
 import { supabase } from "@/lib/supabaseClient";
 
 interface Magazine {
@@ -20,6 +21,7 @@ export default function MagazinePage() {
   const [magazines, setMagazines] = useState<Magazine[]>([]);
   const [loading, setLoading] = useState(true);
   const [fullscreenMagazine, setFullscreenMagazine] = useState<Magazine | null>(null);
+  const [pdfMagazine, setPdfMagazine] = useState<Magazine | null>(null);
 
   useEffect(() => {
     async function fetchMagazines() {
@@ -180,17 +182,29 @@ export default function MagazinePage() {
                     })}
                   </p>
                   {item.pdf_url && item.pdf_url !== "#" ? (
-                    <motion.a
-                      href={item.pdf_url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-block mt-3 px-5 py-2 rounded-xl bg-gradient-to-r from-[#e11d48] to-[#be123c] text-white text-xs font-medium shadow-[0_0_20px_rgba(225,29,72,0.3)] hover:shadow-[0_0_30px_rgba(225,29,72,0.5)] transition-all"
-                      style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
-                      whileHover={{ scale: 1.04 }}
-                      whileTap={{ scale: 0.97 }}
-                    >
-                      ↓ Download PDF
-                    </motion.a>
+                    <div className="mt-3 flex flex-wrap gap-2">
+                      <motion.button
+                        type="button"
+                        onClick={() => setPdfMagazine(item)}
+                        className="px-5 py-2 rounded-xl border border-[#e11d48]/40 text-[#fb7185] text-xs font-medium hover:bg-[#e11d48]/10 transition-all"
+                        style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
+                        whileHover={{ scale: 1.04 }}
+                        whileTap={{ scale: 0.97 }}
+                      >
+                        📖 Read
+                      </motion.button>
+                      <motion.a
+                        href={item.pdf_url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-block px-5 py-2 rounded-xl bg-gradient-to-r from-[#e11d48] to-[#be123c] text-white text-xs font-medium shadow-[0_0_20px_rgba(225,29,72,0.3)] hover:shadow-[0_0_30px_rgba(225,29,72,0.5)] transition-all"
+                        style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
+                        whileHover={{ scale: 1.04 }}
+                        whileTap={{ scale: 0.97 }}
+                      >
+                        ↓ Download PDF
+                      </motion.a>
+                    </div>
                   ) : (
                     <motion.button
                       className="mt-3 px-5 py-2 rounded-xl bg-gradient-to-r from-[#e11d48] to-[#be123c] text-white text-xs font-medium shadow-[0_0_20px_rgba(225,29,72,0.3)] hover:shadow-[0_0_30px_rgba(225,29,72,0.5)] transition-all"
@@ -216,6 +230,13 @@ export default function MagazinePage() {
         subCaption={fullscreenMagazine?.issue}
         isOpen={!!fullscreenMagazine}
         onClose={() => setFullscreenMagazine(null)}
+      />
+      <PdfViewer
+        src={pdfMagazine?.pdf_url ?? ""}
+        title={pdfMagazine?.title}
+        subtitle={pdfMagazine?.issue}
+        isOpen={!!pdfMagazine}
+        onClose={() => setPdfMagazine(null)}
       />
     </main>
     </AuthGuard>

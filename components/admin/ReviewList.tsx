@@ -1,8 +1,13 @@
 "use client";
 
 import { useState } from "react";
-import { Card, ActionButton } from "@/components/admin/AdminUI";
-import { moderateSubmission } from "@/app/actions/admin";
+import { Card, ActionButton, SubmitButton } from "@/components/admin/AdminUI";
+import {
+  moderateSubmission,
+  issueCertificate,
+  revokeCertificate,
+} from "@/app/actions/admin";
+import { uploadToBucket } from "@/lib/clientUpload";
 
 export type ReviewRow = {
   id: string;
@@ -13,6 +18,9 @@ export type ReviewRow = {
   transaction_ref: string;
   created_at: string;
   proofUrl: string | null;
+  certificate_issued?: boolean;
+  certificate_url?: string | null;
+  access_token?: string;
   // donor
   full_name?: string;
   is_anonymous?: boolean;
@@ -32,6 +40,107 @@ function Badge({ status }: { status: string }) {
     <span className={`rounded-full border px-2.5 py-0.5 text-[11px] font-medium ${map[status] ?? map.pending}`}>
       {status}
     </span>
+  );
+}
+
+/** Upload + attach (or revoke) a certificate PDF for one submission. */
+function CertificateBlock({
+  row,
+  table,
+}: {
+  row: ReviewRow;
+  table: "donators" | "sponsors";
+}) {
+  const [pending, setPending] = useState(false);
+  const [msg, setMsg] = useState<{ ok: boolean; text: string } | null>(null);
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const form = e.currentTarget;
+    const fd = new FormData(form);
+    const file = fd.get("certificate") as File | null;
+    if (!file || file.size === 0) {
+      setMsg({ ok: false, text: "Choose a PDF first." });
+      return;
+    }
+    if (file.type !== "application/pdf") {
+      setMsg({ ok: false, text: "Certificate must be a PDF." });
+      return;
+    }
+    setPending(true);
+    setMsg(null);
+    try {
+      const url = await uploadToBucket("certificates", table, file);
+      const res = await issueCertificate(table, row.id, url);
+      if (!res.success) throw new Error(res.error);
+      setMsg({ ok: true, text: "Certificate issued." });
+      form.reset();
+    } catch (err) {
+      setMsg({
+        ok: false,
+        text: err instanceof Error ? err.message : "Upload failed.",
+      });
+    } finally {
+      setPending(false);
+    }
+  }
+
+  return (
+    <div className="space-y-2 border-t border-white/5 pt-3">
+      <div className="flex items-center justify-between gap-2">
+        <span className="text-xs font-semibold uppercase tracking-wide text-gray-400">
+          Certificate
+        </span>
+        {row.certificate_issued && row.certificate_url ? (
+          <span className="text-[11px] text-emerald-300">Issued ✓</span>
+        ) : (
+          <span className="text-[11px] text-gray-500">Not issued</span>
+        )}
+      </div>
+
+      {row.certificate_issued && row.certificate_url && (
+        <div className="flex flex-wrap items-center gap-2">
+          <a
+            href={row.certificate_url}
+            target="_blank"
+            rel="noreferrer"
+            className="rounded-lg border border-white/15 px-3 py-1.5 text-xs text-[#f43f5e] hover:bg-white/5"
+          >
+            View certificate ↗
+          </a>
+          <ActionButton
+            label="Revoke"
+            variant="danger"
+            confirm="Remove this certificate?"
+            onAction={() => revokeCertificate(table, row.id)}
+          />
+        </div>
+      )}
+
+      <form onSubmit={handleSubmit} className="flex flex-wrap items-center gap-2">
+        <input
+          type="file"
+          name="certificate"
+          accept="application/pdf"
+          className="text-xs text-gray-300 file:mr-2 file:rounded-md file:border-0 file:bg-white/10 file:px-2 file:py-1 file:text-xs file:text-white"
+        />
+        <SubmitButton pending={pending}>
+          {row.certificate_issued ? "Replace PDF" : "Upload PDF"}
+        </SubmitButton>
+        {msg && (
+          <span className={`text-xs ${msg.ok ? "text-emerald-400" : "text-red-400"}`}>
+            {msg.text}
+          </span>
+        )}
+      </form>
+
+      {row.access_token && (
+        <p className="text-[11px] text-gray-500">
+          Tracking token:{" "}
+          <span className="font-mono text-gray-300">{row.access_token}</span>
+        </p>
+      )}
+    </div>
   );
 }
 
@@ -110,6 +219,8 @@ function Row({ row, table }: { row: ReviewRow; table: "donators" | "sponsors" })
           />
         )}
       </div>
+
+      {row.status === "verified" && <CertificateBlock row={row} table={table} />}
     </Card>
   );
 }

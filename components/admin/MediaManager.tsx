@@ -12,6 +12,9 @@ import {
   createGalleryRow,
   createPotwRow,
   createMagazineRow,
+  updateGalleryRow,
+  updatePotwRow,
+  updateMagazineRow,
   deleteRow,
 } from "@/app/actions/admin";
 import { uploadToBucket } from "@/lib/clientUpload";
@@ -182,6 +185,127 @@ function CreateForm({ kind }: { kind: Kind }) {
   );
 }
 
+/** Inline edit form for an existing media row. */
+function EditForm({ kind, row }: { kind: Kind; row: MediaRow }) {
+  const [pending, setPending] = useState(false);
+  const [msg, setMsg] = useState<{ ok: boolean; text: string } | null>(null);
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const fd = new FormData(e.currentTarget);
+    setPending(true);
+    setMsg(null);
+    try {
+      if (kind === "gallery") {
+        const file = fd.get("image") as File | null;
+        const imageUrl =
+          file && file.size > 0
+            ? await uploadToBucket("gallery", "gallery", file)
+            : undefined;
+        const res = await updateGalleryRow({
+          id: row.id,
+          caption: (fd.get("caption") as string) || null,
+          imageUrl,
+        });
+        if (!res.success) throw new Error(res.error);
+      } else if (kind === "potw") {
+        const file = fd.get("image") as File | null;
+        const imageUrl =
+          file && file.size > 0
+            ? await uploadToBucket("potw", "potw", file)
+            : undefined;
+        const res = await updatePotwRow({
+          id: row.id,
+          title: (fd.get("title") as string) || null,
+          photographer: (fd.get("photographer") as string) || null,
+          imageUrl,
+        });
+        if (!res.success) throw new Error(res.error);
+      } else {
+        const cover = fd.get("cover") as File | null;
+        const pdf = fd.get("pdf") as File | null;
+        const coverImage =
+          cover && cover.size > 0
+            ? await uploadToBucket("magazines", "covers", cover)
+            : undefined;
+        const pdfUrl =
+          pdf && pdf.size > 0
+            ? await uploadToBucket("magazines", "pdfs", pdf)
+            : undefined;
+        const res = await updateMagazineRow({
+          id: row.id,
+          title: (fd.get("title") as string)?.trim() || null,
+          issue: (fd.get("issue") as string) || null,
+          coverImage,
+          pdfUrl,
+        });
+        if (!res.success) throw new Error(res.error);
+      }
+      setMsg({ ok: true, text: "Saved." });
+    } catch (err) {
+      setMsg({
+        ok: false,
+        text: err instanceof Error ? err.message : "Update failed.",
+      });
+    } finally {
+      setPending(false);
+    }
+  }
+
+  return (
+    <form onSubmit={handleSubmit} className="mt-3 space-y-3 border-t border-white/5 pt-3">
+      {kind === "gallery" && (
+        <>
+          <Field label="Caption">
+            <input name="caption" defaultValue={row.caption ?? ""} className={inputCls} />
+          </Field>
+          <Field label="Replace image (optional)">
+            <input type="file" name="image" accept="image/*" className={inputCls} />
+          </Field>
+        </>
+      )}
+      {kind === "potw" && (
+        <>
+          <Field label="Title">
+            <input name="title" defaultValue={row.title ?? ""} className={inputCls} />
+          </Field>
+          <Field label="Credit">
+            <input name="photographer" defaultValue={row.photographer ?? ""} className={inputCls} />
+          </Field>
+          <Field label="Replace image (optional)">
+            <input type="file" name="image" accept="image/*" className={inputCls} />
+          </Field>
+        </>
+      )}
+      {kind === "magazines" && (
+        <>
+          <Field label="Title">
+            <input name="title" defaultValue={row.title ?? ""} className={inputCls} />
+          </Field>
+          <Field label="Issue label">
+            <input name="issue" defaultValue={row.issue ?? ""} className={inputCls} />
+          </Field>
+          <Field label="Replace cover (optional)">
+            <input type="file" name="cover" accept="image/*" className={inputCls} />
+          </Field>
+          <Field label="Replace PDF (optional)">
+            <input type="file" name="pdf" accept="application/pdf" className={inputCls} />
+          </Field>
+        </>
+      )}
+      <div className="flex items-center gap-3">
+        <SubmitButton pending={pending}>Save changes</SubmitButton>
+        {pending && <span className="text-xs text-gray-400">Uploading…</span>}
+        {msg && (
+          <span className={`text-sm ${msg.ok ? "text-emerald-400" : "text-red-400"}`}>
+            {msg.text}
+          </span>
+        )}
+      </div>
+    </form>
+  );
+}
+
 export default function MediaManager({
   kind,
   rows,
@@ -231,6 +355,12 @@ export default function MediaManager({
                     onAction={() => deleteRow(kind, r.id)}
                   />
                 </div>
+                <details className="group mt-2">
+                  <summary className="cursor-pointer text-[11px] text-[#f43f5e] hover:underline">
+                    Edit
+                  </summary>
+                  <EditForm kind={kind} row={r} />
+                </details>
               </Card>
             );
           })}

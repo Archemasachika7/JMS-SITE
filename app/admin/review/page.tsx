@@ -25,13 +25,13 @@ export default async function ReviewPage() {
     supabase
       .from("donators")
       .select(
-        "id, full_name, is_anonymous, email, phone, amount, transaction_ref, payment_proof_url, status, created_at"
+        "id, full_name, is_anonymous, email, phone, amount, transaction_ref, payment_proof_url, status, certificate_issued, certificate_url, access_token, created_at"
       )
       .order("created_at", { ascending: false }),
     supabase
       .from("sponsors")
       .select(
-        "id, organization_name, contact_name, email, phone, amount, plan_type, transaction_ref, payment_proof_url, status, created_at"
+        "id, organization_name, contact_name, email, phone, amount, plan_type, transaction_ref, payment_proof_url, status, certificate_issued, certificate_url, access_token, created_at"
       )
       .order("created_at", { ascending: false }),
   ]);

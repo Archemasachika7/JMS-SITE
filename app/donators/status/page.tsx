@@ -19,7 +19,7 @@ export default async function DonationStatusPage() {
     supabase
       .from("donators")
       .select(
-        "id, full_name, email, amount, transaction_ref, status, certificate_issued, created_at"
+        "id, full_name, email, amount, transaction_ref, status, certificate_issued, certificate_url, access_token, created_at"
       )
       .eq("user_id", user.id)
       .order("created_at", { ascending: false }),
@@ -27,7 +27,7 @@ export default async function DonationStatusPage() {
       ? supabase
           .from("donators")
           .select(
-            "id, full_name, email, amount, transaction_ref, status, certificate_issued, created_at"
+            "id, full_name, email, amount, transaction_ref, status, certificate_issued, certificate_url, access_token, created_at"
           )
           .is("user_id", null)
           .eq("email", user.email)

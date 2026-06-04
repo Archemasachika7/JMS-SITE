@@ -392,6 +392,168 @@ export async function setRecruitmentOpen(
   }
 }
 
+// ── MEDIA / EVENT UPDATES (edit existing rows) ───────────────────────────────
+
+export async function updateGalleryRow(input: {
+  id: string;
+  caption: string | null;
+  imageUrl?: string | null;
+}): Promise<Result> {
+  try {
+    const { supabase } = await requireAdmin();
+    if (!input.id) return { success: false, error: "Missing id." };
+    const row: Record<string, unknown> = { caption: input.caption };
+    if (input.imageUrl) row.image_url = input.imageUrl;
+    const { error } = await supabase.from("gallery").update(row).eq("id", input.id);
+    if (error) throw error;
+    revalidatePath("/admin/gallery");
+    revalidatePath("/gallery");
+    return ok();
+  } catch (err) {
+    return fail(err);
+  }
+}
+
+export async function updatePotwRow(input: {
+  id: string;
+  title: string | null;
+  photographer: string | null;
+  imageUrl?: string | null;
+}): Promise<Result> {
+  try {
+    const { supabase } = await requireAdmin();
+    if (!input.id) return { success: false, error: "Missing id." };
+    const row: Record<string, unknown> = {
+      title: input.title,
+      photographer: input.photographer,
+    };
+    if (input.imageUrl) row.image_url = input.imageUrl;
+    const { error } = await supabase.from("potw").update(row).eq("id", input.id);
+    if (error) throw error;
+    revalidatePath("/admin/potw");
+    revalidatePath("/potw");
+    return ok();
+  } catch (err) {
+    return fail(err);
+  }
+}
+
+export async function updateMagazineRow(input: {
+  id: string;
+  title: string | null;
+  issue: string | null;
+  coverImage?: string | null;
+  pdfUrl?: string | null;
+}): Promise<Result> {
+  try {
+    const { supabase } = await requireAdmin();
+    if (!input.id) return { success: false, error: "Missing id." };
+    const row: Record<string, unknown> = {
+      title: input.title,
+      issue: input.issue,
+    };
+    if (input.coverImage) row.cover_image = input.coverImage;
+    if (input.pdfUrl) row.pdf_url = input.pdfUrl;
+    const { error } = await supabase.from("magazines").update(row).eq("id", input.id);
+    if (error) throw error;
+    revalidatePath("/admin/magazine");
+    revalidatePath("/magazine");
+    return ok();
+  } catch (err) {
+    return fail(err);
+  }
+}
+
+export async function updateEventRow(input: {
+  id: string;
+  title: string;
+  description: string | null;
+  location: string | null;
+  eventDate: string | null;
+  posterUrl?: string | null;
+}): Promise<Result> {
+  try {
+    const { supabase } = await requireAdmin();
+    if (!input.id) return { success: false, error: "Missing id." };
+    if (!input.title) return { success: false, error: "Title is required." };
+    const row: Record<string, unknown> = {
+      title: input.title,
+      description: input.description,
+      location: input.location,
+      event_date: input.eventDate || null,
+    };
+    if (input.posterUrl) row.poster_url = input.posterUrl;
+    const { error } = await supabase.from("club_events").update(row).eq("id", input.id);
+    if (error) throw error;
+    revalidatePath("/admin/events");
+    revalidatePath("/events");
+    return ok();
+  } catch (err) {
+    return fail(err);
+  }
+}
+
+// ── PROJECTS ──────────────────────────────────────────────────────────────────
+
+type ProjectInput = {
+  title: string;
+  description: string | null;
+  author: string | null;
+  thumbnailUrl?: string | null;
+  pdfUrl?: string | null;
+  videoUrl?: string | null;
+  linkUrl?: string | null;
+};
+
+export async function createProjectRow(input: ProjectInput): Promise<Result> {
+  try {
+    const { supabase } = await requireAdmin();
+    if (!input.title) return { success: false, error: "Title is required." };
+    const { error } = await supabase.from("projects").insert({
+      title: input.title,
+      description: input.description,
+      author: input.author,
+      thumbnail_url: input.thumbnailUrl ?? null,
+      pdf_url: input.pdfUrl ?? null,
+      video_url: input.videoUrl ?? null,
+      link_url: input.linkUrl ?? null,
+    });
+    if (error) throw error;
+    revalidatePath("/admin/projects");
+    revalidatePath("/projects");
+    return ok();
+  } catch (err) {
+    return fail(err);
+  }
+}
+
+export async function updateProjectRow(
+  input: ProjectInput & { id: string }
+): Promise<Result> {
+  try {
+    const { supabase } = await requireAdmin();
+    if (!input.id) return { success: false, error: "Missing id." };
+    if (!input.title) return { success: false, error: "Title is required." };
+    const row: Record<string, unknown> = {
+      title: input.title,
+      description: input.description,
+      author: input.author,
+      video_url: input.videoUrl ?? null,
+      link_url: input.linkUrl ?? null,
+    };
+    // Only overwrite the uploaded files when a new one was provided.
+    if (input.thumbnailUrl) row.thumbnail_url = input.thumbnailUrl;
+    if (input.pdfUrl) row.pdf_url = input.pdfUrl;
+    const { error } = await supabase.from("projects").update(row).eq("id", input.id);
+    if (error) throw error;
+    revalidatePath("/admin/projects");
+    revalidatePath("/projects");
+    return ok();
+  } catch (err) {
+    return fail(err);
+  }
+}
+
 // ── GENERIC DELETE ──────────────────────────────────────────────────────────
 
 const DELETABLE = new Set([
@@ -401,6 +563,7 @@ const DELETABLE = new Set([
   "potw",
   "magazines",
   "recruitments",
+  "projects",
 ]);
 
 export async function deleteRow(table: string, id: string): Promise<Result> {
@@ -434,6 +597,67 @@ export async function moderateSubmission(
     if (error) throw error;
     revalidatePath("/admin/review");
     revalidatePath(`/${table}`);
+    return ok();
+  } catch (err) {
+    return fail(err);
+  }
+}
+
+// ── CERTIFICATES (donators / sponsors) ───────────────────────────────────────
+
+/**
+ * Attach an admin-uploaded certificate PDF to a verified submission. The PDF is
+ * uploaded client-side to the public `certificates` bucket; we just store its
+ * URL, flip `certificate_issued`, and make sure the row is marked verified.
+ */
+export async function issueCertificate(
+  table: "donators" | "sponsors",
+  id: string,
+  certificateUrl: string
+): Promise<Result> {
+  try {
+    const { supabase } = await requireAdmin();
+    if (table !== "donators" && table !== "sponsors") {
+      return { success: false, error: "Invalid table." };
+    }
+    if (!certificateUrl) {
+      return { success: false, error: "A certificate PDF is required." };
+    }
+    const { error } = await supabase
+      .from(table)
+      .update({
+        certificate_url: certificateUrl,
+        certificate_issued: true,
+        status: "verified",
+      })
+      .eq("id", id);
+    if (error) throw error;
+    revalidatePath("/admin/review");
+    revalidatePath("/dashboard/status");
+    revalidatePath(`/${table}`);
+    return ok();
+  } catch (err) {
+    return fail(err);
+  }
+}
+
+/** Remove a previously issued certificate (keeps the verified status). */
+export async function revokeCertificate(
+  table: "donators" | "sponsors",
+  id: string
+): Promise<Result> {
+  try {
+    const { supabase } = await requireAdmin();
+    if (table !== "donators" && table !== "sponsors") {
+      return { success: false, error: "Invalid table." };
+    }
+    const { error } = await supabase
+      .from(table)
+      .update({ certificate_url: null, certificate_issued: false })
+      .eq("id", id);
+    if (error) throw error;
+    revalidatePath("/admin/review");
+    revalidatePath("/dashboard/status");
     return ok();
   } catch (err) {
     return fail(err);
