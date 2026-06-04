@@ -13,6 +13,8 @@ interface Project {
   description: string | null;
   thumbnail_url: string | null;
   pdf_url: string | null;
+  video_url: string | null;
+  link_url: string | null;
   author: string | null;
   created_at: string;
 }
@@ -167,20 +169,44 @@ export default function ProjectsPage() {
                         })}
                       </span>
                     </div>
-                    {project.pdf_url && (
-                      <a
-                        href={project.pdf_url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-full border border-[#e11d48]/40 text-[#fb7185] bg-[#e11d48]/10 hover:bg-[#e11d48]/20 hover:border-[#e11d48] transition-all"
-                        style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
-                      >
-                        <svg viewBox="0 0 24 24" className="w-3.5 h-3.5 fill-current">
-                          <path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm-1 2l5 5h-5V4zm-3 12v-2h4v2h-4zm6-4H8v-2h8v2z" />
-                        </svg>
-                        View PDF
-                      </a>
-                    )}
+                    <div className="flex flex-wrap items-center gap-2">
+                      {project.video_url && (
+                        <a
+                          href={project.video_url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-full border border-white/15 text-gray-300 hover:bg-white/5 transition-all"
+                          style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
+                        >
+                          ▶ Video
+                        </a>
+                      )}
+                      {project.link_url && (
+                        <a
+                          href={project.link_url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-full border border-white/15 text-gray-300 hover:bg-white/5 transition-all"
+                          style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
+                        >
+                          🔗 Link
+                        </a>
+                      )}
+                      {project.pdf_url && (
+                        <a
+                          href={project.pdf_url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-full border border-[#e11d48]/40 text-[#fb7185] bg-[#e11d48]/10 hover:bg-[#e11d48]/20 hover:border-[#e11d48] transition-all"
+                          style={{ fontFamily: "'Public Sans', 'Inter', system-ui, sans-serif" }}
+                        >
+                          <svg viewBox="0 0 24 24" className="w-3.5 h-3.5 fill-current">
+                            <path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm-1 2l5 5h-5V4zm-3 12v-2h4v2h-4zm6-4H8v-2h8v2z" />
+                          </svg>
+                          View PDF
+                        </a>
+                      )}
+                    </div>
                   </div>
                 </div>
               </motion.div>

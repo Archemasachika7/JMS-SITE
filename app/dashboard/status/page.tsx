@@ -11,6 +11,8 @@ export interface DonationRecord {
   transaction_ref: string;
   status: string;
   certificate_issued: boolean;
+  certificate_url: string | null;
+  access_token: string | null;
   created_at: string;
 }
 
@@ -24,6 +26,8 @@ export interface SponsorRecord {
   transaction_ref: string;
   status: string;
   certificate_issued: boolean;
+  certificate_url: string | null;
+  access_token: string | null;
   created_at: string;
 }
 
@@ -43,14 +47,14 @@ export default async function StatusPage() {
       supabase
         .from("donators")
         .select(
-          "id, full_name, email, amount, transaction_ref, status, certificate_issued, created_at"
+          "id, full_name, email, amount, transaction_ref, status, certificate_issued, certificate_url, access_token, created_at"
         )
         .eq("user_id", user.id)
         .order("created_at", { ascending: false }),
       supabase
         .from("sponsors")
         .select(
-          "id, organization_name, contact_name, email, plan_type, amount, transaction_ref, status, certificate_issued, created_at"
+          "id, organization_name, contact_name, email, plan_type, amount, transaction_ref, status, certificate_issued, certificate_url, access_token, created_at"
         )
         .eq("user_id", user.id)
         .order("created_at", { ascending: false }),
@@ -58,7 +62,7 @@ export default async function StatusPage() {
         ? supabase
             .from("donators")
             .select(
-              "id, full_name, email, amount, transaction_ref, status, certificate_issued, created_at"
+              "id, full_name, email, amount, transaction_ref, status, certificate_issued, certificate_url, access_token, created_at"
             )
             .is("user_id", null)
             .eq("email", user.email)
@@ -68,7 +72,7 @@ export default async function StatusPage() {
         ? supabase
             .from("sponsors")
             .select(
-              "id, organization_name, contact_name, email, plan_type, amount, transaction_ref, status, certificate_issued, created_at"
+              "id, organization_name, contact_name, email, plan_type, amount, transaction_ref, status, certificate_issued, certificate_url, access_token, created_at"
             )
             .is("user_id", null)
             .eq("email", user.email)

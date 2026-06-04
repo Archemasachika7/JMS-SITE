@@ -81,30 +81,72 @@ export default function ProblemsManager({ problems }: { problems: ProblemRow[] }
           <p className="text-sm text-gray-500">No problems yet.</p>
         )}
         {problems.map((p) => (
-          <Card key={p.id} className="flex items-start justify-between gap-3">
-            <div className="min-w-0">
-              <div className="flex flex-wrap items-center gap-2">
-                <p className="font-semibold text-white">{p.title}</p>
-                {!p.is_published && (
-                  <span className="rounded-full border border-amber-500/30 bg-amber-500/10 px-2 py-0.5 text-[10px] text-amber-300">
-                    draft
-                  </span>
+          <Card key={p.id} className="space-y-3">
+            <div className="flex items-start justify-between gap-3">
+              <div className="min-w-0">
+                <div className="flex flex-wrap items-center gap-2">
+                  <p className="font-semibold text-white">{p.title}</p>
+                  {!p.is_published && (
+                    <span className="rounded-full border border-amber-500/30 bg-amber-500/10 px-2 py-0.5 text-[10px] text-amber-300">
+                      draft
+                    </span>
+                  )}
+                </div>
+                <p className="mt-0.5 text-xs text-gray-500">
+                  {p.difficulty} {p.topic ? `· ${p.topic}` : ""}{" "}
+                  {p.problem_date ? `· ${p.problem_date}` : ""}
+                </p>
+                {p.statement && (
+                  <p className="mt-1 line-clamp-2 text-xs text-gray-400">{p.statement}</p>
                 )}
               </div>
-              <p className="mt-0.5 text-xs text-gray-500">
-                {p.difficulty} {p.topic ? `· ${p.topic}` : ""}{" "}
-                {p.problem_date ? `· ${p.problem_date}` : ""}
-              </p>
-              {p.statement && (
-                <p className="mt-1 line-clamp-2 text-xs text-gray-400">{p.statement}</p>
-              )}
+              <ActionButton
+                label="Delete"
+                variant="danger"
+                confirm={`Delete "${p.title}"?`}
+                onAction={() => deleteRow("problems", p.id)}
+              />
             </div>
-            <ActionButton
-              label="Delete"
-              variant="danger"
-              confirm={`Delete "${p.title}"?`}
-              onAction={() => deleteRow("problems", p.id)}
-            />
+            <details className="group">
+              <summary className="cursor-pointer text-xs text-[#f43f5e] hover:underline">
+                Edit
+              </summary>
+              <div className="mt-3 border-t border-white/5 pt-3">
+                <ActionForm action={saveProblem} submitLabel="Save changes" resetOnSuccess={false}>
+                  <input type="hidden" name="id" value={p.id} />
+                  <Field label="Title">
+                    <input name="title" required className={inputCls} defaultValue={p.title} />
+                  </Field>
+                  <Field label="Statement (LaTeX supported)">
+                    <textarea name="statement" rows={4} className={inputCls} defaultValue={p.statement ?? ""} />
+                  </Field>
+                  <div className="grid grid-cols-2 gap-3">
+                    <Field label="Difficulty">
+                      <select name="difficulty" defaultValue={p.difficulty ?? "medium"} className={inputCls}>
+                        {DIFFICULTIES.map((d) => (
+                          <option key={d} value={d}>{d}</option>
+                        ))}
+                      </select>
+                    </Field>
+                    <Field label="Topic">
+                      <input name="topic" className={inputCls} defaultValue={p.topic ?? ""} />
+                    </Field>
+                  </div>
+                  <div className="grid grid-cols-2 gap-3">
+                    <Field label="Source">
+                      <input name="source" className={inputCls} defaultValue={p.source ?? ""} />
+                    </Field>
+                    <Field label="Date">
+                      <input type="date" name="problem_date" className={inputCls} defaultValue={p.problem_date ?? ""} />
+                    </Field>
+                  </div>
+                  <label className="flex items-center gap-2 text-sm text-gray-300">
+                    <input type="checkbox" name="is_published" defaultChecked={!!p.is_published} className="accent-[#f43f5e]" />
+                    Published (visible on the public site)
+                  </label>
+                </ActionForm>
+              </div>
+            </details>
           </Card>
         ))}
       </div>

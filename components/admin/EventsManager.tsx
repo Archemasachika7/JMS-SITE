@@ -8,8 +8,16 @@ import {
   inputCls,
   SubmitButton,
 } from "@/components/admin/AdminUI";
-import { createEventRow, deleteRow } from "@/app/actions/admin";
+import { createEventRow, updateEventRow, deleteRow } from "@/app/actions/admin";
 import { uploadToBucket } from "@/lib/clientUpload";
+
+/** Format an ISO timestamp into the value a datetime-local input expects. */
+function toLocalInput(iso: string | null): string {
+  if (!iso) return "";
+  const d = new Date(iso);
+  const off = d.getTimezoneOffset();
+  return new Date(d.getTime() - off * 60000).toISOString().slice(0, 16);
+}
 
 export type EventRow = {
   id: string;
@@ -93,6 +101,73 @@ function CreateEventForm() {
   );
 }
 
+function EditEventForm({ event }: { event: EventRow }) {
+  const [pending, setPending] = useState(false);
+  const [msg, setMsg] = useState<{ ok: boolean; text: string } | null>(null);
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const fd = new FormData(e.currentTarget);
+    setPending(true);
+    setMsg(null);
+    try {
+      const poster = fd.get("poster") as File | null;
+      const posterUrl =
+        poster && poster.size > 0
+          ? await uploadToBucket("events", "events", poster)
+          : undefined;
+      const res = await updateEventRow({
+        id: event.id,
+        title: (fd.get("title") as string)?.trim(),
+        description: (fd.get("description") as string) || null,
+        location: (fd.get("location") as string) || null,
+        eventDate: (fd.get("event_date") as string) || null,
+        posterUrl,
+      });
+      if (!res.success) throw new Error(res.error);
+      setMsg({ ok: true, text: "Saved." });
+    } catch (err) {
+      setMsg({
+        ok: false,
+        text: err instanceof Error ? err.message : "Update failed.",
+      });
+    } finally {
+      setPending(false);
+    }
+  }
+
+  return (
+    <form onSubmit={handleSubmit} className="mt-3 space-y-3 border-t border-white/5 pt-3">
+      <Field label="Title">
+        <input name="title" required className={inputCls} defaultValue={event.title} />
+      </Field>
+      <Field label="Description">
+        <textarea name="description" rows={3} className={inputCls} defaultValue={event.description ?? ""} />
+      </Field>
+      <div className="grid grid-cols-2 gap-3">
+        <Field label="Location">
+          <input name="location" className={inputCls} defaultValue={event.location ?? ""} />
+        </Field>
+        <Field label="Date & time">
+          <input type="datetime-local" name="event_date" className={inputCls} defaultValue={toLocalInput(event.event_date)} />
+        </Field>
+      </div>
+      <Field label="Replace poster (optional)">
+        <input type="file" name="poster" accept="image/*" className={inputCls} />
+      </Field>
+      <div className="flex items-center gap-3">
+        <SubmitButton pending={pending}>Save changes</SubmitButton>
+        {pending && <span className="text-xs text-gray-400">Uploading…</span>}
+        {msg && (
+          <span className={`text-sm ${msg.ok ? "text-emerald-400" : "text-red-400"}`}>
+            {msg.text}
+          </span>
+        )}
+      </div>
+    </form>
+  );
+}
+
 export default function EventsManager({ events }: { events: EventRow[] }) {
   return (
     <div className="grid gap-6 lg:grid-cols-[420px_1fr]">
@@ -104,29 +179,37 @@ export default function EventsManager({ events }: { events: EventRow[] }) {
         </h2>
         {events.length === 0 && <p className="text-sm text-gray-500">No events yet.</p>}
         {events.map((e) => (
-          <Card key={e.id} className="flex items-start justify-between gap-3">
-            <div className="flex min-w-0 gap-3">
-              {e.poster_url && (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img src={e.poster_url} alt="" className="h-14 w-14 shrink-0 rounded-lg object-cover" />
-              )}
-              <div className="min-w-0">
-                <p className="font-semibold text-white">{e.title}</p>
-                <p className="text-xs text-gray-500">
-                  {e.location || "—"}
-                  {e.event_date ? ` · ${new Date(e.event_date).toLocaleString()}` : ""}
-                </p>
-                {e.description && (
-                  <p className="mt-1 line-clamp-2 text-xs text-gray-400">{e.description}</p>
+          <Card key={e.id} className="space-y-3">
+            <div className="flex items-start justify-between gap-3">
+              <div className="flex min-w-0 gap-3">
+                {e.poster_url && (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src={e.poster_url} alt="" className="h-14 w-14 shrink-0 rounded-lg object-cover" />
                 )}
+                <div className="min-w-0">
+                  <p className="font-semibold text-white">{e.title}</p>
+                  <p className="text-xs text-gray-500">
+                    {e.location || "—"}
+                    {e.event_date ? ` · ${new Date(e.event_date).toLocaleString()}` : ""}
+                  </p>
+                  {e.description && (
+                    <p className="mt-1 line-clamp-2 text-xs text-gray-400">{e.description}</p>
+                  )}
+                </div>
               </div>
+              <ActionButton
+                label="Delete"
+                variant="danger"
+                confirm={`Delete "${e.title}"?`}
+                onAction={() => deleteRow("club_events", e.id)}
+              />
             </div>
-            <ActionButton
-              label="Delete"
-              variant="danger"
-              confirm={`Delete "${e.title}"?`}
-              onAction={() => deleteRow("club_events", e.id)}
-            />
+            <details className="group">
+              <summary className="cursor-pointer text-xs text-[#f43f5e] hover:underline">
+                Edit
+              </summary>
+              <EditEventForm event={e} />
+            </details>
           </Card>
         ))}
       </div>

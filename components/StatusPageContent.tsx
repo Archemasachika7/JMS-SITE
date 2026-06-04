@@ -72,6 +72,8 @@ function RecordCard({
   transactionRef,
   status,
   certificateIssued,
+  certificateUrl,
+  accessToken,
   createdAt,
   index,
 }: {
@@ -82,6 +84,8 @@ function RecordCard({
   transactionRef: string;
   status: string;
   certificateIssued: boolean;
+  certificateUrl: string | null;
+  accessToken: string | null;
   createdAt: string;
   index: number;
 }) {
@@ -166,7 +170,18 @@ function RecordCard({
         <RejectedMessage transactionRef={transactionRef} />
       )}
       {status === "verified" && (
-        <VerifiedMessage certificateIssued={certificateIssued} />
+        <VerifiedMessage
+          certificateIssued={certificateIssued}
+          certificateUrl={certificateUrl}
+        />
+      )}
+
+      {/* tracking token — lets the user check status without logging in */}
+      {accessToken && (
+        <p className="mt-3 text-center text-[11px] text-slate-500">
+          Tracking token:{" "}
+          <span className="font-mono text-slate-300">{accessToken}</span>
+        </p>
       )}
     </motion.div>
   );
@@ -208,10 +223,12 @@ function RejectedMessage({ transactionRef }: { transactionRef: string }) {
 /* ── STATE D — verified ─────────────────────────────────────────────── */
 function VerifiedMessage({
   certificateIssued,
+  certificateUrl,
 }: {
   certificateIssued: boolean;
+  certificateUrl: string | null;
 }) {
-  if (!certificateIssued) {
+  if (!certificateIssued || !certificateUrl) {
     return (
       <div className="flex items-start gap-3 rounded-xl border border-emerald-500/20 bg-emerald-500/5 p-4">
         <CheckCircle className="mt-0.5 h-5 w-5 shrink-0 text-emerald-400" />
@@ -231,13 +248,16 @@ function VerifiedMessage({
       <p className="text-center font-semibold text-cyan-200">
         Your certificate is ready!
       </p>
-      <button
+      <a
+        href={certificateUrl}
+        target="_blank"
+        rel="noopener noreferrer"
         aria-label="Download Official Certificate"
         className="group relative mt-1 inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-cyan-500 to-yellow-500 px-8 py-3.5 text-sm font-bold text-[#020617] shadow-[0_0_24px_rgba(225,29,72,0.4)] transition-shadow hover:shadow-[0_0_40px_rgba(225,29,72,0.6)]"
       >
         <Download className="h-5 w-5 transition-transform group-hover:-translate-y-0.5" />
         Download Official Certificate
-      </button>
+      </a>
     </div>
   );
 }
@@ -364,6 +384,8 @@ export default function StatusPageContent({
                   transactionRef={d.transaction_ref}
                   status={d.status}
                   certificateIssued={d.certificate_issued}
+                  certificateUrl={d.certificate_url}
+                  accessToken={d.access_token}
                   createdAt={d.created_at}
                   index={i}
                 />
@@ -378,6 +400,8 @@ export default function StatusPageContent({
                   transactionRef={s.transaction_ref}
                   status={s.status}
                   certificateIssued={s.certificate_issued}
+                  certificateUrl={s.certificate_url}
+                  accessToken={s.access_token}
                   createdAt={s.created_at}
                   index={donations.length + i}
                 />
