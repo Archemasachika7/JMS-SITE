@@ -327,6 +327,71 @@ export async function createEventRow(input: {
   }
 }
 
+// ── RECRUITMENTS ──────────────────────────────────────────────────────────────
+
+export async function saveRecruitment(formData: FormData): Promise<Result> {
+  try {
+    const { supabase } = await requireAdmin();
+    const id = (formData.get("id") as string) || null;
+
+    const row: Record<string, unknown> = {
+      title: (formData.get("title") as string)?.trim() || "Recruitment",
+      session_label: (formData.get("session_label") as string)?.trim() || null,
+      subtitle: (formData.get("subtitle") as string)?.trim() || null,
+      deadline: (formData.get("deadline") as string) || null,
+      form_action: (formData.get("form_action") as string)?.trim() || null,
+      is_open: formData.get("is_open") === "on",
+    };
+
+    // Custom application-form schema (JSON). Stored only when the admin
+    // actually edited it; otherwise the column stays as-is / falls back
+    // to the built-in default at render time.
+    const fieldsRaw = formData.get("fields");
+    if (typeof fieldsRaw === "string" && fieldsRaw.trim()) {
+      row.fields = coerceSchema(fieldsRaw);
+    }
+
+    if (!row.deadline) {
+      return { success: false, error: "A deadline is required." };
+    }
+
+    if (id) {
+      const { error } = await supabase.from("recruitments").update(row).eq("id", id);
+      if (error) throw error;
+    } else {
+      const { error } = await supabase.from("recruitments").insert(row);
+      if (error) throw error;
+    }
+    revalidatePath("/admin/recruitment");
+    revalidatePath("/recruitment");
+    revalidatePath("/");
+    return ok();
+  } catch (err) {
+    return fail(err);
+  }
+}
+
+/** Toggle a recruitment open/closed without editing the rest of the row. */
+export async function setRecruitmentOpen(
+  id: string,
+  isOpen: boolean
+): Promise<Result> {
+  try {
+    const { supabase } = await requireAdmin();
+    const { error } = await supabase
+      .from("recruitments")
+      .update({ is_open: isOpen })
+      .eq("id", id);
+    if (error) throw error;
+    revalidatePath("/admin/recruitment");
+    revalidatePath("/recruitment");
+    revalidatePath("/");
+    return ok();
+  } catch (err) {
+    return fail(err);
+  }
+}
+
 // ── GENERIC DELETE ──────────────────────────────────────────────────────────
 
 const DELETABLE = new Set([
