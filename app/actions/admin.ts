@@ -229,65 +229,98 @@ export async function addMagazine(formData: FormData): Promise<Result> {
   }
 }
 
-// ── RECRUITMENTS ──────────────────────────────────────────────────────────────
+// ── METADATA-ONLY CREATE (files uploaded client-side, only URLs sent) ────────
+// These avoid posting file bytes through the server action (and Vercel's
+// ~4.5 MB request-body limit). The browser uploads to Supabase Storage first,
+// then calls these with the resulting public URLs.
 
-export async function saveRecruitment(formData: FormData): Promise<Result> {
+export async function createGalleryRow(input: {
+  imageUrl: string;
+  caption: string | null;
+}): Promise<Result> {
   try {
-    const { supabase } = await requireAdmin();
-    const id = (formData.get("id") as string) || null;
-
-    const row: Record<string, unknown> = {
-      title: (formData.get("title") as string)?.trim() || "Recruitment",
-      session_label: (formData.get("session_label") as string)?.trim() || null,
-      subtitle: (formData.get("subtitle") as string)?.trim() || null,
-      deadline: (formData.get("deadline") as string) || null,
-      form_action: (formData.get("form_action") as string)?.trim() || null,
-      is_open: formData.get("is_open") === "on",
-    };
-
-    // Custom application-form schema (JSON). Stored only when the admin
-    // actually edited it; otherwise the column stays as-is / falls back
-    // to the built-in default at render time.
-    const fieldsRaw = formData.get("fields");
-    if (typeof fieldsRaw === "string" && fieldsRaw.trim()) {
-      row.fields = coerceSchema(fieldsRaw);
-    }
-
-    if (!row.deadline) {
-      return { success: false, error: "A deadline is required." };
-    }
-
-    if (id) {
-      const { error } = await supabase.from("recruitments").update(row).eq("id", id);
-      if (error) throw error;
-    } else {
-      const { error } = await supabase.from("recruitments").insert(row);
-      if (error) throw error;
-    }
-    revalidatePath("/admin/recruitment");
-    revalidatePath("/recruitment");
-    revalidatePath("/");
+    const { supabase, admin } = await requireAdmin();
+    if (!input.imageUrl) return { success: false, error: "Image is required." };
+    const { error } = await supabase.from("gallery").insert({
+      image_url: input.imageUrl,
+      caption: input.caption,
+      uploaded_by: admin.id,
+    });
+    if (error) throw error;
+    revalidatePath("/admin/gallery");
+    revalidatePath("/gallery");
     return ok();
   } catch (err) {
     return fail(err);
   }
 }
 
-/** Toggle a recruitment open/closed without editing the rest of the row. */
-export async function setRecruitmentOpen(
-  id: string,
-  isOpen: boolean
-): Promise<Result> {
+export async function createPotwRow(input: {
+  imageUrl: string;
+  title: string | null;
+  photographer: string | null;
+}): Promise<Result> {
   try {
     const { supabase } = await requireAdmin();
-    const { error } = await supabase
-      .from("recruitments")
-      .update({ is_open: isOpen })
-      .eq("id", id);
+    if (!input.imageUrl) return { success: false, error: "Image is required." };
+    const { error } = await supabase.from("potw").insert({
+      image_url: input.imageUrl,
+      title: input.title,
+      photographer: input.photographer,
+    });
     if (error) throw error;
-    revalidatePath("/admin/recruitment");
-    revalidatePath("/recruitment");
-    revalidatePath("/");
+    revalidatePath("/admin/potw");
+    revalidatePath("/potw");
+    return ok();
+  } catch (err) {
+    return fail(err);
+  }
+}
+
+export async function createMagazineRow(input: {
+  title: string | null;
+  issue: string | null;
+  coverImage: string | null;
+  pdfUrl: string | null;
+}): Promise<Result> {
+  try {
+    const { supabase } = await requireAdmin();
+    const { error } = await supabase.from("magazines").insert({
+      title: input.title,
+      issue: input.issue,
+      cover_image: input.coverImage,
+      pdf_url: input.pdfUrl,
+    });
+    if (error) throw error;
+    revalidatePath("/admin/magazine");
+    revalidatePath("/magazine");
+    return ok();
+  } catch (err) {
+    return fail(err);
+  }
+}
+
+export async function createEventRow(input: {
+  title: string;
+  description: string | null;
+  location: string | null;
+  eventDate: string | null;
+  posterUrl: string | null;
+}): Promise<Result> {
+  try {
+    const { supabase } = await requireAdmin();
+    if (!input.title) return { success: false, error: "Title is required." };
+    const row: Record<string, unknown> = {
+      title: input.title,
+      description: input.description,
+      location: input.location,
+      event_date: input.eventDate || null,
+    };
+    if (input.posterUrl) row.poster_url = input.posterUrl;
+    const { error } = await supabase.from("club_events").insert(row);
+    if (error) throw error;
+    revalidatePath("/admin/events");
+    revalidatePath("/events");
     return ok();
   } catch (err) {
     return fail(err);
